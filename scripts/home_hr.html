@@ -18,72 +18,10 @@
           </p>
         </div>
 
-        <aside class="booking-diary" id="booking" aria-labelledby="booking-heading">
-          <h2 id="booking-heading">Dnevnik rezervacija</h2>
-          <p class="booking-diary__lead">Odaberite datum posjeta i pošaljite zahtjev. Potvrdu šaljemo telefonom ili e-mailom.</p>
-          <div class="booking-diary__hours">
-            <span class="booking-diary__pill">Otvoreno 9–17 h</span>
-            <span class="booking-diary__pill">Zadnji ulaz 15 h</span>
-          </div>
-
-          <div class="cal-nav">
-            <button type="button" id="cal-prev" aria-label="Prethodni mjesec">‹</button>
-            <span id="calendar-month"></span>
-            <button type="button" id="cal-next" aria-label="Sljedeći mjesec">›</button>
-          </div>
-          <div id="booking-calendar" aria-live="polite"></div>
-
-          <form class="booking-form" id="booking-form">
-            <input type="hidden" name="date" id="booking-date" value="">
-            <div class="booking-form__row">
-              <div>
-                <label for="booking-name">Ime i prezime</label>
-                <input type="text" id="booking-name" name="name" required autocomplete="name">
-              </div>
-              <div>
-                <label for="booking-phone">Telefon</label>
-                <input type="tel" id="booking-phone" name="phone" required autocomplete="tel" placeholder="+385 …">
-              </div>
-            </div>
-            <div class="booking-form__row">
-              <div>
-                <label for="booking-email">Email (opcionalno)</label>
-                <input type="email" id="booking-email" name="email" autocomplete="email">
-              </div>
-              <div>
-                <label for="booking-guests">Broj gostiju</label>
-                <input type="number" id="booking-guests" name="guests" min="1" max="99" value="2" required>
-              </div>
-            </div>
-            <div class="booking-form__row">
-              <div>
-                <label for="booking-type">Vrsta posjeta</label>
-                <select id="booking-type" name="visit_type" required>
-                  <option value="individual">Pojedinačna / obiteljska ulaznica</option>
-                  <option value="group">Grupni posjet</option>
-                  <option value="birthday">Rođendanska zabava</option>
-                  <option value="team">Team building / korporativno</option>
-                  <option value="school">Školski izlet</option>
-                </select>
-              </div>
-              <div>
-                <label for="booking-arrival">Preferirani dolazak</label>
-                <select id="booking-arrival" name="arrival" required>
-                  <option value="9:00–10:30">Jutro (9:00–10:30)</option>
-                  <option value="10:30–12:00">Kasno jutro (10:30–12:00)</option>
-                  <option value="12:00–14:00">Poslijepodne (12:00–14:00)</option>
-                </select>
-              </div>
-            </div>
-            <div>
-              <label for="booking-notes">Napomena (opcionalno)</label>
-              <textarea id="booking-notes" name="notes" placeholder="Dob djece, naziv grupe, posebni zahtjevi…"></textarea>
-            </div>
-            <div class="booking-actions">
-              <button type="submit" class="btn-primary">Pošalji zahtjev</button>
-              <a class="btn-secondary" href="tel:+38598224314">Pozovite za rezervaciju</a>
-            </div>
-          </form>
+        <aside class="home-book-cta" id="booking">
+          <h2>Rezervirajte posjet</h2>
+          <p>Odaberite aktivnost i datum — pošaljite WhatsAppom ili SMS-om. Bez e-maila.</p>
+          <a class="btn-primary" href="/hr/rezervacija/">Otvori aplikaciju</a>
         </aside>
       </div>
     </section>

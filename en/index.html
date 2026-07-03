@@ -21,6 +21,7 @@
   <meta property="og:site_name" content="Glavani Park">
   <meta property="og:image" content="https://www.glavanipark.com/images/glavani-park-adventure-istria-croatia.jpg">
   <link rel="stylesheet" href="/assets/css/site.css">
+
 </head>
 <body class="theme-page">
 
@@ -40,7 +41,7 @@
 
   <nav class="site-nav" aria-label="Main navigation">
     <div class="site-nav__inner">
-      <a href="/en/#activities">Activities</a><a href="/en/family-activities-istria/">Family</a><a href="/en/team-building-istria/">Groups</a><a href="/en/#booking">Prices</a><a href="/en/#location">Location</a><a href="/en/#faq">FAQ</a>
+      <a href="/en/#activities">Activities</a><a href="/en/family-activities-istria/">Family</a><a href="/en/team-building-istria/">Groups</a><a href="/en/book/">Prices</a><a href="/en/#location">Location</a><a href="/en/#faq">FAQ</a>
       <a href="/hr/" hreflang="hr">Hrvatski</a>
     </div>
   </nav>
@@ -64,72 +65,10 @@
           </p>
         </div>
 
-        <aside class="booking-diary" id="booking" aria-labelledby="booking-heading">
-          <h2 id="booking-heading">Booking Diary</h2>
-          <p class="booking-diary__lead">Pick your visit date and send a reservation request. We'll confirm by phone or email.</p>
-          <div class="booking-diary__hours">
-            <span class="booking-diary__pill">Open 9 AM – 5 PM</span>
-            <span class="booking-diary__pill">Last entry 3 PM</span>
-          </div>
-
-          <div class="cal-nav">
-            <button type="button" id="cal-prev" aria-label="Previous month">‹</button>
-            <span id="calendar-month"></span>
-            <button type="button" id="cal-next" aria-label="Next month">›</button>
-          </div>
-          <div id="booking-calendar" aria-live="polite"></div>
-
-          <form class="booking-form" id="booking-form">
-            <input type="hidden" name="date" id="booking-date" value="">
-            <div class="booking-form__row">
-              <div>
-                <label for="booking-name">Your name</label>
-                <input type="text" id="booking-name" name="name" required autocomplete="name" placeholder="Full name">
-              </div>
-              <div>
-                <label for="booking-phone">Phone</label>
-                <input type="tel" id="booking-phone" name="phone" required autocomplete="tel" placeholder="+385 …">
-              </div>
-            </div>
-            <div class="booking-form__row">
-              <div>
-                <label for="booking-email">Email (optional)</label>
-                <input type="email" id="booking-email" name="email" autocomplete="email" placeholder="you@email.com">
-              </div>
-              <div>
-                <label for="booking-guests">Number of guests</label>
-                <input type="number" id="booking-guests" name="guests" min="1" max="99" value="2" required>
-              </div>
-            </div>
-            <div class="booking-form__row">
-              <div>
-                <label for="booking-type">Visit type</label>
-                <select id="booking-type" name="visit_type" required>
-                  <option value="individual">Individual / family day ticket</option>
-                  <option value="group">Group visit</option>
-                  <option value="birthday">Birthday party</option>
-                  <option value="team">Team building / corporate</option>
-                  <option value="school">School trip</option>
-                </select>
-              </div>
-              <div>
-                <label for="booking-arrival">Preferred arrival</label>
-                <select id="booking-arrival" name="arrival" required>
-                  <option value="9:00–10:30">Morning (9:00–10:30)</option>
-                  <option value="10:30–12:00">Late morning (10:30–12:00)</option>
-                  <option value="12:00–14:00">Afternoon (12:00–14:00)</option>
-                </select>
-              </div>
-            </div>
-            <div>
-              <label for="booking-notes">Notes (optional)</label>
-              <textarea id="booking-notes" name="notes" placeholder="Children's ages, group name, special requests…"></textarea>
-            </div>
-            <div class="booking-actions">
-              <button type="submit" class="btn-primary">Send booking request</button>
-              <a class="btn-secondary" href="tel:+385918964525">Call to book</a>
-            </div>
-          </form>
+        <aside class="home-book-cta" id="booking">
+          <h2>Book Your Visit</h2>
+          <p>Choose your activity and date — send via WhatsApp or SMS. No email needed.</p>
+          <a class="btn-primary" href="/en/book/">Open Booking App</a>
         </aside>
       </div>
     </section>
@@ -217,7 +156,6 @@
       <li><a href="/en/">Home</a></li><li><a href="/hr/">Hrvatski</a></li><li><a href="/en/partners/">Partners</a></li><li><a href="/en/link-to-us/">Link to Us</a></li><li><a href="/en/safety/">Safety</a></li>
     </ul>
   </footer>
-<script src="/assets/js/booking-diary.js" defer></script>
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@graph": [

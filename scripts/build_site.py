@@ -24,6 +24,7 @@ PATH_PREFIX = os.environ.get("PATH_PREFIX", "").rstrip("/")
 
 # Reverse map EN slug -> HR slug
 EN_TO_HR = {v: k for k, v in SLUG_MAP.items()}
+EN_TO_HR["book"] = "rezervacija"
 
 IMAGES = [
     ("glavani-park-adventure-istria-croatia.jpg", "Glavani Park", (26, 61, 46), (45, 106, 79)),
@@ -131,7 +132,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Aktivnosti", f"{prefix}#activities" if is_home else f"{prefix}avanturisticki-park-hrvatska/"),
             ("Obitelj", f"{prefix}obiteljske-aktivnosti-istri/"),
             ("Grupe", f"{prefix}team-building-istri/"),
-            ("Cijene", f"{prefix}#booking" if is_home else f"{prefix}"),
+            ("Cijene", f"{prefix}rezervacija/"),
             ("Lokacija", f"{prefix}#location" if is_home else f"{prefix}sto-raditi-kod-pule/"),
             ("FAQ", f"{prefix}#faq" if is_home else f"{prefix}sigurnost/"),
         ]
@@ -140,7 +141,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Activities", f"{prefix}#activities" if is_home else f"{prefix}adventure-park-croatia/"),
             ("Family", f"{prefix}family-activities-istria/"),
             ("Groups", f"{prefix}team-building-istria/"),
-            ("Prices", f"{prefix}#booking" if is_home else f"{prefix}"),
+            ("Prices", f"{prefix}book/"),
             ("Location", f"{prefix}#location" if is_home else f"{prefix}things-to-do-near-pula/"),
             ("FAQ", f"{prefix}#faq" if is_home else f"{prefix}safety/"),
         ]
@@ -209,6 +210,7 @@ def head_meta(
     hr_slug: str | None = None,
     is_home: bool = False,
     og_image: str = "glavani-park-adventure-istria-croatia.jpg",
+    extra_head: str = "",
 ) -> str:
     og_locale = "hr_HR" if lang == "hr" else "en_GB"
     alt_locale = "en_GB" if lang == "hr" else "hr_HR"
@@ -232,6 +234,7 @@ def head_meta(
   <meta property="og:site_name" content="Glavani Park">
   <meta property="og:image" content="{BASE}/images/{og_image}">
   <link rel="stylesheet" href="/assets/css/site.css">
+{extra_head}
 </head>
 <body class="theme-page">"""
 
@@ -391,6 +394,47 @@ def home_body_hr() -> str:
     return open(ROOT / "scripts" / "home_hr.html").read()
 
 
+def render_booking_app(lang: str) -> str:
+    if lang == "hr":
+        slug, en_slug, hr_slug = "rezervacija", "book", "rezervacija"
+        title = "Rezervacija | Glavani Park – odaberite aktivnost i datum"
+        desc = "Rezervirajte posjet Glavani Parku: odaberite aktivnost, datum i pošaljite WhatsAppom ili SMS-om. Bez e-maila."
+        h1 = "Rezervirajte avanturu"
+        lead = "Odaberite aktivnost, datum i pošaljite zahtjev — WhatsApp, SMS ili poziv"
+    else:
+        slug, en_slug, hr_slug = "book", "book", "rezervacija"
+        title = "Book Your Visit | Glavani Park – Pick Activity & Date"
+        desc = "Book Glavani Park: choose your activity, pick a date, and send via WhatsApp or SMS. No email required."
+        h1 = "Book Your Adventure"
+        lead = "Choose an activity, pick your date, and send instantly — WhatsApp, SMS, or call"
+    prefix = f"/{lang}/"
+    canonical = f"{BASE}{prefix}{slug}/"
+    home_label = "Početna" if lang == "hr" else "Home"
+    extra = (
+        '  <link rel="manifest" href="/manifest.webmanifest">\n'
+        '  <meta name="theme-color" content="#1a3d2e">\n'
+        '  <meta name="apple-mobile-web-app-capable" content="yes">'
+    )
+    return f"""{head_meta(lang, title, desc, "book glavani park, reservation istria", canonical, en_slug, hr_slug, extra_head=extra)}
+{quick_actions(lang)}
+{site_header(lang)}
+{site_nav(lang)}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol><li><a href="{prefix}">{home_label}</a></li><li>{h1}</li></ol>
+</nav>
+<div class="book-app-hero">
+  <h1>{h1}</h1>
+  <p>{lead}</p>
+</div>
+<div class="book-app-wrap">
+  <div id="booking-app" aria-live="polite"></div>
+</div>
+{footer(lang)}
+<script src="/assets/js/booking-app.js" defer></script>
+</body>
+</html>"""
+
+
 def render_home(lang: str) -> str:
     home = HOME_HR if lang == "hr" else HOME_EN
     prefix = f"/{lang}/"
@@ -421,7 +465,6 @@ def render_home(lang: str) -> str:
 {site_nav(lang, is_home=True)}
 {body_content}
 {footer(lang)}
-<script src="/assets/js/booking-diary.js" defer></script>
 <script type="application/ld+json">{json.dumps(org_schema, indent=2)}</script>
 </body>
 </html>"""
@@ -512,7 +555,8 @@ def main() -> None:
 
     print("Building English pages...")
     write_file(ROOT / "en" / "index.html", render_home("en"))
-    sitemap_urls = [(f"{BASE}/en/", "weekly")]
+    write_file(ROOT / "en" / "book" / "index.html", render_booking_app("en"))
+    sitemap_urls = [(f"{BASE}/en/", "weekly"), (f"{BASE}/en/book/", "weekly")]
     for page in PAGES_EN:
         slug = page["slug"]
         hr_slug = EN_TO_HR.get(slug, slug)
@@ -521,7 +565,9 @@ def main() -> None:
 
     print("Building Croatian pages...")
     write_file(ROOT / "hr" / "index.html", render_home("hr"))
+    write_file(ROOT / "hr" / "rezervacija" / "index.html", render_booking_app("hr"))
     sitemap_urls.append((f"{BASE}/hr/", "weekly"))
+    sitemap_urls.append((f"{BASE}/hr/rezervacija/", "weekly"))
     for page in PAGES_HR:
         slug = page["slug"]
         en_slug = SLUG_MAP.get(slug, slug)
