@@ -310,6 +310,67 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-card--travel { background: linear-gradient(145deg, #0369a1, #0c4a6e); }
 .hub-card--safety { background: linear-gradient(145deg, #4c1d95, #312e81); }
 
+/* Homepage activity showcase — swap --activity-bg-image per tile when photos are ready */
+.activity-showcase {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 540px) { .activity-showcase { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .activity-showcase { grid-template-columns: repeat(3, 1fr); } }
+
+.activity-tile {
+  --activity-bg-image: none;
+  display: flex;
+  align-items: flex-end;
+  min-height: 200px;
+  padding: 1.25rem;
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+  background-color: var(--green-deep);
+  background-image:
+    linear-gradient(180deg, rgba(26, 61, 46, 0.15) 0%, rgba(26, 61, 46, 0.88) 100%),
+    var(--activity-bg-image),
+    linear-gradient(145deg, var(--green-mid), var(--green-deep));
+  background-size: cover;
+  background-position: center;
+}
+.activity-tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 35%, rgba(0, 0, 0, 0.55) 100%);
+  pointer-events: none;
+}
+.activity-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.22);
+  color: var(--white);
+}
+.activity-tile__label {
+  position: relative;
+  z-index: 1;
+  font-size: 1.125rem;
+  font-weight: 800;
+  line-height: 1.25;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+.activity-tile--catapult { --activity-bg-image: url("/images/human-catapult-adrenaline-park-croatia.webp"); }
+.activity-tile--swing { --activity-bg-image: url("/images/12-5m-high-swing-glavani-park-istria.webp"); }
+.activity-tile--drop { --activity-bg-image: url("/images/quick-jump-20m-free-fall-istria.webp"); }
+.activity-tile--zipline-valley { --activity-bg-image: url("/images/zipline-120m-glavani-park-istria-croatia.webp"); }
+.activity-tile--zipline-low {
+  background-image:
+    linear-gradient(180deg, rgba(26, 61, 46, 0.15) 0%, rgba(26, 61, 46, 0.88) 100%),
+    linear-gradient(145deg, #0369a1, var(--green-deep));
+}
+.activity-tile--climbing { --activity-bg-image: url("/images/climbing-wall-outdoor-activities-istria.webp"); }
+
 .info-strip {
   display: grid; grid-template-columns: 1fr; gap: 0.75rem;
   max-width: 1100px; margin: 0 auto; padding: 1rem 1.25rem;
