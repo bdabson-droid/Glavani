@@ -397,16 +397,16 @@ def home_body_hr() -> str:
 def render_booking_app(lang: str) -> str:
     if lang == "hr":
         slug, en_slug, hr_slug = "rezervacija", "book", "rezervacija"
-        title = "Rezervacija | Glavani Park – odaberite aktivnost i datum"
-        desc = "Rezervirajte posjet Glavani Parku: odaberite aktivnost, datum i pošaljite WhatsAppom ili SMS-om. Bez e-maila."
+        title = "Rezervacija | Glavani Park – odaberite paket i datum"
+        desc = "Rezervirajte Glavani Park online za do 6 osoba: odaberite paket (odrasla cijena), datum i pošaljite WhatsAppom ili SMS-om. Grupe 7+ nazovite."
         h1 = "Rezervirajte avanturu"
-        lead = "Odaberite aktivnost, datum i pošaljite zahtjev — WhatsApp, SMS ili poziv"
+        lead = "Odaberite paket (do 6 osoba, odrasla cijena) i datum — WhatsApp, SMS ili poziv. Grupe 7+ nazovite."
     else:
         slug, en_slug, hr_slug = "book", "book", "rezervacija"
-        title = "Book Your Visit | Glavani Park – Pick Activity & Date"
-        desc = "Book Glavani Park: choose your activity, pick a date, and send via WhatsApp or SMS. No email required."
+        title = "Book Your Visit | Glavani Park – Pick Package & Date"
+        desc = "Book Glavani Park online for up to 6 people: choose a package (adult pricing), pick a date, and send via WhatsApp or SMS. Groups of 7+ please call."
         h1 = "Book Your Adventure"
-        lead = "Choose an activity, pick your date, and send instantly — WhatsApp, SMS, or call"
+        lead = "Choose a package for up to 6 people (adult pricing), pick your date, and send — WhatsApp, SMS, or call. Groups of 7+ please call to book."
     prefix = f"/{lang}/"
     canonical = f"{BASE}{prefix}{slug}/"
     home_label = "Početna" if lang == "hr" else "Home"

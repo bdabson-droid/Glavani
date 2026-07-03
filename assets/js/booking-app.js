@@ -1,11 +1,12 @@
 /**
- * Glavani Park Booking App — pick activity + date, confirm via WhatsApp, SMS, or call.
- * Saves entries to your phone's local diary (localStorage). No email required.
+ * Glavani Park Booking App — activity packages, up to 6 guests, adult pricing.
+ * Groups of 7+ must call. No email — WhatsApp, SMS, or phone.
  */
 (function () {
   const root = document.getElementById('booking-app');
   if (!root) return;
 
+  const MAX_GUESTS = 6;
   const lang = document.documentElement.lang?.startsWith('hr') ? 'hr' : 'en';
   const PHONE_EN = '385918964525';
   const PHONE_HR = '38598224314';
@@ -13,117 +14,113 @@
 
   const i18n = {
     en: {
-      steps: ['Activity', 'Date', 'Details', 'Confirm'],
+      steps: ['Package', 'Date', 'Details', 'Confirm'],
       activities: [
-        { id: 'full-day', icon: '🎫', name: 'Full day pass', desc: 'All attractions & high ropes routes' },
-        { id: 'high-ropes', icon: '🌲', name: 'High ropes courses', desc: 'Yellow, blue & black routes' },
-        { id: 'zipline', icon: '🪂', name: 'Ziplines', desc: 'Up to 120 m through the treetops' },
-        { id: 'high-swing', icon: '🎢', name: '12.5 m high swing', desc: 'Soar above the Istrian forest' },
-        { id: 'catapult', icon: '🚀', name: 'Human catapult', desc: '0 to 100 km/h in one second' },
-        { id: 'quick-jump', icon: '⬇️', name: 'Quick Jump', desc: '20 m controlled free fall' },
-        { id: 'climbing', icon: '🧗', name: 'Climbing wall', desc: 'Outdoor wall, all skill levels' },
-        { id: 'team-building', icon: '🤝', name: 'Team building', desc: 'Corporate & group packages' },
-        { id: 'birthday', icon: '🎂', name: 'Birthday party', desc: 'Priority access & party area' },
-        { id: 'school', icon: '🎒', name: 'School trip', desc: 'Educational outdoor programme' },
+        { id: 'training-2', icon: '🌲', name: 'Training route + 2 games', desc: 'High ropes training route plus two park games', price: 30 },
+        { id: 'all-no-catapult', icon: '🎫', name: 'All games (without catapult)', desc: 'Every attraction except the human catapult', price: 50 },
+        { id: 'catapult-swing', icon: '🚀', name: 'Human catapult + 12.5 m swing', desc: 'Human catapult and high swing — ages 10+', price: 50 },
+        { id: 'all-incl-catapult', icon: '⭐', name: 'All games incl. human catapult', desc: 'Full park: ziplines, swing, catapult, Quick Jump & more', price: 70 },
       ],
       months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
       days: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
-      pickActivity: 'Choose your activity',
-      pickActivityLead: 'Tap one or more activities you want to book',
+      pickActivity: 'Choose your package',
+      pickActivityLead: 'All prices shown are adult rates per person · max 6 people online',
+      priceEach: '€{price} per person',
       pickDate: 'Pick your visit date',
       pickDateLead: 'Open daily 9 AM–5 PM · last entry 3 PM',
       yourDetails: 'Your details',
       confirmTitle: 'Confirm booking',
-      confirmLead: 'Send your request instantly — no email needed',
+      confirmLead: 'Send your request via WhatsApp or SMS — no email needed',
       name: 'Your name',
       phone: 'Your phone number',
-      guests: 'Number of guests',
+      guests: 'Number of guests (max 6)',
+      guestsHint: 'Groups of 7 or more must call to book.',
       arrival: 'Preferred arrival',
       arrivalOpts: ['Morning (9:00–10:30)', 'Late morning (10:30–12:00)', 'Afternoon (12:00–14:00)'],
       notes: 'Notes (optional)',
-      notesPh: "Children's ages, group name…",
+      notesPh: 'Any special requests…',
       next: 'Next',
       back: 'Back',
-      confirm: 'Confirm & send',
       summary: 'Booking summary',
-      activity: 'Activity',
+      package: 'Package',
       date: 'Date',
+      pricePerPerson: 'Price per person',
+      estimatedTotal: 'Estimated total',
       whatsapp: 'Send via WhatsApp',
       sms: 'Send SMS',
       call: 'Call to confirm',
       copy: 'Copy details',
       copied: 'Copied to clipboard!',
-      selectActivity: 'Please select at least one activity.',
+      selectActivity: 'Please select a package.',
       selectDate: 'Please select a visit date.',
       fillRequired: 'Please enter your name and phone number.',
+      tooManyGuests: 'Online booking is for up to 6 people only. Please call to book larger groups:',
       myDiary: 'My booking diary',
-      myDiaryLead: 'Saved on this device — tap to view or send again',
-      emptyDiary: 'No saved bookings yet. Complete a booking to see it here.',
-      saved: 'Booking saved to your diary!',
+      myDiaryLead: 'Saved on this device',
+      emptyDiary: 'No saved bookings yet.',
       tabBook: 'Book',
       tabDiary: 'My diary',
-      parkHours: 'Park open 9 AM – 5 PM',
+      parkHours: 'Prices are adult rates · confirm on arrival · park open 9 AM – 5 PM',
       msgHeader: 'Glavani Park booking request',
+      callGroups: 'Call for groups of 7+',
     },
     hr: {
-      steps: ['Aktivnost', 'Datum', 'Podaci', 'Potvrda'],
+      steps: ['Paket', 'Datum', 'Podaci', 'Potvrda'],
       activities: [
-        { id: 'full-day', icon: '🎫', name: 'Cjelodnevna ulaznica', desc: 'Sve atrakcije i visoke staze' },
-        { id: 'high-ropes', icon: '🌲', name: 'Visoke užadne staze', desc: 'Žuta, plava i crna staza' },
-        { id: 'zipline', icon: '🪂', name: 'Zipline', desc: 'Do 120 m kroz krošnje' },
-        { id: 'high-swing', icon: '🎢', name: 'Ljuljačka 12,5 m', desc: 'Let iznad istarske šume' },
-        { id: 'catapult', icon: '🚀', name: 'Ljudska katapulta', desc: '0 do 100 km/h u sekundi' },
-        { id: 'quick-jump', icon: '⬇️', name: 'Quick Jump', desc: '20 m kontrolirani slobodni pad' },
-        { id: 'climbing', icon: '🧗', name: 'Penjački zid', desc: 'Na otvorenom, svi nivoi' },
-        { id: 'team-building', icon: '🤝', name: 'Team building', desc: 'Korporativni i grupni paketi' },
-        { id: 'birthday', icon: '🎂', name: 'Rođendanska zabava', desc: 'Prioritetni pristup' },
-        { id: 'school', icon: '🎒', name: 'Školski izlet', desc: 'Edukativni program na otvorenom' },
+        { id: 'training-2', icon: '🌲', name: 'Trening ruta + 2 igre', desc: 'Trening ruta na visokim stazama plus dvije atrakcije', price: 30 },
+        { id: 'all-no-catapult', icon: '🎫', name: 'Sve igre (bez katapulata)', desc: 'Sve atrakcije osim ljudske katapulata', price: 50 },
+        { id: 'catapult-swing', icon: '🚀', name: 'Ljudska katapulta + ljuljačka 12,5 m', desc: 'Katapulta i visoka ljuljačka — 10+ godina', price: 50 },
+        { id: 'all-incl-catapult', icon: '⭐', name: 'Sve igre uklj. ljudsku katapultu', desc: 'Cijeli park: zipline, ljuljačka, katapulta, Quick Jump i više', price: 70 },
       ],
       months: ['Siječanj','Veljača','Ožujak','Travanj','Svibanj','Lipanj','Srpanj','Kolovoz','Rujan','Listopad','Studeni','Prosinac'],
       days: ['Pon','Uto','Sri','Čet','Pet','Sub','Ned'],
-      pickActivity: 'Odaberite aktivnost',
-      pickActivityLead: 'Dodirnite jednu ili više aktivnosti',
+      pickActivity: 'Odaberite paket',
+      pickActivityLead: 'Sve cijene su odrasla ulaznica po osobi · max 6 osoba online',
+      priceEach: '€{price} po osobi',
       pickDate: 'Odaberite datum posjeta',
       pickDateLead: 'Otvoreno 9–17 h · zadnji ulaz 15 h',
       yourDetails: 'Vaši podaci',
       confirmTitle: 'Potvrdite rezervaciju',
-      confirmLead: 'Pošaljite zahtjev odmah — bez e-maila',
+      confirmLead: 'Pošaljite WhatsAppom ili SMS-om — bez e-maila',
       name: 'Ime i prezime',
       phone: 'Broj telefona',
-      guests: 'Broj gostiju',
+      guests: 'Broj gostiju (max 6)',
+      guestsHint: 'Grupe od 7 i više osoba moraju rezervirati telefonom.',
       arrival: 'Preferirani dolazak',
       arrivalOpts: ['Jutro (9:00–10:30)', 'Kasno jutro (10:30–12:00)', 'Poslijepodne (12:00–14:00)'],
       notes: 'Napomena (opcionalno)',
-      notesPh: 'Dob djece, naziv grupe…',
+      notesPh: 'Posebni zahtjevi…',
       next: 'Dalje',
       back: 'Natrag',
-      confirm: 'Potvrdi i pošalji',
       summary: 'Sažetak rezervacije',
-      activity: 'Aktivnost',
+      package: 'Paket',
       date: 'Datum',
+      pricePerPerson: 'Cijena po osobi',
+      estimatedTotal: 'Procijenjen ukupno',
       whatsapp: 'Pošalji WhatsApp',
       sms: 'Pošalji SMS',
       call: 'Pozovi za potvrdu',
       copy: 'Kopiraj detalje',
       copied: 'Kopirano!',
-      selectActivity: 'Odaberite barem jednu aktivnost.',
+      selectActivity: 'Odaberite paket.',
       selectDate: 'Odaberite datum posjeta.',
       fillRequired: 'Unesite ime i telefon.',
+      tooManyGuests: 'Online rezervacija je za najviše 6 osoba. Za veće grupe nazovite:',
       myDiary: 'Moj dnevnik rezervacija',
       myDiaryLead: 'Spremljeno na ovom uređaju',
       emptyDiary: 'Još nema spremljenih rezervacija.',
-      saved: 'Rezervacija spremljena u dnevnik!',
       tabBook: 'Rezerviraj',
       tabDiary: 'Dnevnik',
-      parkHours: 'Park otvoren 9–17 h',
+      parkHours: 'Cijene su za odrasle · potvrda na ulazu · park 9–17 h',
       msgHeader: 'Zahtjev za rezervaciju Glavani Park',
+      callGroups: 'Pozovite za grupe 7+',
     },
   };
   const t = i18n[lang];
   const phone = lang === 'hr' ? PHONE_HR : PHONE_EN;
 
   let step = 0;
-  let selectedActivities = new Set();
+  let selectedActivityId = null;
   let selectedDate = null;
   let viewYear, viewMonth;
   const today = new Date();
@@ -134,19 +131,29 @@
   function pad(n) { return String(n).padStart(2, '0'); }
   function isoDate(d) { return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`; }
 
-  function activityNames() {
-    return t.activities.filter(a => selectedActivities.has(a.id)).map(a => a.name).join(', ');
+  function selectedActivity() {
+    return t.activities.find(a => a.id === selectedActivityId) || null;
+  }
+
+  function estimatedTotal() {
+    const a = selectedActivity();
+    if (!a) return 0;
+    return a.price * parseInt(state.guests, 10);
   }
 
   function buildMessage() {
+    const a = selectedActivity();
+    const total = estimatedTotal();
     return [
       t.msgHeader,
       '---',
-      `${t.activity}: ${activityNames()}`,
+      `${t.package}: ${a ? a.name : '—'}`,
+      `${t.pricePerPerson}: €${a ? a.price : 0} (${lang === 'hr' ? 'odrasla cijena' : 'adult rate'})`,
+      `${t.guests}: ${state.guests}`,
+      `${t.estimatedTotal}: €${total}`,
       `${t.date}: ${selectedDate}`,
       `${t.name}: ${state.name}`,
       `${t.phone}: ${state.phone}`,
-      `${t.guests}: ${state.guests}`,
       `${t.arrival}: ${t.arrivalOpts[state.arrival]}`,
       `${t.notes}: ${state.notes || '—'}`,
       '---',
@@ -156,14 +163,16 @@
   }
 
   function saveToDiary() {
+    const a = selectedActivity();
     const bookings = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
     bookings.unshift({
       id: Date.now(),
-      activities: activityNames(),
+      activities: a ? a.name : '',
       date: selectedDate,
       name: state.name,
       phone: state.phone,
       guests: state.guests,
+      total: estimatedTotal(),
       arrival: t.arrivalOpts[state.arrival],
       notes: state.notes,
       message: buildMessage(),
@@ -185,14 +194,17 @@
       <p class="book-panel__lead">${t.pickActivityLead}</p>
       <div class="activity-grid">
         ${t.activities.map(a => {
-          const on = selectedActivities.has(a.id);
+          const on = selectedActivityId === a.id;
+          const priceLabel = t.priceEach.replace('{price}', a.price);
           return `<button type="button" class="activity-pick${on ? ' activity-pick--on' : ''}" data-id="${a.id}" aria-pressed="${on}">
             <span class="activity-pick__icon">${a.icon}</span>
             <span class="activity-pick__name">${a.name}</span>
+            <span class="activity-pick__price">${priceLabel}</span>
             <span class="activity-pick__desc">${a.desc}</span>
           </button>`;
         }).join('')}
       </div>
+      <p class="book-groups-notice">${t.guestsHint} <a href="tel:+${phone}">${t.callGroups}</a></p>
     </section>`;
   }
 
@@ -224,44 +236,56 @@
   }
 
   function renderDetails() {
+    const a = selectedActivity();
+    const preview = a ? `<p class="book-package-preview">${a.name} · ${t.priceEach.replace('{price}', a.price)}</p>` : '';
     return `<section class="book-panel">
       <h2>${t.yourDetails}</h2>
+      ${preview}
       <div class="booking-form">
         <div class="booking-form__row">
           <div><label for="app-name">${t.name}</label><input id="app-name" type="text" value="${state.name}" required autocomplete="name"></div>
           <div><label for="app-phone">${t.phone}</label><input id="app-phone" type="tel" value="${state.phone}" required autocomplete="tel"></div>
         </div>
         <div class="booking-form__row">
-          <div><label for="app-guests">${t.guests}</label><input id="app-guests" type="number" min="1" max="99" value="${state.guests}"></div>
+          <div>
+            <label for="app-guests">${t.guests}</label>
+            <input id="app-guests" type="number" min="1" max="${MAX_GUESTS}" value="${state.guests}">
+            <p class="field-hint">${t.guestsHint}</p>
+          </div>
           <div><label for="app-arrival">${t.arrival}</label>
             <select id="app-arrival">${t.arrivalOpts.map((o, i) => `<option value="${i}"${i === state.arrival ? ' selected' : ''}>${o}</option>`).join('')}</select>
           </div>
         </div>
         <div><label for="app-notes">${t.notes}</label><textarea id="app-notes" placeholder="${t.notesPh}">${state.notes}</textarea></div>
+        ${a ? `<p class="book-total-preview"><strong>${t.estimatedTotal}:</strong> €${a.price * parseInt(state.guests, 10)}</p>` : ''}
       </div>
     </section>`;
   }
 
   function renderConfirm() {
+    const a = selectedActivity();
     const msg = buildMessage();
+    const total = estimatedTotal();
     return `<section class="book-panel">
       <h2>${t.confirmTitle}</h2>
       <p class="book-panel__lead">${t.confirmLead}</p>
       <div class="book-summary">
         <h3>${t.summary}</h3>
         <dl>
-          <dt>${t.activity}</dt><dd>${activityNames()}</dd>
+          <dt>${t.package}</dt><dd>${a ? a.name : '—'}</dd>
+          <dt>${t.pricePerPerson}</dt><dd>€${a ? a.price : 0}</dd>
+          <dt>${t.guests}</dt><dd>${state.guests}</dd>
+          <dt>${t.estimatedTotal}</dt><dd><strong>€${total}</strong></dd>
           <dt>${t.date}</dt><dd>${selectedDate}</dd>
           <dt>${t.name}</dt><dd>${state.name}</dd>
           <dt>${t.phone}</dt><dd>${state.phone}</dd>
-          <dt>${t.guests}</dt><dd>${state.guests}</dd>
           <dt>${t.arrival}</dt><dd>${t.arrivalOpts[state.arrival]}</dd>
         </dl>
       </div>
       <div class="book-send-grid">
-        <a class="btn-whatsapp" id="btn-whatsapp" href="https://wa.me/${phone}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${t.whatsapp}</a>
-        <a class="btn-sms" id="btn-sms" href="sms:+${phone}?body=${encodeURIComponent(msg)}">${t.sms}</a>
-        <a class="btn-secondary" id="btn-call" href="tel:+${phone}">${t.call}</a>
+        <a class="btn-whatsapp" href="https://wa.me/${phone}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${t.whatsapp}</a>
+        <a class="btn-sms" href="sms:+${phone}?body=${encodeURIComponent(msg)}">${t.sms}</a>
+        <a class="btn-secondary" href="tel:+${phone}">${t.call}</a>
         <button type="button" class="btn-copy" id="btn-copy">${t.copy}</button>
       </div>
       <p class="book-hint">${t.parkHours}</p>
@@ -279,7 +303,7 @@
       <ul class="diary-list">
         ${bookings.map(b => `<li class="diary-item">
           <strong>${b.date}</strong> — ${b.activities}
-          <span>${b.name} · ${b.guests} ${lang === 'hr' ? 'gostiju' : 'guests'}</span>
+          <span>${b.name} · ${b.guests} ${lang === 'hr' ? 'osoba' : 'guests'}${b.total ? ` · €${b.total}` : ''}</span>
           <div class="diary-item__actions">
             <a href="https://wa.me/${phone}?text=${encodeURIComponent(b.message)}" class="btn-whatsapp btn-whatsapp--sm" target="_blank" rel="noopener">WhatsApp</a>
             <a href="tel:+${phone}" class="btn-secondary btn-secondary--sm">${t.call}</a>
@@ -329,12 +353,19 @@
     });
   }
 
+  function validateGuests(guests) {
+    const n = parseInt(guests, 10);
+    if (n > MAX_GUESTS) {
+      alert(`${t.tooManyGuests}\n+${phone}`);
+      return false;
+    }
+    return true;
+  }
+
   function bindStepEvents() {
     root.querySelectorAll('.activity-pick').forEach(btn => {
       btn.addEventListener('click', () => {
-        const id = btn.dataset.id;
-        if (selectedActivities.has(id)) selectedActivities.delete(id);
-        else selectedActivities.add(id);
+        selectedActivityId = btn.dataset.id;
         render();
       });
     });
@@ -357,22 +388,31 @@
       render();
     });
 
+    document.getElementById('app-guests')?.addEventListener('input', (e) => {
+      const val = parseInt(e.target.value, 10);
+      if (val > MAX_GUESTS) {
+        e.target.value = MAX_GUESTS;
+        state.guests = MAX_GUESTS;
+      } else {
+        state.guests = val || 1;
+      }
+    });
+
     document.getElementById('book-back')?.addEventListener('click', () => { step--; render(); });
 
     document.getElementById('book-next')?.addEventListener('click', () => {
-      if (step === 0 && selectedActivities.size === 0) { alert(t.selectActivity); return; }
+      if (step === 0 && !selectedActivityId) { alert(t.selectActivity); return; }
       if (step === 1 && !selectedDate) { alert(t.selectDate); return; }
       if (step === 2) {
         state.name = document.getElementById('app-name')?.value.trim() || '';
         state.phone = document.getElementById('app-phone')?.value.trim() || '';
-        state.guests = document.getElementById('app-guests')?.value || 2;
+        state.guests = parseInt(document.getElementById('app-guests')?.value || '1', 10);
         state.arrival = parseInt(document.getElementById('app-arrival')?.value || '0', 10);
         state.notes = document.getElementById('app-notes')?.value.trim() || '';
         if (!state.name || !state.phone) { alert(t.fillRequired); return; }
+        if (!validateGuests(state.guests)) return;
       }
-      if (step === 2) {
-        saveToDiary();
-      }
+      if (step === 2) saveToDiary();
       step++;
       render();
     });

@@ -410,7 +410,37 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 .activity-pick__icon { font-size: 1.5rem; display: block; margin-bottom: 0.25rem; }
 .activity-pick__name { display: block; font-weight: 700; color: var(--green-deep); font-size: 0.9375rem; }
+.activity-pick__price {
+  display: inline-block;
+  margin: 0.35rem 0 0.2rem;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  color: var(--orange-cta);
+  background: rgba(234, 88, 12, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+}
 .activity-pick__desc { display: block; font-size: 0.75rem; color: var(--rock-mid); margin-top: 0.15rem; }
+
+.book-groups-notice {
+  margin-top: 1rem;
+  font-size: 0.8125rem;
+  color: var(--rock-mid);
+  text-align: center;
+  padding: 0.75rem;
+  background: rgba(45, 106, 79, 0.08);
+  border-radius: var(--radius);
+}
+.field-hint { font-size: 0.75rem; color: var(--rock-mid); margin-top: 0.25rem; }
+.book-package-preview, .book-total-preview {
+  font-size: 0.9375rem;
+  color: var(--green-deep);
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  background: var(--off-white);
+  border-radius: var(--radius);
+}
+.book-total-preview { margin-top: 0.5rem; font-size: 1.0625rem; }
 
 .book-nav {
   display: flex;
