@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Glavani Park | Adrenaline Park Istria – High Ropes Course Croatia</title>
+  <meta name="description" content="Glavani Park is Istria's top adrenaline adventure park near Barban &amp; Vodnjan. High ropes courses, ziplines, human catapult, 12.5m swing &amp; climbing wall. Open daily 9 AM–5 PM.">
+  <meta name="keywords" content="adrenaline park Istria, high ropes course Croatia, things to do Barban, things to do Vodnjan, zipline Istria, adventure park Croatia">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.glavanipark.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.glavanipark.com/">
+  <meta property="og:title" content="Glavani Park | Top Adrenaline &amp; Adventure Park in Istria, Croatia">
+  <meta property="og:description" content="Experience ziplines, a 12.5m high swing, human catapult &amp; high ropes near Barban. Open daily 9 AM–5 PM. Call ahead to book your adventure!">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:site_name" content="Glavani Park">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Glavani Park | Adrenaline Park Istria">
+  <meta name="twitter:description" content="High ropes, ziplines, human catapult &amp; more — the ultimate things to do near Barban &amp; Vodnjan, Croatia.">
+
+  <style>
+    /* ── Design tokens ── */
+    :root {
+      --green-deep: #1a3d2e;
+      --green-mid: #2d6a4f;
+      --green-light: #40916c;
+      --rock-dark: #2d3748;
+      --rock-mid: #4a5568;
+      --rock-light: #718096;
+      --orange-cta: #ea580c;
+      --orange-hover: #c2410c;
+      --yellow-accent: #fbbf24;
+      --white: #ffffff;
+      --off-white: #f7faf8;
+      --text-on-dark: #f0fdf4;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+      --radius: 12px;
+      --radius-lg: 20px;
+      --sticky-h: 64px;
+      --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--rock-dark);
+      background: var(--off-white);
+      padding-bottom: calc(var(--sticky-h) + 1rem);
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+
+    a { color: var(--green-mid); }
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid var(--yellow-accent);
+      outline-offset: 2px;
+    }
+
+    /* ── Sticky quick actions ── */
+    .quick-actions {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--green-deep);
+      border-top: 3px solid var(--yellow-accent);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .quick-actions a {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      min-height: 48px;
+      padding: 0.625rem 1rem;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: var(--radius);
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .quick-actions a:active { transform: scale(0.97); }
+
+    .btn-call {
+      background: var(--orange-cta);
+      color: var(--white);
+    }
+    .btn-call:hover { background: var(--orange-hover); color: var(--white); }
+
+    .btn-find {
+      background: var(--white);
+      color: var(--green-deep);
+    }
+    .btn-find:hover { background: var(--yellow-accent); color: var(--rock-dark); }
+
+    /* ── Header ── */
+    .site-header {
+      background: var(--green-deep);
+      color: var(--text-on-dark);
+      padding: 1rem 1.25rem;
+      text-align: center;
+    }
+
+    .site-header__logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--yellow-accent);
+    }
+
+    .site-header__tagline {
+      font-size: 0.8125rem;
+      opacity: 0.9;
+      margin-top: 0.15rem;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      background: linear-gradient(160deg, var(--green-deep) 0%, var(--green-mid) 45%, var(--rock-mid) 100%);
+      color: var(--text-on-dark);
+      padding: 3rem 1.25rem 3.5rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(251, 191, 36, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(234, 88, 12, 0.1) 0%, transparent 45%);
+      pointer-events: none;
+    }
+
+    .hero__inner { position: relative; max-width: 720px; margin: 0 auto; }
+
+    .hero__badge {
+      display: inline-block;
+      background: rgba(251, 191, 36, 0.2);
+      border: 1px solid var(--yellow-accent);
+      color: var(--yellow-accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.75rem, 5vw, 2.75rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero__subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      opacity: 0.95;
+      max-width: 540px;
+      margin: 0 auto 1.75rem;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0.75rem 2rem;
+      background: var(--orange-cta);
+      color: var(--white);
+      font-size: 1.0625rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(234, 88, 12, 0.45);
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: var(--orange-hover); color: var(--white); }
+    .btn-primary:active { transform: scale(0.97); }
+
+    /* ── Layout sections ── */
+    .section {
+      padding: 2.5rem 1.25rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section--alt { background: var(--white); }
+
+    .section__heading {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .section__heading h2 {
+      font-size: clamp(1.375rem, 3.5vw, 1.875rem);
+      color: var(--green-deep);
+      margin-bottom: 0.35rem;
+    }
+
+    .section__heading p {
+      color: var(--rock-mid);
+      font-size: 1rem;
+    }
+
+    /* ── Crucial info grid (bento / lunchbox) ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 600px) {
+      .info-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .info-card {
+      background: var(--white);
+      border-left: 5px solid var(--orange-cta);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.125rem;
+      box-shadow: var(--shadow);
+    }
+
+    .info-card__icon {
+      font-size: 1.75rem;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-card h3 {
+      font-size: 1.0625rem;
+      color: var(--green-deep);
+      margin-bottom: 0.25rem;
+    }
+
+    .info-card p {
+      font-size: 0.9375rem;
+      color: var(--rock-mid);
+    }
+
+    .info-card strong { color: var(--rock-dark); }
+
+    /* ── Attractions grid ── */
+    .attractions-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 540px) {
+      .attractions-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 900px) {
+      .attractions-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .attraction-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .attraction-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .attraction-card__visual {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      background: linear-gradient(135deg, var(--green-mid), var(--green-deep));
+    }
+
+    .attraction-card:nth-child(2) .attraction-card__visual {
+      background: linear-gradient(135deg, var(--orange-cta), #b45309);
+    }
+
+    .attraction-card:nth-child(3) .attraction-card__visual {
+      background: linear-gradient(135deg, var(--rock-mid), var(--rock-dark));
+    }
+
+    .attraction-card:nth-child(4) .attraction-card__visual {
+      background: linear-gradient(135deg, var(--green-light), var(--green-mid));
+    }
+
+    .attraction-card__body {
+      flex: 1;
+      padding: 1.125rem;
+    }
+
+    .attraction-card h3 {
+      font-size: 1.0625rem;
+      color: var(--green-deep);
+      margin-bottom: 0.4rem;
+    }
+
+    .attraction-card p {
+      font-size: 0.875rem;
+      color: var(--rock-mid);
+      line-height: 1.5;
+    }
+
+    .attraction-card__stat {
+      display: inline-block;
+      margin-top: 0.6rem;
+      background: rgba(234, 88, 12, 0.12);
+      color: var(--orange-hover);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+    }
+
+    /* ── Pricing teaser ── */
+    .pricing-teaser {
+      background: var(--green-deep);
+      color: var(--text-on-dark);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    .pricing-teaser h2 {
+      font-size: clamp(1.25rem, 3vw, 1.625rem);
+      margin-bottom: 0.5rem;
+      color: var(--yellow-accent);
+    }
+
+    .pricing-teaser p {
+      opacity: 0.92;
+      margin-bottom: 1.25rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── Location & footer ── */
+    .location-block {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .location-block { grid-template-columns: 1fr 1fr; align-items: start; }
+    }
+
+    .location-block address {
+      font-style: normal;
+      line-height: 1.7;
+    }
+
+    .location-block h3 {
+      color: var(--green-deep);
+      margin-bottom: 0.5rem;
+    }
+
+    .map-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0.625rem 1.25rem;
+      margin-top: 0.75rem;
+      background: var(--green-mid);
+      color: var(--white);
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: var(--radius);
+    }
+
+    .map-link:hover { background: var(--green-deep); color: var(--white); }
+
+    .site-footer {
+      background: var(--rock-dark);
+      color: #cbd5e0;
+      text-align: center;
+      padding: 1.5rem 1.25rem calc(var(--sticky-h) + 1.5rem);
+      font-size: 0.875rem;
+    }
+
+    .site-footer a { color: var(--yellow-accent); }
+
+    /* ── Desktop: hide duplicate sticky on large screens with header CTAs ── */
+    @media (min-width: 768px) {
+      body { padding-bottom: 0; }
+
+      .quick-actions {
+        position: sticky;
+        top: 0;
+        bottom: auto;
+        border-top: none;
+        border-bottom: 3px solid var(--yellow-accent);
+        justify-content: flex-end;
+        padding: 0.5rem 1.5rem;
+      }
+
+      .quick-actions a { flex: 0 1 auto; min-width: 160px; }
+
+      .site-footer { padding-bottom: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky / fixed quick actions for mobile -->
+  <nav class="quick-actions" aria-label="Quick actions">
+    <a class="btn-call" href="tel:+385918964525" aria-label="Call Glavani Park now">
+      <span aria-hidden="true">📞</span> Call Now
+    </a>
+    <a class="btn-find" href="https://www.google.com/maps?q=45.021389,13.951111" target="_blank" rel="noopener noreferrer" aria-label="Find Glavani Park on map">
+      <span aria-hidden="true">📍</span> Find Us
+    </a>
+  </nav>
+
+  <header class="site-header">
+    <p class="site-header__logo">Glavani Park</p>
+    <p class="site-header__tagline">Istria's #1 Adrenaline &amp; Adventure Park · Barban, Croatia</p>
+  </header>
+
+  <main id="main-content">
+
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero__inner">
+        <p class="hero__badge">High Ropes · Ziplines · Pure Adrenaline</p>
+        <h1 id="hero-heading">Unleash Your Adventure in the Heart of Istria</h1>
+        <p class="hero__subtitle">
+          Croatia's largest adrenaline park — 1.5 hectares of high ropes courses, record-breaking rides, and unforgettable thrills between Barban and Vodnjan.
+        </p>
+        <a class="btn-primary" href="#pricing">View Pricing</a>
+      </div>
+    </section>
+
+    <!-- Crucial Info Grid -->
+    <section class="section" aria-labelledby="info-heading">
+      <div class="section__heading">
+        <h2 id="info-heading">Plan Your Visit</h2>
+        <p>Everything you need before you arrive</p>
+      </div>
+      <div class="info-grid">
+        <article class="info-card">
+          <div class="info-card__icon" aria-hidden="true">🕘</div>
+          <h3>Open Daily</h3>
+          <p><strong>9 AM – 5 PM</strong><br>Seven days a week during the season</p>
+        </article>
+        <article class="info-card">
+          <div class="info-card__icon" aria-hidden="true">⏰</div>
+          <h3>Last Entry</h3>
+          <p><strong>3 PM</strong><br>Arrive early to enjoy every attraction</p>
+        </article>
+        <article class="info-card">
+          <div class="info-card__icon" aria-hidden="true">📱</div>
+          <h3>Call in Advance</h3>
+          <p><strong>Recommended</strong><br>
+            <a href="tel:+385918964525">+385 91 896 4525</a> (EN)<br>
+            <a href="tel:+38598224314">+385 98 224 314</a> (HR)
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Attractions -->
+    <section class="section section--alt" aria-labelledby="attractions-heading">
+      <div class="section__heading">
+        <h2 id="attractions-heading">Our Top Attractions</h2>
+        <p>Heart-pounding experiences for every thrill-seeker</p>
+      </div>
+      <div class="attractions-grid">
+        <article class="attraction-card">
+          <div class="attraction-card__visual" aria-hidden="true">🎢</div>
+          <div class="attraction-card__body">
+            <h3>12.5 m High Swing</h3>
+            <p>Soar through the Istrian canopy on one of Croatia's tallest adventure swings — a breathtaking rush from 12.5 metres up.</p>
+            <span class="attraction-card__stat">12.5 m drop</span>
+          </div>
+        </article>
+        <article class="attraction-card">
+          <div class="attraction-card__visual" aria-hidden="true">🚀</div>
+          <div class="attraction-card__body">
+            <h3>Human Catapult</h3>
+            <p>Launch yourself from zero to 100 km/h in just one second. The ultimate G-force experience for true adrenaline junkies.</p>
+            <span class="attraction-card__stat">0 → 100 km/h in 1 s</span>
+          </div>
+        </article>
+        <article class="attraction-card">
+          <div class="attraction-card__visual" aria-hidden="true">🪂</div>
+          <div class="attraction-card__body">
+            <h3>Ziplines</h3>
+            <p>Fly up to 120 metres along lines reaching 20 metres above the ground — including a 113 m stretch between high-rope platforms.</p>
+            <span class="attraction-card__stat">Up to 120 m long</span>
+          </div>
+        </article>
+        <article class="attraction-card">
+          <div class="attraction-card__visual" aria-hidden="true">🧗</div>
+          <div class="attraction-card__body">
+            <h3>Climbing Wall</h3>
+            <p>Test your strength and technique on our outdoor climbing wall — perfect for beginners and experienced climbers alike.</p>
+            <span class="attraction-card__stat">All skill levels</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- High Ropes highlight -->
+    <section class="section" aria-labelledby="ropes-heading">
+      <div class="section__heading">
+        <h2 id="ropes-heading">High Ropes Course Croatia</h2>
+        <p>Three routes for every level of courage</p>
+      </div>
+      <div class="info-grid">
+        <article class="info-card">
+          <h3>Yellow Route</h3>
+          <p><strong>2 m high</strong> — ideal for families and first-timers getting started on the ropes.</p>
+        </article>
+        <article class="info-card">
+          <h3>Blue Route</h3>
+          <p><strong>6 m high</strong> — intermediate challenge with integrated zipline sections.</p>
+        </article>
+        <article class="info-card">
+          <h3>Black Route</h3>
+          <p><strong>10 m high</strong> — the ultimate test for experienced adventurers.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section section--alt" id="pricing" aria-labelledby="pricing-heading">
+      <div class="pricing-teaser">
+        <h2 id="pricing-heading">Adventure Awaits — Check Our Pricing</h2>
+        <p>Individual tickets and group packages available. Contact us for the latest rates and seasonal offers.</p>
+        <a class="btn-primary" href="tel:+385918964525">Call for Pricing &amp; Booking</a>
+      </div>
+    </section>
+
+    <!-- Location -->
+    <section class="section" aria-labelledby="location-heading">
+      <div class="section__heading">
+        <h2 id="location-heading">Things to Do Near Barban &amp; Vodnjan</h2>
+        <p>Easy to reach from Pula, Labin, and across Istria</p>
+      </div>
+      <div class="location-block">
+        <div>
+          <h3>How to Find Us</h3>
+          <address>
+            Glavani Park<br>
+            Glavani 10<br>
+            52207 Barban<br>
+            Istria, Croatia
+          </address>
+          <p style="margin-top:0.75rem;color:var(--rock-mid);font-size:0.9375rem;">
+            On the road between Vodnjan (10 km) and Barban (6 km). From the Pula–Labin road, turn at Manjadvorci toward Glavani, then left on the main road for 300 m.
+          </p>
+          <a class="map-link" href="https://www.google.com/maps?q=45.021389,13.951111" target="_blank" rel="noopener noreferrer">
+            Open in Google Maps
+          </a>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <p>
+            <strong>English:</strong> <a href="tel:+385918964525">+385 91 896 4525</a><br>
+            <strong>Croatian:</strong> <a href="tel:+38598224314">+385 98 224 314</a><br>
+            <strong>Email:</strong> <a href="mailto:info@glavanipark.com">info@glavanipark.com</a>
+          </p>
+          <p style="margin-top:0.75rem;color:var(--rock-mid);font-size:0.9375rem;">
+            GPS: 45°1′17″ N, 13°57′4″ E
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <time datetime="2026">2026</time> Glavani Park · Adrenaline Park Istria · High Ropes Course Croatia</p>
+    <p style="margin-top:0.35rem;">
+      <a href="https://www.glavanipark.com">www.glavanipark.com</a>
+    </p>
+  </footer>
+
+  <!-- Structured data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "Glavani Park",
+    "description": "Istria's top adrenaline and adventure park featuring high ropes courses, ziplines, human catapult, 12.5m high swing, and climbing wall near Barban, Croatia.",
+    "url": "https://www.glavanipark.com",
+    "telephone": "+385918964525",
+    "email": "info@glavanipark.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Glavani 10",
+      "addressLocality": "Barban",
+      "postalCode": "52207",
+      "addressRegion": "Istria",
+      "addressCountry": "HR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 45.021389,
+      "longitude": 13.951111
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "09:00",
+      "closes": "17:00"
+    }
+  }
+  </script>
+
+</body>
+</html>
