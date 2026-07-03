@@ -33,13 +33,17 @@ jobs:
       - name: Build site for GitHub Pages
         run: python3 scripts/build_site.py
 
-      - name: Add .nojekyll
-        run: touch .nojekyll
+      - name: Prepare Pages artifact
+        run: |
+          mkdir -p _site
+          cp -r assets en hr images _site/
+          cp index.html robots.txt sitemap.xml manifest.webmanifest _site/
+          touch _site/.nojekyll
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
 
       - name: Deploy to GitHub Pages
         id: deployment

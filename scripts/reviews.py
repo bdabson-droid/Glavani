@@ -186,7 +186,7 @@ def render_reviews_section(lang: str) -> str:
         </article>"""
         )
     cards_html = "\n        ".join(cards)
-    return f"""<section class="section section--wide section--theme-reviews" aria-labelledby="reviews-heading">
+    return f"""<section class="section section--wide section--theme-reviews" id="reviews" aria-labelledby="reviews-heading">
       <div class="section__inner">
         <div class="section__heading">
           <h2 id="reviews-heading">{labels['heading']}</h2>
