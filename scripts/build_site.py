@@ -404,21 +404,28 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
 def render_activity_siblings(current_en_slug: str, lang: str) -> str:
     prefix = f"/{lang}/"
     heading = "Ostale aktivnosti" if lang == "hr" else "More Activities"
+    icons = {
+        "catapult": "🚀", "swing": "🎢", "drop": "⬇️",
+        "zipline-valley": "🪂", "zipline-low": "🌲", "climbing": "🧗",
+    }
     cards = []
     for act in ACTIVITIES:
         if act["en_slug"] == current_en_slug:
             continue
         slug = act["hr_slug"] if lang == "hr" else act["en_slug"]
         label = act["hr"]["h1"] if lang == "hr" else act["en"]["h1"]
+        mod = act["tile_mod"]
+        icon = icons.get(mod, "🌲")
         cards.append(
-            f'<a class="activity-sibling activity-tile activity-tile--{act["tile_mod"]}" '
-            f'href="{prefix}{slug}/"><span class="activity-tile__label">{label}</span></a>'
+            f'<a class="hub-card hub-card--{mod}" href="{prefix}{slug}/">'
+            f'<span class="hub-card__icon" aria-hidden="true">{icon}</span>'
+            f'<h3>{label}</h3></a>'
         )
     return f"""
     <section class="section section--theme-adrenaline">
       <div class="section__inner">
         <div class="section__heading"><h2>{heading}</h2></div>
-        <div class="activity-showcase activity-showcase--compact">{''.join(cards)}</div>
+        <div class="hub-grid activity-showcase--compact">{''.join(cards)}</div>
       </div>
     </section>"""
 
