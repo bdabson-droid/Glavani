@@ -45,8 +45,8 @@
       name: 'Your name',
       phone: 'Your phone number',
       guestsHint: 'Groups of 7 or more must call to book.',
-      arrival: 'Preferred arrival time',
-      arrivalLead: '15-minute slots · park open 9 AM–5 PM · last entry 3 PM',
+      arrival: 'Preferred start time',
+      arrivalLead: '15-minute slots · your preferred start time · park open 9 AM–5 PM · last entry 3 PM',
       notes: 'Notes (optional)',
       notesPh: 'Any special requests…',
       next: 'Next',
@@ -106,8 +106,8 @@
       name: 'Ime i prezime',
       phone: 'Broj telefona',
       guestsHint: 'Grupe od 7 i više osoba moraju rezervirati telefonom.',
-      arrival: 'Preferirano vrijeme dolaska',
-      arrivalLead: 'Termini od 15 min · park 9–17 h · zadnji ulaz 15 h',
+      arrival: 'Preferirano vrijeme početka',
+      arrivalLead: 'Termini od 15 min · željeno vrijeme početka · park 9–17 h · zadnji ulaz 15 h',
       notes: 'Napomena (opcionalno)',
       notesPh: 'Posebni zahtjevi…',
       next: 'Dalje',
@@ -151,13 +151,6 @@
     return `${hour12}:${pad(m)} ${ampm}`;
   }
 
-  function formatHourGroup(h) {
-    if (lang === 'hr') return `${pad(h)}:00 – ${pad(h)}:45`;
-    const hour12 = h % 12 || 12;
-    const ampm = h < 12 ? 'AM' : 'PM';
-    return `${hour12}:00 – ${hour12}:45 ${ampm}`;
-  }
-
   function buildArrivalSlots() {
     const slots = [];
     for (let minutes = ARRIVAL_START; minutes <= ARRIVAL_END; minutes += 15) {
@@ -175,19 +168,9 @@
   }
 
   function renderArrivalOptions() {
-    let html = '';
-    let currentHour = -1;
-    arrivalSlots.forEach((slot, i) => {
-      const h = Math.floor(slot.minutes / 60);
-      if (h !== currentHour) {
-        if (currentHour !== -1) html += '</optgroup>';
-        html += `<optgroup label="${formatHourGroup(h)}">`;
-        currentHour = h;
-      }
-      html += `<option value="${i}"${i === state.arrival ? ' selected' : ''}>${slot.label}</option>`;
-    });
-    html += '</optgroup>';
-    return html;
+    return arrivalSlots.map((slot, i) =>
+      `<option value="${i}"${i === state.arrival ? ' selected' : ''}>${slot.label}</option>`
+    ).join('');
   }
 
   let step = 0;
