@@ -1100,44 +1100,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .location-map__directions,
 .location-map__open { text-align: center; }
 
-.faq-master-list {
-  list-style: none;
-  counter-reset: faq;
-  max-width: 820px;
-  margin: 0 auto;
-  padding: 0;
-  display: grid;
-  gap: 1rem;
-}
-.faq-master-list__item {
-  counter-increment: faq;
-  background: var(--white);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 1.125rem 1.25rem;
-}
-.faq-master-list__q {
-  font-size: 1rem;
-  color: var(--green-deep);
-  margin: 0 0 0.5rem;
-  padding-left: 2rem;
-  position: relative;
-}
-.faq-master-list__q::before {
-  content: counter(faq) ".";
-  position: absolute;
-  left: 0;
-  color: var(--orange-cta);
-  font-weight: 700;
-}
-.faq-master-list__a {
-  margin: 0;
-  padding-left: 2rem;
-  font-size: 0.9375rem;
-  color: var(--rock-mid);
-  line-height: 1.6;
-}
-
 .code-block {
   background: var(--rock-dark);
   color: #e2e8f0;

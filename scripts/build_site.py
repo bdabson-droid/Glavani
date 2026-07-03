@@ -18,7 +18,6 @@ from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
 from activities import ACTIVITIES, ACTIVITY_SLUG_MAP  # noqa: E402
 from reviews import render_reviews_section  # noqa: E402
-from faqs import FAQ_PAGE_SLUGS, collect_all_faqs  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
 TODAY = date.today().isoformat()
@@ -189,7 +188,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Grupe", f"{prefix}team-building-istri/"),
             ("Cijene", f"{prefix}rezervacija/"),
             ("Lokacija", f"{prefix}#location" if is_home else f"{prefix}sto-raditi-kod-pule/"),
-            ("FAQ", f"{prefix}#faq" if is_home else f"{prefix}sigurnost/"),
+            ("Sigurnost", f"{prefix}sigurnost/"),
         ]
     else:
         links = [
@@ -197,7 +196,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Groups", f"{prefix}team-building-istria/"),
             ("Prices", f"{prefix}book/"),
             ("Location", f"{prefix}#location" if is_home else f"{prefix}things-to-do-near-pula/"),
-            ("FAQ", f"{prefix}#faq" if is_home else f"{prefix}safety/"),
+            ("Safety", f"{prefix}safety/"),
         ]
     items = "".join(f'<a href="{href}">{label}</a>' for label, href in links)
     return f"""
@@ -309,38 +308,6 @@ def render_sections(sections: list) -> str:
     return "\n".join(html)
 
 
-def render_faqs(faqs: list, lang: str, *, list_style: bool = False) -> str:
-    if not faqs:
-        return ""
-    heading = "Često postavljana pitanja" if lang == "hr" else "Frequently Asked Questions"
-    if list_style:
-        items = []
-        for faq in faqs:
-            items.append(
-                f"""<li class="faq-master-list__item">
-          <h3 class="faq-master-list__q">{faq['q']}</h3>
-          <p class="faq-master-list__a">{faq['a']}</p>
-        </li>"""
-            )
-        body = f'<ol class="faq-master-list">{"".join(items)}</ol>'
-    else:
-        items = []
-        for faq in faqs:
-            items.append(
-                f"""
-        <details class="faq-item">
-          <summary>{faq['q']}</summary>
-          <div class="faq-item__answer"><p>{faq['a']}</p></div>
-        </details>"""
-            )
-        body = f'<div class="faq-list">{"".join(items)}</div>'
-    return f"""
-    <section class="section section--alt" id="faq">
-      <div class="section__heading"><h2>{heading}</h2></div>
-      {body}
-    </section>"""
-
-
 def render_related(related: list, lang: str) -> str:
     prefix = f"/{lang}/"
     cards = "".join(
@@ -353,23 +320,6 @@ def render_related(related: list, lang: str) -> str:
       <div class="section__heading"><h2>{heading}</h2></div>
       <div class="topic-grid">{cards}</div>
     </section>"""
-
-
-def faq_schema(faqs: list, page_url: str) -> str:
-    entities = []
-    for faq in faqs:
-        entities.append({
-            "@type": "Question",
-            "name": faq["q"],
-            "acceptedAnswer": {"@type": "Answer", "text": faq["a"]},
-        })
-    data = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "@id": f"{page_url}#faq",
-        "mainEntity": entities,
-    }
-    return f'<script type="application/ld+json">\n{json.dumps(data, indent=2, ensure_ascii=False)}\n</script>'
 
 
 def breadcrumb_schema(items: list) -> str:
@@ -429,13 +379,7 @@ def render_location_map(lang: str) -> str:
     </section>"""
 
 
-def page_faqs(page: dict, lang: str, all_pages: list[dict]) -> list[dict]:
-    if page["slug"] == FAQ_PAGE_SLUGS[lang]:
-        return collect_all_faqs(all_pages)
-    return []
-
-
-def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str, all_pages: list[dict]) -> str:
+def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
     prefix = f"/{lang}/"
     slug = page["slug"]
     canonical = f"{BASE}{prefix}{slug}/"
@@ -464,8 +408,6 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str, all_pages:
         </aside>"""
 
     img = page.get("image", "glavani-park-adventure-istria-croatia.jpg")
-    faqs = page_faqs(page, lang, all_pages)
-    faq_list_style = page["slug"] == FAQ_PAGE_SLUGS[lang]
     location_map = render_location_map(lang) if page.get("location_map") else ""
     body = f"""{head_meta(lang, page['title'], page['meta_description'], page['keywords'], canonical, en_slug, hr_slug, og_image=img)}
 {quick_actions(lang)}
@@ -493,7 +435,6 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str, all_pages:
     </div>
   </div>
   {location_map}
-  {render_faqs(faqs, lang, list_style=faq_list_style)}
   {render_related(page.get('related', []), lang)}
   <section class="section section--alt">
     <div class="pricing-teaser">
@@ -505,7 +446,6 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str, all_pages:
 </main>
 {footer(lang)}
 {breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (page['h1'], None)])}
-{faq_schema(faqs, canonical)}
 </body>
 </html>"""
     return body
@@ -900,7 +840,7 @@ def main() -> None:
         if slug in SKIP_LANDING_SLUGS["en"]:
             continue
         hr_slug = EN_TO_HR.get(slug, slug)
-        write_file(ROOT / "en" / slug / "index.html", render_landing(page, "en", slug, hr_slug, PAGES_EN))
+        write_file(ROOT / "en" / slug / "index.html", render_landing(page, "en", slug, hr_slug))
         sitemap_urls.append((f"{BASE}/en/{slug}/", "monthly"))
     write_file(
         ROOT / "en" / activities_hub_slug("en") / "index.html",
@@ -923,7 +863,7 @@ def main() -> None:
         if slug in SKIP_LANDING_SLUGS["hr"]:
             continue
         en_slug = SLUG_MAP.get(slug, slug)
-        write_file(ROOT / "hr" / slug / "index.html", render_landing(page, "hr", en_slug, slug, PAGES_HR))
+        write_file(ROOT / "hr" / slug / "index.html", render_landing(page, "hr", en_slug, slug))
         sitemap_urls.append((f"{BASE}/hr/{slug}/", "monthly"))
     write_file(
         ROOT / "hr" / activities_hub_slug("hr") / "index.html",
