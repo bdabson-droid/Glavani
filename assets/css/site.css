@@ -525,6 +525,43 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .book-panel h2 { font-size: 1.25rem; color: var(--green-deep); margin-bottom: 0.25rem; }
 .book-panel__lead { font-size: 0.875rem; color: var(--rock-mid); margin-bottom: 1rem; }
 
+.booking-form--package {
+  display: grid;
+  gap: 1rem;
+}
+
+.book-price-box {
+  margin-top: 0.25rem;
+  padding: 1rem 1.125rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(145deg, var(--green-deep), var(--green-mid));
+  color: var(--text-on-dark);
+  text-align: center;
+}
+.book-price-box--empty {
+  background: var(--off-white);
+  color: var(--rock-mid);
+  border: 2px dashed #cbd5e0;
+}
+.book-price-box__each {
+  font-size: 0.875rem;
+  opacity: 0.92;
+  margin-bottom: 0.35rem;
+}
+.book-price-box__total {
+  font-size: 1.125rem;
+  margin-bottom: 0.25rem;
+}
+.book-price-box__total strong {
+  font-size: 1.75rem;
+  color: var(--yellow-accent);
+  margin-left: 0.35rem;
+}
+.book-price-box__meta {
+  font-size: 0.8125rem;
+  opacity: 0.85;
+}
+
 .activity-grid {
   display: grid;
   grid-template-columns: 1fr;
