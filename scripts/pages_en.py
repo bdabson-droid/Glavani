@@ -555,6 +555,7 @@ PAGES = [
         ),
         "image": "zipline-120m-glavani-park-istria-croatia.webp",
         "image_alt": "Zipline adventure at Glavani Park, a top day trip from Pula, Istria",
+        "location_map": True,
         "sections": [
             {
                 "h2": "Pula as Your Istria Base Camp",

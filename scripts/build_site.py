@@ -18,9 +18,22 @@ from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
 from activities import ACTIVITIES, ACTIVITY_SLUG_MAP  # noqa: E402
 from reviews import render_reviews_section  # noqa: E402
+from faqs import FAQ_PAGE_SLUGS, collect_all_faqs  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
 TODAY = date.today().isoformat()
+
+GLAVANI_LAT = 45.021389
+GLAVANI_LNG = 13.951111
+GLAVANI_ADDRESS = "Glavani 10, 52207 Barban, Istria, Croatia"
+GLAVANI_MAPS_QUERY = "Glavani+Park,+Glavani+10,+52207+Barban,+Croatia"
+GLAVANI_MAPS_EMBED = (
+    f"https://maps.google.com/maps?q={GLAVANI_LAT},{GLAVANI_LNG}"
+    f"&hl=en&z=15&output=embed"
+)
+GLAVANI_MAPS_DIRECTIONS = (
+    f"https://www.google.com/maps/dir/?api=1&destination={GLAVANI_LAT}%2C{GLAVANI_LNG}"
+)
 
 # Reverse map EN slug -> HR slug
 EN_TO_HR = {v: k for k, v in SLUG_MAP.items()}
@@ -296,19 +309,35 @@ def render_sections(sections: list) -> str:
     return "\n".join(html)
 
 
-def render_faqs(faqs: list, lang: str) -> str:
-    items = []
-    for faq in faqs:
-        items.append(f"""
+def render_faqs(faqs: list, lang: str, *, list_style: bool = False) -> str:
+    if not faqs:
+        return ""
+    heading = "Često postavljana pitanja" if lang == "hr" else "Frequently Asked Questions"
+    if list_style:
+        items = []
+        for faq in faqs:
+            items.append(
+                f"""<li class="faq-master-list__item">
+          <h3 class="faq-master-list__q">{faq['q']}</h3>
+          <p class="faq-master-list__a">{faq['a']}</p>
+        </li>"""
+            )
+        body = f'<ol class="faq-master-list">{"".join(items)}</ol>'
+    else:
+        items = []
+        for faq in faqs:
+            items.append(
+                f"""
         <details class="faq-item">
           <summary>{faq['q']}</summary>
           <div class="faq-item__answer"><p>{faq['a']}</p></div>
-        </details>""")
-    heading = "Često postavljana pitanja" if lang == "hr" else "Frequently Asked Questions"
+        </details>"""
+            )
+        body = f'<div class="faq-list">{"".join(items)}</div>'
     return f"""
     <section class="section section--alt" id="faq">
       <div class="section__heading"><h2>{heading}</h2></div>
-      <div class="faq-list">{''.join(items)}</div>
+      {body}
     </section>"""
 
 
@@ -354,7 +383,59 @@ def breadcrumb_schema(items: list) -> str:
     return f'<script type="application/ld+json">\n{json.dumps(data, indent=2, ensure_ascii=False)}\n</script>'
 
 
-def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
+def render_location_map(lang: str) -> str:
+    if lang == "hr":
+        heading = "Pronađite Glavani Park"
+        lead = "Glavani 10, 52207 Barban · između Vodnjanja (10 km) i Barbana (6 km)"
+        directions = "Upute za dolazak"
+        open_maps = "Otvori u Google Maps"
+    else:
+        heading = "Find Glavani Park"
+        lead = "Glavani 10, 52207 Barban · between Vodnjan (10 km) and Barban (6 km)"
+        directions = "Get directions"
+        open_maps = "Open in Google Maps"
+    maps_link = f"https://www.google.com/maps?q={GLAVANI_LAT},{GLAVANI_LNG}"
+    embed_src = GLAVANI_MAPS_EMBED.replace("hl=en", f"hl={'hr' if lang == 'hr' else 'en'}")
+    return f"""
+    <section class="section section--alt" id="location-map" aria-labelledby="location-map-heading">
+      <div class="section__inner">
+        <div class="section__heading">
+          <h2 id="location-map-heading">{heading}</h2>
+          <p>{lead}</p>
+        </div>
+        <div class="location-map">
+          <div class="location-map__embed">
+            <iframe
+              title="{heading}"
+              src="{embed_src}"
+              width="600"
+              height="450"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <div class="location-map__panel">
+            <p class="location-map__pin" aria-hidden="true">📍</p>
+            <address class="location-map__address">{GLAVANI_ADDRESS}</address>
+            <p class="location-map__coords">GPS: {GLAVANI_LAT}, {GLAVANI_LNG}</p>
+            <div class="location-map__actions">
+              <a class="btn-primary location-map__directions" href="{GLAVANI_MAPS_DIRECTIONS}" target="_blank" rel="noopener noreferrer">{directions}</a>
+              <a class="btn-secondary location-map__open" href="{maps_link}" target="_blank" rel="noopener noreferrer">{open_maps}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>"""
+
+
+def page_faqs(page: dict, lang: str, all_pages: list[dict]) -> list[dict]:
+    if page["slug"] == FAQ_PAGE_SLUGS[lang]:
+        return collect_all_faqs(all_pages)
+    return []
+
+
+def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str, all_pages: list[dict]) -> str:
     prefix = f"/{lang}/"
     slug = page["slug"]
     canonical = f"{BASE}{prefix}{slug}/"
@@ -383,6 +464,9 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
         </aside>"""
 
     img = page.get("image", "glavani-park-adventure-istria-croatia.jpg")
+    faqs = page_faqs(page, lang, all_pages)
+    faq_list_style = page["slug"] == FAQ_PAGE_SLUGS[lang]
+    location_map = render_location_map(lang) if page.get("location_map") else ""
     body = f"""{head_meta(lang, page['title'], page['meta_description'], page['keywords'], canonical, en_slug, hr_slug, og_image=img)}
 {quick_actions(lang)}
 {site_header(lang)}
@@ -408,7 +492,8 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
     {sidebar}
     </div>
   </div>
-  {render_faqs(page.get('faqs', []), lang)}
+  {location_map}
+  {render_faqs(faqs, lang, list_style=faq_list_style)}
   {render_related(page.get('related', []), lang)}
   <section class="section section--alt">
     <div class="pricing-teaser">
@@ -420,7 +505,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
 </main>
 {footer(lang)}
 {breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (page['h1'], None)])}
-{faq_schema(page.get('faqs', []), canonical)}
+{faq_schema(faqs, canonical)}
 </body>
 </html>"""
     return body
@@ -815,7 +900,7 @@ def main() -> None:
         if slug in SKIP_LANDING_SLUGS["en"]:
             continue
         hr_slug = EN_TO_HR.get(slug, slug)
-        write_file(ROOT / "en" / slug / "index.html", render_landing(page, "en", slug, hr_slug))
+        write_file(ROOT / "en" / slug / "index.html", render_landing(page, "en", slug, hr_slug, PAGES_EN))
         sitemap_urls.append((f"{BASE}/en/{slug}/", "monthly"))
     write_file(
         ROOT / "en" / activities_hub_slug("en") / "index.html",
@@ -838,7 +923,7 @@ def main() -> None:
         if slug in SKIP_LANDING_SLUGS["hr"]:
             continue
         en_slug = SLUG_MAP.get(slug, slug)
-        write_file(ROOT / "hr" / slug / "index.html", render_landing(page, "hr", en_slug, slug))
+        write_file(ROOT / "hr" / slug / "index.html", render_landing(page, "hr", en_slug, slug, PAGES_HR))
         sitemap_urls.append((f"{BASE}/hr/{slug}/", "monthly"))
     write_file(
         ROOT / "hr" / activities_hub_slug("hr") / "index.html",

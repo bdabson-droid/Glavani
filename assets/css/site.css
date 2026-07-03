@@ -1048,6 +1048,96 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 .map-link:hover { background: var(--green-deep); color: var(--white); }
 
+.location-map {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (min-width: 768px) {
+  .location-map { grid-template-columns: 1.4fr 1fr; align-items: stretch; }
+}
+.location-map__embed {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: var(--white);
+  min-height: 280px;
+}
+.location-map__embed iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+}
+.location-map__panel {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.location-map__pin { font-size: 2rem; margin: 0 0 0.5rem; line-height: 1; }
+.location-map__address {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--green-deep);
+  line-height: 1.5;
+  margin-bottom: 0.35rem;
+}
+.location-map__coords {
+  font-size: 0.875rem;
+  color: var(--rock-mid);
+  margin-bottom: 1.25rem;
+}
+.location-map__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.location-map__directions,
+.location-map__open { text-align: center; }
+
+.faq-master-list {
+  list-style: none;
+  counter-reset: faq;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+.faq-master-list__item {
+  counter-increment: faq;
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.125rem 1.25rem;
+}
+.faq-master-list__q {
+  font-size: 1rem;
+  color: var(--green-deep);
+  margin: 0 0 0.5rem;
+  padding-left: 2rem;
+  position: relative;
+}
+.faq-master-list__q::before {
+  content: counter(faq) ".";
+  position: absolute;
+  left: 0;
+  color: var(--orange-cta);
+  font-weight: 700;
+}
+.faq-master-list__a {
+  margin: 0;
+  padding-left: 2rem;
+  font-size: 0.9375rem;
+  color: var(--rock-mid);
+  line-height: 1.6;
+}
+
 .code-block {
   background: var(--rock-dark);
   color: #e2e8f0;

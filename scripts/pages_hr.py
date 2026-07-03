@@ -562,6 +562,7 @@ PAGES = [
         ),
         "image": 'zipline-120m-glavani-park-istria-croatia.webp',
         "image_alt": 'Zipline avantura u Glavani Parku — vrhunski izlet iz Pule, Istria',
+        "location_map": True,
         "sections": [
             {
                 "h2": 'Pula kao baza za istraživanje Istre',
