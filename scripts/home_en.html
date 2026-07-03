@@ -1,353 +1,164 @@
 <nav class="breadcrumb" aria-label="Breadcrumb">
-    <ol itemscope itemtype="https://schema.org/BreadcrumbList">
-      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <a itemprop="item" href="/en/"><span itemprop="name">Home</span></a>
-        <meta itemprop="position" content="1">
-      </li>
-      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <span itemprop="name">Adventure Park Istria</span>
-        <meta itemprop="position" content="2">
-      </li>
+    <ol>
+      <li><a href="/en/">Home</a></li>
+      <li>Adventure Park Istria</li>
     </ol>
   </nav>
 
   <main id="main-content">
 
-    <section class="hero" aria-labelledby="hero-heading">
+    <section class="hero hero--home" aria-labelledby="hero-heading">
       <div class="hero__inner">
-        <p class="hero__badge">Zipline Croatia · High Ropes · Family Activities Istria</p>
-        <h1 id="hero-heading">Glavani Park – Adventure Park in Istria, Croatia</h1>
-        <p class="hero__headline">Unleash Your Adventure in the Heart of Istria</p>
-        <p class="hero__subtitle">
-          One of Croatia's largest adrenaline parks — 1.5 hectares of high ropes courses, record-breaking rides, and outdoor activities near Pula, Barban, and Vodnjan. Perfect for families, school trips, team building, and birthday parties.
-        </p>
-        <a class="btn-primary" href="#pricing">View Pricing</a>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="info-heading">
-      <div class="section__heading">
-        <h2 id="info-heading">Opening Hours &amp; Visitor Information</h2>
-        <p>Plan your day at Istria's premier outdoor adventure destination</p>
-      </div>
-      <div class="info-grid">
-        <article class="info-card">
-          <div class="info-card__icon" aria-hidden="true">🕘</div>
-          <h3>Open Daily</h3>
-          <p><strong>9 AM – 5 PM</strong><br>Seven days a week during the season</p>
-        </article>
-        <article class="info-card">
-          <div class="info-card__icon" aria-hidden="true">⏰</div>
-          <h3>Last Entry</h3>
-          <p><strong>3 PM</strong><br>Allow 3–4 hours to enjoy all attractions comfortably</p>
-        </article>
-        <article class="info-card">
-          <div class="info-card__icon" aria-hidden="true">📱</div>
-          <h3>Call in Advance</h3>
-          <p><strong>Booking recommended</strong><br>
-            <a href="tel:+385918964525">+385 91 896 4525</a> (EN)<br>
-            <a href="tel:+38598224314">+385 98 224 314</a> (HR)
+        <div>
+          <p class="hero__badge">Zipline Croatia · High Ropes · Family Activities Istria</p>
+          <h1 id="hero-heading">Glavani Park – Adventure Park in Istria, Croatia</h1>
+          <p class="hero__headline">Unleash Your Adventure in the Heart of Istria</p>
+          <p class="hero__subtitle">
+            One of Croatia's largest adrenaline parks — high ropes, ziplines, human catapult, and outdoor fun near Pula, Barban, and Vodnjan. Explore each topic below or book your visit now.
           </p>
-        </article>
+        </div>
+
+        <aside class="booking-diary" id="booking" aria-labelledby="booking-heading">
+          <h2 id="booking-heading">Booking Diary</h2>
+          <p class="booking-diary__lead">Pick your visit date and send a reservation request. We'll confirm by phone or email.</p>
+          <div class="booking-diary__hours">
+            <span class="booking-diary__pill">Open 9 AM – 5 PM</span>
+            <span class="booking-diary__pill">Last entry 3 PM</span>
+          </div>
+
+          <div class="cal-nav">
+            <button type="button" id="cal-prev" aria-label="Previous month">‹</button>
+            <span id="calendar-month"></span>
+            <button type="button" id="cal-next" aria-label="Next month">›</button>
+          </div>
+          <div id="booking-calendar" aria-live="polite"></div>
+
+          <form class="booking-form" id="booking-form">
+            <input type="hidden" name="date" id="booking-date" value="">
+            <div class="booking-form__row">
+              <div>
+                <label for="booking-name">Your name</label>
+                <input type="text" id="booking-name" name="name" required autocomplete="name" placeholder="Full name">
+              </div>
+              <div>
+                <label for="booking-phone">Phone</label>
+                <input type="tel" id="booking-phone" name="phone" required autocomplete="tel" placeholder="+385 …">
+              </div>
+            </div>
+            <div class="booking-form__row">
+              <div>
+                <label for="booking-email">Email (optional)</label>
+                <input type="email" id="booking-email" name="email" autocomplete="email" placeholder="you@email.com">
+              </div>
+              <div>
+                <label for="booking-guests">Number of guests</label>
+                <input type="number" id="booking-guests" name="guests" min="1" max="99" value="2" required>
+              </div>
+            </div>
+            <div class="booking-form__row">
+              <div>
+                <label for="booking-type">Visit type</label>
+                <select id="booking-type" name="visit_type" required>
+                  <option value="individual">Individual / family day ticket</option>
+                  <option value="group">Group visit</option>
+                  <option value="birthday">Birthday party</option>
+                  <option value="team">Team building / corporate</option>
+                  <option value="school">School trip</option>
+                </select>
+              </div>
+              <div>
+                <label for="booking-arrival">Preferred arrival</label>
+                <select id="booking-arrival" name="arrival" required>
+                  <option value="9:00–10:30">Morning (9:00–10:30)</option>
+                  <option value="10:30–12:00">Late morning (10:30–12:00)</option>
+                  <option value="12:00–14:00">Afternoon (12:00–14:00)</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label for="booking-notes">Notes (optional)</label>
+              <textarea id="booking-notes" name="notes" placeholder="Children's ages, group name, special requests…"></textarea>
+            </div>
+            <div class="booking-actions">
+              <button type="submit" class="btn-primary">Send booking request</button>
+              <a class="btn-secondary" href="tel:+385918964525">Call to book</a>
+            </div>
+          </form>
+        </aside>
       </div>
     </section>
 
-    <section class="section section--alt section--wide" id="activities" aria-labelledby="attractions-heading">
+    <div class="info-strip" aria-label="Visitor information">
+      <div class="info-strip__item"><strong>Open daily</strong>9 AM – 5 PM</div>
+      <div class="info-strip__item"><strong>Last entry</strong>3 PM · allow 3–4 hours</div>
+      <div class="info-strip__item"><strong>Call ahead</strong><a href="tel:+385918964525">+385 91 896 4525</a></div>
+    </div>
+
+    <section class="section section--theme-forest" aria-labelledby="explore-heading">
       <div class="section__inner">
         <div class="section__heading">
-          <h2 id="attractions-heading">Adventure Activities &amp; Zipline Croatia</h2>
-          <p>Expert-led adrenaline experiences with professional safety equipment at every station</p>
+          <h2 id="explore-heading">Explore Glavani Park</h2>
+          <p>Tap a topic for full details, photos, FAQs, and pricing guidance</p>
         </div>
-        <div class="attractions-grid attractions-grid--5">
-
-          <article class="attraction-card">
-            <figure class="attraction-card__visual">
-              <img src="/images/12-5m-high-swing-glavani-park-istria.webp"
-                   alt="Visitor soaring on the 12.5 metre high swing at Glavani Park adventure park in Istria, Croatia"
-                   width="400" height="280" loading="lazy"
-                  >
-              </figure>
-            <div class="attraction-card__body">
-              <h3>12.5 m High Swing</h3>
-              <p>Soar through the Istrian forest canopy on one of Croatia's tallest adventure swings. After a brief climb to the launch platform, you'll swing in a wide arc 12.5 metres above the ground — a breathtaking rush with panoramic views of the surrounding countryside. Trained staff fit you with a full harness before every ride.</p>
-              <span class="attraction-card__stat">12.5 m drop</span>
-            </div>
-          </article>
-
-          <article class="attraction-card">
-            <figure class="attraction-card__visual">
-              <img src="/images/human-catapult-adrenaline-park-croatia.webp"
-                   alt="Human catapult launching a participant at Glavani Park adrenaline park near Pula, Istria"
-                   width="400" height="280" loading="lazy"
-                  >
-              </figure>
-            <div class="attraction-card__body">
-              <h3>Human Catapult</h3>
-              <p>Experience one of Europe's most extreme park attractions: launch from zero to 100 km/h in just one second. The Human Catapult uses a precision-engineered bungee system with redundant safety lines and pre-ride health checks. Ideal for adventurous adults and teenagers seeking a genuine G-force thrill in Istria.</p>
-              <span class="attraction-card__stat">0 → 100 km/h in 1 s</span>
-            </div>
-          </article>
-
-          <article class="attraction-card">
-            <figure class="attraction-card__visual">
-              <img src="/images/zipline-120m-glavani-park-istria-croatia.webp"
-                   alt="Guest riding the 120 metre zipline through the trees at Glavani Park, Istria"
-                   width="400" height="280" loading="lazy"
-                  >
-              </figure>
-            <div class="attraction-card__body">
-              <h3>Ziplines</h3>
-              <p>Fly up to 120 metres along lines reaching 20 metres above the forest floor — a highlight for anyone searching for zipline Croatia experiences. The blue and black high-ropes routes include a 113 m zipline between platforms, while the standalone 120 m line offers an extended flight through the treetops with instructor supervision throughout.</p>
-              <span class="attraction-card__stat">Up to 120 m long</span>
-            </div>
-          </article>
-
-          <article class="attraction-card">
-            <figure class="attraction-card__visual">
-              <img src="/images/climbing-wall-outdoor-activities-istria.webp"
-                   alt="Climber on the outdoor climbing wall at Glavani Park near Barban, Istria"
-                   width="400" height="280" loading="lazy"
-                  >
-              </figure>
-            <div class="attraction-card__body">
-              <h3>Climbing Wall</h3>
-              <p>Test your strength, balance, and technique on our outdoor climbing wall. Routes vary in difficulty so beginners can learn basic holds while experienced climbers push their limits. All participants receive a harness and helmet, and staff provide a safety briefing before the first ascent.</p>
-              <span class="attraction-card__stat">All skill levels</span>
-            </div>
-          </article>
-
-          <article class="attraction-card">
-            <figure class="attraction-card__visual">
-              <img src="/images/quick-jump-20m-free-fall-istria.webp"
-                   alt="Visitor performing the 20 metre Quick Jump controlled free fall at Glavani Park in Istria"
-                   width="400" height="280" loading="lazy"
-                  >
-              </figure>
-            <div class="attraction-card__body">
-              <h3>Quick Jump</h3>
-              <p>The Quick Jump attraction lets visitors safely experience a controlled free fall from 20 metres. Participants step off a platform wearing professional safety equipment while a descender system manages the descent speed. Instructor guidance and a pre-jump briefing make this suitable for adventurous teenagers and adults seeking an adrenaline activity in Istria.</p>
-              <span class="attraction-card__stat">20 m controlled free fall</span>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="ropes-heading">
-      <div class="section__heading">
-        <h2 id="ropes-heading">High Ropes Course Croatia</h2>
-        <p>Three aerial routes designed for different ages and confidence levels</p>
-      </div>
-      <div class="info-grid">
-        <article class="info-card">
-          <h3>Yellow Route</h3>
-          <p><strong>2 m high</strong> — Our family-friendly introduction to aerial adventure. Balance beams, rope bridges, and low platforms build confidence in children and first-timers. A great starting point for <a href="#family">things to do in Istria with kids</a>.</p>
-        </article>
-        <article class="info-card">
-          <h3>Blue Route</h3>
-          <p><strong>6 m high</strong> — Intermediate challenge with longer crossings and an integrated 113 m zipline between the first and last platform. Popular with teens and adults who want more height without the full black-route intensity.</p>
-        </article>
-        <article class="info-card">
-          <h3>Black Route</h3>
-          <p><strong>10 m high</strong> — The ultimate test for experienced adventurers. Demanding obstacles at maximum height reward those who conquer every element. Continuous harness connection keeps you safe throughout.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section section--alt" id="family" aria-labelledby="family-heading">
-      <div class="section__heading">
-        <h2 id="family-heading">Family Activities in Istria &amp; Things to Do With Kids</h2>
-        <p>Outdoor fun for every generation — one of the best family day trips near Pula and Rovinj</p>
-      </div>
-      <div class="prose" style="max-width:760px;margin:0 auto 1.5rem;">
-        <p>Glavani Park is designed for the whole family. The 2-metre yellow high-ropes route welcomes younger children, while teenagers and parents can tackle the blue and black courses, ziplines, and climbing wall. Between activities, relax with coffee, drinks, and ice cream in our shaded picnic area — making us a full-day destination rather than a quick stop.</p>
-        <p>Many visitors combine a morning at the park with an afternoon exploring medieval Barban, the hilltop town of Vodnjan, or the beaches around Pula. Free on-site parking makes Glavani Park an easy addition to any <strong>Istria itinerary with kids</strong>.</p>
-      </div>
-      <div class="topic-grid">
-        <a class="topic-link" href="/en/things-to-do-in-istria/">
-          Things to Do in Istria
-          <span>Destination guide for families visiting the peninsula</span>
-        </a>
-        <a class="topic-link" href="/en/family-activities-istria/">
-          Family Activities Near Pula &amp; Rovinj
-          <span>Outdoor adventures within a short drive</span>
-        </a>
-        <a class="topic-link" href="/en/zipline-croatia/">
-          Zipline Croatia Guide
-          <span>Everything about our 120 m treetop lines</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="section" id="groups" aria-labelledby="groups-heading">
-      <div class="section__heading">
-        <h2 id="groups-heading">Team Building, School Trips &amp; Birthday Parties in Istria</h2>
-        <p>Group packages that build confidence, teamwork, and unforgettable memories</p>
-      </div>
-      <div class="info-grid">
-        <article class="info-card">
-          <h3>Team Building Istria</h3>
-          <p>Corporate groups and sports teams use our high-ropes courses and group challenges to strengthen communication and trust. Custom packages include dedicated instructors, timed team events, and refreshments. <a href="tel:+385918964525">Call to plan your event</a>.</p>
-        </article>
-        <article class="info-card">
-          <h3>School Trips</h3>
-          <p>Educational outdoor programmes teach risk assessment, physical coordination, and environmental awareness. Safety briefings and age-appropriate routes ensure every student participates at a comfortable level.</p>
-        </article>
-        <article class="info-card">
-          <h3>Birthday Parties</h3>
-          <p>Celebrate with an action-packed birthday at Glavani Park. Party packages include priority access to attractions, a dedicated area for cake and gifts, and optional catering. One of the most memorable <strong>birthday party venues in Istria</strong>.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section section--alt" aria-labelledby="trust-heading">
-      <div class="section__heading">
-        <h2 id="trust-heading">Safety, Experience &amp; Trust</h2>
-        <p>Real-world expertise you can rely on before stepping off the platform</p>
-      </div>
-      <div class="trust-grid" style="margin-bottom:1.5rem;">
-        <div class="trust-stat">
-          <span class="trust-stat__value">1.5 ha</span>
-          <span class="trust-stat__label">Adventure park footprint</span>
-        </div>
-        <div class="trust-stat">
-          <span class="trust-stat__value">3 routes</span>
-          <span class="trust-stat__label">Certified high-ropes courses</span>
-        </div>
-        <div class="trust-stat">
-          <span class="trust-stat__value">EN + HR</span>
-          <span class="trust-stat__label">Bilingual instructor team</span>
-        </div>
-        <div class="trust-stat">
-          <span class="trust-stat__value">Daily</span>
-          <span class="trust-stat__label">Equipment safety checks</span>
-        </div>
-      </div>
-      <div class="prose" style="max-width:760px;margin:0 auto 1.5rem;">
-        <p>Every attraction at Glavani Park is operated by trained instructors using CE-certified harnesses, helmets, and descender systems. Participants receive a safety briefing before each activity, and staff monitor conditions throughout the day. Our bilingual team — including English-speaking guides — has welcomed thousands of international visitors from across Europe.</p>
-        <p>Glavani Park is featured by the <a href="https://www.istra.hr/en/destinations/barban/1531" rel="noopener noreferrer">Istria Tourist Board</a> and recommended as one of the region's top outdoor attractions.</p>
-      </div>
-      <div class="testimonials">
-        <figure class="testimonial">
-          <blockquote cite="https://www.google.com/maps?q=Glavani+Park">
-            <p>"Absolutely thrilling day out for the whole family. The ziplines and high swing were highlights of our Istria holiday — staff were professional and made us feel safe throughout."</p>
-          </blockquote>
-          <figcaption><cite>— Family visitor from Germany, Google review</cite></figcaption>
-        </figure>
-        <figure class="testimonial">
-          <blockquote cite="https://www.google.com/maps?q=Glavani+Park">
-            <p>"Perfect team-building venue. Our group of 20 had an amazing time on the ropes courses. Easy drive from Pula and great value for a full morning of activities."</p>
-          </blockquote>
-          <figcaption><cite>— Corporate group organiser, Google review</cite></figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section class="section section--alt" id="pricing" aria-labelledby="pricing-heading">
-      <div class="pricing-teaser">
-        <h2 id="pricing-heading">Prices &amp; Booking</h2>
-        <p>Individual day tickets, family passes, and group packages for team building, school trips, and birthday parties. Rates vary by season — call for current pricing and availability.</p>
-        <a class="btn-primary" href="tel:+385918964525">Call for Pricing &amp; Booking</a>
-      </div>
-    </section>
-
-    <section class="section" id="location" aria-labelledby="location-heading">
-      <div class="section__heading">
-        <h2 id="location-heading">Location — Outdoor Activities Near Pula, Barban &amp; Vodnjan</h2>
-        <p>Central Istria position makes Glavani Park easy to reach from Pula (30 min), Rovinj (45 min), and Labin</p>
-      </div>
-      <div class="location-block">
-        <div>
-          <h3>How to Find Us</h3>
-          <address>
-            Glavani Park<br>
-            Glavani 10<br>
-            52207 Barban<br>
-            Istria, Croatia
-          </address>
-          <p class="prose" style="margin-top:0.75rem;">
-            On the road between Vodnjan (10 km) and Barban (6 km). From the Pula–Labin road, turn at Manjadvorci toward Glavani, then left on the main road for 300 m. <strong>Free parking</strong> is available on site.
-          </p>
-          <a class="map-link" href="https://www.google.com/maps?q=45.021389,13.951111" target="_blank" rel="noopener noreferrer">
-            Open in Google Maps
+        <div class="hub-grid">
+          <a class="hub-card hub-card--forest" href="/en/adventure-park-croatia/">
+            <span class="hub-card__icon" aria-hidden="true">🌲</span>
+            <h3>Adventure Activities</h3>
+            <p>High swing, human catapult, Quick Jump, climbing wall &amp; high ropes routes</p>
+          </a>
+          <a class="hub-card hub-card--adrenaline" href="/en/zipline-croatia/">
+            <span class="hub-card__icon" aria-hidden="true">🪂</span>
+            <h3>Zipline Croatia</h3>
+            <p>120 m treetop flights and course-integrated ziplines up to 20 m high</p>
+          </a>
+          <a class="hub-card hub-card--family" href="/en/family-activities-istria/">
+            <span class="hub-card__icon" aria-hidden="true">👨‍👩‍👧‍👦</span>
+            <h3>Family &amp; Kids</h3>
+            <p>Yellow route, picnic area, and full-day fun near Pula &amp; Rovinj</p>
+          </a>
+          <a class="hub-card hub-card--groups" href="/en/team-building-istria/">
+            <span class="hub-card__icon" aria-hidden="true">🤝</span>
+            <h3>Team Building &amp; Groups</h3>
+            <p>Corporate events, school trips, and birthday party packages</p>
+          </a>
+          <a class="hub-card hub-card--travel" href="/en/things-to-do-in-istria/">
+            <span class="hub-card__icon" aria-hidden="true">🗺️</span>
+            <h3>Things to Do in Istria</h3>
+            <p>Plan your peninsula trip — coast, hill towns, and outdoor adventures</p>
+          </a>
+          <a class="hub-card hub-card--safety" href="/en/safety/">
+            <span class="hub-card__icon" aria-hidden="true">🛡️</span>
+            <h3>Safety &amp; Equipment</h3>
+            <p>Harness standards, daily inspections, and what to wear</p>
           </a>
         </div>
-        <div>
-          <h3>Contact</h3>
-          <p>
-            <strong>English:</strong> <a href="tel:+385918964525">+385 91 896 4525</a><br>
-            <strong>Croatian:</strong> <a href="tel:+38598224314">+385 98 224 314</a><br>
-            <strong>Email:</strong> <a href="mailto:info@glavanipark.com">info@glavanipark.com</a>
-          </p>
-          <p class="prose" style="margin-top:0.75rem;">
-            GPS: 45°1′17″ N, 13°57′4″ E<br>
-            Looking for <strong>things to do near Pula</strong> or <strong>family activities near Rovinj</strong>? Glavani Park is one of the top-rated adventure parks in Croatia and a must-visit stop on any Istria road trip.
-          </p>
+      </div>
+    </section>
+
+    <section class="section section--theme-rock" aria-labelledby="more-heading">
+      <div class="section__inner">
+        <div class="section__heading">
+          <h2 id="more-heading">More to Discover</h2>
+        </div>
+        <div class="topic-grid">
+          <a class="topic-link" href="/en/things-to-do-near-pula/">Things to Do Near Pula<span>Day trips from Pula in 30 minutes</span></a>
+          <a class="topic-link" href="/en/birthday-parties-istria/">Birthday Parties<span>Celebrate with adrenaline</span></a>
+          <a class="topic-link" href="/en/school-trips-istria/">School Trips<span>Educational outdoor programmes</span></a>
+          <a class="topic-link" href="/en/partners/">Partner Programme<span>Hotels, campsites &amp; travel blogs</span></a>
+          <a class="topic-link" href="https://www.google.com/maps?q=45.021389,13.951111" target="_blank" rel="noopener noreferrer">Find Us on Map<span>Glavani 10, Barban · free parking</span></a>
+          <a class="topic-link" href="/en/link-to-us/">Link to Us<span>For travel websites &amp; directories</span></a>
         </div>
       </div>
     </section>
 
-    <section class="section section--alt" id="faq" aria-labelledby="faq-heading">
+    <section class="section" aria-labelledby="location-heading">
       <div class="section__heading">
-        <h2 id="faq-heading">Frequently Asked Questions</h2>
-        <p>Common questions from first-time visitors planning their Istria adventure</p>
+        <h2 id="location-heading">Visit Us in Istria</h2>
+        <p>Glavani 10, 52207 Barban · between Vodnjan (10 km) and Barban (6 km)</p>
       </div>
-      <div class="faq-list">
-        <details class="faq-item">
-          <summary>Is Glavani Park suitable for children?</summary>
-          <div class="faq-item__answer">
-            <p>Yes. The 2-metre yellow high-ropes route is designed specifically for younger children and families. Several ground-level activities are also suitable for kids, while taller attractions like the Human Catapult and Quick Jump have minimum age and height requirements. Contact us before visiting if you're unsure which activities fit your group.</p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>How long does a visit take?</summary>
-          <div class="faq-item__answer">
-            <p>Most visitors spend 3–4 hours enjoying the park. If you plan to complete multiple high-ropes routes plus ziplines and the swing, arrive before midday. Last entry is at 3 PM, and the park closes at 5 PM.</p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>Do I need a reservation?</summary>
-          <div class="faq-item__answer">
-            <p>Walk-ins are welcome, but we strongly recommend calling in advance — especially for groups, weekends, and peak summer season. Phone <a href="tel:+385918964525">+385 91 896 4525</a> (English) or <a href="tel:+38598224314">+385 98 224 314</a> (Croatian) to check availability.</p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>Is parking available?</summary>
-          <div class="faq-item__answer">
-            <p>Yes, free on-site parking is available for cars, minibuses, and coaches. The car park is a short walk from the ticket area and main attractions.</p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>What should I wear?</summary>
-          <div class="faq-item__answer">
-            <p>Wear comfortable athletic clothing and closed-toe sports shoes (trainers or hiking shoes). Avoid sandals, flip-flops, and loose jewellery. In summer, bring sunscreen and water — we also sell drinks and ice cream on site.</p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>Is it safe?</summary>
-          <div class="faq-item__answer">
-            <p>Safety is our top priority. All participants receive professional harnesses, helmets, and a briefing before each activity. Equipment is inspected daily, routes are supervised by trained instructors, and continuous belay systems keep you connected at height on the high-ropes courses.</p>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="explore-heading">
-      <div class="section__heading">
-        <h2 id="explore-heading">Explore More at Glavani Park</h2>
-        <p>Related guides and activity pages</p>
-      </div>
-      <div class="topic-grid">
-        <a class="topic-link" href="/en/team-building-istria/">Team Building in Istria<span>Corporate &amp; group packages</span></a>
-        <a class="topic-link" href="/en/birthday-parties-istria/">Birthday Parties Istria<span>Celebrate with adrenaline</span></a>
-        <a class="topic-link" href="/en/school-trips-istria/">School Trips Istria<span>Educational outdoor programmes</span></a>
-        <a class="topic-link" href="/en/things-to-do-near-pula/">Things to Do Near Pula<span>Day trips &amp; outdoor activities</span></a>
-        <a class="topic-link" href="/en/adventure-park-croatia/">Best Adventure Parks in Croatia<span>Why Glavani Park stands out</span></a>
-        <a class="topic-link" href="/en/partners/">Partner Programme<span>Hotels, campsites &amp; travel blogs</span></a>
-        <a class="topic-link" href="/en/link-to-us/">Link to Us<span>Embed codes for backlinks</span></a>
-        <a class="topic-link" href="/en/safety/">Safety &amp; Equipment<span>Certifications &amp; procedures</span></a>
-      </div>
+      <p style="text-align:center;color:var(--rock-mid);font-size:0.9375rem;">
+        <a class="map-link" href="https://www.google.com/maps?q=45.021389,13.951111" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+      </p>
     </section>
 
   </main>

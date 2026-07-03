@@ -131,7 +131,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Aktivnosti", f"{prefix}#activities" if is_home else f"{prefix}avanturisticki-park-hrvatska/"),
             ("Obitelj", f"{prefix}obiteljske-aktivnosti-istri/"),
             ("Grupe", f"{prefix}team-building-istri/"),
-            ("Cijene", f"{prefix}#pricing" if is_home else f"{prefix}"),
+            ("Cijene", f"{prefix}#booking" if is_home else f"{prefix}"),
             ("Lokacija", f"{prefix}#location" if is_home else f"{prefix}sto-raditi-kod-pule/"),
             ("FAQ", f"{prefix}#faq" if is_home else f"{prefix}sigurnost/"),
         ]
@@ -140,7 +140,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Activities", f"{prefix}#activities" if is_home else f"{prefix}adventure-park-croatia/"),
             ("Family", f"{prefix}family-activities-istria/"),
             ("Groups", f"{prefix}team-building-istria/"),
-            ("Prices", f"{prefix}#pricing" if is_home else f"{prefix}"),
+            ("Prices", f"{prefix}#booking" if is_home else f"{prefix}"),
             ("Location", f"{prefix}#location" if is_home else f"{prefix}things-to-do-near-pula/"),
             ("FAQ", f"{prefix}#faq" if is_home else f"{prefix}safety/"),
         ]
@@ -233,7 +233,7 @@ def head_meta(
   <meta property="og:image" content="{BASE}/images/{og_image}">
   <link rel="stylesheet" href="/assets/css/site.css">
 </head>
-<body>"""
+<body class="theme-page">"""
 
 
 def render_sections(sections: list) -> str:
@@ -353,7 +353,8 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
       <a class="btn-primary" href="tel:+385918964525">{cta}</a>
     </div>
   </section>
-  <div class="landing-layout">
+  <div class="landing-layout section--theme-forest">
+    <div class="landing-layout__inner">
     <article>
       <figure class="feature-img">
         <img src="/images/{img}" alt="{page['image_alt']}" width="800" height="560" loading="eager">
@@ -361,6 +362,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
       {render_sections(page['sections'])}
     </article>
     {sidebar}
+    </div>
   </div>
   {render_faqs(page.get('faqs', []), lang)}
   {render_related(page.get('related', []), lang)}
@@ -419,6 +421,7 @@ def render_home(lang: str) -> str:
 {site_nav(lang, is_home=True)}
 {body_content}
 {footer(lang)}
+<script src="/assets/js/booking-diary.js" defer></script>
 <script type="application/ld+json">{json.dumps(org_schema, indent=2)}</script>
 </body>
 </html>"""
