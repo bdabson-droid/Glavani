@@ -38,8 +38,9 @@
       callToBook: 'Call to book your group',
       priceEach: '€{price} per person (adult)',
       total: 'Total',
-      deposit: 'Deposit (10%)',
-      balanceOnArrival: 'Balance on arrival',
+      deposit: 'Deposit due now (10% of total)',
+      balanceOnArrival: 'Remaining on arrival',
+      depositNote: 'The deposit is part of your total price — not an extra charge.',
       pickDate: 'Pick your visit date',
       pickDateLead: 'Open daily 9 AM–5 PM · last entry 3 PM',
       yourDetails: 'Your details',
@@ -73,7 +74,7 @@
       emptyDiary: 'No saved bookings yet.',
       tabBook: 'Book',
       tabDiary: 'My diary',
-      parkHours: '10% deposit secures your booking · balance on arrival · park open 9 AM – 5 PM',
+      parkHours: 'Pay 10% of your total as a deposit · remainder on arrival · park open 9 AM – 5 PM',
       msgHeader: 'Glavani Park booking request',
       callGroups: 'Call for groups of 7+',
     },
@@ -101,8 +102,9 @@
       callToBook: 'Pozovite za rezervaciju grupe',
       priceEach: '€{price} po osobi (odrasla)',
       total: 'Ukupno',
-      deposit: 'Polog (10%)',
+      deposit: 'Polog sada (10% ukupnog iznosa)',
       balanceOnArrival: 'Ostatak na ulazu',
+      depositNote: 'Polog je dio ukupne cijene — nije dodatna naknada.',
       pickDate: 'Odaberite datum posjeta',
       pickDateLead: 'Otvoreno 9–17 h · zadnji ulaz 15 h',
       yourDetails: 'Vaši podaci',
@@ -136,7 +138,7 @@
       emptyDiary: 'Još nema spremljenih rezervacija.',
       tabBook: 'Rezerviraj',
       tabDiary: 'Dnevnik',
-      parkHours: 'Polog 10% osigurava rezervaciju · ostatak na ulazu · park 9–17 h',
+      parkHours: 'Platite 10% ukupnog iznosa kao polog · ostatak na ulazu · park 9–17 h',
       msgHeader: 'Zahtjev za rezervaciju Glavani Park',
       callGroups: 'Pozovite za grupe 7+',
     },
@@ -286,6 +288,7 @@
       <p class="book-price-box__meta">${guestCount()} × €${a.price}</p>
       <p class="book-price-box__deposit"><span>${t.deposit}</span> <strong>€${deposit}</strong></p>
       <p class="book-price-box__balance">${t.balanceOnArrival}: €${balance}</p>
+      <p class="book-price-box__note">${t.depositNote}</p>
     </div>`;
   }
 
