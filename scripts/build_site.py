@@ -20,8 +20,6 @@ from activities import ACTIVITIES, ACTIVITY_SLUG_MAP  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
 TODAY = date.today().isoformat()
-# Set PATH_PREFIX=/Glavani when deploying to GitHub Pages (project sites)
-PATH_PREFIX = os.environ.get("PATH_PREFIX", "").rstrip("/")
 
 # Reverse map EN slug -> HR slug
 EN_TO_HR = {v: k for k, v in SLUG_MAP.items()}
@@ -76,42 +74,70 @@ def esc(text: str) -> str:
 
 
 def u(path: str) -> str:
-    """Prefix root-absolute paths (for GitHub Pages subdirectory deploy)."""
-    if path.startswith("/") and PATH_PREFIX:
-        return f"{PATH_PREFIX}{path}"
+    """Legacy helper — paths are relativized after build."""
     return path
 
 
-def apply_path_prefix() -> None:
-    """Rewrite root-absolute paths in HTML and CSS when PATH_PREFIX is set."""
-    if not PATH_PREFIX:
-        return
+def relativize_paths(html: str, depth: int, lang: str) -> str:
+    """Convert root-absolute paths to relative so the site works on any host/path."""
     import re
-    prefix = PATH_PREFIX
+    up = "../" * depth
+    other = "hr" if lang == "en" else "en"
+
+    html = re.sub(r'(href|src)="/assets/', rf'\1="{up}assets/', html)
+    html = re.sub(r'(href|src)="/images/', rf'\1="{up}images/', html)
+    html = html.replace('href="/manifest.webmanifest"', f'href="{up}manifest.webmanifest"')
+
+    def other_lang_link(match: re.Match[str]) -> str:
+        rest = match.group(1)
+        return f'href="{up}{other}/"' if rest == "" else f'href="{up}{other}/{rest}"'
+
+    html = re.sub(rf'href="/{other}/([^"]*)"', other_lang_link, html)
+
+    def same_lang_link(match: re.Match[str]) -> str:
+        rest = match.group(1)
+        if rest.startswith("#"):
+            return f'href="{rest}"' if depth == 1 else f'href="../{rest}"'
+        if "#" in rest:
+            slug, frag = rest.split("#", 1)
+            frag = "#" + frag
+        else:
+            slug, frag = rest, ""
+        slug = slug.strip("/")
+        if depth == 1:
+            path = f"{slug}/" if slug else "./"
+        else:
+            path = f"../{slug}/" if slug else "../"
+        return f'href="{path}{frag}"'
+
+    html = re.sub(rf'href="/{lang}/([^"]*)"', same_lang_link, html)
+    return html
+
+
+def relativize_site() -> None:
+    """Rewrite internal links in all built HTML to be path-relative."""
+    import re
     for html_file in ROOT.rglob("*.html"):
         if "scripts" in html_file.parts:
             continue
+        rel = html_file.relative_to(ROOT)
+        if rel == Path("index.html"):
+            text = html_file.read_text(encoding="utf-8")
+            text = text.replace('url=/en/', 'url=en/')
+            text = text.replace("location.replace('/en/", "location.replace('en/")
+            text = text.replace('href="/en/"', 'href="en/"')
+            html_file.write_text(text, encoding="utf-8")
+            continue
+        if len(rel.parts) == 2 and rel.parts[1] == "index.html":
+            depth, lang = 1, rel.parts[0]
+        elif len(rel.parts) == 3 and rel.parts[2] == "index.html":
+            depth, lang = 2, rel.parts[0]
+        else:
+            continue
         text = html_file.read_text(encoding="utf-8")
-        text = text.replace(f"{prefix}{prefix}", prefix)
-        text = re.sub(r'(href|src|content="0; url=)="/', rf'\1="{prefix}/', text)
-        text = text.replace(f"location.replace('/", f"location.replace('{prefix}/")
-        html_file.write_text(text, encoding="utf-8")
+        html_file.write_text(relativize_paths(text, depth, lang), encoding="utf-8")
 
-    css_path = ROOT / "assets" / "css" / "site.css"
-    if css_path.exists():
-        css = css_path.read_text(encoding="utf-8")
-        css = css.replace(f'url("{prefix}{prefix}/', f'url("{prefix}/')
-        css = re.sub(r'url\("/', rf'url("{prefix}/', css)
-        css_path.write_text(css, encoding="utf-8")
-
-    manifest = ROOT / "manifest.webmanifest"
-    if manifest.exists():
-        text = manifest.read_text(encoding="utf-8")
-        text = text.replace(f"{prefix}{prefix}", prefix)
-        text = re.sub(r'"/', f'"{prefix}/', text)
-        manifest.write_text(text, encoding="utf-8")
-
-    print(f"  applied PATH_PREFIX={prefix}")
+    print("  applied relative paths for GitHub Pages compatibility")
 
 
 def quick_actions(lang: str) -> str:
@@ -632,12 +658,12 @@ def build_root_redirect() -> None:
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=/en/">
+  <meta http-equiv="refresh" content="0; url=en/">
   <link rel="canonical" href="https://www.glavanipark.com/en/">
   <title>Glavani Park</title>
-  <script>location.replace('/en/');</script>
+  <script>location.replace('en/');</script>
 </head>
-<body><p><a href="/en/">Glavani Park – Adventure Park Istria</a></p></body>
+<body><p><a href="en/">Glavani Park – Adventure Park Istria</a></p></body>
 </html>"""
     write_file(ROOT / "index.html", content)
 
@@ -702,7 +728,7 @@ def main() -> None:
     build_sitemap(sitemap_urls)
     build_root_redirect()
     build_search_console_guide()
-    apply_path_prefix()
+    relativize_site()
     print("Done.")
 
 

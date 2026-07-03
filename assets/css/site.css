@@ -314,28 +314,28 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-card--catapult {
   background-image:
     linear-gradient(145deg, rgba(234, 88, 12, 0.92), rgba(154, 52, 18, 0.95)),
-    url("/images/human-catapult-adrenaline-park-croatia.webp");
+    url("../../images/human-catapult-adrenaline-park-croatia.webp");
   background-size: cover;
   background-position: center;
 }
 .hub-card--swing {
   background-image:
     linear-gradient(145deg, rgba(124, 58, 237, 0.9), rgba(76, 29, 149, 0.95)),
-    url("/images/12-5m-high-swing-glavani-park-istria.webp");
+    url("../../images/12-5m-high-swing-glavani-park-istria.webp");
   background-size: cover;
   background-position: center;
 }
 .hub-card--drop {
   background-image:
     linear-gradient(145deg, rgba(37, 99, 235, 0.9), rgba(49, 46, 129, 0.95)),
-    url("/images/quick-jump-20m-free-fall-istria.webp");
+    url("../../images/quick-jump-20m-free-fall-istria.webp");
   background-size: cover;
   background-position: center;
 }
 .hub-card--zipline-valley {
   background-image:
     linear-gradient(145deg, rgba(45, 106, 79, 0.88), rgba(26, 61, 46, 0.95)),
-    url("/images/zipline-120m-glavani-park-istria-croatia.webp");
+    url("../../images/zipline-120m-glavani-park-istria-croatia.webp");
   background-size: cover;
   background-position: center;
 }
@@ -345,7 +345,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-card--climbing {
   background-image:
     linear-gradient(145deg, rgba(64, 145, 108, 0.9), rgba(26, 61, 46, 0.95)),
-    url("/images/climbing-wall-outdoor-activities-istria.webp");
+    url("../../images/climbing-wall-outdoor-activities-istria.webp");
   background-size: cover;
   background-position: center;
 }

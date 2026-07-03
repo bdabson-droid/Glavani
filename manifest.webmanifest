@@ -2,13 +2,13 @@
   "name": "Glavani Park Booking",
   "short_name": "Book Glavani",
   "description": "Book your Glavani Park adventure — pick activity and date",
-  "start_url": "/en/book/",
+  "start_url": "./en/book/",
   "display": "standalone",
   "background_color": "#1a3d2e",
   "theme_color": "#1a3d2e",
   "icons": [
     {
-      "src": "/images/glavani-park-logo.png",
+      "src": "./images/glavani-park-logo.png",
       "sizes": "400x120",
       "type": "image/png"
     }

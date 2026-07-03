@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Build with GitHub Pages path prefix and push to gh-pages branch.
+# Build site and push to gh-pages branch for GitHub Pages preview.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DEPLOY_DIR="/tmp/gh-pages-deploy-$$"
-trap 'rm -rf "$DEPLOY_DIR"; cd "$ROOT" && python3 scripts/build_site.py >/dev/null' EXIT
+trap 'rm -rf "$DEPLOY_DIR"' EXIT
 
 cd "$ROOT"
-PATH_PREFIX=/Glavani python3 scripts/build_site.py
+python3 scripts/build_site.py
 
 git fetch origin gh-pages
 git worktree add "$DEPLOY_DIR" origin/gh-pages
