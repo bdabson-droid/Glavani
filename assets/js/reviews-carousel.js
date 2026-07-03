@@ -1,7 +1,10 @@
 /**
- * Reviews carousel — pick a random subset on each visit, shuffle, scroll left/right.
+ * Reviews carousel — favour recent reviews, pick 12 at random, shuffle, scroll.
  */
 (function () {
+  const HALF_LIFE_DAYS = 540;
+  const MIN_WEIGHT = 0.12;
+
   function shuffle(items) {
     for (let i = items.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -10,8 +13,36 @@
     return items;
   }
 
-  function pickRandomCards(cards, count) {
-    return shuffle([...cards]).slice(0, Math.min(count, cards.length));
+  function recencyWeight(dateStr) {
+    if (!dateStr) return 1;
+    const ageDays = (Date.now() - new Date(dateStr).getTime()) / (1000 * 60 * 60 * 24);
+    if (ageDays <= 0) return 1;
+    return Math.max(MIN_WEIGHT, Math.pow(0.5, ageDays / HALF_LIFE_DAYS));
+  }
+
+  function pickWeightedCards(cards, count) {
+    const pool = [...cards];
+    const picked = [];
+    const limit = Math.min(count, pool.length);
+
+    while (picked.length < limit && pool.length) {
+      const weights = pool.map((card) => recencyWeight(card.dataset.reviewDate));
+      const total = weights.reduce((sum, weight) => sum + weight, 0);
+      let roll = Math.random() * total;
+      let index = 0;
+
+      for (let i = 0; i < pool.length; i++) {
+        roll -= weights[i];
+        if (roll <= 0) {
+          index = i;
+          break;
+        }
+      }
+
+      picked.push(pool.splice(index, 1)[0]);
+    }
+
+    return picked;
   }
 
   function scrollToCard(track, card) {
@@ -29,7 +60,7 @@
 
     const visibleCount = parseInt(root.dataset.reviewsVisible || '12', 10);
     const allCards = Array.from(track.querySelectorAll('.review-card'));
-    const selected = pickRandomCards(allCards, visibleCount);
+    const selected = pickWeightedCards(allCards, visibleCount);
 
     allCards.forEach((card) => {
       if (!selected.includes(card)) card.remove();
