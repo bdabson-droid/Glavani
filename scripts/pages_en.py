@@ -83,7 +83,7 @@ PAGES = [
             {
                 "h2": "Planning Your Istria Itinerary with Glavani Park",
                 "paragraphs": [
-                    "<p>A well-balanced Istria itinerary might look like this: Day one — explore Pula's Roman heritage and swim at Kamenjak. Day two — Rovinj old town and a sunset dinner on the harbour. Day three — truffle experience or wine tasting inland, then Glavani Park for <a href=\"/en/family-activities-istria/\">family activities</a> and ziplines. Day four — Brijuni boat trip or a lazy beach day before departure.</p>",
+                    "<p>A well-balanced Istria itinerary might look like this: Day one — explore Pula's Roman heritage and swim at Kamenjak. Day two — Rovinj old town and a sunset dinner on the harbour. Day three — truffle experience or wine tasting inland, then Glavani Park for <a href=\"/en/adventure-park-croatia/\">family activities</a> and ziplines. Day four — Brijuni boat trip or a lazy beach day before departure.</p>",
                     "<p>Glavani Park welcomes walk-in visitors but recommends calling ahead for groups, weekends, and peak season. The park is open daily from 9 AM to 5 PM with last entry at 3 PM — allow three to four hours to enjoy the main attractions comfortably. English-speaking staff are on hand throughout the season, and the park is listed by the Istria Tourist Board as one of the region's recommended outdoor attractions.</p>",
                     "<p>Whether your priority is culture, cuisine, coastline, or adrenaline, Istria delivers — and Glavani Park adds an unforgettable active dimension to any trip. Browse our dedicated guides on <a href=\"/en/zipline-croatia/\">ziplines in Croatia</a>, <a href=\"/en/adventure-park-croatia/\">adventure parks</a>, and <a href=\"/en/things-to-do-near-pula/\">day trips from Pula</a> to plan the perfect visit.</p>",
                 ],
@@ -108,7 +108,7 @@ PAGES = [
             },
         ],
         "related": [
-            {"slug": "family-activities-istria", "title": "Family Activities in Istria", "desc": "Outdoor adventures for all ages near Pula and Rovinj"},
+            {"slug": "adventure-park-croatia", "title": "Our Activities", "desc": "Six signature attractions at Glavani Park"},
             {"slug": "things-to-do-near-pula", "title": "Things to Do Near Pula", "desc": "Day trips and outdoor activities within 30 minutes of Pula"},
             {"slug": "adventure-park-croatia", "title": "Adventure Parks in Croatia", "desc": "Why Glavani Park is a top-rated adrenaline destination"},
             {"slug": "zipline-croatia", "title": "Zipline Croatia Guide", "desc": "120-metre treetop flights at Glavani Park Istria"},
@@ -254,7 +254,7 @@ PAGES = [
                 "h2": "Why Choose Glavani Park for Your Zipline Croatia Experience",
                 "paragraphs": [
                     "<p>Several factors distinguish Glavani Park from smaller or seasonal zipline operators elsewhere in Croatia. The park's scale — 1.5 hectares with multiple attractions beyond ziplines — means a full day of activity rather than a five-minute ride. The bilingual instructor team, including English-speaking guides, welcomes international visitors throughout the season. Equipment is inspected daily, and the park is recommended by the Istria Tourist Board.</p>",
-                    "<p>Whether you are a family introducing teens to aerial adventure, a couple seeking an active date away from the beach, or a corporate group building confidence through shared challenges, the ziplines at Glavani Park deliver a memorable highlight. Explore related pages on <a href=\"/en/adventure-park-croatia/\">adventure parks in Croatia</a>, <a href=\"/en/family-activities-istria/\">family activities in Istria</a>, and <a href=\"/en/safety/\">safety procedures</a> to plan your visit with confidence.</p>",
+                    "<p>Whether you are a family introducing teens to aerial adventure, a couple seeking an active date away from the beach, or a corporate group building confidence through shared challenges, the ziplines at Glavani Park deliver a memorable highlight. Explore related pages on <a href=\"/en/adventure-park-croatia/\">adventure parks in Croatia</a>, <a href=\"/en/adventure-park-croatia/\">family activities in Istria</a>, and <a href=\"/en/safety/\">safety procedures</a> to plan your visit with confidence.</p>",
                 ],
             },
         ],
@@ -278,7 +278,7 @@ PAGES = [
         ],
         "related": [
             {"slug": "adventure-park-croatia", "title": "Adventure Parks in Croatia", "desc": "Full attraction overview at Glavani Park Istria"},
-            {"slug": "family-activities-istria", "title": "Family Activities Istria", "desc": "Ziplines and high ropes for all ages"},
+            {"slug": "adventure-park-croatia", "title": "Our Activities", "desc": "Ziplines and high ropes for all ages"},
             {"slug": "things-to-do-near-pula", "title": "Things to Do Near Pula", "desc": "Zipline day trip from Pula in 30 minutes"},
             {"slug": "safety", "title": "Safety & Equipment", "desc": "Harness standards and daily inspections"},
         ],
@@ -421,7 +421,7 @@ PAGES = [
             {
                 "h2": "Book Your Istria Birthday Party",
                 "paragraphs": [
-                    "<p>Glavani Park combines the thrill of Croatia's best adventure attractions with the practical needs of a celebration — space, shade, parking, and professional supervision. Read about <a href=\"/en/family-activities-istria/\">family activities</a>, <a href=\"/en/safety/\">safety standards</a>, and <a href=\"/en/things-to-do-near-pula/\">getting here from Pula</a>, then call <a href=\"tel:+385918964525\">+385 91 896 4525</a> to reserve your date.</p>",
+                    "<p>Glavani Park combines the thrill of Croatia's best adventure attractions with the practical needs of a celebration — space, shade, parking, and professional supervision. Read about <a href=\"/en/adventure-park-croatia/\">family activities</a>, <a href=\"/en/safety/\">safety standards</a>, and <a href=\"/en/things-to-do-near-pula/\">getting here from Pula</a>, then call <a href=\"tel:+385918964525\">+385 91 896 4525</a> to reserve your date.</p>",
                     "<p>Give your child a birthday they will remember every time they pass a forest canopy — and give yourself the peace of mind that comes with CE-certified equipment, daily inspections, and an English-speaking instructor team trusted by thousands of Istria visitors each season.</p>",
                 ],
             },
@@ -445,7 +445,7 @@ PAGES = [
             },
         ],
         "related": [
-            {"slug": "family-activities-istria", "title": "Family Activities Istria", "desc": "Routes and attractions for every age"},
+            {"slug": "adventure-park-croatia", "title": "Our Activities", "desc": "Routes and attractions for every age"},
             {"slug": "school-trips-istria", "title": "School Trips Istria", "desc": "Group visits for classes and youth clubs"},
             {"slug": "team-building-istria", "title": "Team Building Istria", "desc": "Corporate and large group packages"},
             {"slug": "things-to-do-near-pula", "title": "Things to Do Near Pula", "desc": "Combine a party with a Pula area holiday"},
@@ -532,7 +532,7 @@ PAGES = [
         "related": [
             {"slug": "team-building-istria", "title": "Team Building Istria", "desc": "Corporate and sports group programmes"},
             {"slug": "birthday-parties-istria", "title": "Birthday Parties Istria", "desc": "Youth celebration packages"},
-            {"slug": "family-activities-istria", "title": "Family Activities Istria", "desc": "Age-appropriate routes and attractions"},
+            {"slug": "adventure-park-croatia", "title": "Our Activities", "desc": "Age-appropriate routes and attractions"},
             {"slug": "safety", "title": "Safety & Equipment", "desc": "Standards for supervised student visits"},
         ],
     },
@@ -589,7 +589,7 @@ PAGES = [
                 "h2": "Getting from Pula to Glavani Park",
                 "paragraphs": [
                     "<p>From Pula, take the road toward Labin and turn at Manjadvorci toward Glavani. Continue left on the local road for 300 metres to the park entrance. Signage and GPS (45°1′17″ N, 13°57′4″ E) make navigation straightforward for rental-car visitors. No 4x4 or special vehicle is required.</p>",
-                    "<p>Public transport options are limited; a rental car or organised excursion is the practical choice. Taxi and private transfer services from Pula can be arranged — provide the address Glavani 10, Barban, when booking. For detailed attraction information, visit <a href=\"/en/zipline-croatia/\">zipline Croatia</a>, <a href=\"/en/family-activities-istria/\">family activities</a>, and <a href=\"/en/adventure-park-croatia/\">adventure park</a> pages before you travel.</p>",
+                    "<p>Public transport options are limited; a rental car or organised excursion is the practical choice. Taxi and private transfer services from Pula can be arranged — provide the address Glavani 10, Barban, when booking. For detailed attraction information, visit <a href=\"/en/zipline-croatia/\">zipline Croatia</a>, <a href=\"/en/adventure-park-croatia/\">family activities</a>, and <a href=\"/en/adventure-park-croatia/\">adventure park</a> pages before you travel.</p>",
                     "<p>Repeat visitors from Pula often discover that inland adventure balances a beach-heavy holiday: after two or three days of swimming at Stinjan or Verudela, a forest zipline morning restores energy and gives teenagers a story to tell back at school. Glavani Park's shaded oak canopy also offers welcome relief when the coastal pavement radiates midday heat in July and August.</p>",
                 ],
             },
@@ -614,7 +614,7 @@ PAGES = [
         ],
         "related": [
             {"slug": "things-to-do-in-istria", "title": "Things to Do in Istria", "desc": "Full peninsula destination guide"},
-            {"slug": "family-activities-istria", "title": "Family Activities Istria", "desc": "Kid-friendly routes near Pula"},
+            {"slug": "adventure-park-croatia", "title": "Our Activities", "desc": "Kid-friendly routes near Pula"},
             {"slug": "zipline-croatia", "title": "Zipline Croatia", "desc": "120-metre treetop flights from Pula base"},
             {"slug": "adventure-park-croatia", "title": "Adventure Parks in Croatia", "desc": "Why Glavani Park leads the region"},
         ],
@@ -675,7 +675,7 @@ PAGES = [
             {
                 "h2": "Plan Your Visit to Croatia's Premier Istrian Adventure Park",
                 "paragraphs": [
-                    "<p>Whether you are comparing adventure parks nationally or already booked accommodation in Istria, Glavani Park deserves a slot in your itinerary. Review <a href=\"/en/safety/\">safety certifications and procedures</a>, check <a href=\"/en/family-activities-istria/\">family activity guidance</a>, and call ahead to confirm availability during your travel dates.</p>",
+                    "<p>Whether you are comparing adventure parks nationally or already booked accommodation in Istria, Glavani Park deserves a slot in your itinerary. Review <a href=\"/en/safety/\">safety certifications and procedures</a>, check <a href=\"/en/adventure-park-croatia/\">family activity guidance</a>, and call ahead to confirm availability during your travel dates.</p>",
                     "<p>Address: Glavani 10, 52207 Barban, Istria, Croatia. Phone: +385 91 896 4525 (English). Arrive before midday for the fullest experience; allow three to four hours minimum. Croatia's Adriatic may draw you to the coast — but Istria's forest canopy at Glavani Park delivers the adrenaline highlight you will remember longest.</p>",
                     "<p>Visitor reviews consistently cite the professionalism of instructors and the variety of attractions as reasons to choose Glavani Park over smaller ropes installations elsewhere in the country. If you are researching <a href=\"/en/safety/\">safety standards</a> before committing, you will find transparent information on CE-certified equipment, daily inspections, and continuous belay systems — the same details that earn recommendations from the Istria Tourist Board and returning family guests each season.</p>",
                 ],
@@ -702,7 +702,7 @@ PAGES = [
         "related": [
             {"slug": "zipline-croatia", "title": "Zipline Croatia", "desc": "120-metre flights and course-integrated lines"},
             {"slug": "things-to-do-in-istria", "title": "Things to Do in Istria", "desc": "Plan adventure within a full Istria trip"},
-            {"slug": "family-activities-istria", "title": "Family Activities Istria", "desc": "Routes for children, teens, and parents"},
+            {"slug": "adventure-park-croatia", "title": "Our Activities", "desc": "Routes for children, teens, and parents"},
             {"slug": "safety", "title": "Safety & Equipment", "desc": "CE-certified gear and daily checks"},
         ],
     },
@@ -787,7 +787,7 @@ PAGES = [
         ],
         "related": [
             {"slug": "adventure-park-croatia", "title": "Adventure Parks in Croatia", "desc": "Full attraction overview at Glavani Park"},
-            {"slug": "family-activities-istria", "title": "Family Activities Istria", "desc": "Age guidance and yellow route for children"},
+            {"slug": "adventure-park-croatia", "title": "Our Activities", "desc": "Age guidance and yellow route for children"},
             {"slug": "zipline-croatia", "title": "Zipline Croatia", "desc": "Zipline-specific safety and briefing info"},
             {"slug": "school-trips-istria", "title": "School Trips Istria", "desc": "Supervision standards for student groups"},
         ],
@@ -841,7 +841,7 @@ PAGES = [
                 "h2": "What to Tell Your Guests",
                 "paragraphs": [
                     "<p>Key facts partners share consistently: Glavani Park is one of Croatia's largest adrenaline parks with three high-ropes levels, 120-metre zipline, 12.5-metre swing, Human Catapult, Quick Jump, and climbing wall. Address: Glavani 10, 52207 Barban. Free parking. Open daily 9–5, last entry 3 PM. Booking phone: +385 91 896 4525 (English).</p>",
-                    "<p>Direct guests to our activity pages for depth: <a href=\"/en/family-activities-istria/\">family activities</a>, <a href=\"/en/zipline-croatia/\">zipline guide</a>, <a href=\"/en/team-building-istria/\">team building</a>, and <a href=\"/en/things-to-do-near-pula/\">day trips from Pula</a>. Emphasise calling ahead in peak season — partners who set that expectation reduce guest disappointment and strengthen trust in your recommendation.</p>",
+                    "<p>Direct guests to our activity pages for depth: <a href=\"/en/adventure-park-croatia/\">family activities</a>, <a href=\"/en/zipline-croatia/\">zipline guide</a>, <a href=\"/en/team-building-istria/\">team building</a>, and <a href=\"/en/things-to-do-near-pula/\">day trips from Pula</a>. Emphasise calling ahead in peak season — partners who set that expectation reduce guest disappointment and strengthen trust in your recommendation.</p>",
                 ],
             },
             {
@@ -875,7 +875,7 @@ PAGES = [
         "related": [
             {"slug": "link-to-us", "title": "Link to Us", "desc": "Embed codes and anchor text for backlinks"},
             {"slug": "things-to-do-in-istria", "title": "Things to Do in Istria", "desc": "Destination content for your guests"},
-            {"slug": "family-activities-istria", "title": "Family Activities Istria", "desc": "Family-focused page for campsite audiences"},
+            {"slug": "adventure-park-croatia", "title": "Our Activities", "desc": "Family-focused page for campsite audiences"},
             {"slug": "adventure-park-croatia", "title": "Adventure Parks in Croatia", "desc": "Overview for travel media and agencies"},
         ],
     },
@@ -912,7 +912,7 @@ PAGES = [
                     "<p>Use these primary URLs when linking to Glavani Park content:</p>",
                     "<p><strong>Homepage (English):</strong> <code>https://www.glavanipark.com/en/</code></p>",
                     "<p><strong>Things to Do in Istria:</strong> <code>https://www.glavanipark.com/en/things-to-do-in-istria/</code></p>",
-                    "<p><strong>Family Activities Istria:</strong> <code>https://www.glavanipark.com/en/family-activities-istria/</code></p>",
+                    "<p><strong>Our Activities:</strong> <code>https://www.glavanipark.com/en/adventure-park-croatia/</code></p>",
                     "<p><strong>Zipline Croatia:</strong> <code>https://www.glavanipark.com/en/zipline-croatia/</code></p>",
                     "<p><strong>Team Building Istria:</strong> <code>https://www.glavanipark.com/en/team-building-istria/</code></p>",
                     "<p><strong>Things to Do Near Pula:</strong> <code>https://www.glavanipark.com/en/things-to-do-near-pula/</code></p>",
@@ -925,7 +925,7 @@ PAGES = [
                 "h2": "Suggested Anchor Text",
                 "paragraphs": [
                     "<p>Varied, natural anchor text helps search engines and readers alike. Approved examples you may use:</p>",
-                    "<p>• <strong>Glavani Park</strong> — brand link to homepage<br>• <strong>adventure park in Istria</strong> — homepage or adventure-park-croatia page<br>• <strong>zipline near Pula</strong> — zipline-croatia or things-to-do-near-pula<br>• <strong>family activities in Istria</strong> — family-activities-istria<br>• <strong>things to do in Istria with kids</strong> — family-activities-istria or things-to-do-in-istria<br>• <strong>team building Istria</strong> — team-building-istria<br>• <strong>birthday party venue Istria</strong> — birthday-parties-istria<br>• <strong>school trip adventure Croatia</strong> — school-trips-istria<br>• <strong>outdoor activities near Barban and Vodnjan</strong> — homepage or things-to-do-near-pula</p>",
+                    "<p>• <strong>Glavani Park</strong> — brand link to homepage<br>• <strong>adventure park in Istria</strong> — homepage or adventure-park-croatia page<br>• <strong>zipline near Pula</strong> — zipline-croatia or things-to-do-near-pula<br>• <strong>family activities in Istria</strong> — adventure-park-croatia<br>• <strong>things to do in Istria with kids</strong> — adventure-park-croatia or things-to-do-in-istria<br>• <strong>team building Istria</strong> — team-building-istria<br>• <strong>birthday party venue Istria</strong> — birthday-parties-istria<br>• <strong>school trip adventure Croatia</strong> — school-trips-istria<br>• <strong>outdoor activities near Barban and Vodnjan</strong> — homepage or things-to-do-near-pula</p>",
                     "<p>Avoid over-optimised repetition of identical anchor text across dozens of pages. One contextual link per article is usually sufficient.</p>",
                 ],
             },
@@ -937,7 +937,7 @@ PAGES = [
                     "<p><strong>Text link to zipline page:</strong></p>",
                     "<p><code>&lt;a href=\"https://www.glavanipark.com/en/zipline-croatia/\" title=\"Zipline Croatia at Glavani Park Istria\"&gt;120-metre zipline at Glavani Park Istria&lt;/a&gt;</code></p>",
                     "<p><strong>Text link to family activities:</strong></p>",
-                    "<p><code>&lt;a href=\"https://www.glavanipark.com/en/family-activities-istria/\" title=\"Family activities Istria\"&gt;Family activities and high ropes near Pula&lt;/a&gt;</code></p>",
+                    "<p><code>&lt;a href=\"https://www.glavanipark.com/en/adventure-park-croatia/\" title=\"Family activities Istria\"&gt;Family activities and high ropes near Pula&lt;/a&gt;</code></p>",
                     "<p><strong>Image link with alt text (replace image URL with your hosted copy or request assets via <a href=\"/en/partners/\">partner programme</a>):</strong></p>",
                     "<p><code>&lt;a href=\"https://www.glavanipark.com/en/\"&gt;&lt;img src=\"https://www.glavanipark.com/images/glavani-park-adventure-istria-croatia.jpg\" alt=\"Glavani Park adventure and adrenaline park in Istria, Croatia\" width=\"600\" height=\"400\" loading=\"lazy\"&gt;&lt;/a&gt;</code></p>",
                     "<p><strong>Short recommendation box (copy into HTML view):</strong></p>",
@@ -969,7 +969,7 @@ PAGES = [
             },
             {
                 "q": "Which page should I link for family travel content?",
-                "a": "Use https://www.glavanipark.com/en/family-activities-istria/ with anchor text such as 'family activities in Istria' or 'things to do near Pula with kids'.",
+                "a": "Use https://www.glavanipark.com/en/adventure-park-croatia/ with anchor text such as 'family activities in Istria' or 'things to do near Pula with kids'.",
             },
             {
                 "q": "Can I translate your link text into German or Italian?",

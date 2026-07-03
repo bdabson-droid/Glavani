@@ -26,14 +26,6 @@
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/sto-raditi-u-istri/"/>
   </url>
   <url>
-    <loc>https://www.glavanipark.com/en/family-activities-istria/</loc>
-    <lastmod>2026-07-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/family-activities-istria/"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/obiteljske-aktivnosti-istri/"/>
-  </url>
-  <url>
     <loc>https://www.glavanipark.com/en/zipline-croatia/</loc>
     <lastmod>2026-07-03</lastmod>
     <changefreq>monthly</changefreq>
@@ -74,14 +66,6 @@
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/sto-raditi-kod-pule/"/>
   </url>
   <url>
-    <loc>https://www.glavanipark.com/en/adventure-park-croatia/</loc>
-    <lastmod>2026-07-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/adventure-park-croatia/"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/avanturisticki-park-hrvatska/"/>
-  </url>
-  <url>
     <loc>https://www.glavanipark.com/en/safety/</loc>
     <lastmod>2026-07-03</lastmod>
     <changefreq>monthly</changefreq>
@@ -104,6 +88,14 @@
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/link-to-us/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/link-na-nas/"/>
+  </url>
+  <url>
+    <loc>https://www.glavanipark.com/en/adventure-park-croatia/</loc>
+    <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/adventure-park-croatia/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/avanturisticki-park-hrvatska/"/>
   </url>
   <url>
     <loc>https://www.glavanipark.com/en/human-catapult/</loc>
@@ -178,14 +170,6 @@
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/sto-raditi-u-istri/"/>
   </url>
   <url>
-    <loc>https://www.glavanipark.com/hr/obiteljske-aktivnosti-istri/</loc>
-    <lastmod>2026-07-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/hr/obiteljske-aktivnosti-istri/"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/obiteljske-aktivnosti-istri/"/>
-  </url>
-  <url>
     <loc>https://www.glavanipark.com/hr/zipline-hrvatska/</loc>
     <lastmod>2026-07-03</lastmod>
     <changefreq>monthly</changefreq>
@@ -226,14 +210,6 @@
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/sto-raditi-kod-pule/"/>
   </url>
   <url>
-    <loc>https://www.glavanipark.com/hr/avanturisticki-park-hrvatska/</loc>
-    <lastmod>2026-07-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/hr/avanturisticki-park-hrvatska/"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/avanturisticki-park-hrvatska/"/>
-  </url>
-  <url>
     <loc>https://www.glavanipark.com/hr/sigurnost/</loc>
     <lastmod>2026-07-03</lastmod>
     <changefreq>monthly</changefreq>
@@ -256,5 +232,13 @@
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/hr/link-na-nas/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/link-na-nas/"/>
+  </url>
+  <url>
+    <loc>https://www.glavanipark.com/hr/avanturisticki-park-hrvatska/</loc>
+    <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/hr/avanturisticki-park-hrvatska/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/avanturisticki-park-hrvatska/"/>
   </url>
 </urlset>

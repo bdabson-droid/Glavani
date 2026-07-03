@@ -172,8 +172,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
     other_label = "English" if lang == "hr" else "Hrvatski"
     if lang == "hr":
         links = [
-            ("Aktivnosti", f"{prefix}#activities" if is_home else f"{prefix}avanturisticki-park-hrvatska/"),
-            ("Obitelj", f"{prefix}obiteljske-aktivnosti-istri/"),
+            ("Aktivnosti", f"{prefix}#activities" if is_home else activities_hub_path(lang)),
             ("Grupe", f"{prefix}team-building-istri/"),
             ("Cijene", f"{prefix}rezervacija/"),
             ("Lokacija", f"{prefix}#location" if is_home else f"{prefix}sto-raditi-kod-pule/"),
@@ -181,8 +180,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
         ]
     else:
         links = [
-            ("Activities", f"{prefix}#activities" if is_home else f"{prefix}adventure-park-croatia/"),
-            ("Family", f"{prefix}family-activities-istria/"),
+            ("Activities", f"{prefix}#activities" if is_home else activities_hub_path(lang)),
             ("Groups", f"{prefix}team-building-istria/"),
             ("Prices", f"{prefix}book/"),
             ("Location", f"{prefix}#location" if is_home else f"{prefix}things-to-do-near-pula/"),
@@ -428,13 +426,74 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
     return body
 
 
+SKIP_LANDING_SLUGS = {
+    "en": {"family-activities-istria", "adventure-park-croatia"},
+    "hr": {"obiteljske-aktivnosti-istri", "avanturisticki-park-hrvatska"},
+}
+
+ACTIVITIES_HUB_SLUGS = {"en": "adventure-park-croatia", "hr": "avanturisticki-park-hrvatska"}
+
+ACTIVITIES_HUB_COPY = {
+    "en": {
+        "title": "Our Activities | Glavani Park Istria",
+        "meta_description": (
+            "Explore all six Glavani Park attractions — Human Catapult, High Swing, 20m Drop, "
+            "ziplines, and climbing wall. Open daily 9 AM–5 PM near Pula."
+        ),
+        "keywords": "Glavani Park activities, adventure park Istria, human catapult, zipline Croatia, high swing",
+        "h1": "Our Activities",
+        "lead": "Six signature attractions — tap for details",
+    },
+    "hr": {
+        "title": "Naše aktivnosti | Glavani Park Istria",
+        "meta_description": (
+            "Istražite svih šest atrakcija Glavani Parka — ljudska katapulta, visoka ljuljačka, "
+            "pad s 20 m, zipline i penjački zid. Otvoreno 9–17 h kod Pule."
+        ),
+        "keywords": "Glavani Park aktivnosti, avanturistički park Istria, ljudska katapulta, zipline Hrvatska",
+        "h1": "Naše aktivnosti",
+        "lead": "Šest glavnih atrakcija — dodirnite za detalje",
+    },
+}
+
+ACTIVITY_ICONS = {
+    "catapult": "🚀",
+    "swing": "🎢",
+    "drop": "⬇️",
+    "zipline-valley": "🪂",
+    "zipline-low": "🌲",
+    "climbing": "🧗",
+}
+
+
+def activities_hub_slug(lang: str) -> str:
+    return ACTIVITIES_HUB_SLUGS[lang]
+
+
+def activities_hub_path(lang: str) -> str:
+    return f"/{lang}/{activities_hub_slug(lang)}/"
+
+
+def render_activity_hub_grid(lang: str, *, compact: bool = False) -> str:
+    prefix = f"/{lang}/"
+    cards = []
+    for act in ACTIVITIES:
+        slug = act["hr_slug"] if lang == "hr" else act["en_slug"]
+        label = act["hr"]["h1"] if lang == "hr" else act["en"]["h1"]
+        mod = act["tile_mod"]
+        icon = ACTIVITY_ICONS.get(mod, "🌲")
+        cards.append(
+            f'<a class="hub-card hub-card--{mod}" href="{prefix}{slug}/">'
+            f'<span class="hub-card__icon" aria-hidden="true">{icon}</span>'
+            f'<h3>{label}</h3></a>'
+        )
+    grid_class = "hub-grid activity-showcase--compact" if compact else "hub-grid"
+    return f'<div class="{grid_class}">{"".join(cards)}</div>'
+
+
 def render_activity_siblings(current_en_slug: str, lang: str) -> str:
     prefix = f"/{lang}/"
     heading = "Ostale aktivnosti" if lang == "hr" else "More Activities"
-    icons = {
-        "catapult": "🚀", "swing": "🎢", "drop": "⬇️",
-        "zipline-valley": "🪂", "zipline-low": "🌲", "climbing": "🧗",
-    }
     cards = []
     for act in ACTIVITIES:
         if act["en_slug"] == current_en_slug:
@@ -442,7 +501,7 @@ def render_activity_siblings(current_en_slug: str, lang: str) -> str:
         slug = act["hr_slug"] if lang == "hr" else act["en_slug"]
         label = act["hr"]["h1"] if lang == "hr" else act["en"]["h1"]
         mod = act["tile_mod"]
-        icon = icons.get(mod, "🌲")
+        icon = ACTIVITY_ICONS.get(mod, "🌲")
         cards.append(
             f'<a class="hub-card hub-card--{mod}" href="{prefix}{slug}/">'
             f'<span class="hub-card__icon" aria-hidden="true">{icon}</span>'
@@ -455,6 +514,47 @@ def render_activity_siblings(current_en_slug: str, lang: str) -> str:
         <div class="hub-grid activity-showcase--compact">{''.join(cards)}</div>
       </div>
     </section>"""
+
+
+def render_activities_hub_page(lang: str) -> str:
+    copy = ACTIVITIES_HUB_COPY[lang]
+    en_slug = ACTIVITIES_HUB_SLUGS["en"]
+    hr_slug = ACTIVITIES_HUB_SLUGS["hr"]
+    slug = activities_hub_slug(lang)
+    prefix = f"/{lang}/"
+    canonical = f"{BASE}{prefix}{slug}/"
+    home_label = "Početna" if lang == "hr" else "Home"
+    book_href = f"{prefix}rezervacija/" if lang == "hr" else f"{prefix}book/"
+    book_label = "Rezervirajte posjet" if lang == "hr" else "Book Your Visit"
+
+    return f"""{head_meta(lang, copy['title'], copy['meta_description'], copy['keywords'], canonical, en_slug, hr_slug)}
+{quick_actions(lang)}
+{site_header(lang)}
+{site_nav(lang)}
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="{prefix}">{home_label}</a></li>
+      <li>{copy['h1']}</li>
+    </ol>
+  </nav>
+<main>
+  <section class="section section--theme-adrenaline" id="activities" aria-labelledby="activities-heading">
+    <div class="section__inner">
+      <div class="section__heading">
+        <h1 id="activities-heading">{copy['h1']}</h1>
+        <p>{copy['lead']}</p>
+      </div>
+      {render_activity_hub_grid(lang)}
+      <p style="margin-top:1.5rem;text-align:center;">
+        <a class="btn-primary" href="{book_href}">{book_label}</a>
+      </p>
+    </div>
+  </section>
+</main>
+{footer(lang)}
+{breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (copy['h1'], None)])}
+</body>
+</html>"""
 
 
 def render_activity_page(activity: dict, lang: str) -> str:
@@ -471,6 +571,9 @@ def render_activity_page(activity: dict, lang: str) -> str:
     cta = "Pozovite za rezervaciju" if lang == "hr" else "Call to Book"
     img = activity["image"]
 
+    activities_href = activities_hub_path(lang)
+    activities_url = f"{BASE}{activities_href}"
+
     prose = "".join(f"<p>{p}</p>" for p in data["paragraphs"])
 
     return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=img)}
@@ -480,7 +583,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <ol>
       <li><a href="{prefix}">{home_label}</a></li>
-      <li><a href="{prefix}#activities">{activities_label}</a></li>
+      <li><a href="{activities_href}">{activities_label}</a></li>
       <li>{data['h1']}</li>
     </ol>
   </nav>
@@ -520,7 +623,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
 {footer(lang)}
 {breadcrumb_schema([
     (home_label, f"{BASE}{prefix}"),
-    (activities_label, f"{BASE}{prefix}#activities"),
+    (activities_label, activities_url),
     (data['h1'], None),
 ])}
 </body>
@@ -709,9 +812,16 @@ def main() -> None:
     sitemap_urls = [(f"{BASE}/en/", "weekly"), (f"{BASE}/en/book/", "weekly")]
     for page in PAGES_EN:
         slug = page["slug"]
+        if slug in SKIP_LANDING_SLUGS["en"]:
+            continue
         hr_slug = EN_TO_HR.get(slug, slug)
         write_file(ROOT / "en" / slug / "index.html", render_landing(page, "en", slug, hr_slug))
         sitemap_urls.append((f"{BASE}/en/{slug}/", "monthly"))
+    write_file(
+        ROOT / "en" / activities_hub_slug("en") / "index.html",
+        render_activities_hub_page("en"),
+    )
+    sitemap_urls.append((f"{BASE}/en/{activities_hub_slug('en')}/", "monthly"))
     for activity in ACTIVITIES:
         slug = activity["en_slug"]
         hr_slug = activity["hr_slug"]
@@ -725,9 +835,16 @@ def main() -> None:
     sitemap_urls.append((f"{BASE}/hr/rezervacija/", "weekly"))
     for page in PAGES_HR:
         slug = page["slug"]
+        if slug in SKIP_LANDING_SLUGS["hr"]:
+            continue
         en_slug = SLUG_MAP.get(slug, slug)
         write_file(ROOT / "hr" / slug / "index.html", render_landing(page, "hr", en_slug, slug))
         sitemap_urls.append((f"{BASE}/hr/{slug}/", "monthly"))
+    write_file(
+        ROOT / "hr" / activities_hub_slug("hr") / "index.html",
+        render_activities_hub_page("hr"),
+    )
+    sitemap_urls.append((f"{BASE}/hr/{activities_hub_slug('hr')}/", "monthly"))
     for activity in ACTIVITIES:
         slug = activity["hr_slug"]
         write_file(ROOT / "hr" / slug / "index.html", render_activity_page(activity, "hr"))
