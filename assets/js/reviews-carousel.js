@@ -1,12 +1,33 @@
 /**
- * Horizontal reviews carousel — scroll left/right with buttons and keyboard.
+ * Horizontal reviews carousel — shuffle on each visit, scroll left/right.
  */
 (function () {
+  function shuffleCards(track) {
+    const cards = Array.from(track.querySelectorAll('.review-card'));
+    for (let i = cards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [cards[i], cards[j]] = [cards[j], cards[i]];
+    }
+    cards.forEach((card) => track.appendChild(card));
+    return cards;
+  }
+
+  function scrollToCard(track, card) {
+    if (!card) return;
+    const trackRect = track.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    track.scrollLeft += cardRect.left - trackRect.left;
+  }
+
   document.querySelectorAll('[data-reviews-carousel]').forEach((root) => {
     const track = root.querySelector('[data-reviews-track]');
     const prev = root.querySelector('[data-reviews-prev]');
     const next = root.querySelector('[data-reviews-next]');
     if (!track || !prev || !next) return;
+
+    const cards = shuffleCards(track);
+    const start = cards[Math.floor(Math.random() * cards.length)];
+    scrollToCard(track, start);
 
     function scrollStep() {
       const card = track.querySelector('.review-card');
