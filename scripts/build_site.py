@@ -84,14 +84,17 @@ def apply_path_prefix() -> None:
     if not PATH_PREFIX:
         return
     import re
+    prefix = PATH_PREFIX
     for html_file in ROOT.rglob("*.html"):
         if "scripts" in html_file.parts:
             continue
         text = html_file.read_text(encoding="utf-8")
-        text = re.sub(r'(href|src|content="0; url=)="/', rf'\1="{PATH_PREFIX}/', text)
-        text = text.replace(f"location.replace('/", f"location.replace('{PATH_PREFIX}/")
+        if prefix in text:
+            text = text.replace(f"{prefix}{prefix}", prefix)
+        text = re.sub(r'(href|src|content="0; url=)="/', rf'\1="{prefix}/', text)
+        text = text.replace(f"location.replace('/", f"location.replace('{prefix}/")
         html_file.write_text(text, encoding="utf-8")
-    print(f"  applied PATH_PREFIX={PATH_PREFIX}")
+    print(f"  applied PATH_PREFIX={prefix}")
 
 
 def quick_actions(lang: str) -> str:
@@ -228,7 +231,7 @@ def head_meta(
   <meta property="og:locale:alternate" content="{alt_locale}">
   <meta property="og:site_name" content="Glavani Park">
   <meta property="og:image" content="{BASE}/images/{og_image}">
-  <link rel="stylesheet" href="{u('/assets/css/site.css')}">
+  <link rel="stylesheet" href="/assets/css/site.css">
 </head>
 <body>"""
 
