@@ -1,15 +1,17 @@
 /**
- * Horizontal reviews carousel — shuffle on each visit, scroll left/right.
+ * Reviews carousel — pick a random subset on each visit, shuffle, scroll left/right.
  */
 (function () {
-  function shuffleCards(track) {
-    const cards = Array.from(track.querySelectorAll('.review-card'));
-    for (let i = cards.length - 1; i > 0; i--) {
+  function shuffle(items) {
+    for (let i = items.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [cards[i], cards[j]] = [cards[j], cards[i]];
+      [items[i], items[j]] = [items[j], items[i]];
     }
-    cards.forEach((card) => track.appendChild(card));
-    return cards;
+    return items;
+  }
+
+  function pickRandomCards(cards, count) {
+    return shuffle([...cards]).slice(0, Math.min(count, cards.length));
   }
 
   function scrollToCard(track, card) {
@@ -25,9 +27,16 @@
     const next = root.querySelector('[data-reviews-next]');
     if (!track || !prev || !next) return;
 
-    const cards = shuffleCards(track);
-    const start = cards[Math.floor(Math.random() * cards.length)];
-    scrollToCard(track, start);
+    const visibleCount = parseInt(root.dataset.reviewsVisible || '12', 10);
+    const allCards = Array.from(track.querySelectorAll('.review-card'));
+    const selected = pickRandomCards(allCards, visibleCount);
+
+    allCards.forEach((card) => {
+      if (!selected.includes(card)) card.remove();
+    });
+
+    shuffle(selected).forEach((card) => track.appendChild(card));
+    scrollToCard(track, selected[0]);
 
     function scrollStep() {
       const card = track.querySelector('.review-card');

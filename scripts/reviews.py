@@ -2,8 +2,9 @@
 
 GOOGLE_REVIEWS_URL = "https://www.google.com/maps/search/?api=1&query=Glavani+Park+Barban"
 TRIPADVISOR_URL = "https://www.tripadvisor.com/Search?q=Glavani+Park+Barban"
+CAROUSEL_VISIBLE = 12
 
-# Authors and quotes from published TripAdvisor reviews (via Tripadvisor / Peek aggregation).
+# Pool of published TripAdvisor reviews — carousel shows 12 at random per visit.
 REVIEWS = [
     {
         "source": "tripadvisor",
@@ -77,6 +78,84 @@ REVIEWS = [
         "en": "This was an amazing experience! The crew is amazing and the activities are great. Good stuff to do — thanks guys.",
         "hr": "Ovo je bilo nevjerojatno iskustvo! Ekipa je super, a aktivnosti su odlične. Ima puno toga za raditi — hvala ekipi.",
     },
+    {
+        "source": "tripadvisor",
+        "author": "Béatrice & family",
+        "en": "Best adventure park and greatest experience with the catapult — don't miss it! Nigel and his whole team are so professional and welcoming. We come back year after year and love sharing Glavani Park with friends.",
+        "hr": "Najbolji avanturistički park i najbolje iskustvo s katapultom — ne propustite! Nigel i cijeli tim su profesionalni i gostoljubivi. Vraćamo se iz godine u godinu i rado preporučujemo park prijateljima.",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Sandra",
+        "en": "Staff on site were super nice, helpful and always on hand. The 12 m swing, 120 m zipline at 30 m height and 20 m free fall — several attractions make the park a real experience.",
+        "hr": "Osoblje je bilo super, korisno i uvijek dostupno. Ljuljačka od 12 m, zipline od 120 m na 30 m visine i slobodan pad s 20 m — nekoliko atrakcija čini pravo iskustvo.",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Renate V.",
+        "en": "Staff are really patient and friendly — also very helpful if things don't work out. The children dared even more this time. When we are in the area again, we will definitely come back!",
+        "hr": "Osoblje je stvarno strpljivo i ljubazno — vrlo korisno kad nešto ne uspije odmah. Djeca su se ovaj put usuđivala još više. Kad budemo opet u okolici, sigurno se vraćamo!",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Margot K.",
+        "en": "We expected crowds but were one of the few families — very nice. Routes from 2 m up to 6 and 9 m. If you come back within a week, you don't pay again for attractions you already did.",
+        "hr": "Očekivali smo gužvu, ali bili smo jedna od rijetkih obitelji — jako lijepo. Staze od 2 m do 6 i 9 m. Ako se vratite unutar tjedna, ne plaćate ponovo već odrađene atrakcije.",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Hans F.",
+        "en": "Free beers after the parkour. The human slingshot was absolutely the best! The hospitality of the host was very good — a nice guy to meet.",
+        "hr": "Besplatno pivo nakon parkoura. Ljudska katapulta je bila apsolutno najbolja! Gostoprimstvo domaćina bilo je vrlo dobro.",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Georg B.",
+        "en": "We spent a few hours here on our second visit. Nigel's team is accommodating and competent — fully recommended for families who want real adventure.",
+        "hr": "Proveli smo nekoliko sati ovdje na drugom posjetu. Nigelov tim je susretljiv i stručan — potpuna preporuka za obitelji koje žele pravu avanturu.",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Béatrice",
+        "en": "The staff, led by a wonderfully laid-back Englishman, was very friendly and helpful. Beverages are really low price and the facilities are very clean. Absolutely must do in Istria!",
+        "hr": "Osoblje, predvođeno opuštenim Englezom, bilo je vrlo ljubazno i korisno. Pića su vrlo jeftina, a prostorije čiste. Apsolutno obavezno u Istri!",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Flyer13696210721",
+        "en": "You can drink and buy ice cream between activities. Different from average climbing parks — here you choose a catapult or swing. Nice guidance throughout.",
+        "hr": "Možete popiti piće i kupiti sladoled između aktivnosti. Drugačije od prosječnih parkova — birate katapultu ili ljuljačku. Odlično vodstvo.",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Skipper479",
+        "en": "Anyone can make one or the other attraction — or all of them — at their discretion and decide gradually. Lovely day with children aged 9 and 12.",
+        "hr": "Svaki može odabrati jednu ili sve atrakcije — postupno i po želji. Divan dan s djecom od 9 i 12 godina.",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Pieter G.",
+        "en": "Nice climbing and a fun catapult during our summer holiday. Fantastic staff made it a highlight of our trip to Istria.",
+        "hr": "Lijepo penjanje i zabavna katapulta tijekom ljetnog odmora. Fantastično osoblje — vrhunac našeg putovanja u Istri.",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Typingalong22",
+        "en": "Really fun to look around and see all of the different attractions. A great day out for thrill seekers on the Istrian peninsula.",
+        "hr": "Zabavno je obići i vidjeti sve različite atrakcije. Odličan izlet za ljubitelje adrenalina na Istarskom poluotoku.",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Cruiser20282053316",
+        "en": "Friendly instructors and clear instructions from start to finish. A welcoming park with a relaxed feel — we left with cold drinks and big smiles.",
+        "hr": "Ljubazni instruktori i jasne upute od početka do kraja. Gostoljubiv park s opuštenom atmosferom — otišli smo s hladnim pićem i velikim osmijehom.",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Piccolop126",
+        "en": "Amazing experience from start to finish. The crew keeps everything running smoothly and the activities are brilliant for a full day out.",
+        "hr": "Nevjerojatno iskustvo od početka do kraja. Ekipa sve drži pod kontrolom, a aktivnosti su odlične za cijeli dan.",
+    },
 ]
 
 LABELS = {
@@ -128,7 +207,7 @@ def render_reviews_section(lang: str) -> str:
         <div class="section__heading">
           <h2 id="reviews-heading">{labels['heading']}</h2>
         </div>
-        <div class="reviews-carousel" data-reviews-carousel>
+        <div class="reviews-carousel" data-reviews-carousel data-reviews-visible="{CAROUSEL_VISIBLE}">
           <button type="button" class="reviews-carousel__nav reviews-carousel__nav--prev" aria-label="{labels['prev']}" data-reviews-prev>‹</button>
           <div class="reviews-carousel__track" tabindex="0" data-reviews-track>
             {cards_html}
