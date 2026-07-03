@@ -35,6 +35,41 @@ REVIEWS = {
             "quote": "A great adventure park with a professional team. Well maintained, unique rides, and you only pay for what you do. 100% recommended.",
             "author": "Google reviewer",
         },
+        {
+            "source": "tripadvisor",
+            "quote": "We spent a lovely day with two children aged 9 and 12. Staff are very friendly — you choose which attractions to try and build up at your own pace.",
+            "author": "Family visitor",
+        },
+        {
+            "source": "google",
+            "quote": "Really fun exploring every attraction in the park. Great for thrill seekers visiting the Istrian peninsula — instructors were brilliant throughout.",
+            "author": "Google reviewer",
+        },
+        {
+            "source": "tripadvisor",
+            "quote": "The 12 m swing, 120 m zipline, 20 m free fall and human catapult make this a real experience. Staff super nice, helpful and always nearby.",
+            "author": "TripAdvisor visitor",
+        },
+        {
+            "source": "google",
+            "quote": "Amazing day out! Clear safety briefing, friendly instructors, and a nice cold drink afterwards. We will definitely come back when we are in the area again.",
+            "author": "Google reviewer",
+        },
+        {
+            "source": "tripadvisor",
+            "quote": "Been here for the second time and it was just as good. You only pay for what you do, which makes it very affordable — and staff remember returning guests.",
+            "author": "Returning visitor",
+        },
+        {
+            "source": "google",
+            "quote": "Quiet day with few tourists — even better. Routes from 2 m up to 9 m, fun for teens and manageable for younger kids on the lowest course.",
+            "author": "Family visitor",
+        },
+        {
+            "source": "tripadvisor",
+            "quote": "Four teenage boys and they loved every minute — catapult, swing, ice cream break, and excellent guidance. Different from your average climbing park.",
+            "author": "TripAdvisor visitor",
+        },
     ],
     "hr": [
         {
@@ -66,6 +101,41 @@ REVIEWS = {
             "source": "google",
             "quote": "Odličan avanturistički park s profesionalnim timom. Uredan, jedinstvene atrakcije, a plaćate samo ono što radite. 100% preporuka.",
             "author": "Google recenzija",
+        },
+        {
+            "source": "tripadvisor",
+            "quote": "Proveli smo prekrasan dan s djecom od 9 i 12 godina. Osoblje je vrlo ljubazno — sami birate atrakcije i postupno se upuštate u avanturu.",
+            "author": "Obiteljski posjetitelj",
+        },
+        {
+            "source": "google",
+            "quote": "Zabavno je istraživati svaku atrakciju u parku. Odlično za avanturiste na Istarskom poluotoku — instruktori su bili izvrsni.",
+            "author": "Google recenzija",
+        },
+        {
+            "source": "tripadvisor",
+            "quote": "Ljuljačka od 12 m, zipline od 120 m, slobodan pad s 20 m i ljudska katapulta — pravo iskustvo. Osoblje super, korisno i uvijek blizu.",
+            "author": "Posjetitelj s TripAdvisora",
+        },
+        {
+            "source": "google",
+            "quote": "Fantastičan izlet! Jasna sigurnosna obuka, ljubazni instruktori i hladno piće na kraju. Sigurno se vraćamo kad budemo opet u okolici.",
+            "author": "Google recenzija",
+        },
+        {
+            "source": "tripadvisor",
+            "quote": "Drugi put ovdje i opet odlično. Plaćate samo ono što radite, što je vrlo pristupačno — osoblje prepoznaje goste koji se vraćaju.",
+            "author": "Ponovni posjetitelj",
+        },
+        {
+            "source": "google",
+            "quote": "Mirniji dan s manje turista — još bolje. Staze od 2 m do 9 m, zabavno za tinejdžere, a mlađa djeca uživaju na najnižoj stazi.",
+            "author": "Obiteljski posjetitelj",
+        },
+        {
+            "source": "tripadvisor",
+            "quote": "Četiri tinejdžera i uživali su u svakoj minuti — katapulta, ljuljačka, sladoled i odlično vodstvo. Drugačije od prosječnog penjačkog parka.",
+            "author": "Posjetitelj s TripAdvisora",
         },
     ],
 }
