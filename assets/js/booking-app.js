@@ -7,6 +7,7 @@
   if (!root) return;
 
   const MAX_GUESTS = 6;
+  const DEPOSIT_RATE = 0.1;
   const lang = document.documentElement.lang?.startsWith('hr') ? 'hr' : 'en';
   const PHONE_EN = '385918964525';
   const PHONE_HR = '38598224314';
@@ -36,7 +37,9 @@
       callInsteadLead: 'Please call us so we can check availability and accommodate your party.',
       callToBook: 'Call to book your group',
       priceEach: '€{price} per person (adult)',
-      estimatedTotal: 'Estimated total',
+      total: 'Total',
+      deposit: 'Deposit (10%)',
+      balanceOnArrival: 'Balance on arrival',
       pickDate: 'Pick your visit date',
       pickDateLead: 'Open daily 9 AM–5 PM · last entry 3 PM',
       yourDetails: 'Your details',
@@ -45,8 +48,8 @@
       name: 'Your name',
       phone: 'Your phone number',
       guestsHint: 'Groups of 7 or more must call to book.',
-      arrival: 'Preferred arrival',
-      arrivalOpts: ['Morning (9:00–10:30)', 'Late morning (10:30–12:00)', 'Afternoon (12:00–14:00)'],
+      arrival: 'Preferred arrival time',
+      arrivalLead: '15-minute slots · park open 9 AM–5 PM · last entry 3 PM',
       notes: 'Notes (optional)',
       notesPh: 'Any special requests…',
       next: 'Next',
@@ -70,7 +73,7 @@
       emptyDiary: 'No saved bookings yet.',
       tabBook: 'Book',
       tabDiary: 'My diary',
-      parkHours: 'Prices are adult rates · confirm on arrival · park open 9 AM – 5 PM',
+      parkHours: '10% deposit secures your booking · balance on arrival · park open 9 AM – 5 PM',
       msgHeader: 'Glavani Park booking request',
       callGroups: 'Call for groups of 7+',
     },
@@ -97,7 +100,9 @@
       callInsteadLead: 'Nazovite nas kako bismo provjerili dostupnost i mogli ugostiti vašu grupu.',
       callToBook: 'Pozovite za rezervaciju grupe',
       priceEach: '€{price} po osobi (odrasla)',
-      estimatedTotal: 'Procijenjen ukupno',
+      total: 'Ukupno',
+      deposit: 'Polog (10%)',
+      balanceOnArrival: 'Ostatak na ulazu',
       pickDate: 'Odaberite datum posjeta',
       pickDateLead: 'Otvoreno 9–17 h · zadnji ulaz 15 h',
       yourDetails: 'Vaši podaci',
@@ -106,8 +111,8 @@
       name: 'Ime i prezime',
       phone: 'Broj telefona',
       guestsHint: 'Grupe od 7 i više osoba moraju rezervirati telefonom.',
-      arrival: 'Preferirani dolazak',
-      arrivalOpts: ['Jutro (9:00–10:30)', 'Kasno jutro (10:30–12:00)', 'Poslijepodne (12:00–14:00)'],
+      arrival: 'Preferirano vrijeme dolaska',
+      arrivalLead: 'Termini od 15 min · park 9–17 h · zadnji ulaz 15 h',
       notes: 'Napomena (opcionalno)',
       notesPh: 'Posebni zahtjevi…',
       next: 'Dalje',
@@ -131,13 +136,64 @@
       emptyDiary: 'Još nema spremljenih rezervacija.',
       tabBook: 'Rezerviraj',
       tabDiary: 'Dnevnik',
-      parkHours: 'Cijene su za odrasle · potvrda na ulazu · park 9–17 h',
+      parkHours: 'Polog 10% osigurava rezervaciju · ostatak na ulazu · park 9–17 h',
       msgHeader: 'Zahtjev za rezervaciju Glavani Park',
       callGroups: 'Pozovite za grupe 7+',
     },
   };
   const t = i18n[lang];
   const phone = lang === 'hr' ? PHONE_HR : PHONE_EN;
+
+  const ARRIVAL_START = 9 * 60;
+  const ARRIVAL_END = 15 * 60;
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function formatArrivalLabel(h, m) {
+    if (lang === 'hr') return `${pad(h)}:${pad(m)}`;
+    const hour12 = h % 12 || 12;
+    const ampm = h < 12 ? 'AM' : 'PM';
+    return `${hour12}:${pad(m)} ${ampm}`;
+  }
+
+  function formatHourGroup(h) {
+    if (lang === 'hr') return `${pad(h)}:00 – ${pad(h)}:45`;
+    const hour12 = h % 12 || 12;
+    const ampm = h < 12 ? 'AM' : 'PM';
+    return `${hour12}:00 – ${hour12}:45 ${ampm}`;
+  }
+
+  function buildArrivalSlots() {
+    const slots = [];
+    for (let minutes = ARRIVAL_START; minutes <= ARRIVAL_END; minutes += 15) {
+      const h = Math.floor(minutes / 60);
+      const m = minutes % 60;
+      slots.push({ minutes, label: formatArrivalLabel(h, m) });
+    }
+    return slots;
+  }
+
+  const arrivalSlots = buildArrivalSlots();
+
+  function arrivalLabel() {
+    return arrivalSlots[state.arrival]?.label || arrivalSlots[0].label;
+  }
+
+  function renderArrivalOptions() {
+    let html = '';
+    let currentHour = -1;
+    arrivalSlots.forEach((slot, i) => {
+      const h = Math.floor(slot.minutes / 60);
+      if (h !== currentHour) {
+        if (currentHour !== -1) html += '</optgroup>';
+        html += `<optgroup label="${formatHourGroup(h)}">`;
+        currentHour = h;
+      }
+      html += `<option value="${i}"${i === state.arrival ? ' selected' : ''}>${slot.label}</option>`;
+    });
+    html += '</optgroup>';
+    return html;
+  }
 
   let step = 0;
   let selectedActivityId = '';
@@ -148,7 +204,6 @@
 
   const state = { name: '', phone: '', guests: 2, largeGroup: false, arrival: 0, notes: '' };
 
-  function pad(n) { return String(n).padStart(2, '0'); }
   function isoDate(d) { return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`; }
 
   function selectedActivity() {
@@ -160,10 +215,18 @@
     return Math.min(MAX_GUESTS, Math.max(1, parseInt(state.guests, 10) || 1));
   }
 
-  function estimatedTotal() {
+  function bookingTotal() {
     const a = selectedActivity();
     if (!a) return 0;
     return a.price * guestCount();
+  }
+
+  function depositAmount() {
+    return Math.round(bookingTotal() * DEPOSIT_RATE);
+  }
+
+  function balanceAmount() {
+    return bookingTotal() - depositAmount();
   }
 
   function guestLabel(n) {
@@ -209,7 +272,9 @@
   function renderPriceBox() {
     if (state.largeGroup) return renderCallPanel();
     const a = selectedActivity();
-    const total = estimatedTotal();
+    const total = bookingTotal();
+    const deposit = depositAmount();
+    const balance = balanceAmount();
     if (!a) {
       return `<div class="book-price-box book-price-box--empty" id="book-price-box" aria-live="polite">
         <p>${t.selectPackage}</p>
@@ -217,8 +282,10 @@
     }
     return `<div class="book-price-box" id="book-price-box" aria-live="polite">
       <p class="book-price-box__each">${t.priceEach.replace('{price}', a.price)}</p>
-      <p class="book-price-box__total"><span>${t.estimatedTotal}</span> <strong>€${total}</strong></p>
+      <p class="book-price-box__total"><span>${t.total}</span> <strong>€${total}</strong></p>
       <p class="book-price-box__meta">${guestCount()} × €${a.price}</p>
+      <p class="book-price-box__deposit"><span>${t.deposit}</span> <strong>€${deposit}</strong></p>
+      <p class="book-price-box__balance">${t.balanceOnArrival}: €${balance}</p>
     </div>`;
   }
 
@@ -247,18 +314,22 @@
 
   function buildMessage() {
     const a = selectedActivity();
-    const total = estimatedTotal();
+    const total = bookingTotal();
+    const deposit = depositAmount();
+    const balance = balanceAmount();
     return [
       t.msgHeader,
       '---',
       `${t.package}: ${a ? a.name : '—'}`,
       `${t.pricePerPerson}: €${a ? a.price : 0} (${lang === 'hr' ? 'odrasla cijena' : 'adult rate'})`,
       `${t.guests}: ${guestCount()}`,
-      `${t.estimatedTotal}: €${total}`,
+      `${t.total}: €${total}`,
+      `${t.deposit}: €${deposit}`,
+      `${t.balanceOnArrival}: €${balance}`,
       `${t.date}: ${selectedDate}`,
+      `${t.arrival}: ${arrivalLabel()}`,
       `${t.name}: ${state.name}`,
       `${t.phone}: ${state.phone}`,
-      `${t.arrival}: ${t.arrivalOpts[state.arrival]}`,
       `${t.notes}: ${state.notes || '—'}`,
       '---',
       t.pickDateLead,
@@ -276,8 +347,10 @@
       name: state.name,
       phone: state.phone,
       guests: guestCount(),
-      total: estimatedTotal(),
-      arrival: t.arrivalOpts[state.arrival],
+      total: bookingTotal(),
+      deposit: depositAmount(),
+      balance: balanceAmount(),
+      arrival: arrivalLabel(),
       notes: state.notes,
       message: buildMessage(),
     });
@@ -328,7 +401,7 @@
       dayCells += `<button type="button" class="${cls}" data-date="${iso}" ${isPast ? 'disabled' : ''}>${day}</button>`;
     }
     const a = selectedActivity();
-    const summary = a ? `<p class="book-package-preview">${a.name} · ${guestCount()} ${lang === 'hr' ? 'osoba' : 'guests'} · <strong>€${estimatedTotal()}</strong></p>` : '';
+    const summary = a ? `<p class="book-package-preview">${a.name} · ${guestCount()} ${lang === 'hr' ? 'osoba' : 'guests'} · ${t.total} €${bookingTotal()} · ${t.deposit} €${depositAmount()}</p>` : '';
     return `<section class="book-panel">
       <h2>${t.pickDate}</h2>
       <p class="book-panel__lead">${t.pickDateLead}</p>
@@ -345,7 +418,7 @@
 
   function renderDetails() {
     const a = selectedActivity();
-    const preview = a ? `<p class="book-package-preview">${a.name} · ${t.priceEach.replace('{price}', a.price)} · <strong>${t.estimatedTotal}: €${estimatedTotal()}</strong></p>` : '';
+    const preview = a ? `<p class="book-package-preview">${a.name} · ${t.total}: €${bookingTotal()} · ${t.deposit}: €${depositAmount()}</p>` : '';
     return `<section class="book-panel">
       <h2>${t.yourDetails}</h2>
       ${preview}
@@ -356,7 +429,8 @@
         </div>
         <div>
           <label for="app-arrival">${t.arrival}</label>
-          <select id="app-arrival">${t.arrivalOpts.map((o, i) => `<option value="${i}"${i === state.arrival ? ' selected' : ''}>${o}</option>`).join('')}</select>
+          <select id="app-arrival">${renderArrivalOptions()}</select>
+          <p class="field-hint">${t.arrivalLead}</p>
         </div>
         <div><label for="app-notes">${t.notes}</label><textarea id="app-notes" placeholder="${t.notesPh}">${state.notes}</textarea></div>
       </div>
@@ -366,7 +440,9 @@
   function renderConfirm() {
     const a = selectedActivity();
     const msg = buildMessage();
-    const total = estimatedTotal();
+    const total = bookingTotal();
+    const deposit = depositAmount();
+    const balance = balanceAmount();
     return `<section class="book-panel">
       <h2>${t.confirmTitle}</h2>
       <p class="book-panel__lead">${t.confirmLead}</p>
@@ -376,11 +452,13 @@
           <dt>${t.package}</dt><dd>${a ? a.name : '—'}</dd>
           <dt>${t.pricePerPerson}</dt><dd>€${a ? a.price : 0}</dd>
           <dt>${t.guests}</dt><dd>${guestCount()}</dd>
-          <dt>${t.estimatedTotal}</dt><dd><strong>€${total}</strong></dd>
+          <dt>${t.total}</dt><dd><strong>€${total}</strong></dd>
+          <dt>${t.deposit}</dt><dd><strong>€${deposit}</strong></dd>
+          <dt>${t.balanceOnArrival}</dt><dd>€${balance}</dd>
           <dt>${t.date}</dt><dd>${selectedDate}</dd>
+          <dt>${t.arrival}</dt><dd>${arrivalLabel()}</dd>
           <dt>${t.name}</dt><dd>${state.name}</dd>
           <dt>${t.phone}</dt><dd>${state.phone}</dd>
-          <dt>${t.arrival}</dt><dd>${t.arrivalOpts[state.arrival]}</dd>
         </dl>
       </div>
       <div class="book-send-grid">
@@ -404,7 +482,7 @@
       <ul class="diary-list">
         ${bookings.map(b => `<li class="diary-item">
           <strong>${b.date}</strong> — ${b.activities}
-          <span>${b.name} · ${b.guests} ${lang === 'hr' ? 'osoba' : 'guests'}${b.total ? ` · €${b.total}` : ''}</span>
+          <span>${b.name} · ${b.guests} ${lang === 'hr' ? 'osoba' : 'guests'}${b.total ? ` · €${b.total}` : ''}${b.deposit ? ` · ${lang === 'hr' ? 'polog' : 'dep.'} €${b.deposit}` : ''}</span>
           <div class="diary-item__actions">
             <a href="https://wa.me/${phone}?text=${encodeURIComponent(b.message)}" class="btn-whatsapp btn-whatsapp--sm" target="_blank" rel="noopener">WhatsApp</a>
             <a href="tel:+${phone}" class="btn-secondary btn-secondary--sm">${t.call}</a>

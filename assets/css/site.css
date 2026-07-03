@@ -566,6 +566,21 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   font-size: 0.8125rem;
   opacity: 0.85;
 }
+.book-price-box__deposit {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+.book-price-box__deposit strong {
+  color: var(--yellow-accent);
+  margin-left: 0.35rem;
+}
+.book-price-box__balance {
+  font-size: 0.8125rem;
+  opacity: 0.88;
+  margin-top: 0.2rem;
+}
 
 .book-call-panel {
   margin-top: 0.25rem;
