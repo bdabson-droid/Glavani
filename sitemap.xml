@@ -106,6 +106,54 @@
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/link-na-nas/"/>
   </url>
   <url>
+    <loc>https://www.glavanipark.com/en/human-catapult/</loc>
+    <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/human-catapult/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/ljudska-katapulta/"/>
+  </url>
+  <url>
+    <loc>https://www.glavanipark.com/en/high-swing/</loc>
+    <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/high-swing/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/visoka-ljuljacka/"/>
+  </url>
+  <url>
+    <loc>https://www.glavanipark.com/en/20m-drop/</loc>
+    <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/20m-drop/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/pad-s-20m/"/>
+  </url>
+  <url>
+    <loc>https://www.glavanipark.com/en/valley-zipline/</loc>
+    <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/valley-zipline/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/dolinski-zipline/"/>
+  </url>
+  <url>
+    <loc>https://www.glavanipark.com/en/low-zipline/</loc>
+    <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/low-zipline/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/niski-zipline/"/>
+  </url>
+  <url>
+    <loc>https://www.glavanipark.com/en/climbing-wall/</loc>
+    <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/climbing-wall/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/penjacki-zid/"/>
+  </url>
+  <url>
     <loc>https://www.glavanipark.com/hr/</loc>
     <lastmod>2026-07-03</lastmod>
     <changefreq>weekly</changefreq>

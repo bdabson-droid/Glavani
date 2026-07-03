@@ -16,6 +16,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
+from activities import ACTIVITIES, ACTIVITY_SLUG_MAP  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
 TODAY = date.today().isoformat()
@@ -24,6 +25,7 @@ PATH_PREFIX = os.environ.get("PATH_PREFIX", "").rstrip("/")
 
 # Reverse map EN slug -> HR slug
 EN_TO_HR = {v: k for k, v in SLUG_MAP.items()}
+EN_TO_HR.update({v: k for k, v in ACTIVITY_SLUG_MAP.items()})
 EN_TO_HR["book"] = "rezervacija"
 
 IMAGES = [
@@ -385,6 +387,98 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
     return body
 
 
+def render_activity_siblings(current_en_slug: str, lang: str) -> str:
+    prefix = f"/{lang}/"
+    heading = "Ostale aktivnosti" if lang == "hr" else "More Activities"
+    cards = []
+    for act in ACTIVITIES:
+        if act["en_slug"] == current_en_slug:
+            continue
+        slug = act["hr_slug"] if lang == "hr" else act["en_slug"]
+        label = act["hr"]["h1"] if lang == "hr" else act["en"]["h1"]
+        cards.append(
+            f'<a class="activity-sibling activity-tile activity-tile--{act["tile_mod"]}" '
+            f'href="{prefix}{slug}/"><span class="activity-tile__label">{label}</span></a>'
+        )
+    return f"""
+    <section class="section section--theme-adrenaline">
+      <div class="section__inner">
+        <div class="section__heading"><h2>{heading}</h2></div>
+        <div class="activity-showcase activity-showcase--compact">{''.join(cards)}</div>
+      </div>
+    </section>"""
+
+
+def render_activity_page(activity: dict, lang: str) -> str:
+    data = activity["hr" if lang == "hr" else "en"]
+    en_slug = activity["en_slug"]
+    hr_slug = activity["hr_slug"]
+    slug = hr_slug if lang == "hr" else en_slug
+    prefix = f"/{lang}/"
+    canonical = f"{BASE}{prefix}{slug}/"
+    home_label = "Početna" if lang == "hr" else "Home"
+    activities_label = "Aktivnosti" if lang == "hr" else "Activities"
+    book_label = "Rezervirajte" if lang == "hr" else "Book Your Visit"
+    book_href = f"{prefix}rezervacija/" if lang == "hr" else f"{prefix}book/"
+    cta = "Pozovite za rezervaciju" if lang == "hr" else "Call to Book"
+    img = activity["image"]
+
+    prose = "".join(f"<p>{p}</p>" for p in data["paragraphs"])
+
+    return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=img)}
+{quick_actions(lang)}
+{site_header(lang)}
+{site_nav(lang)}
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="{prefix}">{home_label}</a></li>
+      <li><a href="{prefix}#activities">{activities_label}</a></li>
+      <li>{data['h1']}</li>
+    </ol>
+  </nav>
+<main>
+  <section class="hero hero--landing hero--activity">
+    <div class="hero__inner">
+      <p class="hero__badge">{data['hero_badge']}</p>
+      <h1>{data['h1']}</h1>
+    </div>
+  </section>
+  <div class="activity-detail-wrap section--theme-forest">
+    <article class="activity-detail">
+      <figure class="feature-img">
+        <img src="/images/{img}" alt="{data['image_alt']}" width="800" height="560" loading="eager">
+      </figure>
+      <div class="prose activity-detail__prose">
+        {prose}
+      </div>
+      <section class="activity-video" aria-labelledby="activity-video-heading">
+        <h2 id="activity-video-heading">{data['video_heading']}</h2>
+        <div class="activity-video__slot" data-activity-video="{en_slug}">
+          <!-- Replace the placeholder below with a <video> or embedded iframe when your clip is ready -->
+          <div class="activity-video__placeholder">
+            <span class="activity-video__icon" aria-hidden="true">▶</span>
+            <p>{data['video_placeholder']}</p>
+          </div>
+        </div>
+      </section>
+      <div class="activity-detail__actions">
+        <a class="btn-primary" href="{book_href}">{book_label}</a>
+        <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
+      </div>
+    </article>
+  </div>
+  {render_activity_siblings(en_slug, lang)}
+</main>
+{footer(lang)}
+{breadcrumb_schema([
+    (home_label, f"{BASE}{prefix}"),
+    (activities_label, f"{BASE}{prefix}#activities"),
+    (data['h1'], None),
+])}
+</body>
+</html>"""
+
+
 def home_body_en() -> str:
     """English homepage main content (abbreviated structure with full SEO sections)."""
     return open(ROOT / "scripts" / "home_en.html").read()
@@ -562,6 +656,11 @@ def main() -> None:
         hr_slug = EN_TO_HR.get(slug, slug)
         write_file(ROOT / "en" / slug / "index.html", render_landing(page, "en", slug, hr_slug))
         sitemap_urls.append((f"{BASE}/en/{slug}/", "monthly"))
+    for activity in ACTIVITIES:
+        slug = activity["en_slug"]
+        hr_slug = activity["hr_slug"]
+        write_file(ROOT / "en" / slug / "index.html", render_activity_page(activity, "en"))
+        sitemap_urls.append((f"{BASE}/en/{slug}/", "monthly"))
 
     print("Building Croatian pages...")
     write_file(ROOT / "hr" / "index.html", render_home("hr"))
@@ -573,6 +672,9 @@ def main() -> None:
         en_slug = SLUG_MAP.get(slug, slug)
         write_file(ROOT / "hr" / slug / "index.html", render_landing(page, "hr", en_slug, slug))
         sitemap_urls.append((f"{BASE}/hr/{slug}/", "monthly"))
+    for activity in ACTIVITIES:
+        slug = activity["hr_slug"]
+        write_file(ROOT / "hr" / slug / "index.html", render_activity_page(activity, "hr"))
 
     print("Writing robots.txt and sitemap.xml...")
     build_robots()
