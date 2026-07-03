@@ -83,7 +83,7 @@ def u(path: str) -> str:
 
 
 def apply_path_prefix() -> None:
-    """Rewrite href/src/action in HTML files when PATH_PREFIX is set."""
+    """Rewrite root-absolute paths in HTML and CSS when PATH_PREFIX is set."""
     if not PATH_PREFIX:
         return
     import re
@@ -92,11 +92,25 @@ def apply_path_prefix() -> None:
         if "scripts" in html_file.parts:
             continue
         text = html_file.read_text(encoding="utf-8")
-        if prefix in text:
-            text = text.replace(f"{prefix}{prefix}", prefix)
+        text = text.replace(f"{prefix}{prefix}", prefix)
         text = re.sub(r'(href|src|content="0; url=)="/', rf'\1="{prefix}/', text)
         text = text.replace(f"location.replace('/", f"location.replace('{prefix}/")
         html_file.write_text(text, encoding="utf-8")
+
+    css_path = ROOT / "assets" / "css" / "site.css"
+    if css_path.exists():
+        css = css_path.read_text(encoding="utf-8")
+        css = css.replace(f'url("{prefix}{prefix}/', f'url("{prefix}/')
+        css = re.sub(r'url\("/', rf'url("{prefix}/', css)
+        css_path.write_text(css, encoding="utf-8")
+
+    manifest = ROOT / "manifest.webmanifest"
+    if manifest.exists():
+        text = manifest.read_text(encoding="utf-8")
+        text = text.replace(f"{prefix}{prefix}", prefix)
+        text = re.sub(r'"/', f'"{prefix}/', text)
+        manifest.write_text(text, encoding="utf-8")
+
     print(f"  applied PATH_PREFIX={prefix}")
 
 
@@ -421,11 +435,11 @@ def render_activity_page(activity: dict, lang: str) -> str:
     book_label = "Rezervirajte" if lang == "hr" else "Book Your Visit"
     book_href = f"{prefix}rezervacija/" if lang == "hr" else f"{prefix}book/"
     cta = "Pozovite za rezervaciju" if lang == "hr" else "Call to Book"
-    img = activity["image"]
+    tile_mod = activity["tile_mod"]
 
     prose = "".join(f"<p>{p}</p>" for p in data["paragraphs"])
 
-    return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=img)}
+    return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=activity['image'])}
 {quick_actions(lang)}
 {site_header(lang)}
 {site_nav(lang)}
@@ -437,36 +451,35 @@ def render_activity_page(activity: dict, lang: str) -> str:
     </ol>
   </nav>
 <main>
-  <section class="hero hero--landing hero--activity">
-    <div class="hero__inner">
-      <p class="hero__badge">{data['hero_badge']}</p>
-      <h1>{data['h1']}</h1>
-    </div>
-  </section>
-  <div class="activity-detail-wrap section--theme-forest">
-    <article class="activity-detail">
-      <figure class="feature-img">
-        <img src="/images/{img}" alt="{data['image_alt']}" width="800" height="560" loading="eager">
-      </figure>
-      <div class="prose activity-detail__prose">
-        {prose}
-      </div>
-      <section class="activity-video" aria-labelledby="activity-video-heading">
-        <h2 id="activity-video-heading">{data['video_heading']}</h2>
-        <div class="activity-video__slot" data-activity-video="{en_slug}">
-          <!-- Replace the placeholder below with a <video> or embedded iframe when your clip is ready -->
-          <div class="activity-video__placeholder">
-            <span class="activity-video__icon" aria-hidden="true">▶</span>
-            <p>{data['video_placeholder']}</p>
-          </div>
+  <section class="section section--theme-adrenaline">
+    <div class="section__inner">
+      <header class="activity-tile activity-tile--detail activity-tile--{tile_mod}">
+        <p class="activity-tile__badge">{data['hero_badge']}</p>
+        <h1 class="activity-tile__label">{data['h1']}</h1>
+      </header>
+      <div class="activity-detail__card">
+        <div class="prose activity-detail__prose">
+          {prose}
         </div>
-      </section>
+      </div>
+      <div class="activity-detail__card">
+        <section class="activity-video" aria-labelledby="activity-video-heading">
+          <h2 id="activity-video-heading">{data['video_heading']}</h2>
+          <div class="activity-video__slot" data-activity-video="{en_slug}">
+            <!-- Replace the placeholder below with a <video> or embedded iframe when your clip is ready -->
+            <div class="activity-video__placeholder">
+              <span class="activity-video__icon" aria-hidden="true">▶</span>
+              <p>{data['video_placeholder']}</p>
+            </div>
+          </div>
+        </section>
+      </div>
       <div class="activity-detail__actions">
         <a class="btn-primary" href="{book_href}">{book_label}</a>
         <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
       </div>
-    </article>
-  </div>
+    </div>
+  </section>
   {render_activity_siblings(en_slug, lang)}
 </main>
 {footer(lang)}
