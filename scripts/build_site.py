@@ -17,6 +17,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
 from activities import ACTIVITIES, ACTIVITY_SLUG_MAP  # noqa: E402
+from reviews import render_reviews_section  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
 TODAY = date.today().isoformat()
@@ -526,13 +527,20 @@ def render_activity_page(activity: dict, lang: str) -> str:
 </html>"""
 
 
+def inject_reviews_section(body: str, lang: str) -> str:
+    marker = "<!-- REVIEWS_SECTION -->"
+    if marker not in body:
+        return body
+    return body.replace(marker, render_reviews_section(lang))
+
+
 def home_body_en() -> str:
     """English homepage main content (abbreviated structure with full SEO sections)."""
-    return open(ROOT / "scripts" / "home_en.html").read()
+    return inject_reviews_section(open(ROOT / "scripts" / "home_en.html").read(), "en")
 
 
 def home_body_hr() -> str:
-    return open(ROOT / "scripts" / "home_hr.html").read()
+    return inject_reviews_section(open(ROOT / "scripts" / "home_hr.html").read(), "hr")
 
 
 def render_booking_app(lang: str) -> str:
@@ -606,6 +614,7 @@ def render_home(lang: str) -> str:
 {site_nav(lang, is_home=True)}
 {body_content}
 {footer(lang)}
+<script src="/assets/js/reviews-carousel.js" defer></script>
 <script type="application/ld+json">{json.dumps(org_schema, indent=2)}</script>
 </body>
 </html>"""
