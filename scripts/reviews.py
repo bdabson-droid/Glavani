@@ -143,7 +143,6 @@ REVIEWS = {
 LABELS = {
     "en": {
         "heading": "What Visitors Say",
-        "lead": "5-star reviews from Google & TripAdvisor",
         "google": "Google",
         "tripadvisor": "TripAdvisor",
         "stars": "5 out of 5 stars",
@@ -190,7 +189,6 @@ def render_reviews_section(lang: str) -> str:
       <div class="section__inner">
         <div class="section__heading">
           <h2 id="reviews-heading">{labels['heading']}</h2>
-          <p>{labels['lead']}</p>
         </div>
         <div class="reviews-carousel" data-reviews-carousel>
           <button type="button" class="reviews-carousel__nav reviews-carousel__nav--prev" aria-label="{labels['prev']}" data-reviews-prev>‹</button>
