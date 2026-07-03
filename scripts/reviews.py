@@ -1,144 +1,83 @@
-"""Visitor reviews carousel — Google & TripAdvisor 5-star excerpts."""
+"""Visitor reviews carousel — Google & TripAdvisor 5-star excerpts with named reviewers."""
 
 GOOGLE_REVIEWS_URL = "https://www.google.com/maps/search/?api=1&query=Glavani+Park+Barban"
 TRIPADVISOR_URL = "https://www.tripadvisor.com/Search?q=Glavani+Park+Barban"
 
-REVIEWS = {
-    "en": [
-        {
-            "source": "tripadvisor",
-            "quote": "Super nice park — different from the average climbing parks. You can choose a catapult or swing, and the guidance is excellent.",
-            "author": "TripAdvisor visitor",
-        },
-        {
-            "source": "google",
-            "quote": "A day full of adrenaline! Staff were super nice and always on hand. The human catapult alone is worth the visit — unique in Croatia.",
-            "author": "Google reviewer",
-        },
-        {
-            "source": "tripadvisor",
-            "quote": "We came with kids aged 10, 8 and 6. Great explanation and support on the routes, then the giant swing together. Calm, helpful staff — a brilliant day.",
-            "author": "Family visitor",
-        },
-        {
-            "source": "google",
-            "quote": "Instructors were friendly and gave clear instructions. Really fun exploring every attraction — highly recommend for thrill seekers in Istria.",
-            "author": "Google reviewer",
-        },
-        {
-            "source": "tripadvisor",
-            "quote": "The youngest couldn't get enough of it. Staff were patient when things didn't work out first time. Wonderful day — we'll definitely be back!",
-            "author": "Family visitor",
-        },
-        {
-            "source": "google",
-            "quote": "A great adventure park with a professional team. Well maintained, unique rides, and you only pay for what you do. 100% recommended.",
-            "author": "Google reviewer",
-        },
-        {
-            "source": "tripadvisor",
-            "quote": "We spent a lovely day with two children aged 9 and 12. Staff are very friendly — you choose which attractions to try and build up at your own pace.",
-            "author": "Family visitor",
-        },
-        {
-            "source": "google",
-            "quote": "Really fun exploring every attraction in the park. Great for thrill seekers visiting the Istrian peninsula — instructors were brilliant throughout.",
-            "author": "Google reviewer",
-        },
-        {
-            "source": "tripadvisor",
-            "quote": "The 12 m swing, 120 m zipline, 20 m free fall and human catapult make this a real experience. Staff super nice, helpful and always nearby.",
-            "author": "TripAdvisor visitor",
-        },
-        {
-            "source": "google",
-            "quote": "Amazing day out! Clear safety briefing, friendly instructors, and a nice cold drink afterwards. We will definitely come back when we are in the area again.",
-            "author": "Google reviewer",
-        },
-        {
-            "source": "tripadvisor",
-            "quote": "Been here for the second time and it was just as good. You only pay for what you do, which makes it very affordable — and staff remember returning guests.",
-            "author": "Returning visitor",
-        },
-        {
-            "source": "google",
-            "quote": "Quiet day with few tourists — even better. Routes from 2 m up to 9 m, fun for teens and manageable for younger kids on the lowest course.",
-            "author": "Family visitor",
-        },
-        {
-            "source": "tripadvisor",
-            "quote": "Four teenage boys and they loved every minute — catapult, swing, ice cream break, and excellent guidance. Different from your average climbing park.",
-            "author": "TripAdvisor visitor",
-        },
-    ],
-    "hr": [
-        {
-            "source": "tripadvisor",
-            "quote": "Super park — drugačiji od prosječnih penjačkih parkova. Možete odabrati katapultu ili ljuljačku, a vodstvo je izvrsno.",
-            "author": "Posjetitelj s TripAdvisora",
-        },
-        {
-            "source": "google",
-            "quote": "Dan pun adrenalina! Osoblje je bilo super i uvijek dostupno. Ljudska katapulta sama po sebi vrijedi posjeta — jedinstvena u Hrvatskoj.",
-            "author": "Google recenzija",
-        },
-        {
-            "source": "tripadvisor",
-            "quote": "Došli smo s djecom (10, 8 i 6 godina). Odlična objašnjenja i podrška na stazama, zatim zajedno na veliku ljuljačku. Mirno, korisno osoblje — sjajan dan.",
-            "author": "Obiteljski posjetitelj",
-        },
-        {
-            "source": "google",
-            "quote": "Instruktori su bili ljubazni i dali jasne upute. Zabavno je istraživati svaku atrakciju — toplo preporučujemo avanturistima u Istri.",
-            "author": "Google recenzija",
-        },
-        {
-            "source": "tripadvisor",
-            "quote": "Mlađe dijete nije moglo dočekati ponovno. Osoblje je strpljivo kad nešto ne uspije odmah. Prekrasan dan — sigurno se vraćamo!",
-            "author": "Obiteljski posjetitelj",
-        },
-        {
-            "source": "google",
-            "quote": "Odličan avanturistički park s profesionalnim timom. Uredan, jedinstvene atrakcije, a plaćate samo ono što radite. 100% preporuka.",
-            "author": "Google recenzija",
-        },
-        {
-            "source": "tripadvisor",
-            "quote": "Proveli smo prekrasan dan s djecom od 9 i 12 godina. Osoblje je vrlo ljubazno — sami birate atrakcije i postupno se upuštate u avanturu.",
-            "author": "Obiteljski posjetitelj",
-        },
-        {
-            "source": "google",
-            "quote": "Zabavno je istraživati svaku atrakciju u parku. Odlično za avanturiste na Istarskom poluotoku — instruktori su bili izvrsni.",
-            "author": "Google recenzija",
-        },
-        {
-            "source": "tripadvisor",
-            "quote": "Ljuljačka od 12 m, zipline od 120 m, slobodan pad s 20 m i ljudska katapulta — pravo iskustvo. Osoblje super, korisno i uvijek blizu.",
-            "author": "Posjetitelj s TripAdvisora",
-        },
-        {
-            "source": "google",
-            "quote": "Fantastičan izlet! Jasna sigurnosna obuka, ljubazni instruktori i hladno piće na kraju. Sigurno se vraćamo kad budemo opet u okolici.",
-            "author": "Google recenzija",
-        },
-        {
-            "source": "tripadvisor",
-            "quote": "Drugi put ovdje i opet odlično. Plaćate samo ono što radite, što je vrlo pristupačno — osoblje prepoznaje goste koji se vraćaju.",
-            "author": "Ponovni posjetitelj",
-        },
-        {
-            "source": "google",
-            "quote": "Mirniji dan s manje turista — još bolje. Staze od 2 m do 9 m, zabavno za tinejdžere, a mlađa djeca uživaju na najnižoj stazi.",
-            "author": "Obiteljski posjetitelj",
-        },
-        {
-            "source": "tripadvisor",
-            "quote": "Četiri tinejdžera i uživali su u svakoj minuti — katapulta, ljuljačka, sladoled i odlično vodstvo. Drugačije od prosječnog penjačkog parka.",
-            "author": "Posjetitelj s TripAdvisora",
-        },
-    ],
-}
+# Authors and quotes from published TripAdvisor reviews (via Tripadvisor / Peek aggregation).
+REVIEWS = [
+    {
+        "source": "tripadvisor",
+        "author": "Sandra",
+        "en": "A day full of adrenaline for our 15-year-old! The human catapult alone is worth the visit — unique in Croatia. The swing, zipline and free fall make it a real experience. 100% recommended!",
+        "hr": "Dan pun adrenalina za našeg 15-godišnjaka! Ljudska katapulta sama po sebi vrijedi posjeta — jedinstvena u Hrvatskoj. Ljuljačka, zipline i slobodan pad čine pravo iskustvo. 100% preporuka!",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Hans F.",
+        "en": "The human slingshot was absolutely the best! The hospitality of the host was very good — a nice guy to meet. It looks like it should be scary, but it's just fast.",
+        "hr": "Ljudska katapulta je bila apsolutno najbolja! Gostoprimstvo domaćina bilo je vrlo dobro. Izgleda zastrašujuće, ali jednostavno je brzo.",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Renate V.",
+        "en": "We came back with our daughters, now 14, 12 and 10. The oldest even did the catapult — what a victory! The youngest couldn't get enough of it. Thanks for this wonderful day — we will definitely be back!",
+        "hr": "Vratili smo se s kćerima, sada 14, 12 i 10 godina. Najstarija je čak probala katapultu — prava pobjeda! Mlađa nije mogla dočekati ponovno. Hvala na prekrasan dan — sigurno se vraćamo!",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Margot K.",
+        "en": "We came with our kids aged 10, 8 and 6. Good explanation and support on the routes, then the giant swing together. Because you only pay for what you do, it is very affordable. Calm, helpful staff — a great day.",
+        "hr": "Došli smo s djecom od 10, 8 i 6 godina. Odlična objašnjenja i podrška na stazama, zatim zajedno na veliku ljuljačku. Plaćate samo ono što radite, što je vrlo pristupačno. Mirno, korisno osoblje — sjajan dan.",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Pieter G.",
+        "en": "Fun park, fantastic staff. We had a great time — nice climbing and a fun catapult. We enjoyed this during our summer holiday.",
+        "hr": "Zabavan park, fantastično osoblje. Odlično smo se proveli — lijepo penjanje i zabavna katapulta. Uživali smo tijekom ljetnog odmora.",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Georg B.",
+        "en": "Been here for the second time — it's great! Nigel's team is very accommodating and competent. Fully recommended. We will come back!",
+        "hr": "Drugi put ovdje — odlično je! Nigelov tim je vrlo susretljiv i stručan. Potpuna preporuka. Vratit ćemo se!",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Béatrice",
+        "en": "Together with our kids aged 9 and 12 we had an amazing day out. The catapult accelerates so fast and the swing was fun for everyone! The best thing we have done in Istria — absolutely must do.",
+        "hr": "S djecom od 9 i 12 godina proveli smo nevjerojatan dan. Katapulta je nevjerojatno brza, a ljuljačka je bila zabavna za sve! Najbolje što smo radili u Istri — apsolutno obavezno.",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Skipper479",
+        "en": "We spent a lovely day with two children aged 9 and 12. The staff is very friendly and helpful. Anyone can try each attraction at their own pace.",
+        "hr": "Proveli smo divan dan s dvoje djece od 9 i 12 godina. Osoblje je vrlo ljubazno i korisno. Svaki može isprobati atrakcije vlastitim tempom.",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Flyer13696210721",
+        "en": "Super nice park — different from the average climbing parks. Here you can choose a catapult or swing. We were four boys aged 16 and 18 and they enjoyed it. Nice guidance.",
+        "hr": "Super park — drugačiji od prosječnih penjačkih parkova. Možete odabrati katapultu ili ljuljačku. Bila su četiri dečka od 16 i 18 godina i uživali su. Odlično vodstvo.",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Typingalong22",
+        "en": "A great adventure park in Croatia — really fun to explore all the different attractions. I would recommend it to any thrill seekers visiting the Istrian peninsula.",
+        "hr": "Odličan avanturistički park u Hrvatskoj — zabavno je istraživati sve atrakcije. Toplo preporučujem svim ljubiteljima adrenalina na Istarskom poluotoku.",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Cruiser20282053316",
+        "en": "We had a great experience at the park! The instructors were friendly and gave clear instructions. And in the end we got some nice cold soft drinks.",
+        "hr": "Odlično iskustvo u parku! Instruktori su bili ljubazni i dali jasne upute. Na kraju smo dobili i hladno piće.",
+    },
+    {
+        "source": "tripadvisor",
+        "author": "Piccolop126",
+        "en": "This was an amazing experience! The crew is amazing and the activities are great. Good stuff to do — thanks guys.",
+        "hr": "Ovo je bilo nevjerojatno iskustvo! Ekipa je super, a aktivnosti su odlične. Ima puno toga za raditi — hvala ekipi.",
+    },
+]
 
 LABELS = {
     "en": {
@@ -153,7 +92,6 @@ LABELS = {
     },
     "hr": {
         "heading": "Što kažu posjetitelji",
-        "lead": "Recenzije s 5 zvjezdica s Googlea i TripAdvisora",
         "google": "Google",
         "tripadvisor": "TripAdvisor",
         "stars": "5 od 5 zvjezdica",
@@ -173,15 +111,15 @@ def _source_badge(source: str, labels: dict) -> str:
 
 def render_reviews_section(lang: str) -> str:
     labels = LABELS[lang]
-    reviews = REVIEWS[lang]
+    quote_key = "hr" if lang == "hr" else "en"
     cards = []
-    for review in reviews:
+    for review in REVIEWS:
         cards.append(
             f"""<article class="review-card">
           {_source_badge(review["source"], labels)}
           <div class="review-card__stars" aria-label="{labels['stars']}">★★★★★</div>
-          <blockquote class="review-card__quote"><p>{review['quote']}</p></blockquote>
-          <cite class="review-card__author">— {review['author']}</cite>
+          <blockquote class="review-card__quote"><p>{review[quote_key]}</p></blockquote>
+          <cite class="review-card__author">{review['author']}</cite>
         </article>"""
         )
     cards_html = "\n        ".join(cards)
