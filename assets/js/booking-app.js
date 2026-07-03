@@ -31,6 +31,10 @@
       selectGuests: 'Number of people',
       guestsOption: '{n} person',
       guestsOptionPlural: '{n} people',
+      guestsOption7Plus: '7 or more people — please call',
+      callInsteadTitle: 'Groups of 7 or more',
+      callInsteadLead: 'Please call us so we can check availability and accommodate your party.',
+      callToBook: 'Call to book your group',
       priceEach: '€{price} per person (adult)',
       estimatedTotal: 'Estimated total',
       pickDate: 'Pick your visit date',
@@ -88,6 +92,10 @@
       selectGuests: 'Broj osoba',
       guestsOption: '{n} osoba',
       guestsOptionPlural: '{n} osobe',
+      guestsOption7Plus: '7 ili više osoba — nazovite',
+      callInsteadTitle: 'Grupe od 7 i više osoba',
+      callInsteadLead: 'Nazovite nas kako bismo provjerili dostupnost i mogli ugostiti vašu grupu.',
+      callToBook: 'Pozovite za rezervaciju grupe',
       priceEach: '€{price} po osobi (odrasla)',
       estimatedTotal: 'Procijenjen ukupno',
       pickDate: 'Odaberite datum posjeta',
@@ -138,7 +146,7 @@
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const state = { name: '', phone: '', guests: 2, arrival: 0, notes: '' };
+  const state = { name: '', phone: '', guests: 2, largeGroup: false, arrival: 0, notes: '' };
 
   function pad(n) { return String(n).padStart(2, '0'); }
   function isoDate(d) { return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`; }
@@ -148,6 +156,7 @@
   }
 
   function guestCount() {
+    if (state.largeGroup) return 0;
     return Math.min(MAX_GUESTS, Math.max(1, parseInt(state.guests, 10) || 1));
   }
 
@@ -167,8 +176,10 @@
   function renderGuestOptions() {
     let opts = '';
     for (let n = 1; n <= MAX_GUESTS; n++) {
-      opts += `<option value="${n}"${n === guestCount() ? ' selected' : ''}>${guestLabel(n)}</option>`;
+      const selected = !state.largeGroup && guestCount() === n;
+      opts += `<option value="${n}"${selected ? ' selected' : ''}>${guestLabel(n)}</option>`;
     }
+    opts += `<option value="call"${state.largeGroup ? ' selected' : ''}>${t.guestsOption7Plus}</option>`;
     return opts;
   }
 
@@ -186,7 +197,17 @@
     }).join('');
   }
 
+  function renderCallPanel() {
+    return `<div class="book-call-panel" id="book-price-box" aria-live="polite">
+      <h3>${t.callInsteadTitle}</h3>
+      <p>${t.callInsteadLead}</p>
+      <a class="btn-call-book" href="tel:+${phone}">${t.callToBook}</a>
+      <p class="book-call-panel__number">${lang === 'hr' ? '+385 98 224 314' : '+385 91 896 4525'}</p>
+    </div>`;
+  }
+
   function renderPriceBox() {
+    if (state.largeGroup) return renderCallPanel();
     const a = selectedActivity();
     const total = estimatedTotal();
     if (!a) {
@@ -204,18 +225,24 @@
   function updatePriceBox() {
     const box = document.getElementById('book-price-box');
     if (!box) return;
-    const a = selectedActivity();
-    const total = estimatedTotal();
-    if (!a) {
-      box.className = 'book-price-box book-price-box--empty';
-      box.innerHTML = `<p>${t.selectPackage}</p>`;
-      return;
+    if (state.largeGroup) {
+      box.outerHTML = renderCallPanel();
+    } else {
+      box.outerHTML = renderPriceBox();
     }
-    box.className = 'book-price-box';
-    box.innerHTML = `
-      <p class="book-price-box__each">${t.priceEach.replace('{price}', a.price)}</p>
-      <p class="book-price-box__total"><span>${t.estimatedTotal}</span> <strong>€${total}</strong></p>
-      <p class="book-price-box__meta">${guestCount()} × €${a.price}</p>`;
+    toggleNextButton();
+  }
+
+  function toggleNextButton() {
+    const next = document.getElementById('book-next');
+    if (!next) return;
+    if (state.largeGroup) {
+      next.hidden = true;
+      next.disabled = true;
+    } else {
+      next.hidden = false;
+      next.disabled = false;
+    }
   }
 
   function buildMessage() {
@@ -280,7 +307,6 @@
         <div>
           <label for="app-guests">${t.selectGuests}</label>
           <select id="app-guests">${renderGuestOptions()}</select>
-          <p class="field-hint">${t.guestsHint} <a href="tel:+${phone}">${t.callGroups}</a></p>
         </div>
         ${renderPriceBox()}
       </div>
@@ -412,11 +438,12 @@
       ${panels[step]}
       <div class="book-nav">
         ${step > 0 ? `<button type="button" class="btn-secondary" id="book-back">${t.back}</button>` : '<span></span>'}
-        ${step < 3 ? `<button type="button" class="btn-primary" id="book-next">${t.next}</button>` : ''}
+        ${step < 3 && !(step === 0 && state.largeGroup) ? `<button type="button" class="btn-primary" id="book-next">${t.next}</button>` : ''}
       </div>`;
 
     bindTabs();
     bindStepEvents();
+    if (step === 0) toggleNextButton();
   }
 
   function bindTabs() {
@@ -435,7 +462,12 @@
     });
 
     document.getElementById('app-guests')?.addEventListener('change', (e) => {
-      state.guests = parseInt(e.target.value, 10);
+      if (e.target.value === 'call') {
+        state.largeGroup = true;
+      } else {
+        state.largeGroup = false;
+        state.guests = parseInt(e.target.value, 10);
+      }
       updatePriceBox();
     });
 
@@ -462,7 +494,13 @@
     document.getElementById('book-next')?.addEventListener('click', () => {
       if (step === 0) {
         selectedActivityId = document.getElementById('app-package')?.value || '';
-        state.guests = parseInt(document.getElementById('app-guests')?.value || '1', 10);
+        const guestVal = document.getElementById('app-guests')?.value || '1';
+        if (guestVal === 'call') {
+          state.largeGroup = true;
+          return;
+        }
+        state.largeGroup = false;
+        state.guests = parseInt(guestVal, 10);
         if (!selectedActivityId) { alert(t.selectActivity); return; }
       }
       if (step === 1 && !selectedDate) { alert(t.selectDate); return; }

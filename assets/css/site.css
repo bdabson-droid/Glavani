@@ -562,6 +562,56 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   opacity: 0.85;
 }
 
+.book-call-panel {
+  margin-top: 0.25rem;
+  padding: 1.25rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(145deg, #fff4eb, var(--off-white));
+  border: 2px solid var(--orange-cta);
+  text-align: center;
+}
+.book-call-panel h3 {
+  font-size: 1.0625rem;
+  color: var(--green-deep);
+  margin-bottom: 0.35rem;
+}
+.book-call-panel p {
+  font-size: 0.875rem;
+  color: var(--rock-mid);
+  margin-bottom: 1rem;
+  line-height: 1.45;
+}
+.book-call-panel__number {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--rock-mid);
+}
+.btn-call-book {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 48px;
+  padding: 0.75rem 1.25rem;
+  background: var(--orange-cta);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.4);
+}
+.btn-call-book:hover { background: var(--orange-hover); color: var(--white); }
+.btn-call-book--home { margin-top: 0.25rem; }
+.home-book-cta__groups {
+  margin-top: 1rem;
+  margin-bottom: 0.35rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--rock-mid);
+}
+
 .activity-grid {
   display: grid;
   grid-template-columns: 1fr;
