@@ -1,0 +1,17 @@
+Google Search Console Setup for Glavani Park
+=============================================
+
+1. Go to https://search.google.com/search-console
+2. Add property: https://www.glavanipark.com
+3. Verify ownership (HTML file upload, DNS TXT record, or meta tag)
+4. Submit sitemap: https://www.glavanipark.com/sitemap.xml
+5. Request indexing for key URLs:
+   - https://www.glavanipark.com/en/
+   - https://www.glavanipark.com/hr/
+   - https://www.glavanipark.com/en/things-to-do-in-istria/
+   - https://www.glavanipark.com/en/zipline-croatia/
+
+Backlink outreach (hotels, campsites, travel blogs):
+- Use /en/partners/ for partnership programme details
+- Use /en/link-to-us/ for embed codes and suggested anchor text
+- Contact: info@glavanipark.com | +385 91 896 4525
