@@ -21,6 +21,16 @@
     return Math.max(MIN_WEIGHT, Math.pow(0.5, ageDays / HALF_LIFE_DAYS));
   }
 
+  function dedupeCards(cards) {
+    const seen = new Set();
+    return cards.filter((card) => {
+      const key = `${card.dataset.reviewAuthor || ''}|${card.dataset.reviewDate || ''}`;
+      if (!key || key === '|' || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
+
   function isCurrentYear(dateStr) {
     if (!dateStr) return false;
     return dateStr.startsWith(String(new Date().getFullYear()));
@@ -78,8 +88,8 @@
     if (!track || !prev || !next) return;
 
     const visibleCount = parseInt(root.dataset.reviewsVisible || '12', 10);
-    const allCards = Array.from(track.querySelectorAll('.review-card'));
-    const selected = pickCarouselCards(allCards, visibleCount);
+    const allCards = dedupeCards(Array.from(track.querySelectorAll('.review-card')));
+    const selected = pickCarouselCards(allCards, Math.min(visibleCount, allCards.length));
 
     allCards.forEach((card) => {
       if (!selected.includes(card)) card.remove();
