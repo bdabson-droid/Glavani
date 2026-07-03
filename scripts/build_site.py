@@ -19,6 +19,8 @@ from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
 TODAY = date.today().isoformat()
+# Set PATH_PREFIX=/Glavani when deploying to GitHub Pages (project sites)
+PATH_PREFIX = os.environ.get("PATH_PREFIX", "").rstrip("/")
 
 # Reverse map EN slug -> HR slug
 EN_TO_HR = {v: k for k, v in SLUG_MAP.items()}
@@ -68,6 +70,28 @@ def generate_images() -> None:
 
 def esc(text: str) -> str:
     return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def u(path: str) -> str:
+    """Prefix root-absolute paths (for GitHub Pages subdirectory deploy)."""
+    if path.startswith("/") and PATH_PREFIX:
+        return f"{PATH_PREFIX}{path}"
+    return path
+
+
+def apply_path_prefix() -> None:
+    """Rewrite href/src/action in HTML files when PATH_PREFIX is set."""
+    if not PATH_PREFIX:
+        return
+    import re
+    for html_file in ROOT.rglob("*.html"):
+        if "scripts" in html_file.parts:
+            continue
+        text = html_file.read_text(encoding="utf-8")
+        text = re.sub(r'(href|src|content="0; url=)="/', rf'\1="{PATH_PREFIX}/', text)
+        text = text.replace(f"location.replace('/", f"location.replace('{PATH_PREFIX}/")
+        html_file.write_text(text, encoding="utf-8")
+    print(f"  applied PATH_PREFIX={PATH_PREFIX}")
 
 
 def quick_actions(lang: str) -> str:
@@ -204,7 +228,7 @@ def head_meta(
   <meta property="og:locale:alternate" content="{alt_locale}">
   <meta property="og:site_name" content="Glavani Park">
   <meta property="og:image" content="{BASE}/images/{og_image}">
-  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="{u('/assets/css/site.css')}">
 </head>
 <body>"""
 
@@ -503,6 +527,7 @@ def main() -> None:
     build_sitemap(sitemap_urls)
     build_root_redirect()
     build_search_console_guide()
+    apply_path_prefix()
     print("Done.")
 
 
