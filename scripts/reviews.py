@@ -10,7 +10,7 @@ REVIEWS = [
     {
         "source": "tripadvisor",
         "author": "Sandra",
-        "date": "2025-07-08",
+        "date": "2026-07-08",
         "en": "A day full of adrenaline for our 15-year-old! The human catapult alone is worth the visit — unique in Croatia. The swing, zipline and free fall make it a real experience. 100% recommended!",
         "hr": "Dan pun adrenalina za našeg 15-godišnjaka! Ljudska katapulta sama po sebi vrijedi posjeta — jedinstvena u Hrvatskoj. Ljuljačka, zipline i slobodan pad čine pravo iskustvo. 100% preporuka!",
     },
@@ -66,14 +66,14 @@ REVIEWS = [
     {
         "source": "tripadvisor",
         "author": "Flyer13696210721",
-        "date": "2025-08-04",
+        "date": "2026-08-04",
         "en": "Super nice park — different from the average climbing parks. Here you can choose a catapult or swing. We were four boys aged 16 and 18 and they enjoyed it. Nice guidance.",
         "hr": "Super park — drugačiji od prosječnih penjačkih parkova. Možete odabrati katapultu ili ljuljačku. Bila su četiri dečka od 16 i 18 godina i uživali su. Odlično vodstvo.",
     },
     {
         "source": "tripadvisor",
         "author": "Typingalong22",
-        "date": "2025-08-03",
+        "date": "2026-08-03",
         "en": "A great adventure park in Croatia — really fun to explore all the different attractions. I would recommend it to any thrill seekers visiting the Istrian peninsula.",
         "hr": "Odličan avanturistički park u Hrvatskoj — zabavno je istraživati sve atrakcije. Toplo preporučujem svim ljubiteljima adrenalina na Istarskom poluotoku.",
     },
@@ -101,7 +101,7 @@ REVIEWS = [
     {
         "source": "tripadvisor",
         "author": "Sandra",
-        "date": "2025-07-08",
+        "date": "2026-07-08",
         "en": "Staff on site were super nice, helpful and always on hand. The 12 m swing, 120 m zipline at 30 m height and 20 m free fall — several attractions make the park a real experience.",
         "hr": "Osoblje je bilo super, korisno i uvijek dostupno. Ljuljačka od 12 m, zipline od 120 m na 30 m visine i slobodan pad s 20 m — nekoliko atrakcija čini pravo iskustvo.",
     },
@@ -143,7 +143,7 @@ REVIEWS = [
     {
         "source": "tripadvisor",
         "author": "Flyer13696210721",
-        "date": "2025-08-04",
+        "date": "2026-08-04",
         "en": "You can drink and buy ice cream between activities. Different from average climbing parks — here you choose a catapult or swing. Nice guidance throughout.",
         "hr": "Možete popiti piće i kupiti sladoled između aktivnosti. Drugačije od prosječnih parkova — birate katapultu ili ljuljačku. Odlično vodstvo.",
     },
@@ -164,7 +164,7 @@ REVIEWS = [
     {
         "source": "tripadvisor",
         "author": "Typingalong22",
-        "date": "2025-08-03",
+        "date": "2026-08-03",
         "en": "Really fun to look around and see all of the different attractions. A great day out for thrill seekers on the Istrian peninsula.",
         "hr": "Zabavno je obići i vidjeti sve različite atrakcije. Odličan izlet za ljubitelje adrenalina na Istarskom poluotoku.",
     },

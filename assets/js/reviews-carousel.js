@@ -1,9 +1,10 @@
 /**
- * Reviews carousel — favour recent reviews, pick 12 at random, shuffle, scroll.
+ * Reviews carousel — always show 3 from the current year, favour recent reviews, shuffle, scroll.
  */
 (function () {
   const HALF_LIFE_DAYS = 540;
   const MIN_WEIGHT = 0.12;
+  const CURRENT_YEAR_REQUIRED = 3;
 
   function shuffle(items) {
     for (let i = items.length - 1; i > 0; i--) {
@@ -18,6 +19,24 @@
     const ageDays = (Date.now() - new Date(dateStr).getTime()) / (1000 * 60 * 60 * 24);
     if (ageDays <= 0) return 1;
     return Math.max(MIN_WEIGHT, Math.pow(0.5, ageDays / HALF_LIFE_DAYS));
+  }
+
+  function isCurrentYear(dateStr) {
+    if (!dateStr) return false;
+    return dateStr.startsWith(String(new Date().getFullYear()));
+  }
+
+  function pickCurrentYearCards(cards, count) {
+    const pool = cards.filter((card) => isCurrentYear(card.dataset.reviewDate));
+    return shuffle([...pool]).slice(0, Math.min(count, pool.length));
+  }
+
+  function pickCarouselCards(allCards, count) {
+    const yearPicks = pickCurrentYearCards(allCards, CURRENT_YEAR_REQUIRED);
+    const picked = new Set(yearPicks);
+    const remaining = allCards.filter((card) => !picked.has(card));
+    const rest = pickWeightedCards(remaining, count - yearPicks.length);
+    return [...yearPicks, ...rest];
   }
 
   function pickWeightedCards(cards, count) {
@@ -60,7 +79,7 @@
 
     const visibleCount = parseInt(root.dataset.reviewsVisible || '12', 10);
     const allCards = Array.from(track.querySelectorAll('.review-card'));
-    const selected = pickWeightedCards(allCards, visibleCount);
+    const selected = pickCarouselCards(allCards, visibleCount);
 
     allCards.forEach((card) => {
       if (!selected.includes(card)) card.remove();
