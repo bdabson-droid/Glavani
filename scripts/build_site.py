@@ -435,11 +435,11 @@ def render_activity_page(activity: dict, lang: str) -> str:
     book_label = "Rezervirajte" if lang == "hr" else "Book Your Visit"
     book_href = f"{prefix}rezervacija/" if lang == "hr" else f"{prefix}book/"
     cta = "Pozovite za rezervaciju" if lang == "hr" else "Call to Book"
-    tile_mod = activity["tile_mod"]
+    img = activity["image"]
 
     prose = "".join(f"<p>{p}</p>" for p in data["paragraphs"])
 
-    return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=activity['image'])}
+    return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=img)}
 {quick_actions(lang)}
 {site_header(lang)}
 {site_nav(lang)}
@@ -451,35 +451,36 @@ def render_activity_page(activity: dict, lang: str) -> str:
     </ol>
   </nav>
 <main>
-  <section class="section section--theme-adrenaline">
-    <div class="section__inner">
-      <header class="activity-tile activity-tile--detail activity-tile--{tile_mod}">
-        <p class="activity-tile__badge">{data['hero_badge']}</p>
-        <h1 class="activity-tile__label">{data['h1']}</h1>
-      </header>
-      <div class="activity-detail__card">
-        <div class="prose activity-detail__prose">
-          {prose}
-        </div>
+  <section class="hero hero--landing hero--activity">
+    <div class="hero__inner">
+      <p class="hero__badge">{data['hero_badge']}</p>
+      <h1>{data['h1']}</h1>
+    </div>
+  </section>
+  <div class="activity-detail-wrap section--theme-forest">
+    <article class="activity-detail">
+      <figure class="feature-img">
+        <img src="/images/{img}" alt="{data['image_alt']}" width="800" height="560" loading="eager">
+      </figure>
+      <div class="prose activity-detail__prose">
+        {prose}
       </div>
-      <div class="activity-detail__card">
-        <section class="activity-video" aria-labelledby="activity-video-heading">
-          <h2 id="activity-video-heading">{data['video_heading']}</h2>
-          <div class="activity-video__slot" data-activity-video="{en_slug}">
-            <!-- Replace the placeholder below with a <video> or embedded iframe when your clip is ready -->
-            <div class="activity-video__placeholder">
-              <span class="activity-video__icon" aria-hidden="true">▶</span>
-              <p>{data['video_placeholder']}</p>
-            </div>
+      <section class="activity-video" aria-labelledby="activity-video-heading">
+        <h2 id="activity-video-heading">{data['video_heading']}</h2>
+        <div class="activity-video__slot" data-activity-video="{en_slug}">
+          <!-- Replace the placeholder below with a <video> or embedded iframe when your clip is ready -->
+          <div class="activity-video__placeholder">
+            <span class="activity-video__icon" aria-hidden="true">▶</span>
+            <p>{data['video_placeholder']}</p>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
       <div class="activity-detail__actions">
         <a class="btn-primary" href="{book_href}">{book_label}</a>
         <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
       </div>
-    </div>
-  </section>
+    </article>
+  </div>
   {render_activity_siblings(en_slug, lang)}
 </main>
 {footer(lang)}
