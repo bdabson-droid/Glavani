@@ -1093,6 +1093,16 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .testimonial cite { font-size: 0.8125rem; color: var(--rock-mid); font-style: normal; font-weight: 600; }
 
 /* Reviews carousel (homepage) */
+.reviews-summary {
+  margin: 0.35rem 0 0;
+  font-size: 1.0625rem;
+  color: var(--green-deep);
+}
+.reviews-summary-note {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+  color: var(--rock-mid);
+}
 .reviews-carousel {
   position: relative;
   display: flex;

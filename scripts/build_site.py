@@ -16,7 +16,14 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
 from activities import ACTIVITIES, ACTIVITY_SLUG_MAP, activity_faqs  # noqa: E402
-from reviews import FACEBOOK_URL, REVIEWS, TRIPADVISOR_URL, render_reviews_section  # noqa: E402
+from reviews import (  # noqa: E402
+    FACEBOOK_URL,
+    TRIPADVISOR_URL,
+    aggregate_rating,
+    render_reviews_section,
+    review_list,
+    reset_cache,
+)
 from faqs import (  # noqa: E402
     FAQ_COPY,
     FAQ_SLUGS,
@@ -1160,7 +1167,8 @@ def render_home(lang: str) -> str:
     canonical = f"{BASE}{prefix}"
     body_content = home_body_hr() if lang == "hr" else home_body_en()
     quote_key = "hr" if lang == "hr" else "en"
-    review_count = len(REVIEWS)
+    aggregate = aggregate_rating()
+    reviews = review_list()
     org_schema = {
         "@context": "https://schema.org",
         "@graph": [
@@ -1201,11 +1209,11 @@ def render_home(lang: str) -> str:
                 "keywords": home["keywords"],
                 "aggregateRating": {
                     "@type": "AggregateRating",
-                    "ratingValue": "5",
-                    "bestRating": "5",
-                    "worstRating": "1",
-                    "ratingCount": str(review_count),
-                    "reviewCount": str(review_count),
+                    "ratingValue": str(aggregate["rating_value"]),
+                    "bestRating": str(aggregate["best_rating"]),
+                    "worstRating": str(aggregate["worst_rating"]),
+                    "ratingCount": str(aggregate["rating_count"]),
+                    "reviewCount": str(aggregate["rating_count"]),
                 },
                 "review": [
                     {
@@ -1215,15 +1223,15 @@ def render_home(lang: str) -> str:
                         "reviewBody": review[quote_key],
                         "reviewRating": {
                             "@type": "Rating",
-                            "ratingValue": "5",
+                            "ratingValue": str(review.get("rating", 5)),
                             "bestRating": "5",
                         },
                         "publisher": {
                             "@type": "Organization",
-                            "name": "TripAdvisor" if review["source"] == "tripadvisor" else "Google",
+                            "name": "TripAdvisor",
                         },
                     }
-                    for review in REVIEWS
+                    for review in reviews
                 ],
             },
             {
@@ -1327,6 +1335,12 @@ Backlink outreach (hotels, campsites, travel blogs):
 
 
 def main() -> None:
+    print("Fetching TripAdvisor reviews...")
+    from fetch_reviews import main as fetch_reviews_main
+
+    fetch_reviews_main()
+    reset_cache()
+
     print("Generating WebP/JPEG images...")
     generate_images()
     fetch_youtube_stills()

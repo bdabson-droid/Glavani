@@ -1,79 +1,7 @@
 /**
- * Reviews carousel — always show 3 from the current year, favour recent reviews, shuffle, scroll.
+ * Reviews carousel — show all TripAdvisor reviews, newest first, horizontal scroll.
  */
 (function () {
-  const HALF_LIFE_DAYS = 540;
-  const MIN_WEIGHT = 0.12;
-  const CURRENT_YEAR_REQUIRED = 3;
-
-  function shuffle(items) {
-    for (let i = items.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [items[i], items[j]] = [items[j], items[i]];
-    }
-    return items;
-  }
-
-  function recencyWeight(dateStr) {
-    if (!dateStr) return 1;
-    const ageDays = (Date.now() - new Date(dateStr).getTime()) / (1000 * 60 * 60 * 24);
-    if (ageDays <= 0) return 1;
-    return Math.max(MIN_WEIGHT, Math.pow(0.5, ageDays / HALF_LIFE_DAYS));
-  }
-
-  function dedupeCards(cards) {
-    const seen = new Set();
-    return cards.filter((card) => {
-      const key = `${card.dataset.reviewAuthor || ''}|${card.dataset.reviewDate || ''}`;
-      if (!key || key === '|' || seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    });
-  }
-
-  function isCurrentYear(dateStr) {
-    if (!dateStr) return false;
-    return dateStr.startsWith(String(new Date().getFullYear()));
-  }
-
-  function pickCurrentYearCards(cards, count) {
-    const pool = cards.filter((card) => isCurrentYear(card.dataset.reviewDate));
-    return shuffle([...pool]).slice(0, Math.min(count, pool.length));
-  }
-
-  function pickCarouselCards(allCards, count) {
-    const yearPicks = pickCurrentYearCards(allCards, CURRENT_YEAR_REQUIRED);
-    const picked = new Set(yearPicks);
-    const remaining = allCards.filter((card) => !picked.has(card));
-    const rest = pickWeightedCards(remaining, count - yearPicks.length);
-    return [...yearPicks, ...rest];
-  }
-
-  function pickWeightedCards(cards, count) {
-    const pool = [...cards];
-    const picked = [];
-    const limit = Math.min(count, pool.length);
-
-    while (picked.length < limit && pool.length) {
-      const weights = pool.map((card) => recencyWeight(card.dataset.reviewDate));
-      const total = weights.reduce((sum, weight) => sum + weight, 0);
-      let roll = Math.random() * total;
-      let index = 0;
-
-      for (let i = 0; i < pool.length; i++) {
-        roll -= weights[i];
-        if (roll <= 0) {
-          index = i;
-          break;
-        }
-      }
-
-      picked.push(pool.splice(index, 1)[0]);
-    }
-
-    return picked;
-  }
-
   function scrollToCard(track, card) {
     if (!card) return;
     const trackRect = track.getBoundingClientRect();
@@ -87,16 +15,10 @@
     const next = root.querySelector('[data-reviews-next]');
     if (!track || !prev || !next) return;
 
-    const visibleCount = parseInt(root.dataset.reviewsVisible || '12', 10);
-    const allCards = dedupeCards(Array.from(track.querySelectorAll('.review-card')));
-    const selected = pickCarouselCards(allCards, Math.min(visibleCount, allCards.length));
-
-    allCards.forEach((card) => {
-      if (!selected.includes(card)) card.remove();
-    });
-
-    shuffle(selected).forEach((card) => track.appendChild(card));
-    scrollToCard(track, selected[0]);
+    const cards = Array.from(track.querySelectorAll('.review-card'));
+    cards.sort((a, b) => (b.dataset.reviewDate || '').localeCompare(a.dataset.reviewDate || ''));
+    cards.forEach((card) => track.appendChild(card));
+    scrollToCard(track, cards[0]);
 
     function scrollStep() {
       const card = track.querySelector('.review-card');
