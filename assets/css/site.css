@@ -1,16 +1,25 @@
 :root {
-  --green-deep: #1a3d2e;
-  --green-mid: #2d6a4f;
-  --green-light: #40916c;
+  /* Glavani Park logo palette */
+  --brand-black: #0a0a0a;
+  --brand-orange: #f58220;
+  --brand-orange-dark: #d96a12;
+  --brand-green: #8dc63f;
+  --brand-green-dark: #1e4620;
+  --brand-purple: #5b4b9a;
+  --brand-purple-deep: #433676;
+
+  --green-deep: var(--brand-green-dark);
+  --green-mid: #4a8f2e;
+  --green-light: var(--brand-green);
   --rock-dark: #2d3748;
   --rock-mid: #4a5568;
   --rock-light: #718096;
-  --orange-cta: #ea580c;
-  --orange-hover: #c2410c;
-  --yellow-accent: #fbbf24;
+  --orange-cta: var(--brand-orange);
+  --orange-hover: var(--brand-orange-dark);
+  --yellow-accent: #f5a623;
   --white: #ffffff;
-  --off-white: #f7faf8;
-  --text-on-dark: #f0fdf4;
+  --off-white: #f8faf6;
+  --text-on-dark: #f5f5f5;
   --shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
   --radius: 12px;
   --radius-lg: 20px;
@@ -32,7 +41,7 @@ body {
 
 body.theme-page {
   background:
-    linear-gradient(180deg, rgba(26, 61, 46, 0.04) 0%, transparent 120px),
+    linear-gradient(180deg, rgba(91, 75, 154, 0.035) 0%, rgba(141, 198, 63, 0.04) 80px, transparent 160px),
     var(--off-white);
 }
 
@@ -57,7 +66,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .breadcrumb a:hover { text-decoration: underline; }
 
 .site-nav {
-  background: var(--green-deep);
+  background: var(--brand-green-dark);
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 .site-nav__inner {
@@ -77,7 +86,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   padding: 0.35rem 0;
   opacity: 0.9;
 }
-.site-nav a:hover { opacity: 1; color: var(--yellow-accent); }
+.site-nav a:hover { opacity: 1; color: var(--brand-green); }
 
 .quick-actions {
   position: fixed;
@@ -113,24 +122,41 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .btn-find:hover { background: var(--yellow-accent); color: var(--rock-dark); }
 
 .site-header {
-  background: var(--green-deep);
+  background: var(--brand-black);
   color: var(--text-on-dark);
-  padding: 1rem 1.25rem 0.75rem;
+  padding: 0.85rem 1.25rem 0.65rem;
   text-align: center;
+  border-bottom: 3px solid var(--brand-orange);
 }
-.site-header__logo {
-  font-size: 1.5rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--yellow-accent);
+.site-header__brand {
+  display: inline-block;
+  text-decoration: none;
+  line-height: 0;
 }
-.site-header__logo a { color: inherit; text-decoration: none; }
-.site-header__tagline { font-size: 0.8125rem; opacity: 0.9; margin-top: 0.15rem; }
+.site-header__logo-img {
+  display: block;
+  width: auto;
+  max-width: min(220px, 78vw);
+  height: auto;
+  max-height: 88px;
+  margin: 0 auto;
+}
+.site-header__tagline {
+  font-size: 0.8125rem;
+  color: rgba(141, 198, 63, 0.92);
+  margin-top: 0.45rem;
+  line-height: 1.4;
+}
 
 .hero {
   position: relative;
-  background: linear-gradient(160deg, var(--green-deep) 0%, var(--green-mid) 45%, var(--rock-mid) 100%);
+  background: linear-gradient(
+    155deg,
+    var(--brand-black) 0%,
+    var(--brand-purple-deep) 34%,
+    var(--green-mid) 68%,
+    var(--brand-orange) 100%
+  );
   color: var(--text-on-dark);
   padding: 2.5rem 1.25rem 3.5rem;
   text-align: center;
@@ -143,16 +169,16 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 80%, rgba(251, 191, 36, 0.12) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(234, 88, 12, 0.1) 0%, transparent 45%);
+    radial-gradient(circle at 18% 82%, rgba(141, 198, 63, 0.14) 0%, transparent 50%),
+    radial-gradient(circle at 82% 18%, rgba(245, 130, 32, 0.14) 0%, transparent 45%);
   pointer-events: none;
 }
 .hero__inner { position: relative; max-width: 760px; margin: 0 auto; }
 .hero__badge {
   display: inline-block;
-  background: rgba(251, 191, 36, 0.2);
-  border: 1px solid var(--yellow-accent);
-  color: var(--yellow-accent);
+  background: rgba(141, 198, 63, 0.18);
+  border: 1px solid var(--brand-green);
+  color: var(--brand-green);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -171,7 +197,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hero__headline {
   font-size: clamp(1.125rem, 2.5vw, 1.375rem);
   font-weight: 700;
-  color: var(--yellow-accent);
+  color: var(--brand-green);
   margin-bottom: 0.75rem;
 }
 .hero__subtitle {
@@ -220,7 +246,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 .section--theme-rock .section__inner { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.25rem; }
 .section--theme-adrenaline {
-  background: linear-gradient(165deg, #fff4eb 0%, var(--off-white) 65%);
+  background: linear-gradient(165deg, #fff6ed 0%, var(--off-white) 65%);
   max-width: none;
 }
 .section--theme-adrenaline .section__inner { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.25rem; }
@@ -314,10 +340,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-card--family { background: linear-gradient(145deg, var(--green-light), var(--green-mid)); }
 .hub-card--groups { background: linear-gradient(145deg, var(--rock-mid), var(--rock-dark)); }
 .hub-card--travel { background: linear-gradient(145deg, #0369a1, #0c4a6e); }
-.hub-card--safety { background: linear-gradient(145deg, #4c1d95, #312e81); }
+.hub-card--safety { background: linear-gradient(145deg, var(--brand-purple), var(--brand-purple-deep)); }
 .hub-card--location { background: linear-gradient(145deg, #0f766e, #134e4a); }
 .hub-card--faq { background: linear-gradient(145deg, #b45309, #92400e); }
-.hub-card--prices { background: linear-gradient(145deg, #ea580c, #9a3412); }
+.hub-card--prices { background: linear-gradient(145deg, var(--brand-orange), var(--brand-orange-dark)); }
 .hub-grid--two { max-width: 720px; margin: 0 auto; }
 @media (min-width: 640px) {
   .hub-grid--two { grid-template-columns: repeat(2, 1fr); }
@@ -1328,13 +1354,14 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .partner-card h3 { color: var(--green-deep); margin-bottom: 0.35rem; }
 
 .site-footer {
-  background: var(--rock-dark);
+  background: var(--brand-black);
   color: #cbd5e0;
   text-align: center;
   padding: 1.5rem 1.25rem calc(var(--sticky-h) + 1.5rem);
   font-size: 0.875rem;
+  border-top: 3px solid var(--brand-orange);
 }
-.site-footer a { color: var(--yellow-accent); }
+.site-footer a { color: var(--brand-green); }
 .site-footer__links {
   display: flex;
   flex-wrap: wrap;
@@ -1357,7 +1384,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   .hero { padding: 1.25rem 1.25rem 1.5rem; }
   .hero--home { padding: 1.25rem 1.25rem 1.5rem; }
   .hero--home .hero__inner { gap: 1.25rem; }
-  .hero--landing { padding: 1.25rem 1.25rem; }
+  .site-header__logo-img { max-height: 72px; }
+  .site-header__tagline { font-size: 0.75rem; }
   .hero__subtitle { margin-bottom: 1rem; }
   .landing-layout { padding: 1.25rem 1.25rem; }
   .landing-layout__inner { gap: 1.25rem; }

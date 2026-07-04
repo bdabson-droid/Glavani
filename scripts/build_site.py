@@ -55,7 +55,6 @@ IMAGES = [
     ("zipline-120m-glavani-park-istria-croatia.webp", "Zipline 120m", (74, 85, 104), (45, 55, 72)),
     ("climbing-wall-outdoor-activities-istria.webp", "Climbing Wall", (64, 145, 108), (26, 61, 46)),
     ("quick-jump-20m-free-fall-istria.webp", "Quick Jump 20m", (124, 58, 237), (76, 29, 149)),
-    ("glavani-park-logo.png", "GLAVANI PARK", (26, 61, 46), (251, 191, 36)),
     ("partner-badge-glavani-park.webp", "Partner", (26, 61, 46), (251, 191, 36)),
 ]
 
@@ -204,9 +203,16 @@ def site_header(lang: str) -> str:
     tagline_en = "Adventure &amp; Adrenaline Park · Istria, Croatia · Near Pula, Barban &amp; Vodnjan"
     tagline_hr = "Avanturistički i adrenalinski park · Istria, Hrvatska · kod Pule, Barbana i Vodnjanja"
     home = f"/{lang}/"
+    logo_alt = (
+        "Glavani Park — A Great Place to Be"
+        if lang == "en"
+        else "Glavani Park — odlično mjesto za avanturu"
+    )
     return f"""
   <header class="site-header">
-    <p class="site-header__logo"><a href="{home}">Glavani Park</a></p>
+    <a class="site-header__brand" href="{home}">
+      <img class="site-header__logo-img" src="/images/glavani-park-logo.png" alt="{logo_alt}" width="200" height="115" loading="eager">
+    </a>
     <p class="site-header__tagline">{tagline_hr if lang == 'hr' else tagline_en}</p>
   </header>"""
 
@@ -330,6 +336,9 @@ def head_meta(
   <meta name="twitter:title" content="{title}">
   <meta name="twitter:description" content="{description}">
   <meta name="twitter:image" content="{og_image_url}">
+  <link rel="icon" href="/images/glavani-park-logo-small.png" type="image/png">
+  <link rel="apple-touch-icon" href="/images/glavani-park-logo.png">
+  <meta name="theme-color" content="#0a0a0a">
   <link rel="stylesheet" href="/assets/css/site.css">
 {extra_head}
 </head>
@@ -938,7 +947,7 @@ def render_booking_app(lang: str) -> str:
     home_label = "Početna" if lang == "hr" else "Home"
     extra = (
         '  <link rel="manifest" href="/manifest.webmanifest">\n'
-        '  <meta name="theme-color" content="#1a3d2e">\n'
+        '  <meta name="theme-color" content="#0a0a0a">\n'
         '  <meta name="apple-mobile-web-app-capable" content="yes">'
     )
     return f"""{head_meta(lang, title, desc, "book glavani park, reservation istria", canonical, en_slug, hr_slug, extra_head=extra)}
