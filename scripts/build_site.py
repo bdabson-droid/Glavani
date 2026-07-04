@@ -17,7 +17,14 @@ from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
 from activities import ACTIVITIES, ACTIVITY_SLUG_MAP  # noqa: E402
 from reviews import render_reviews_section  # noqa: E402
-from faqs import FAQ_COPY, FAQ_SLUGS, VISITOR_FAQS, render_faq_list  # noqa: E402
+from faqs import (  # noqa: E402
+    FAQ_COPY,
+    FAQ_SLUGS,
+    VISITOR_FAQS,
+    faq_answer_plain,
+    render_faq_list,
+    render_faq_related,
+)
 from packages import PRICES_COPY, PRICES_SLUGS, render_price_sections  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
@@ -390,15 +397,31 @@ def json_ld_script(data: dict | list) -> str:
     return f'<script type="application/ld+json">\n{json.dumps(data, indent=2, ensure_ascii=False)}\n</script>'
 
 
-def faq_page_schema(faqs: list[dict]) -> dict:
+def faq_page_schema(faqs: list[dict], lang: str) -> dict:
+    slug = FAQ_SLUGS[lang]
+    url = f"{BASE}/{lang}/{slug}/"
     return {
         "@context": "https://schema.org",
         "@type": "FAQPage",
+        "@id": f"{url}#faq",
+        "url": url,
+        "name": FAQ_COPY[lang]["h1"],
+        "description": FAQ_COPY[lang]["meta_description"],
+        "inLanguage": "hr-HR" if lang == "hr" else "en-GB",
+        "isPartOf": {"@id": f"{BASE}/en/#glavani-park"},
+        "about": {
+            "@type": ["AmusementPark", "TouristAttraction"],
+            "name": "Glavani Park",
+            "url": f"{BASE}/en/",
+        },
         "mainEntity": [
             {
                 "@type": "Question",
                 "name": faq["q"],
-                "acceptedAnswer": {"@type": "Answer", "text": faq["a"]},
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": faq_answer_plain(lang, faq["a"]),
+                },
             }
             for faq in faqs
         ],
@@ -866,6 +889,7 @@ def render_faq_page(lang: str) -> str:
   </section>
   <section class="section section--theme-forest">
     <div class="section__inner">
+      <p class="faq-intro">{copy['intro']}</p>
       {render_faq_list(lang)}
       <p style="margin-top:1.5rem;text-align:center;color:var(--rock-mid);">{copy['book_note']}</p>
       <p style="margin-top:1rem;text-align:center;display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;">
@@ -874,10 +898,11 @@ def render_faq_page(lang: str) -> str:
       </p>
     </div>
   </section>
+  {render_faq_related(lang)}
 </main>
 {footer(lang)}
 {breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (copy['h1'], None)])}
-{json_ld_script(faq_page_schema(VISITOR_FAQS[lang]))}
+{json_ld_script(faq_page_schema(VISITOR_FAQS[lang], lang))}
 </body>
 </html>"""
 
