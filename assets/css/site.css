@@ -609,7 +609,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 .info-strip__item strong { display: block; color: var(--green-deep); font-size: 1rem; }
 
-/* Booking app */
+/* Booking */
 .book-app-wrap {
   max-width: 640px;
   margin: 0 auto;
@@ -622,7 +622,36 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   color: var(--text-on-dark);
 }
 .book-app-hero h1 { font-size: clamp(1.5rem, 4vw, 2rem); margin-bottom: 0.5rem; }
-.book-app-hero p { opacity: 0.92; font-size: 0.9375rem; max-width: 480px; margin: 0 auto; }
+.book-app-hero p { opacity: 0.92; font-size: 0.9375rem; max-width: 520px; margin: 0 auto; line-height: 1.5; }
+.book-app-notice {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  max-width: 520px;
+  background: rgba(141, 198, 63, 0.12);
+  border: 1px solid rgba(141, 198, 63, 0.45);
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+.book-app-notice a { color: var(--brand-green); font-weight: 700; }
+.book-within48 {
+  margin: 1rem 0 0;
+  padding: 1rem 1.1rem;
+  background: rgba(245, 130, 32, 0.1);
+  border: 2px solid var(--brand-orange);
+  border-radius: var(--radius);
+}
+.book-within48 h3 {
+  font-size: 1rem;
+  color: var(--green-deep);
+  margin-bottom: 0.35rem;
+}
+.book-within48 p {
+  font-size: 0.875rem;
+  color: var(--rock-mid);
+  margin-bottom: 0.75rem;
+  line-height: 1.45;
+}
 
 .book-tabs {
   display: flex;

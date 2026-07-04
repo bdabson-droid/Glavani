@@ -1,6 +1,6 @@
 {
-  "name": "Glavani Park Booking",
-  "short_name": "Book Glavani",
+  "name": "Glavani Park Book",
+  "short_name": "Book",
   "description": "Book your Glavani Park adventure — pick activity and date",
   "start_url": "./en/book/",
   "display": "standalone",

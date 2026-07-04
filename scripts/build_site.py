@@ -932,16 +932,24 @@ def render_prices_page(lang: str) -> str:
 def render_booking_app(lang: str) -> str:
     if lang == "hr":
         slug, en_slug, hr_slug = "rezervacija", "book", "rezervacija"
-        title = "Rezervacija | Glavani Park – odaberite paket i datum"
-        desc = "Rezervirajte Glavani Park online za do 6 osoba: odaberite paket ili pojedinačnu aktivnost, datum i pošaljite WhatsAppom ili SMS-om. Grupe 7+ nazovite."
-        h1 = "Rezervirajte avanturu"
-        lead = "Prvo paketi, zatim pojedinačne aktivnosti (do 6 osoba) — WhatsApp, SMS ili poziv. Grupe 7+ nazovite."
+        title = "Rezerviraj | Glavani Park – odaberite paket i datum"
+        desc = (
+            "Rezervirajte Glavani Park online za do 6 osoba. Ispunite obrazac — "
+            "potvrdu šaljemo WhatsAppom ili SMS-om. Unutar 48 sati od termina nazovite."
+        )
+        h1 = "Rezerviraj"
+        lead = "Ispunite obrazac — potvrdu rezervacije šaljemo što prije WhatsAppom ili SMS-om."
+        notice = "Rezervacija u roku 48 sati od željenog datuma posjeta? Molimo <a href=\"tel:+38598224314\">nazovite</a>."
     else:
         slug, en_slug, hr_slug = "book", "book", "rezervacija"
-        title = "Book Your Visit | Glavani Park – Pick Package & Date"
-        desc = "Book Glavani Park online for up to 6 people: choose a package or single activity, pick a date, and send via WhatsApp or SMS. Groups of 7+ please call."
-        h1 = "Book Your Adventure"
-        lead = "Packages first, then single activities (up to 6 people) — WhatsApp, SMS, or call. Groups of 7+ please call to book."
+        title = "Book | Glavani Park – Pick Package & Date"
+        desc = (
+            "Book Glavani Park online for up to 6 people. Fill in the form — "
+            "we confirm via SMS or WhatsApp ASAP. Within 48 hours of your visit date, please call to book."
+        )
+        h1 = "Book"
+        lead = "Fill in the form below — we'll confirm your booking as soon as possible via SMS or WhatsApp."
+        notice = "Booking within 48 hours of your requested visit date? Please <a href=\"tel:+385918964525\">call to book</a>."
     prefix = f"/{lang}/"
     canonical = f"{BASE}{prefix}{slug}/"
     home_label = "Početna" if lang == "hr" else "Home"
@@ -960,6 +968,7 @@ def render_booking_app(lang: str) -> str:
 <div class="book-app-hero">
   <h1>{h1}</h1>
   <p>{lead}</p>
+  <p class="book-app-notice">{notice}</p>
 </div>
 <div class="book-app-wrap">
   <div id="booking-app" aria-live="polite"></div>

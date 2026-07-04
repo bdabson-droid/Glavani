@@ -55,7 +55,7 @@ SMALL_GROUP_FAQS = {
         },
         {
             "q": "How can I book for a small group of up to 6 people?",
-            "a": "Use the online booking app to choose a package, pick a date, and send your request via WhatsApp or SMS — no deposit required. For groups of 7 or more, call +385 91 896 4525 to arrange your visit.",
+            "a": "Use the online booking form to choose a package, pick a date, and send your request — we'll confirm via WhatsApp or SMS as soon as possible. Within 48 hours of your visit date, please call instead. For groups of 7 or more, call +385 91 896 4525.",
         },
         {
             "q": "Do I need to book ahead or can we just turn up?",
@@ -113,7 +113,7 @@ SMALL_GROUP_FAQS = {
         },
         {
             "q": "Kako rezervirati za manju grupu do 6 osoba?",
-            "a": "Koristite online aplikaciju: odaberite paket, datum i pošaljite zahtjev WhatsAppom ili SMS-om — bez pologa. Za 7 i više osoba nazovite +385 98 224 314.",
+            "a": "Ispunite online obrazac: odaberite paket i datum te pošaljite zahtjev — potvrdu šaljemo što prije WhatsAppom ili SMS-om. Unutar 48 sati od termina nazovite. Za 7 i više osoba nazovite +385 98 224 314.",
         },
         {
             "q": "Trebam li rezervirati unaprijed ili možemo samo doći?",

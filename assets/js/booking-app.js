@@ -1,5 +1,5 @@
 /**
- * Glavani Park Booking App — package & guest dropdowns, live pricing.
+ * Glavani Park booking — package & guest dropdowns, live pricing.
  * Groups of 7+ must call. No email — WhatsApp, SMS, or phone.
  * Keep activity names/prices in sync with scripts/packages.py.
  */
@@ -43,7 +43,10 @@
       pickDateLead: 'Open daily 9 AM–5 PM · last entry 3 PM',
       yourDetails: 'Your details',
       confirmTitle: 'Confirm booking',
-      confirmLead: 'Send your request via WhatsApp or SMS — no email needed',
+      confirmLead: 'Send your request — we\'ll confirm your booking as soon as possible via SMS or WhatsApp.',
+      within48Title: 'Within 48 hours of your visit?',
+      within48Lead: 'Please call to book so we can confirm availability in time.',
+      within48Alert: 'Your selected date is within 48 hours. Please call to book instead of using the form.',
       name: 'Your name',
       phone: 'Your phone number',
       guestsHint: 'Groups of 7 or more must call to book.',
@@ -105,7 +108,10 @@
       pickDateLead: 'Otvoreno 9–17 h · zadnji ulaz 15 h',
       yourDetails: 'Vaši podaci',
       confirmTitle: 'Potvrdite rezervaciju',
-      confirmLead: 'Pošaljite WhatsAppom ili SMS-om — bez e-maila',
+      confirmLead: 'Pošaljite zahtjev — potvrdu rezervacije šaljemo što prije SMS-om ili WhatsAppom.',
+      within48Title: 'Unutar 48 sati od posjeta?',
+      within48Lead: 'Molimo nazovite kako bismo na vrijeme potvrdili dostupnost.',
+      within48Alert: 'Odabrani datum je unutar 48 sati. Molimo nazovite umjesto online obrasca.',
       name: 'Ime i prezime',
       phone: 'Broj telefona',
       guestsHint: 'Grupe od 7 i više osoba moraju rezervirati telefonom.',
@@ -186,6 +192,21 @@
   const state = { name: '', phone: '', guests: 2, largeGroup: false, arrival: 0, notes: '' };
 
   function isoDate(d) { return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`; }
+
+  function isWithin48Hours(isoDate) {
+    const visit = new Date(`${isoDate}T09:00:00`);
+    const now = new Date();
+    const diff = visit.getTime() - now.getTime();
+    return diff >= 0 && diff < 48 * 60 * 60 * 1000;
+  }
+
+  function renderWithin48Warning() {
+    return `<div class="book-within48" role="alert">
+      <h3>${t.within48Title}</h3>
+      <p>${t.within48Lead}</p>
+      <a class="btn-call-book" href="tel:+${phone}">${t.callToBook}</a>
+    </div>`;
+  }
 
   function selectedActivity() {
     return t.activities.find(a => a.id === selectedActivityId) || null;
@@ -367,10 +388,12 @@
     }
     const a = selectedActivity();
     const summary = a ? `<p class="book-package-preview">${a.name} · ${guestCount()} ${lang === 'hr' ? 'osoba' : 'guests'} · <strong>€${bookingTotal()}</strong></p>` : '';
+    const within48 = selectedDate && isWithin48Hours(selectedDate) ? renderWithin48Warning() : '';
     return `<section class="book-panel">
       <h2>${t.pickDate}</h2>
       <p class="book-panel__lead">${t.pickDateLead}</p>
       ${summary}
+      ${within48}
       <div class="cal-nav">
         <button type="button" id="app-cal-prev" aria-label="Previous">‹</button>
         <span id="app-cal-month">${t.months[viewMonth]} ${viewYear}</span>
@@ -468,6 +491,7 @@
     }
 
     const panels = [renderPackageStep(), renderCalendar(), renderDetails(), renderConfirm()];
+    const within48Block = step === 1 && selectedDate && isWithin48Hours(selectedDate);
     root.innerHTML = `
       <div class="book-tabs">
         <button type="button" class="book-tabs__btn book-tabs__btn--active" data-tab="book">${t.tabBook}</button>
@@ -477,7 +501,7 @@
       ${panels[step]}
       <div class="book-nav">
         ${step > 0 ? `<button type="button" class="btn-secondary" id="book-back">${t.back}</button>` : '<span></span>'}
-        ${step < 3 && !(step === 0 && state.largeGroup) ? `<button type="button" class="btn-primary" id="book-next">${t.next}</button>` : ''}
+        ${step < 3 && !(step === 0 && state.largeGroup) && !within48Block ? `<button type="button" class="btn-primary" id="book-next">${t.next}</button>` : ''}
       </div>`;
 
     bindTabs();
@@ -543,6 +567,10 @@
         if (!selectedActivityId) { alert(t.selectActivity); return; }
       }
       if (step === 1 && !selectedDate) { alert(t.selectDate); return; }
+      if (step === 1 && selectedDate && isWithin48Hours(selectedDate)) {
+        alert(t.within48Alert);
+        return;
+      }
       if (step === 2) {
         state.name = document.getElementById('app-name')?.value.trim() || '';
         state.phone = document.getElementById('app-phone')?.value.trim() || '';
