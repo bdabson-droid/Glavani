@@ -322,44 +322,106 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   .hub-grid--two { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* Activity hub cards — bold colour blocks; swap photo URL when custom images are ready */
+/* Activity hub cards — photo tiles with colour fade for title overlay */
+.hub-card--catapult,
+.hub-card--swing,
+.hub-card--drop,
+.hub-card--zipline-valley,
+.hub-card--climbing {
+  background-repeat: no-repeat;
+}
 .hub-card--catapult {
-  background-image:
-    linear-gradient(145deg, rgba(234, 88, 12, 0.82), rgba(154, 52, 18, 0.88)),
-    url("../../images/human-catapult-youtube-still.webp");
-  background-size: cover;
-  background-position: center top;
+  --hub-photo: url("../../images/human-catapult-youtube-still.webp");
+  --hub-fade: linear-gradient(
+    to right,
+    rgba(234, 88, 12, 0.98) 0%,
+    rgba(234, 88, 12, 0.94) 26%,
+    rgba(200, 78, 14, 0.78) 38%,
+    rgba(154, 52, 18, 0.42) 52%,
+    rgba(154, 52, 18, 0.12) 68%,
+    transparent 82%
+  );
+  background-color: #9a3412;
+  background-image: var(--hub-fade), var(--hub-photo);
+  background-size: 100% 100%, cover;
+  background-position: 0 0, 72% center;
+}
+.activity-showcase--compact .hub-card--catapult {
+  --hub-fade: linear-gradient(
+    to right,
+    rgba(234, 88, 12, 0.98) 0%,
+    rgba(234, 88, 12, 0.94) 30%,
+    rgba(200, 78, 14, 0.78) 42%,
+    rgba(154, 52, 18, 0.42) 56%,
+    rgba(154, 52, 18, 0.12) 70%,
+    transparent 86%
+  );
+  background-position: 0 0, 78% center;
+}
+.hub-card--catapult .hub-card__icon,
+.hub-card--catapult h3,
+.hub-card--catapult::after {
+  position: relative;
+  z-index: 1;
+}
+.hub-card--catapult h3,
+.hub-card--catapult .hub-card__icon {
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
 }
 .hub-card--swing {
   background-image:
-    linear-gradient(145deg, rgba(124, 58, 237, 0.9), rgba(76, 29, 149, 0.95)),
+    linear-gradient(
+      to right,
+      rgba(124, 58, 237, 0.96) 0%,
+      rgba(124, 58, 237, 0.88) 30%,
+      rgba(76, 29, 149, 0.45) 55%,
+      transparent 80%
+    ),
     url("../../images/12-5m-high-swing-glavani-park-istria.webp");
-  background-size: cover;
-  background-position: center;
+  background-size: 100% 100%, cover;
+  background-position: 0 0, center right;
 }
 .hub-card--drop {
   background-image:
-    linear-gradient(145deg, rgba(37, 99, 235, 0.9), rgba(49, 46, 129, 0.95)),
+    linear-gradient(
+      to right,
+      rgba(37, 99, 235, 0.96) 0%,
+      rgba(37, 99, 235, 0.88) 30%,
+      rgba(49, 46, 129, 0.45) 55%,
+      transparent 80%
+    ),
     url("../../images/quick-jump-20m-free-fall-istria.webp");
-  background-size: cover;
-  background-position: center;
+  background-size: 100% 100%, cover;
+  background-position: 0 0, center right;
 }
 .hub-card--zipline-valley {
   background-image:
-    linear-gradient(145deg, rgba(45, 106, 79, 0.88), rgba(26, 61, 46, 0.95)),
+    linear-gradient(
+      to right,
+      rgba(45, 106, 79, 0.96) 0%,
+      rgba(45, 106, 79, 0.88) 30%,
+      rgba(26, 61, 46, 0.45) 55%,
+      transparent 80%
+    ),
     url("../../images/zipline-120m-glavani-park-istria-croatia.webp");
-  background-size: cover;
-  background-position: center;
+  background-size: 100% 100%, cover;
+  background-position: 0 0, center right;
 }
 .hub-card--zipline-low {
   background: linear-gradient(145deg, #0369a1, #0c4a6e);
 }
 .hub-card--climbing {
   background-image:
-    linear-gradient(145deg, rgba(64, 145, 108, 0.9), rgba(26, 61, 46, 0.95)),
+    linear-gradient(
+      to right,
+      rgba(64, 145, 108, 0.96) 0%,
+      rgba(64, 145, 108, 0.88) 30%,
+      rgba(26, 61, 46, 0.45) 55%,
+      transparent 80%
+    ),
     url("../../images/climbing-wall-outdoor-activities-istria.webp");
-  background-size: cover;
-  background-position: center;
+  background-size: 100% 100%, cover;
+  background-position: 0 0, center right;
 }
 .hub-card--catapult h3,
 .hub-card--swing h3,
