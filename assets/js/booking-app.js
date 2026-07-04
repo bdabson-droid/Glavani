@@ -16,10 +16,10 @@
     en: {
       steps: ['Package', 'Date', 'Details', 'Confirm'],
       activities: [
-        { id: 'training-2', group: 'packages', name: 'Training route + 2 games', price: 30 },
+        { id: 'all-incl-catapult', group: 'packages', name: 'Whole park — all games incl. human catapult', price: 70 },
         { id: 'catapult-swing', group: 'packages', name: 'Human catapult + 12.5 m swing', price: 50 },
         { id: 'all-no-catapult', group: 'packages', name: 'Whole park — all games (without catapult)', price: 50 },
-        { id: 'all-incl-catapult', group: 'packages', name: 'Whole park — all games incl. human catapult', price: 70 },
+        { id: 'training-2', group: 'packages', name: 'Training route + 2 games', price: 30 },
         { id: 'human-catapult', group: 'single', name: 'Human Catapult', price: 40 },
       ],
       groupPackages: 'Activity packages',
@@ -78,10 +78,10 @@
     hr: {
       steps: ['Paket', 'Datum', 'Podaci', 'Potvrda'],
       activities: [
-        { id: 'training-2', group: 'packages', name: 'Trening ruta + 2 igre', price: 30 },
+        { id: 'all-incl-catapult', group: 'packages', name: 'Cijeli park — sve igre uklj. katapultu', price: 70 },
         { id: 'catapult-swing', group: 'packages', name: 'Ljudska katapulta + ljuljačka 12,5 m', price: 50 },
         { id: 'all-no-catapult', group: 'packages', name: 'Cijeli park — sve igre (bez katapulata)', price: 50 },
-        { id: 'all-incl-catapult', group: 'packages', name: 'Cijeli park — sve igre uklj. katapultu', price: 70 },
+        { id: 'training-2', group: 'packages', name: 'Trening ruta + 2 igre', price: 30 },
         { id: 'human-catapult', group: 'single', name: 'Ljudska katapulta', price: 40 },
       ],
       groupPackages: 'Paketi aktivnosti',
@@ -224,7 +224,9 @@
       { key: 'single', label: t.groupSingle },
     ];
     return groups.map(g => {
-      const items = t.activities.filter(a => a.group === g.key);
+      const items = t.activities
+        .filter(a => a.group === g.key)
+        .sort((a, b) => b.price - a.price);
       if (!items.length) return '';
       return `<optgroup label="${g.label}">${items.map(a =>
         `<option value="${a.id}"${selectedActivityId === a.id ? ' selected' : ''}>${a.name} — €${a.price}/pp</option>`
