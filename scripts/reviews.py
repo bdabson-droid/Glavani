@@ -1,7 +1,8 @@
 """Visitor reviews carousel — Google & TripAdvisor 5-star excerpts with named reviewers."""
 
 GOOGLE_REVIEWS_URL = "https://www.google.com/maps/search/?api=1&query=Glavani+Park+Barban"
-TRIPADVISOR_URL = "https://www.tripadvisor.com/Search?q=Glavani+Park+Barban"
+TRIPADVISOR_URL = "https://www.tripadvisor.com/Attraction_Review-g295382-d7377536-Reviews-Glavani_Park-Barban_Istria.html"
+FACEBOOK_URL = "https://www.facebook.com/glavanipark"
 CAROUSEL_VISIBLE = 12
 
 # All unique published TripAdvisor reviews — one entry per reviewer visit (no duplicates).
@@ -10,21 +11,21 @@ _ALL_REVIEWS = [
     {
         "source": "tripadvisor",
         "author": "Flyer13696210721",
-        "date": "2026-08-04",
+        "date": "2025-08-04",
         "en": "Super nice park — different from the average climbing parks. Here you can choose a catapult or swing. We were four boys aged 16 and 18 and they enjoyed it. You can drink and buy ice cream between activities. Nice guidance.",
         "hr": "Super park — drugačiji od prosječnih penjačkih parkova. Možete odabrati katapultu ili ljuljačku. Bila su četiri dečka od 16 i 18 godina i uživali su. Možete popiti piće i kupiti sladoled između aktivnosti. Odlično vodstvo.",
     },
     {
         "source": "tripadvisor",
         "author": "Typingalong22",
-        "date": "2026-08-03",
+        "date": "2025-08-03",
         "en": "A great adventure park in Croatia — really fun to explore all the different attractions. I would recommend it to any thrill seekers visiting the Istrian peninsula.",
         "hr": "Odličan avanturistički park u Hrvatskoj — zabavno je istraživati sve atrakcije. Toplo preporučujem svim ljubiteljima adrenalina na Istarskom poluotoku.",
     },
     {
         "source": "tripadvisor",
         "author": "Sandra",
-        "date": "2026-07-08",
+        "date": "2025-07-08",
         "en": "A day full of adrenaline for our 15-year-old! Staff on site were super nice, helpful and always on hand. The human catapult alone is worth the visit — unique in Croatia. The 12 m swing, 120 m zipline at 30 m height and 20 m free fall make it a real experience. 100% recommended!",
         "hr": "Dan pun adrenalina za našeg 15-godišnjaka! Osoblje je bilo super, korisno i uvijek dostupno. Ljudska katapulta sama po sebi vrijedi posjeta — jedinstvena u Hrvatskoj. Ljuljačka od 12 m, zipline od 120 m na 30 m visine i slobodan pad s 20 m čine pravo iskustvo. 100% preporuka!",
     },

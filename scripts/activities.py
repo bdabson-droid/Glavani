@@ -256,3 +256,70 @@ ACTIVITIES = [
         },
     },
 ]
+
+
+def activity_faqs(activity: dict, lang: str) -> list[dict]:
+    """Three concise FAQs per activity page for SEO and AI extraction."""
+    data = activity[lang]
+    h1 = data["h1"]
+    single_price = activity.get("single_price")
+    prefix = f"/{lang}/"
+
+    if lang == "en":
+        price_a = (
+            f"The Human Catapult is €{single_price} as a single activity, or included in whole-park packages from €30. "
+            f"See <a href=\"{prefix}prices/\">packages and prices</a> or <a href=\"{prefix}book/\">book online</a>."
+            if single_price
+            else f"Access is included in Glavani Park day admission and packages from €30 per person. "
+            f"See <a href=\"{prefix}prices/\">packages and prices</a>."
+        )
+        return [
+            {
+                "q": f"How much does {h1} cost at Glavani Park?",
+                "a": price_a,
+            },
+            {
+                "q": f"Do I need to book {h1} in advance?",
+                "a": (
+                    f"Walk-ins are welcome for {h1} during park opening hours (9 AM–5 PM, last entry 3 PM). "
+                    "Booking ahead is recommended on weekends and in July and August — call +385 91 896 4525 or use the online form."
+                ),
+            },
+            {
+                "q": f"Is {h1} safe at Glavani Park?",
+                "a": (
+                    f"Yes. {h1} at Glavani Park is instructor-led with CE-certified harnesses and helmets, "
+                    "daily equipment checks, and a full briefing before you start. Read our "
+                    f"<a href=\"{prefix}safety/\">safety page</a> for full standards."
+                ),
+            },
+        ]
+
+    price_a = (
+        f"Ljudska katapulta košta {single_price} € kao pojedinačna aktivnost ili je uključena u pakete cijelog parka od 30 €. "
+        f"Pogledajte <a href=\"{prefix}cijene/\">pakete i cijene</a> ili <a href=\"{prefix}rezervacija/\">rezervirajte online</a>."
+        if single_price
+        else f"Pristup je uključen u dnevnu ulaznicu i pakete Glavani Parka od 30 € po osobi. "
+        f"Pogledajte <a href=\"{prefix}cijene/\">pakete i cijene</a>."
+    )
+    return [
+        {
+            "q": f"Koliko košta {h1} u Glavani Parku?",
+            "a": price_a,
+        },
+        {
+            "q": f"Trebam li unaprijed rezervirati {h1}?",
+            "a": (
+                f"Dolazak bez rezervacije moguć je za {h1} tijekom radnog vremena parka (9–17 h, posljednji ulaz 15 h). "
+                "Preporučujemo rezervaciju vikendom te u srpnju i kolovozu — nazovite +385 98 224 314 ili koristite online obrazac."
+            ),
+        },
+        {
+            "q": f"Je li {h1} siguran u Glavani Parku?",
+            "a": (
+                f"Da. {h1} u Glavani Parku vodi instruktor s CE certificiranim harnesom i kacigom, "
+                "dnevnom provjerom opreme i potpunom obukom prije početka. Više na "
+                f"<a href=\"{prefix}sigurnost/\">stranici o sigurnosti</a>."
+            ),
+        },
+    ]

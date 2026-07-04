@@ -15,8 +15,8 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
-from activities import ACTIVITIES, ACTIVITY_SLUG_MAP  # noqa: E402
-from reviews import REVIEWS, TRIPADVISOR_URL, render_reviews_section  # noqa: E402
+from activities import ACTIVITIES, ACTIVITY_SLUG_MAP, activity_faqs  # noqa: E402
+from reviews import FACEBOOK_URL, REVIEWS, TRIPADVISOR_URL, render_reviews_section  # noqa: E402
 from faqs import (  # noqa: E402
     FAQ_COPY,
     FAQ_SLUGS,
@@ -26,7 +26,7 @@ from faqs import (  # noqa: E402
     render_faq_related,
     render_page_faq_section,
 )
-from packages import PRICES_COPY, PRICES_SLUGS, render_price_sections  # noqa: E402
+from packages import PRICES_COPY, PRICES_SLUGS, prices_offer_schema, render_price_sections  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
 TODAY = date.today().isoformat()
@@ -264,6 +264,9 @@ def footer(lang: str) -> str:
         copy = "Glavani Park · avanturistički park Istria · zipline Hrvatska"
         links = [
             ("Početna", prefix),
+            ("Aktivnosti", f"{prefix}avanturisticki-park-hrvatska/"),
+            ("Cijene", f"{prefix}cijene/"),
+            ("FAQ", f"{prefix}cesta-pitanja/"),
             ("English", f"/en/"),
             ("Partneri", f"{prefix}partneri/"),
             ("Link na nas", f"{prefix}link-na-nas/"),
@@ -273,6 +276,9 @@ def footer(lang: str) -> str:
         copy = "Glavani Park · Adventure Park Istria · Zipline Croatia"
         links = [
             ("Home", prefix),
+            ("Activities", f"{prefix}adventure-park-croatia/"),
+            ("Prices", f"{prefix}prices/"),
+            ("FAQ", f"{prefix}faq/"),
             ("Hrvatski", f"/hr/"),
             ("Partners", f"{prefix}partners/"),
             ("Link to Us", f"{prefix}link-to-us/"),
@@ -312,38 +318,45 @@ def head_meta(
     hr_slug: str | None = None,
     is_home: bool = False,
     og_image: str = "glavani-park-adventure-istria-croatia.jpg",
+    og_image_alt: str | None = None,
     extra_head: str = "",
 ) -> str:
     og_locale = "hr_HR" if lang == "hr" else "en_GB"
     alt_locale = "en_GB" if lang == "hr" else "hr_HR"
     og_image_url = f"{BASE}/images/{og_image}"
     img_w, img_h = (400, 120) if "logo" in og_image else (800, 560)
+    image_alt = og_image_alt or "Glavani Park adventure and zipline park in Istria, Croatia"
+    safe_title = esc(title)
+    safe_desc = esc(description)
+    safe_keywords = esc(keywords)
+    safe_image_alt = esc(image_alt)
     return f"""<!DOCTYPE html>
 <html lang="{lang}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title}</title>
-  <meta name="description" content="{description}">
-  <meta name="keywords" content="{keywords}">
+  <title>{safe_title}</title>
+  <meta name="description" content="{safe_desc}">
+  <meta name="keywords" content="{safe_keywords}">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="{canonical}">
 {hreflang_tags(en_slug, hr_slug, is_home)}
   <meta property="og:type" content="website">
   <meta property="og:url" content="{canonical}">
-  <meta property="og:title" content="{title}">
-  <meta property="og:description" content="{description}">
+  <meta property="og:title" content="{safe_title}">
+  <meta property="og:description" content="{safe_desc}">
   <meta property="og:locale" content="{og_locale}">
   <meta property="og:locale:alternate" content="{alt_locale}">
   <meta property="og:site_name" content="Glavani Park">
   <meta property="og:image" content="{og_image_url}">
   <meta property="og:image:width" content="{img_w}">
   <meta property="og:image:height" content="{img_h}">
-  <meta property="og:image:alt" content="Glavani Park adventure and zipline park in Istria, Croatia">
+  <meta property="og:image:alt" content="{safe_image_alt}">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{title}">
-  <meta name="twitter:description" content="{description}">
+  <meta name="twitter:title" content="{safe_title}">
+  <meta name="twitter:description" content="{safe_desc}">
   <meta name="twitter:image" content="{og_image_url}">
+  <meta name="twitter:image:alt" content="{safe_image_alt}">
   <link rel="icon" href="/images/glavani-park-logo-small.png" type="image/png">
   <link rel="apple-touch-icon" href="/images/glavani-park-logo.png">
   <meta name="theme-color" content="#0a0a0a">
@@ -396,6 +409,87 @@ def breadcrumb_schema(items: list) -> str:
 
 def json_ld_script(data: dict | list) -> str:
     return f'<script type="application/ld+json">\n{json.dumps(data, indent=2, ensure_ascii=False)}\n</script>'
+
+
+def webpage_schema(url: str, name: str, description: str, lang: str) -> dict:
+    return {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": f"{url}#webpage",
+        "url": url,
+        "name": name,
+        "description": description,
+        "inLanguage": "hr-HR" if lang == "hr" else "en-GB",
+        "isPartOf": {"@id": f"{BASE}/en/#glavani-park"},
+        "about": {"@id": f"{BASE}/en/#glavani-park"},
+    }
+
+
+def activity_page_schema(activity: dict, lang: str, url: str) -> list[dict]:
+    data = activity[lang]
+    schemas: list[dict] = [
+        {
+            "@context": "https://schema.org",
+            "@type": "TouristAttraction",
+            "@id": f"{url}#attraction",
+            "name": data["h1"],
+            "description": data["meta_description"],
+            "url": url,
+            "image": f"{BASE}/images/{activity['image']}",
+            "isPartOf": {"@id": f"{BASE}/en/#glavani-park"},
+            "touristType": "Adventure traveler",
+        }
+    ]
+    single_price = activity.get("single_price")
+    if single_price:
+        book_slug = "book" if lang == "en" else "rezervacija"
+        schemas.append(
+            {
+                "@context": "https://schema.org",
+                "@type": "Offer",
+                "name": data["h1"],
+                "price": str(single_price),
+                "priceCurrency": "EUR",
+                "availability": "https://schema.org/InStock",
+                "url": f"{BASE}/{lang}/{book_slug}/",
+                "seller": {"@id": f"{BASE}/en/#glavani-park"},
+            }
+        )
+    video_id = activity.get("youtube_id")
+    if video_id:
+        schemas.append(
+            {
+                "@context": "https://schema.org",
+                "@type": "VideoObject",
+                "name": data["video_heading"],
+                "description": data["meta_description"],
+                "thumbnailUrl": f"{BASE}/images/{activity['image']}",
+                "uploadDate": "2020-01-01",
+                "contentUrl": activity.get("youtube_url", f"https://youtu.be/{video_id}"),
+                "embedUrl": f"https://www.youtube.com/embed/{video_id}",
+            }
+        )
+    return schemas
+
+
+def activities_hub_itemlist_schema(lang: str, url: str) -> dict:
+    prefix = f"/{lang}/"
+    return {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": ACTIVITIES_HUB_COPY[lang]["h1"],
+        "url": url,
+        "numberOfItems": len(ACTIVITIES),
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": i,
+                "name": act[lang]["h1"],
+                "url": f"{BASE}{prefix}{act['hr_slug' if lang == 'hr' else 'en_slug']}/",
+            }
+            for i, act in enumerate(ACTIVITIES, 1)
+        ],
+    }
 
 
 def faq_page_schema(faqs: list[dict], lang: str) -> dict:
@@ -542,7 +636,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
                 description=page["meta_description"],
             )
         )
-    body = f"""{head_meta(lang, page['title'], page['meta_description'], page['keywords'], canonical, en_slug, hr_slug, og_image=img, extra_head=map_head)}
+    body = f"""{head_meta(lang, page['title'], page['meta_description'], page['keywords'], canonical, en_slug, hr_slug, og_image=img, og_image_alt=page.get('image_alt'), extra_head=map_head)}
 {quick_actions(lang)}
 {site_header(lang)}
 {site_nav(lang)}
@@ -581,14 +675,15 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
 {footer(lang)}
 {breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (page['h1'], None)])}
 {faq_schema}
+{json_ld_script(webpage_schema(canonical, page['h1'], page['meta_description'], lang))}
 </body>
 </html>"""
     return body
 
 
 SKIP_LANDING_SLUGS = {
-    "en": {"family-activities-istria", "adventure-park-croatia"},
-    "hr": {"obiteljske-aktivnosti-istri", "avanturisticki-park-hrvatska"},
+    "en": {"adventure-park-croatia"},
+    "hr": {"avanturisticki-park-hrvatska"},
 }
 
 ACTIVITIES_HUB_SLUGS = {"en": "adventure-park-croatia", "hr": "avanturisticki-park-hrvatska"}
@@ -606,6 +701,14 @@ ACTIVITIES_HUB_COPY = {
         ),
         "h1": "Our Activities",
         "lead": "Six signature outdoor attractions — adventure park, zipline courses and adrenaline rides in Istria",
+        "intro": (
+            "Glavani Park near Barban covers 1.5 hectares of oak forest with six instructor-led attractions — "
+            "from the Human Catapult and 12.5 m high swing to 120 m ziplines and high-ropes routes. "
+            "Open daily 9 AM–5 PM, about 30 minutes from Pula."
+        ),
+        "family_link": "family-activities-istria",
+        "family_label": "Family activities guide",
+        "family_desc": "Yellow route for kids, ziplines for teens — plan a family day",
     },
     "hr": {
         "title": "Avanturistički park Istria | Zipline i adrenalinski park Hrvatska",
@@ -619,6 +722,14 @@ ACTIVITIES_HUB_COPY = {
         ),
         "h1": "Naše aktivnosti",
         "lead": "Šest atrakcija na otvorenom — avantura, zipline i adrenalin u Istri",
+        "intro": (
+            "Glavani Park kod Barbana prostire se na 1,5 ha hrastove šume sa šest atrakcija pod nadzorom instruktora — "
+            "od ljudske katapulata i ljuljačke od 12,5 m do ziplinea od 120 m i visokih staza. "
+            "Otvoreno 9–17 h, otprilike 30 minuta od Pule."
+        ),
+        "family_link": "obiteljske-aktivnosti-istri",
+        "family_label": "Vodič za obiteljske aktivnosti",
+        "family_desc": "Žuta staza za djecu, zipline za tinejdžere — planirajte obiteljski dan",
     },
 }
 
@@ -698,6 +809,12 @@ def render_activities_hub_page(lang: str) -> str:
     book_href = f"{prefix}rezervacija/" if lang == "hr" else f"{prefix}book/"
     book_label = "Rezervirajte posjet" if lang == "hr" else "Book Your Visit"
 
+    family_href = f"{prefix}{copy['family_link']}/"
+    family_card = (
+        f'<a class="topic-link" href="{family_href}">{copy["family_label"]}'
+        f'<span>{copy["family_desc"]}</span></a>'
+    )
+
     return f"""{head_meta(lang, copy['title'], copy['meta_description'], copy['keywords'], canonical, en_slug, hr_slug)}
 {quick_actions(lang)}
 {site_header(lang)}
@@ -714,8 +831,12 @@ def render_activities_hub_page(lang: str) -> str:
       <div class="section__heading">
         <h1 id="activities-heading">{copy['h1']}</h1>
         <p>{copy['lead']}</p>
+        <p class="faq-intro">{copy['intro']}</p>
       </div>
       {render_activity_hub_grid(lang)}
+      <div class="topic-grid" style="margin-top:1.5rem;max-width:760px;margin-left:auto;margin-right:auto;">
+        {family_card}
+      </div>
       <p style="margin-top:1.5rem;text-align:center;">
         <a class="btn-primary" href="{book_href}">{book_label}</a>
       </p>
@@ -724,6 +845,8 @@ def render_activities_hub_page(lang: str) -> str:
 </main>
 {footer(lang)}
 {breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (copy['h1'], None)])}
+{json_ld_script(webpage_schema(canonical, copy['h1'], copy['meta_description'], lang))}
+{json_ld_script(activities_hub_itemlist_schema(lang, canonical))}
 </body>
 </html>"""
 
@@ -776,6 +899,23 @@ def render_activity_page(activity: dict, lang: str) -> str:
     activities_url = f"{BASE}{activities_href}"
 
     prose = "".join(f"<p>{p}</p>" for p in data["paragraphs"])
+    prices_href = f"{prefix}prices/" if lang == "en" else f"{prefix}cijene/"
+    prices_label = "Packages &amp; prices" if lang == "en" else "Paketi i cijene"
+    prose += (
+        f'<p><a href="{book_href}">{book_label}</a> · '
+        f'<a href="{prices_href}">{prices_label}</a></p>'
+    )
+    page_faqs = activity_faqs(activity, lang)
+    faq_block = f"""
+  <section class="section section--alt" aria-labelledby="page-faq-heading">
+    <div class="section__inner">
+      {render_page_faq_section(page_faqs, lang)}
+    </div>
+  </section>"""
+    faq_schema = json_ld_script(
+        build_faq_schema(page_faqs, lang, url=canonical, name=data["h1"], description=data["meta_description"])
+    )
+    activity_schema_scripts = "".join(json_ld_script(s) for s in activity_page_schema(activity, lang, canonical))
     single_price = activity.get("single_price")
     price_html = ""
     if single_price:
@@ -803,7 +943,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
         <img src="/images/{img}" alt="{data['image_alt']}" width="800" height="560" loading="eager">
       </figure>"""
 
-    return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=img)}
+    return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=img, og_image_alt=data['image_alt'])}
 {quick_actions(lang)}
 {site_header(lang)}
 {site_nav(lang)}
@@ -833,6 +973,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
     </article>
   </div>
   {render_activity_siblings(en_slug, lang)}
+  {faq_block}
 </main>
 {footer(lang)}
 {breadcrumb_schema([
@@ -840,6 +981,9 @@ def render_activity_page(activity: dict, lang: str) -> str:
     (activities_label, activities_url),
     (data['h1'], None),
 ])}
+{faq_schema}
+{activity_schema_scripts}
+{json_ld_script(webpage_schema(canonical, data['h1'], data['meta_description'], lang))}
 </body>
 </html>"""
 
@@ -906,6 +1050,7 @@ def render_faq_page(lang: str) -> str:
 {footer(lang)}
 {breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (copy['h1'], None)])}
 {json_ld_script(faq_page_schema(VISITOR_FAQS[lang], lang))}
+{json_ld_script(webpage_schema(canonical, copy['h1'], copy['meta_description'], lang))}
 </body>
 </html>"""
 
@@ -953,6 +1098,8 @@ def render_prices_page(lang: str) -> str:
 </main>
 {footer(lang)}
 {breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (copy['h1'], None)])}
+{json_ld_script(prices_offer_schema(lang, canonical, copy['h1']))}
+{json_ld_script(webpage_schema(canonical, copy['h1'], copy['meta_description'], lang))}
 </body>
 </html>"""
 
@@ -1050,7 +1197,7 @@ def render_home(lang: str) -> str:
                     "closes": "17:00",
                 },
                 "areaServed": {"@type": "AdministrativeArea", "name": "Istria, Croatia"},
-                "sameAs": [GLAVANI_MAPS_LINK, TRIPADVISOR_URL],
+                "sameAs": [GLAVANI_MAPS_LINK, TRIPADVISOR_URL, FACEBOOK_URL],
                 "keywords": home["keywords"],
                 "aggregateRating": {
                     "@type": "AggregateRating",
@@ -1078,10 +1225,20 @@ def render_home(lang: str) -> str:
                     }
                     for review in REVIEWS
                 ],
-            }
+            },
+            {
+                "@type": "WebPage",
+                "@id": f"{canonical}#webpage",
+                "url": canonical,
+                "name": home["title"],
+                "description": home["meta_description"],
+                "inLanguage": "hr-HR" if lang == "hr" else "en-GB",
+                "isPartOf": {"@id": f"{canonical}#glavani-park"},
+                "about": {"@id": f"{canonical}#glavani-park"},
+            },
         ],
     }
-    return f"""{head_meta(lang, home['title'], home['meta_description'], home['keywords'], canonical, is_home=True, og_image=home['image'])}
+    return f"""{head_meta(lang, home['title'], home['meta_description'], home['keywords'], canonical, is_home=True, og_image=home['image'], og_image_alt="Glavani Park adventure and zipline park in Istria, Croatia")}
 {quick_actions(lang)}
 {site_header(lang)}
 {site_nav(lang, is_home=True)}
@@ -1113,6 +1270,7 @@ def build_sitemap(urls: list[tuple[str, str]]) -> None:
         lines.append("    <priority>0.8</priority>" if loc.count("/") > 4 else "    <priority>1.0</priority>")
         lines.append(f'    <xhtml:link rel="alternate" hreflang="en" href="{en_url}"/>')
         lines.append(f'    <xhtml:link rel="alternate" hreflang="hr" href="{hr_url}"/>')
+        lines.append(f'    <xhtml:link rel="alternate" hreflang="x-default" href="{en_url}"/>')
         lines.append("  </url>")
     lines.append("</urlset>")
     write_file(ROOT / "sitemap.xml", "\n".join(lines))
@@ -1133,8 +1291,12 @@ def build_root_redirect() -> None:
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="refresh" content="0; url=en/">
+  <meta name="description" content="Glavani Park — adventure and zipline park in Istria, Croatia near Pula.">
   <link rel="canonical" href="https://www.glavanipark.com/en/">
-  <title>Glavani Park</title>
+  <link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/">
+  <link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/">
+  <link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/">
+  <title>Glavani Park | Adventure Park Istria, Croatia</title>
   <script>location.replace('en/');</script>
 </head>
 <body><p><a href="en/">Glavani Park – Adventure Park Istria</a></p></body>

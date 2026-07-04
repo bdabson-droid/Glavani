@@ -142,3 +142,31 @@ def render_price_sections(lang: str) -> str:
       </section>"""
         )
     return "\n".join(sections)
+
+
+def prices_offer_schema(lang: str, url: str, name: str) -> dict:
+    """Product/Offer schema for packages and single activities."""
+    offers = []
+    for opt in BOOKING_OPTIONS:
+        data = opt[lang]
+        offers.append(
+            {
+                "@type": "Offer",
+                "name": data["name"],
+                "description": data["desc"],
+                "price": str(opt["price"]),
+                "priceCurrency": "EUR",
+                "availability": "https://schema.org/InStock",
+                "url": url,
+                "seller": {"@type": "Organization", "name": "Glavani Park"},
+            }
+        )
+    return {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "@id": f"{url}#pricing",
+        "name": name,
+        "description": PRICES_COPY[lang]["meta_description"],
+        "brand": {"@type": "Brand", "name": "Glavani Park"},
+        "offers": offers,
+    }
