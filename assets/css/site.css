@@ -332,13 +332,20 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   text-align: center;
   font-size: 0.875rem;
   font-weight: 700;
-  color: var(--green-mid);
+  line-height: 1.35;
+  color: var(--white);
   text-decoration: none;
-  padding: 0.15rem 0.25rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(145deg, #b45309, #92400e);
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 .hub-grid__below-link:hover {
-  color: var(--brand-orange);
-  text-decoration: underline;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  color: var(--white);
+  text-decoration: none;
 }
 .hub-card {
   display: flex; flex-direction: column; min-height: 160px; padding: 1.35rem 1.25rem;
