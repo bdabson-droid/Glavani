@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import json
-import os
 import sys
 from datetime import date
 from pathlib import Path
@@ -34,39 +33,6 @@ GLAVANI_MAPS_LINK = f"https://www.google.com/maps?q={GLAVANI_LAT},{GLAVANI_LNG}"
 LOCATION_MAP_HEAD = """
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>"""
-
-# Istria overview bounds (lat_min, lat_max, lng_min, lng_max)
-ISTRIA_MAP_BOUNDS = (44.62, 45.52, 13.42, 14.28)
-
-ISTRIA_OUTLINE = [
-    (45.50, 13.52),
-    (45.44, 13.58),
-    (45.36, 13.55),
-    (45.26, 13.60),
-    (45.16, 13.62),
-    (45.08, 13.64),
-    (44.98, 13.68),
-    (44.88, 13.74),
-    (44.78, 13.84),
-    (44.76, 13.92),
-    (44.82, 14.02),
-    (44.90, 14.12),
-    (45.00, 14.20),
-    (45.12, 14.24),
-    (45.24, 14.22),
-    (45.34, 14.14),
-    (45.42, 14.02),
-    (45.48, 13.86),
-    (45.50, 13.70),
-]
-
-ISTRIA_MAP_LOCATIONS = [
-    {"name": "Glavani Park", "lat": GLAVANI_LAT, "lng": GLAVANI_LNG, "primary": True, "label": (10, 10)},
-    {"name": "Barban", "lat": 45.0475, "lng": 14.0147, "primary": False, "label": (10, -18)},
-    {"name": "Vodnjan", "lat": 44.9597, "lng": 13.8492, "primary": False, "label": (-62, 2)},
-    {"name": "Pula", "lat": 44.8666, "lng": 13.8496, "primary": False, "label": (10, 12)},
-    {"name": "Rovinj", "lat": 45.0812, "lng": 13.6387, "primary": False, "label": (10, -18)},
-]
 
 # Reverse map EN slug -> HR slug
 EN_TO_HR = {v: k for k, v in SLUG_MAP.items()}
@@ -151,106 +117,8 @@ def fetch_youtube_stills() -> None:
                 continue
 
 
-def _map_latlng_to_xy(lat: float, lng: float, w: int, h: int, padding: int = 52) -> tuple[int, int]:
-    lat_min, lat_max, lng_min, lng_max = ISTRIA_MAP_BOUNDS
-    x = padding + (lng - lng_min) / (lng_max - lng_min) * (w - 2 * padding)
-    y = padding + (lat_max - lat) / (lat_max - lat_min) * (h - 2 * padding)
-    return int(x), int(y)
-
-
-def _draw_map_pin(draw: ImageDraw.ImageDraw, x: int, y: int, *, primary: bool = False) -> None:
-    if primary:
-        draw.ellipse([x - 14, y - 34, x + 14, y - 6], fill=(220, 38, 38))
-        draw.polygon([(x, y + 6), (x - 12, y - 8), (x + 12, y - 8)], fill=(180, 28, 28))
-        draw.ellipse([x - 5, y - 26, x + 5, y - 16], fill=(255, 255, 255))
-    else:
-        draw.ellipse([x - 6, y - 6, x + 6, y + 6], fill=(26, 61, 46))
-        draw.ellipse([x - 3, y - 3, x + 3, y + 3], fill=(251, 191, 36))
-
-
-def _draw_label(
-    draw: ImageDraw.ImageDraw,
-    text: str,
-    x: int,
-    y: int,
-    font: ImageFont.FreeTypeFont | ImageFont.ImageFont,
-    *,
-    primary: bool = False,
-) -> None:
-    bbox = draw.textbbox((0, 0), text, font=font)
-    tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
-    pad_x, pad_y = 6, 4
-    bg = (220, 38, 38) if primary else (255, 255, 255)
-    fg = (255, 255, 255) if primary else (26, 61, 46)
-    draw.rounded_rectangle(
-        [x - pad_x, y - pad_y, x + tw + pad_x, y + th + pad_y],
-        radius=6,
-        fill=bg,
-        outline=(26, 61, 46) if not primary else None,
-    )
-    draw.text((x, y), text, fill=fg, font=font)
-
-
-def generate_location_map_image() -> None:
-    """Create an Istria overview map with Glavani Park and nearby towns."""
-    img_dir = ROOT / "images"
-    img_dir.mkdir(parents=True, exist_ok=True)
-    path = img_dir / LOCATION_MAP_IMAGE
-    w, h = 800, 560
-    img = Image.new("RGB", (w, h), (120, 178, 210))
-    draw = ImageDraw.Draw(img)
-
-    try:
-        title_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 24)
-        label_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 15)
-        small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 14)
-    except OSError:
-        title_font = label_font = small_font = ImageFont.load_default()
-
-    land = (186, 205, 156)
-    land_edge = (120, 148, 98)
-    outline_xy = [_map_latlng_to_xy(lat, lng, w, h) for lat, lng in ISTRIA_OUTLINE]
-    draw.polygon(outline_xy, fill=land, outline=land_edge)
-
-    for i in range(len(outline_xy) - 1):
-        x1, y1 = outline_xy[i]
-        x2, y2 = outline_xy[i + 1]
-        draw.line([(x1, y1), (x2, y2)], fill=land_edge, width=2)
-
-    draw.rounded_rectangle([18, 18, 250, 52], radius=8, fill=(255, 255, 255))
-    draw.text((28, 24), "Istria, Croatia", fill=(26, 61, 46), font=title_font)
-
-    park_xy = _map_latlng_to_xy(GLAVANI_LAT, GLAVANI_LNG, w, h)
-    for town in ("Barban", "Vodnjan"):
-        match = next(item for item in ISTRIA_MAP_LOCATIONS if item["name"] == town)
-        tx, ty = _map_latlng_to_xy(match["lat"], match["lng"], w, h)
-        draw.line([park_xy, (tx, ty)], fill=(234, 88, 12), width=2)
-
-    for loc in ISTRIA_MAP_LOCATIONS:
-        x, y = _map_latlng_to_xy(loc["lat"], loc["lng"], w, h)
-        _draw_map_pin(draw, x, y, primary=loc["primary"])
-        lx, ly = x + loc["label"][0], y + loc["label"][1]
-        _draw_label(draw, loc["name"], lx, ly, label_font, primary=loc["primary"])
-
-    draw.rounded_rectangle([18, h - 42, w - 18, h - 18], radius=8, fill=(255, 255, 255))
-    draw.text(
-        (28, h - 36),
-        "Glavani Park · inland between Barban, Vodnjan, Pula & Rovinj · tap for directions",
-        fill=(45, 55, 72),
-        font=small_font,
-    )
-
-    img.save(path, "JPEG", quality=90, optimize=True)
-    print(f"  image: {path.name}")
-
-
 def esc(text: str) -> str:
     return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-
-
-def u(path: str) -> str:
-    """Legacy helper — paths are relativized after build."""
-    return path
 
 
 def relativize_paths(html: str, depth: int, lang: str) -> str:

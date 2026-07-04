@@ -431,13 +431,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 
 /* Activity detail page — sibling links */
-.activity-showcase {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-@media (min-width: 540px) { .activity-showcase { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 900px) { .activity-showcase { grid-template-columns: repeat(3, 1fr); } }
 .activity-showcase--compact .hub-card { min-height: 140px; }
 
 /* Activity detail — photo banner heading (Human Catapult) */
