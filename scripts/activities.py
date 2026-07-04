@@ -16,7 +16,9 @@ ACTIVITIES = [
         "en_slug": "human-catapult",
         "hr_slug": "ljudska-katapulta",
         "tile_mod": "catapult",
-        "image": "human-catapult-adrenaline-park-croatia.webp",
+        "youtube_id": "X2bRA2Bur-M",
+        "image": "human-catapult-youtube-still.webp",
+        "tile_image": "human-catapult-youtube-still.webp",
         "en": {
             "title": "Human Catapult | Glavani Park Istria",
             "h1": "Human Catapult",

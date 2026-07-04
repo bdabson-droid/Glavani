@@ -122,6 +122,35 @@ def generate_images() -> None:
         print(f"  image: {path.name}")
 
 
+YOUTUBE_STILLS = [
+    ("X2bRA2Bur-M", "human-catapult-youtube-still.webp"),
+]
+
+
+def fetch_youtube_stills() -> None:
+    """Download high-quality YouTube thumbnails for activity tiles."""
+    import io
+    import urllib.request
+
+    img_dir = ROOT / "images"
+    img_dir.mkdir(parents=True, exist_ok=True)
+    for video_id, filename in YOUTUBE_STILLS:
+        path = img_dir / filename
+        for quality in ("maxresdefault", "hqdefault"):
+            url = f"https://i.ytimg.com/vi/{video_id}/{quality}.jpg"
+            try:
+                with urllib.request.urlopen(url, timeout=20) as response:
+                    data = response.read()
+                if len(data) < 1000:
+                    continue
+                img = Image.open(io.BytesIO(data)).convert("RGB")
+                img.save(path, "WEBP", quality=86, method=6)
+                print(f"  image: {path.name} (YouTube {video_id})")
+                break
+            except OSError:
+                continue
+
+
 def _map_latlng_to_xy(lat: float, lng: float, w: int, h: int, padding: int = 52) -> tuple[int, int]:
     lat_min, lat_max, lng_min, lng_max = ISTRIA_MAP_BOUNDS
     x = padding + (lng - lng_min) / (lng_max - lng_min) * (w - 2 * padding)
@@ -788,6 +817,29 @@ def render_activities_hub_page(lang: str) -> str:
 </html>"""
 
 
+def render_activity_video(activity: dict, data: dict) -> str:
+    video_id = activity.get("youtube_id")
+    if not video_id:
+        return f"""
+        <div class="activity-video__slot" data-activity-video="{activity['en_slug']}">
+          <div class="activity-video__placeholder">
+            <span class="activity-video__icon" aria-hidden="true">▶</span>
+            <p>{data['video_placeholder']}</p>
+          </div>
+        </div>"""
+    title = esc(data["video_heading"])
+    return f"""
+        <div class="activity-video__slot" data-activity-video="{activity['en_slug']}">
+          <iframe
+            src="https://www.youtube.com/embed/{video_id}"
+            title="{title}"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>"""
+
+
 def render_activity_page(activity: dict, lang: str) -> str:
     data = activity["hr" if lang == "hr" else "en"]
     en_slug = activity["en_slug"]
@@ -835,13 +887,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
       </div>
       <section class="activity-video" aria-labelledby="activity-video-heading">
         <h2 id="activity-video-heading">{data['video_heading']}</h2>
-        <div class="activity-video__slot" data-activity-video="{en_slug}">
-          <!-- Replace the placeholder below with a <video> or embedded iframe when your clip is ready -->
-          <div class="activity-video__placeholder">
-            <span class="activity-video__icon" aria-hidden="true">▶</span>
-            <p>{data['video_placeholder']}</p>
-          </div>
-        </div>
+        {render_activity_video(activity, data)}
       </section>
       <div class="activity-detail__actions">
         <a class="btn-primary" href="{book_href}">{book_label}</a>
@@ -1098,6 +1144,7 @@ Backlink outreach (hotels, campsites, travel blogs):
 def main() -> None:
     print("Generating WebP/JPEG images...")
     generate_images()
+    fetch_youtube_stills()
 
     print("Building English pages...")
     write_file(ROOT / "en" / "index.html", render_home("en"))

@@ -325,10 +325,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 /* Activity hub cards — bold colour blocks; swap photo URL when custom images are ready */
 .hub-card--catapult {
   background-image:
-    linear-gradient(145deg, rgba(234, 88, 12, 0.92), rgba(154, 52, 18, 0.95)),
-    url("../../images/human-catapult-adrenaline-park-croatia.webp");
+    linear-gradient(145deg, rgba(234, 88, 12, 0.82), rgba(154, 52, 18, 0.88)),
+    url("../../images/human-catapult-youtube-still.webp");
   background-size: cover;
-  background-position: center;
+  background-position: center top;
 }
 .hub-card--swing {
   background-image:
