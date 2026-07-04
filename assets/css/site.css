@@ -330,42 +330,40 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-card--climbing {
   background-repeat: no-repeat;
 }
-.hub-card--catapult {
+.hub-card--catapult,
+.activity-banner--catapult {
   --hub-photo: url("../../images/human-catapult-youtube-still.webp");
   --hub-fade: linear-gradient(
     to right,
-    rgba(234, 88, 12, 0.98) 0%,
-    rgba(234, 88, 12, 0.94) 26%,
-    rgba(200, 78, 14, 0.78) 38%,
-    rgba(154, 52, 18, 0.42) 52%,
-    rgba(154, 52, 18, 0.12) 68%,
-    transparent 82%
+    rgba(234, 88, 12, 0.9) 0%,
+    rgba(234, 88, 12, 0.72) 22%,
+    rgba(200, 78, 14, 0.42) 36%,
+    rgba(154, 52, 18, 0.16) 50%,
+    transparent 66%
   );
   background-color: #9a3412;
   background-image: var(--hub-fade), var(--hub-photo);
   background-size: 100% 100%, cover;
-  background-position: 0 0, 72% center;
+  background-position: 0 0, 68% center;
+  background-repeat: no-repeat;
 }
 .activity-showcase--compact .hub-card--catapult {
   --hub-fade: linear-gradient(
     to right,
-    rgba(234, 88, 12, 0.98) 0%,
-    rgba(234, 88, 12, 0.94) 30%,
-    rgba(200, 78, 14, 0.78) 42%,
-    rgba(154, 52, 18, 0.42) 56%,
-    rgba(154, 52, 18, 0.12) 70%,
-    transparent 86%
+    rgba(234, 88, 12, 0.9) 0%,
+    rgba(234, 88, 12, 0.72) 26%,
+    rgba(200, 78, 14, 0.42) 40%,
+    rgba(154, 52, 18, 0.16) 54%,
+    transparent 72%
   );
-  background-position: 0 0, 78% center;
+  background-position: 0 0, 74% center;
 }
-.hub-card--catapult .hub-card__icon,
 .hub-card--catapult h3,
 .hub-card--catapult::after {
   position: relative;
   z-index: 1;
 }
-.hub-card--catapult h3,
-.hub-card--catapult .hub-card__icon {
+.hub-card--catapult h3 {
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
 }
 .hub-card--swing {
@@ -441,6 +439,48 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 @media (min-width: 540px) { .activity-showcase { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 900px) { .activity-showcase { grid-template-columns: repeat(3, 1fr); } }
 .activity-showcase--compact .hub-card { min-height: 140px; }
+
+/* Activity detail — photo banner heading (Human Catapult) */
+.activity-banner {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 220px;
+  padding: 1.75rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  color: var(--white);
+  overflow: hidden;
+}
+.activity-banner__badge {
+  display: inline-block;
+  align-self: flex-start;
+  background: rgba(251, 191, 36, 0.22);
+  border: 1px solid var(--yellow-accent);
+  color: var(--yellow-accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  margin-bottom: 0.85rem;
+  position: relative;
+  z-index: 1;
+}
+.activity-banner h1 {
+  font-size: clamp(2rem, 5.5vw, 3rem);
+  font-weight: 900;
+  line-height: 1.08;
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 1;
+}
+.activity-banner--catapult {
+  background-position: 0 0, 62% center;
+}
 
 /* Activity detail pages */
 .hero--activity .hero__inner { max-width: 720px; }

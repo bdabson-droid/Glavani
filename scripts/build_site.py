@@ -717,7 +717,7 @@ ACTIVITIES_HUB_COPY = {
 }
 
 ACTIVITY_ICONS = {
-    "catapult": "🚀",
+    "catapult": "",
     "swing": "🎢",
     "drop": "⬇️",
     "zipline-valley": "🪂",
@@ -734,6 +734,13 @@ def activities_hub_path(lang: str) -> str:
     return f"/{lang}/{activities_hub_slug(lang)}/"
 
 
+def render_hub_card_icon(mod: str) -> str:
+    icon = ACTIVITY_ICONS.get(mod, "🌲")
+    if not icon:
+        return ""
+    return f'<span class="hub-card__icon" aria-hidden="true">{icon}</span>'
+
+
 def render_activity_hub_grid(lang: str, *, compact: bool = False) -> str:
     prefix = f"/{lang}/"
     cards = []
@@ -741,10 +748,9 @@ def render_activity_hub_grid(lang: str, *, compact: bool = False) -> str:
         slug = act["hr_slug"] if lang == "hr" else act["en_slug"]
         label = act["hr"]["h1"] if lang == "hr" else act["en"]["h1"]
         mod = act["tile_mod"]
-        icon = ACTIVITY_ICONS.get(mod, "🌲")
         cards.append(
             f'<a class="hub-card hub-card--{mod}" href="{prefix}{slug}/">'
-            f'<span class="hub-card__icon" aria-hidden="true">{icon}</span>'
+            f'{render_hub_card_icon(mod)}'
             f'<h3>{label}</h3></a>'
         )
     grid_class = "hub-grid activity-showcase--compact" if compact else "hub-grid"
@@ -761,10 +767,9 @@ def render_activity_siblings(current_en_slug: str, lang: str) -> str:
         slug = act["hr_slug"] if lang == "hr" else act["en_slug"]
         label = act["hr"]["h1"] if lang == "hr" else act["en"]["h1"]
         mod = act["tile_mod"]
-        icon = ACTIVITY_ICONS.get(mod, "🌲")
         cards.append(
             f'<a class="hub-card hub-card--{mod}" href="{prefix}{slug}/">'
-            f'<span class="hub-card__icon" aria-hidden="true">{icon}</span>'
+            f'{render_hub_card_icon(mod)}'
             f'<h3>{label}</h3></a>'
         )
     return f"""
@@ -858,11 +863,30 @@ def render_activity_page(activity: dict, lang: str) -> str:
     book_href = f"{prefix}rezervacija/" if lang == "hr" else f"{prefix}book/"
     cta = "Pozovite za rezervaciju" if lang == "hr" else "Call to Book"
     img = activity["image"]
+    mod = activity["tile_mod"]
+    use_banner_header = en_slug == "human-catapult"
 
     activities_href = activities_hub_path(lang)
     activities_url = f"{BASE}{activities_href}"
 
     prose = "".join(f"<p>{p}</p>" for p in data["paragraphs"])
+
+    if use_banner_header:
+        page_header = ""
+        article_open = f"""      <header class="activity-banner activity-banner--{mod}" aria-labelledby="activity-heading">
+        <p class="activity-banner__badge">{data['hero_badge']}</p>
+        <h1 id="activity-heading">{data['h1']}</h1>
+      </header>"""
+    else:
+        page_header = f"""  <section class="hero hero--landing hero--activity">
+    <div class="hero__inner">
+      <p class="hero__badge">{data['hero_badge']}</p>
+      <h1>{data['h1']}</h1>
+    </div>
+  </section>"""
+        article_open = f"""      <figure class="feature-img">
+        <img src="/images/{img}" alt="{data['image_alt']}" width="800" height="560" loading="eager">
+      </figure>"""
 
     return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=img)}
 {quick_actions(lang)}
@@ -876,17 +900,10 @@ def render_activity_page(activity: dict, lang: str) -> str:
     </ol>
   </nav>
 <main>
-  <section class="hero hero--landing hero--activity">
-    <div class="hero__inner">
-      <p class="hero__badge">{data['hero_badge']}</p>
-      <h1>{data['h1']}</h1>
-    </div>
-  </section>
+{page_header}
   <div class="activity-detail-wrap section--theme-forest">
     <article class="activity-detail">
-      <figure class="feature-img">
-        <img src="/images/{img}" alt="{data['image_alt']}" width="800" height="560" loading="eager">
-      </figure>
+{article_open}
       <div class="prose activity-detail__prose">
         {prose}
       </div>
