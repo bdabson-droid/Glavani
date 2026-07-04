@@ -18,12 +18,11 @@
       activities: [
         { id: 'training-2', group: 'packages', name: 'Training route + 2 games', price: 30 },
         { id: 'catapult-swing', group: 'packages', name: 'Human catapult + 12.5 m swing', price: 50 },
-        { id: 'all-no-catapult', group: 'whole-park', name: 'Whole park — all games (without catapult)', price: 50 },
-        { id: 'all-incl-catapult', group: 'whole-park', name: 'Whole park — all games incl. human catapult', price: 70 },
+        { id: 'all-no-catapult', group: 'packages', name: 'Whole park — all games (without catapult)', price: 50 },
+        { id: 'all-incl-catapult', group: 'packages', name: 'Whole park — all games incl. human catapult', price: 70 },
         { id: 'human-catapult', group: 'single', name: 'Human Catapult', price: 40 },
       ],
       groupPackages: 'Activity packages',
-      groupWholePark: 'Whole park',
       groupSingle: 'Single activities',
       months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
       days: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
@@ -81,12 +80,11 @@
       activities: [
         { id: 'training-2', group: 'packages', name: 'Trening ruta + 2 igre', price: 30 },
         { id: 'catapult-swing', group: 'packages', name: 'Ljudska katapulta + ljuljačka 12,5 m', price: 50 },
-        { id: 'all-no-catapult', group: 'whole-park', name: 'Cijeli park — sve igre (bez katapulata)', price: 50 },
-        { id: 'all-incl-catapult', group: 'whole-park', name: 'Cijeli park — sve igre uklj. katapultu', price: 70 },
+        { id: 'all-no-catapult', group: 'packages', name: 'Cijeli park — sve igre (bez katapulata)', price: 50 },
+        { id: 'all-incl-catapult', group: 'packages', name: 'Cijeli park — sve igre uklj. katapultu', price: 70 },
         { id: 'human-catapult', group: 'single', name: 'Ljudska katapulta', price: 40 },
       ],
       groupPackages: 'Paketi aktivnosti',
-      groupWholePark: 'Cijeli park',
       groupSingle: 'Pojedinačne aktivnosti',
       months: ['Siječanj','Veljača','Ožujak','Travanj','Svibanj','Lipanj','Srpanj','Kolovoz','Rujan','Listopad','Studeni','Prosinac'],
       days: ['Pon','Uto','Sri','Čet','Pet','Sub','Ned'],
@@ -223,7 +221,6 @@
   function renderPackageOptions() {
     const groups = [
       { key: 'packages', label: t.groupPackages },
-      { key: 'whole-park', label: t.groupWholePark },
       { key: 'single', label: t.groupSingle },
     ];
     return groups.map(g => {
