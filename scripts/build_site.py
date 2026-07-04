@@ -18,7 +18,7 @@ from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
 from activities import ACTIVITIES, ACTIVITY_SLUG_MAP  # noqa: E402
 from reviews import render_reviews_section  # noqa: E402
-from faqs import FAQ_COPY, FAQ_SLUGS, render_faq_list  # noqa: E402
+from faqs import FAQ_COPY, FAQ_SLUGS, SMALL_GROUP_FAQS, render_faq_list  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
 TODAY = date.today().isoformat()
@@ -71,6 +71,11 @@ EN_TO_HR = {v: k for k, v in SLUG_MAP.items()}
 EN_TO_HR.update({v: k for k, v in ACTIVITY_SLUG_MAP.items()})
 EN_TO_HR["book"] = "rezervacija"
 EN_TO_HR["faq"] = "cesta-pitanja"
+
+HR_TO_EN = dict(SLUG_MAP)
+HR_TO_EN.update(ACTIVITY_SLUG_MAP)
+HR_TO_EN["rezervacija"] = "book"
+HR_TO_EN["cesta-pitanja"] = "faq"
 
 IMAGES = [
     ("glavani-park-adventure-istria-croatia.jpg", "Glavani Park", (26, 61, 46), (45, 106, 79)),
@@ -395,6 +400,8 @@ def head_meta(
 ) -> str:
     og_locale = "hr_HR" if lang == "hr" else "en_GB"
     alt_locale = "en_GB" if lang == "hr" else "hr_HR"
+    og_image_url = f"{BASE}/images/{og_image}"
+    img_w, img_h = (400, 120) if "logo" in og_image else (800, 560)
     return f"""<!DOCTYPE html>
 <html lang="{lang}">
 <head>
@@ -413,7 +420,14 @@ def head_meta(
   <meta property="og:locale" content="{og_locale}">
   <meta property="og:locale:alternate" content="{alt_locale}">
   <meta property="og:site_name" content="Glavani Park">
-  <meta property="og:image" content="{BASE}/images/{og_image}">
+  <meta property="og:image" content="{og_image_url}">
+  <meta property="og:image:width" content="{img_w}">
+  <meta property="og:image:height" content="{img_h}">
+  <meta property="og:image:alt" content="Glavani Park adventure and zipline park in Istria, Croatia">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{title}">
+  <meta name="twitter:description" content="{description}">
+  <meta name="twitter:image" content="{og_image_url}">
   <link rel="stylesheet" href="/assets/css/site.css">
 {extra_head}
 </head>
@@ -458,7 +472,49 @@ def breadcrumb_schema(items: list) -> str:
             el["item"] = url
         elements.append(el)
     data = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": elements}
+    return json_ld_script(data)
+
+
+def json_ld_script(data: dict | list) -> str:
     return f'<script type="application/ld+json">\n{json.dumps(data, indent=2, ensure_ascii=False)}\n</script>'
+
+
+def faq_page_schema(faqs: list[dict]) -> dict:
+    return {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": faq["q"],
+                "acceptedAnswer": {"@type": "Answer", "text": faq["a"]},
+            }
+            for faq in faqs
+        ],
+    }
+
+
+def sitemap_alternates(loc: str) -> tuple[str, str]:
+    path = loc.replace(BASE, "")
+    if path.startswith("/hr/"):
+        hr_url = loc
+        if path == "/hr/":
+            en_url = f"{BASE}/en/"
+        elif path == "/hr/rezervacija/":
+            en_url = f"{BASE}/en/book/"
+        else:
+            hr_slug = path.replace("/hr/", "").strip("/")
+            en_url = f"{BASE}/en/{HR_TO_EN.get(hr_slug, hr_slug)}/"
+        return en_url, hr_url
+    en_url = loc
+    if path == "/en/":
+        hr_url = f"{BASE}/hr/"
+    elif path == "/en/book/":
+        hr_url = f"{BASE}/hr/rezervacija/"
+    else:
+        en_slug = path.replace("/en/", "").strip("/")
+        hr_url = f"{BASE}/hr/{EN_TO_HR.get(en_slug, en_slug)}/"
+    return en_url, hr_url
 
 
 def render_location_map(lang: str) -> str:
@@ -597,24 +653,30 @@ ACTIVITIES_HUB_SLUGS = {"en": "adventure-park-croatia", "hr": "avanturisticki-pa
 
 ACTIVITIES_HUB_COPY = {
     "en": {
-        "title": "Our Activities | Glavani Park Istria",
+        "title": "Adventure Park Istria | Zipline & Adrenaline Park Croatia",
         "meta_description": (
-            "Explore all six Glavani Park attractions — Human Catapult, High Swing, 20m Drop, "
-            "ziplines, and climbing wall. Open daily 9 AM–5 PM near Pula."
+            "Glavani Park — adventure park, zipline park and adrenaline park in Istria, Croatia. "
+            "Six outdoor attractions near Pula: Human Catapult, High Swing, ziplines, climbing wall. Open 9 AM–5 PM."
         ),
-        "keywords": "Glavani Park activities, adventure park Istria, human catapult, zipline Croatia, high swing",
+        "keywords": (
+            "adventure park Istria, zipline park Croatia, adrenaline park Istria, outdoor activities Istria Croatia, "
+            "Glavani Park activities, high ropes Pula, forest zipline Istria"
+        ),
         "h1": "Our Activities",
-        "lead": "Six signature attractions — tap for details",
+        "lead": "Six signature outdoor attractions — adventure park, zipline courses and adrenaline rides in Istria",
     },
     "hr": {
-        "title": "Naše aktivnosti | Glavani Park Istria",
+        "title": "Avanturistički park Istria | Zipline i adrenalinski park Hrvatska",
         "meta_description": (
-            "Istražite svih šest atrakcija Glavani Parka — ljudska katapulta, visoka ljuljačka, "
-            "pad s 20 m, zipline i penjački zid. Otvoreno 9–17 h kod Pule."
+            "Glavani Park — avanturistički park, zipline park i adrenalinski park u Istri, Hrvatska. "
+            "Šest atrakcija na otvorenom kod Pule: katapulta, ljuljačka, zipline, penjački zid. Otvoreno 9–17 h."
         ),
-        "keywords": "Glavani Park aktivnosti, avanturistički park Istria, ljudska katapulta, zipline Hrvatska",
+        "keywords": (
+            "avanturistički park Istria, zipline park Hrvatska, adrenalinski park Istria, aktivnosti na otvorenom Istria, "
+            "Glavani Park aktivnosti, visoke staze Pula, zipline šuma Istria"
+        ),
         "h1": "Naše aktivnosti",
-        "lead": "Šest glavnih atrakcija — dodirnite za detalje",
+        "lead": "Šest atrakcija na otvorenom — avantura, zipline i adrenalin u Istri",
     },
 }
 
@@ -851,6 +913,7 @@ def render_faq_page(lang: str) -> str:
 </main>
 {footer(lang)}
 {breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (copy['h1'], None)])}
+{json_ld_script(faq_page_schema(SMALL_GROUP_FAQS[lang]))}
 </body>
 </html>"""
 
@@ -905,18 +968,40 @@ def render_home(lang: str) -> str:
         "@context": "https://schema.org",
         "@graph": [
             {
-                "@type": "AmusementPark",
+                "@type": ["AmusementPark", "TouristAttraction"],
+                "@id": f"{canonical}#glavani-park",
                 "name": "Glavani Park",
+                "description": home["meta_description"],
                 "url": canonical,
                 "telephone": "+385918964525",
+                "image": f"{BASE}/images/{home['image']}",
                 "address": {
                     "@type": "PostalAddress",
                     "streetAddress": "Glavani 10",
                     "addressLocality": "Barban",
                     "postalCode": "52207",
+                    "addressRegion": "Istria",
                     "addressCountry": "HR",
                 },
-                "geo": {"@type": "GeoCoordinates", "latitude": 45.021389, "longitude": 13.951111},
+                "geo": {"@type": "GeoCoordinates", "latitude": GLAVANI_LAT, "longitude": GLAVANI_LNG},
+                "hasMap": GLAVANI_MAPS_LINK,
+                "openingHoursSpecification": {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": [
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday",
+                        "Sunday",
+                    ],
+                    "opens": "09:00",
+                    "closes": "17:00",
+                },
+                "areaServed": {"@type": "AdministrativeArea", "name": "Istria, Croatia"},
+                "sameAs": [GLAVANI_MAPS_LINK],
+                "keywords": home["keywords"],
             }
         ],
     }
@@ -927,7 +1012,7 @@ def render_home(lang: str) -> str:
 {body_content}
 {footer(lang)}
 <script src="/assets/js/reviews-carousel.js" defer></script>
-<script type="application/ld+json">{json.dumps(org_schema, indent=2)}</script>
+{json_ld_script(org_schema)}
 </body>
 </html>"""
 
@@ -944,21 +1029,13 @@ def build_sitemap(urls: list[tuple[str, str]]) -> None:
     lines.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"')
     lines.append('        xmlns:xhtml="http://www.w3.org/1999/xhtml">')
     for loc, freq in urls:
-        en_path = loc.replace(BASE, "")
-        hr_path = en_path.replace("/en/", "/hr/")
-        if en_path.endswith("/en/"):
-            hr_path = "/hr/"
-        elif "/en/" in en_path:
-            en_slug = en_path.split("/en/")[1].strip("/")
-            hr_slug = EN_TO_HR.get(en_slug, en_slug)
-            hr_path = f"/hr/{hr_slug}/"
+        en_url, hr_url = sitemap_alternates(loc)
         lines.append("  <url>")
         lines.append(f"    <loc>{loc}</loc>")
         lines.append(f"    <lastmod>{TODAY}</lastmod>")
         lines.append(f"    <changefreq>{freq}</changefreq>")
-        lines.append("    <priority>0.8</priority>" if "/en/" in loc and loc.count("/") > 4 else "    <priority>1.0</priority>")
-        lines.append(f'    <xhtml:link rel="alternate" hreflang="en" href="{loc}"/>')
-        hr_url = BASE + hr_path
+        lines.append("    <priority>0.8</priority>" if loc.count("/") > 4 else "    <priority>1.0</priority>")
+        lines.append(f'    <xhtml:link rel="alternate" hreflang="en" href="{en_url}"/>')
         lines.append(f'    <xhtml:link rel="alternate" hreflang="hr" href="{hr_url}"/>')
         lines.append("  </url>")
     lines.append("</urlset>")
@@ -1062,6 +1139,7 @@ def main() -> None:
     for activity in ACTIVITIES:
         slug = activity["hr_slug"]
         write_file(ROOT / "hr" / slug / "index.html", render_activity_page(activity, "hr"))
+        sitemap_urls.append((f"{BASE}/hr/{slug}/", "monthly"))
 
     print("Writing robots.txt and sitemap.xml...")
     build_robots()

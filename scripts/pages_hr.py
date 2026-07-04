@@ -19,17 +19,23 @@ SLUG_MAP = {
 }
 
 HOME = {
-    "title": 'Glavani Park | Avanturistički park Istria – zipline Hrvatska',
+    "title": 'Glavani Park | Avanturistički i zipline park Istria, Hrvatska',
     "meta_description": (
-        'Glavani Park je vodeći avanturistički i adrenalinski park u Istri kod Pule, Barbana i Vodnjanja. Visoke užadne staze, zipline, ljudska katapulta, team building i rođendanske zabave. Otvoreno svaki dan 9–17 h. Pozovite unaprijed za rezervaciju.'
+        'Glavani Park je vodeći avanturistički park, zipline park i adrenalinski park u Istri, Hrvatska — '
+        'visoke staze, zipline u šumi, ljudska katapulta i aktivnosti na otvorenom kod Pule, Barbana i Vodnjanja. '
+        'Otvoreno svaki dan 9–17 h. Rezervacija online do 6 osoba.'
     ),
     "keywords": (
-        'avanturistički park Istria, adrenalinski park Hrvatska, zipline Hrvatska, što raditi u Istri s djecom, obiteljske aktivnosti Istria, aktivnosti na otvorenom kod Pule, team building Istria, rođendanske zabave Istria, visoke užadne staze Hrvatska'
+        'avanturistički park Istria, avanturistički park Hrvatska, zipline park Istria, zipline park Hrvatska, '
+        'adrenalinski park Istria, aktivnosti na otvorenom Istria Hrvatska, visoke staze Hrvatska, '
+        'obiteljske aktivnosti Istria, što raditi kod Pule, Glavani Park'
     ),
     "h1": 'Glavani Park – avanturistički park u Istri, Hrvatska',
-    "hero_badge": 'Zipline Hrvatska · visoke staze · obiteljske aktivnosti Istria',
+    "hero_badge": 'Avanturistički park · zipline park · aktivnosti na otvorenom Istria',
     "hero_subtitle": (
-        'Jedan od najvećih adrenalinskih parkova u Hrvatskoj — 1,5 hektara visokih staza, rekordnih vožnji i aktivnosti na otvorenom kod Pule, Barbana i Vodnjanja. Idealno za obitelji, školske izlete, team building i rođendanske proslave.'
+        'Jedan od najvećih avanturističkih i adrenalinskih parkova u Hrvatskoj — zipline park i visoke staze '
+        's aktivnostima na otvorenom u Istri kod Pule, Barbana i Vodnjanja. Idealno za obitelji, školske izlete, '
+        'team building i rođendanske proslave.'
     ),
     "image": 'glavani-park-adventure-istria-croatia.jpg',
     "image_alt": 'Pogled iz zraka na Glavani Park avanturistički i adrenalinski park u Istri, Hrvatska',

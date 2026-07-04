@@ -158,103 +158,151 @@
     <lastmod>2026-07-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/hr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/"/>
   </url>
   <url>
     <loc>https://www.glavanipark.com/hr/rezervacija/</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/hr/rezervacija/"/>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/book/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/rezervacija/"/>
   </url>
   <url>
     <loc>https://www.glavanipark.com/hr/cesta-pitanja/</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/hr/cesta-pitanja/"/>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/faq/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/cesta-pitanja/"/>
   </url>
   <url>
     <loc>https://www.glavanipark.com/hr/sto-raditi-u-istri/</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/hr/sto-raditi-u-istri/"/>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/things-to-do-in-istria/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/sto-raditi-u-istri/"/>
   </url>
   <url>
     <loc>https://www.glavanipark.com/hr/zipline-hrvatska/</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/hr/zipline-hrvatska/"/>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/zipline-croatia/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/zipline-hrvatska/"/>
   </url>
   <url>
     <loc>https://www.glavanipark.com/hr/team-building-istri/</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/hr/team-building-istri/"/>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/team-building-istria/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/team-building-istri/"/>
   </url>
   <url>
     <loc>https://www.glavanipark.com/hr/rodjendanske-zabave-istri/</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/hr/rodjendanske-zabave-istri/"/>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/birthday-parties-istria/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/rodjendanske-zabave-istri/"/>
   </url>
   <url>
     <loc>https://www.glavanipark.com/hr/skolski-izleti-istri/</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/hr/skolski-izleti-istri/"/>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/school-trips-istria/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/skolski-izleti-istri/"/>
   </url>
   <url>
     <loc>https://www.glavanipark.com/hr/sto-raditi-kod-pule/</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/hr/sto-raditi-kod-pule/"/>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/things-to-do-near-pula/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/sto-raditi-kod-pule/"/>
   </url>
   <url>
     <loc>https://www.glavanipark.com/hr/sigurnost/</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/hr/sigurnost/"/>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/safety/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/sigurnost/"/>
   </url>
   <url>
     <loc>https://www.glavanipark.com/hr/partneri/</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/hr/partneri/"/>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/partners/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/partneri/"/>
   </url>
   <url>
     <loc>https://www.glavanipark.com/hr/link-na-nas/</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/hr/link-na-nas/"/>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/link-to-us/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/link-na-nas/"/>
   </url>
   <url>
     <loc>https://www.glavanipark.com/hr/avanturisticki-park-hrvatska/</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/hr/avanturisticki-park-hrvatska/"/>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/adventure-park-croatia/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/avanturisticki-park-hrvatska/"/>
+  </url>
+  <url>
+    <loc>https://www.glavanipark.com/hr/ljudska-katapulta/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/human-catapult/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/ljudska-katapulta/"/>
+  </url>
+  <url>
+    <loc>https://www.glavanipark.com/hr/visoka-ljuljacka/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/high-swing/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/visoka-ljuljacka/"/>
+  </url>
+  <url>
+    <loc>https://www.glavanipark.com/hr/pad-s-20m/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/20m-drop/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/pad-s-20m/"/>
+  </url>
+  <url>
+    <loc>https://www.glavanipark.com/hr/dolinski-zipline/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/valley-zipline/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/dolinski-zipline/"/>
+  </url>
+  <url>
+    <loc>https://www.glavanipark.com/hr/niski-zipline/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/low-zipline/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/niski-zipline/"/>
+  </url>
+  <url>
+    <loc>https://www.glavanipark.com/hr/penjacki-zid/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/climbing-wall/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/penjacki-zid/"/>
   </url>
 </urlset>

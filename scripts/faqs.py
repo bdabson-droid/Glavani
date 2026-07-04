@@ -4,14 +4,14 @@ FAQ_SLUGS = {"en": "faq", "hr": "cesta-pitanja"}
 
 FAQ_COPY = {
     "en": {
-        "title": "FAQ | Glavani Park – Families & Small Groups",
+        "title": "FAQ | Glavani Park – Adventure & Zipline Park Istria",
         "meta_description": (
-            "Answers for families and small groups visiting Glavani Park Istria — ages, booking up to "
-            "6 people, birthday parties, safety, and getting here from Pula. Call +385 91 896 4525."
+            "FAQ for families visiting Glavani Park — Istria's adventure park, zipline park and adrenaline "
+            "park near Pula. Ages, booking, safety, and outdoor activities in Croatia."
         ),
         "keywords": (
-            "Glavani Park FAQ, family adventure park Istria, small group booking Croatia, "
-            "birthday party Pula, school trip questions, zipline safety Istria"
+            "Glavani Park FAQ, adventure park Istria questions, zipline park Croatia, adrenaline park Istria, "
+            "outdoor activities Istria Croatia, family visit Pula, small group booking"
         ),
         "h1": "FAQ for Families & Small Groups",
         "lead": (
@@ -21,14 +21,14 @@ FAQ_COPY = {
         "book_note": "Book online for up to 6 people, or call for larger groups.",
     },
     "hr": {
-        "title": "Česta pitanja | Glavani Park – obitelji i manje grupe",
+        "title": "Česta pitanja | Glavani Park – avanturistički i zipline park Istria",
         "meta_description": (
-            "Odgovori za obitelji i manje grupe u Glavani Parku Istria — dob, rezervacija do 6 osoba, "
-            "rođendani, sigurnost i dolazak iz Pule. Nazovite +385 98 224 314."
+            "Česta pitanja za obitelji u Glavani Parku — avanturistički park, zipline park i adrenalinski "
+            "park u Istri kod Pule. Dob, rezervacija, sigurnost i aktivnosti na otvorenom u Hrvatskoj."
         ),
         "keywords": (
-            "Glavani Park FAQ, obiteljski avanturistički park Istria, rezervacija manja grupa, "
-            "rođendan Pula, školski izlet pitanja, sigurnost zipline Istria"
+            "Glavani Park FAQ, avanturistički park Istria pitanja, zipline park Hrvatska, adrenalinski park Istria, "
+            "aktivnosti na otvorenom Istria Hrvatska, obiteljski posjet Pula, rezervacija manja grupa"
         ),
         "h1": "Česta pitanja za obitelji i manje grupe",
         "lead": (

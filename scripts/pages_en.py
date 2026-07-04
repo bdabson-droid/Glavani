@@ -4,23 +4,23 @@ Each page targets 800–1200 words of substantive Istria tourism and park conten
 """
 
 HOME = {
-    "title": "Glavani Park | Adventure Park Istria – Zipline Croatia",
+    "title": "Glavani Park | Adventure & Zipline Park Istria, Croatia",
     "meta_description": (
-        "Glavani Park is Istria's top adventure & adrenaline park near Pula, Barban & Vodnjan. "
-        "High ropes, ziplines, human catapult, team building & birthday parties. Open daily 9 AM–5 PM. "
-        "Call ahead to book."
+        "Glavani Park is Istria's leading adventure park, zipline park and adrenaline park in Croatia — "
+        "high ropes, forest ziplines, human catapult and outdoor activities near Pula, Barban & Vodnjan. "
+        "Open daily 9 AM–5 PM. Book online for up to 6 people."
     ),
     "keywords": (
-        "adventure park Istria, adrenaline park Croatia, zipline Croatia, things to do Istria with kids, "
-        "family activities Istria, outdoor activities near Pula, team building Istria, birthday parties Istria, "
-        "high ropes course Croatia"
+        "adventure park Istria, adventure park Croatia, zipline park Istria, zipline park Croatia, "
+        "adrenaline park Istria, outdoor activities Istria Croatia, high ropes course Croatia, "
+        "family activities Istria, things to do near Pula, Glavani Park"
     ),
     "h1": "Glavani Park – Adventure Park in Istria, Croatia",
-    "hero_badge": "Zipline Croatia · High Ropes · Family Activities Istria",
+    "hero_badge": "Adventure Park · Zipline Park · Outdoor Activities Istria",
     "hero_subtitle": (
-        "One of Croatia's largest adrenaline parks — 1.5 hectares of high ropes courses, record-breaking rides, "
-        "and outdoor activities near Pula, Barban, and Vodnjan. Perfect for families, school trips, team building, "
-        "and birthday parties."
+        "One of Croatia's largest adventure and adrenaline parks — a zipline park and high-ropes "
+        "destination with outdoor activities in Istria near Pula, Barban, and Vodnjan. Perfect for "
+        "families, school trips, team building, and birthday parties."
     ),
     "image": "glavani-park-adventure-istria-croatia.jpg",
     "image_alt": "Aerial view of Glavani Park adventure and adrenaline park in Istria, Croatia",
@@ -201,20 +201,20 @@ PAGES = [
     },
     {
         "slug": "zipline-croatia",
-        "title": "Zipline Croatia | 120 m Treetop Flight at Glavani Park",
+        "title": "Zipline Park Istria | Zipline Croatia at Glavani Park",
         "h1": "Zipline Croatia: Fly Through Istria's Forest Canopy",
         "meta_description": (
-            "Experience zipline Croatia at Glavani Park Istria — 120 m lines up to 20 m high near Pula & Barban. "
-            "Instructor-led, CE-certified equipment. Open 9–5, last entry 3 PM. Book: +385 91 896 4525."
+            "Glavani Park is Istria's top zipline park — 120 m forest ziplines up to 20 m high near Pula & Barban. "
+            "Instructor-led outdoor activities in Croatia. Open 9–5, last entry 3 PM. Book: +385 91 896 4525."
         ),
         "keywords": (
-            "zipline Croatia, zipline Istria, treetop zipline Pula, zipline near Barban, "
-            "Glavani Park zipline, outdoor zipline Croatia, forest zipline Istria"
+            "zipline park Istria, zipline park Croatia, zipline Croatia, zipline Istria, treetop zipline Pula, "
+            "Glavani Park zipline, outdoor activities Istria Croatia, forest zipline Istria"
         ),
-        "hero_badge": "Up to 120 m · 20 m Above Ground",
+        "hero_badge": "Zipline Park Istria · Up to 120 m · 20 m Above Ground",
         "hero_subtitle": (
-            "Soar through oak forest on one of Istria's longest adventure ziplines — supervised by trained "
-            "instructors at Glavani Park between Barban and Vodnjan, 30 minutes from Pula."
+            "Soar through oak forest at Glavani Park — a zipline park and adventure destination in Istria with "
+            "supervised flights between Barban and Vodnjan, 30 minutes from Pula."
         ),
         "image": "zipline-120m-glavani-park-istria-croatia.webp",
         "image_alt": "Guest riding the 120 metre zipline through the trees at Glavani Park, Istria, Croatia",
