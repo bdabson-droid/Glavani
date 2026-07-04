@@ -2,6 +2,8 @@
 
 import re
 
+BASE = "https://www.glavanipark.com"
+
 FAQ_SLUGS = {"en": "faq", "hr": "cesta-pitanja"}
 
 FAQ_LINKS = {
@@ -235,17 +237,88 @@ def _faq_answer_html(lang: str, answer: str) -> str:
     return answer.format(**links)
 
 
+PAGE_FAQ_HEADINGS = {
+    "en": "Frequently asked questions",
+    "hr": "Često postavljana pitanja",
+}
+
+
+def resolve_faq_answer(lang: str, answer: str) -> str:
+    if "{" in answer:
+        return _faq_answer_html(lang, answer)
+    return answer
+
+
 def faq_answer_plain(lang: str, answer: str) -> str:
-    html = _faq_answer_html(lang, answer)
+    html = resolve_faq_answer(lang, answer)
     text = re.sub(r"<[^>]+>", " ", html)
     return re.sub(r"\s+", " ", text).strip()
+
+
+def build_faq_schema(
+    faqs: list[dict],
+    lang: str,
+    *,
+    url: str,
+    name: str,
+    description: str | None = None,
+) -> dict:
+    schema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "@id": f"{url}#faq",
+        "url": url,
+        "name": name,
+        "inLanguage": "hr-HR" if lang == "hr" else "en-GB",
+        "isPartOf": {"@id": f"{BASE}/en/#glavani-park"},
+        "about": {
+            "@type": ["AmusementPark", "TouristAttraction"],
+            "name": "Glavani Park",
+            "url": f"{BASE}/en/",
+        },
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": faq["q"],
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": faq_answer_plain(lang, faq["a"]),
+                },
+            }
+            for faq in faqs
+        ],
+    }
+    if description:
+        schema["description"] = description
+    return schema
+
+
+def render_page_faq_section(faqs: list[dict], lang: str) -> str:
+    if not faqs:
+        return ""
+    heading = PAGE_FAQ_HEADINGS[lang]
+    items = []
+    for faq in faqs:
+        answer = resolve_faq_answer(lang, faq["a"])
+        items.append(
+            f'<details class="faq-item">'
+            f'<summary>{faq["q"]}</summary>'
+            f'<div class="faq-item__answer"><p>{answer}</p></div>'
+            f"</details>"
+        )
+    return (
+        f'<div class="faq-list-wrap">'
+        f'<h2 id="page-faq-heading" class="faq-list__heading">{heading}</h2>'
+        f'<div class="faq-list">{"".join(items)}</div>'
+        f"</div>"
+    )
 
 
 def render_faq_list(lang: str) -> str:
     heading = FAQ_COPY[lang]["list_heading"]
     items = []
     for faq in VISITOR_FAQS[lang]:
-        answer = _faq_answer_html(lang, faq["a"])
+        answer = resolve_faq_answer(lang, faq["a"])
         items.append(
             f'<details class="faq-item">'
             f'<summary>{faq["q"]}</summary>'

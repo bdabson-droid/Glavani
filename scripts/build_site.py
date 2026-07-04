@@ -16,14 +16,15 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
 from activities import ACTIVITIES, ACTIVITY_SLUG_MAP  # noqa: E402
-from reviews import render_reviews_section  # noqa: E402
+from reviews import REVIEWS, TRIPADVISOR_URL, render_reviews_section  # noqa: E402
 from faqs import (  # noqa: E402
     FAQ_COPY,
     FAQ_SLUGS,
     VISITOR_FAQS,
-    faq_answer_plain,
+    build_faq_schema,
     render_faq_list,
     render_faq_related,
+    render_page_faq_section,
 )
 from packages import PRICES_COPY, PRICES_SLUGS, render_price_sections  # noqa: E402
 
@@ -400,32 +401,13 @@ def json_ld_script(data: dict | list) -> str:
 def faq_page_schema(faqs: list[dict], lang: str) -> dict:
     slug = FAQ_SLUGS[lang]
     url = f"{BASE}/{lang}/{slug}/"
-    return {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "@id": f"{url}#faq",
-        "url": url,
-        "name": FAQ_COPY[lang]["h1"],
-        "description": FAQ_COPY[lang]["meta_description"],
-        "inLanguage": "hr-HR" if lang == "hr" else "en-GB",
-        "isPartOf": {"@id": f"{BASE}/en/#glavani-park"},
-        "about": {
-            "@type": ["AmusementPark", "TouristAttraction"],
-            "name": "Glavani Park",
-            "url": f"{BASE}/en/",
-        },
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": faq["q"],
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": faq_answer_plain(lang, faq["a"]),
-                },
-            }
-            for faq in faqs
-        ],
-    }
+    return build_faq_schema(
+        faqs,
+        lang,
+        url=url,
+        name=FAQ_COPY[lang]["h1"],
+        description=FAQ_COPY[lang]["meta_description"],
+    )
 
 
 def sitemap_alternates(loc: str) -> tuple[str, str]:
@@ -541,6 +523,25 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
     img = page.get("image", "glavani-park-adventure-istria-croatia.jpg")
     location_map = render_location_map(lang) if page.get("location_map") else ""
     map_head = LOCATION_MAP_HEAD if page.get("location_map") else ""
+    page_faqs = page.get("faqs") or []
+    faq_block = ""
+    faq_schema = ""
+    if page_faqs:
+        faq_block = f"""
+  <section class="section section--alt" aria-labelledby="page-faq-heading">
+    <div class="section__inner">
+      {render_page_faq_section(page_faqs, lang)}
+    </div>
+  </section>"""
+        faq_schema = json_ld_script(
+            build_faq_schema(
+                page_faqs,
+                lang,
+                url=canonical,
+                name=page["h1"],
+                description=page["meta_description"],
+            )
+        )
     body = f"""{head_meta(lang, page['title'], page['meta_description'], page['keywords'], canonical, en_slug, hr_slug, og_image=img, extra_head=map_head)}
 {quick_actions(lang)}
 {site_header(lang)}
@@ -567,6 +568,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
     {sidebar}
     </div>
   </div>
+  {faq_block}
   {render_related(page.get('related', []), lang)}
   <section class="section section--alt">
     <div class="pricing-teaser">
@@ -578,6 +580,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
 </main>
 {footer(lang)}
 {breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (page['h1'], None)])}
+{faq_schema}
 </body>
 </html>"""
     return body
@@ -1009,6 +1012,8 @@ def render_home(lang: str) -> str:
     prefix = f"/{lang}/"
     canonical = f"{BASE}{prefix}"
     body_content = home_body_hr() if lang == "hr" else home_body_en()
+    quote_key = "hr" if lang == "hr" else "en"
+    review_count = len(REVIEWS)
     org_schema = {
         "@context": "https://schema.org",
         "@graph": [
@@ -1045,8 +1050,34 @@ def render_home(lang: str) -> str:
                     "closes": "17:00",
                 },
                 "areaServed": {"@type": "AdministrativeArea", "name": "Istria, Croatia"},
-                "sameAs": [GLAVANI_MAPS_LINK],
+                "sameAs": [GLAVANI_MAPS_LINK, TRIPADVISOR_URL],
                 "keywords": home["keywords"],
+                "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": "5",
+                    "bestRating": "5",
+                    "worstRating": "1",
+                    "ratingCount": str(review_count),
+                    "reviewCount": str(review_count),
+                },
+                "review": [
+                    {
+                        "@type": "Review",
+                        "author": {"@type": "Person", "name": review["author"]},
+                        "datePublished": review["date"],
+                        "reviewBody": review[quote_key],
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5",
+                            "bestRating": "5",
+                        },
+                        "publisher": {
+                            "@type": "Organization",
+                            "name": "TripAdvisor" if review["source"] == "tripadvisor" else "Google",
+                        },
+                    }
+                    for review in REVIEWS
+                ],
             }
         ],
     }

@@ -286,6 +286,18 @@ PAGES = [
                 "q": 'Mogu li samo zipline bez visokih staza?',
                 "a": 'Dnevna ulaznica uključuje sve atrakcije. Možete se fokusirati na zipline i samostalne vožnje bez cijelih staza, iako mnogi kombiniraju oboje.',
             },
+            {
+                "q": 'Koliko je visok zipline u Glavani Parku?',
+                "a": 'Samostalni zipline u Glavani Parku dostiže do 20 metara iznad šumskog tla. Zipline na plavoj stazi teče na 6 metara visine između platformi.',
+            },
+            {
+                "q": 'Koliko je zipline u Glavani Parku udaljen od Pule?',
+                "a": 'Glavani Park je otprilike 30 minuta automobilom iz Pule — jedan od najbližih zipline parkova istarskoj obali. Besplatno parkiranje na Glavani 10, 52207 Barban.',
+            },
+            {
+                "q": 'Koja je minimalna dob za zipline u Glavani Parku?',
+                "a": 'Minimalna visina i dob vrijede iz sigurnosnih razloga. Mlađa djeca mogu uživati u žutoj stazi na 2 m, dok starija djeca i tinejdžeri voze zipline. Nazovite +385 98 224 314 prije posjeta ako niste sigurni.',
+            },
         ],
         "related": [
             {"slug": 'avanturisticki-park-hrvatska', "title": 'Avanturistički parkovi u Hrvatskoj', "desc": 'Pregled atrakcija u Glavani Parku Istria'},
@@ -457,6 +469,18 @@ PAGES = [
             {
                 "q": 'Kada trebamo doći?',
                 "a": 'Do 9:30 za puno jutro aktivnosti ili prije 13 h za kraću sesiju i poslijepodnevnu proslavu. Posljednji ulaz u 15 h; zatvaranje u 17 h.',
+            },
+            {
+                "q": 'Koliko košta rođendan u Glavani Parku?',
+                "a": 'Cijena rođendana ovisi o veličini grupe, paketu i sezoni. Nazovite +385 98 224 314 za aktualne cijene — paketi uključuju prioritetni pristup i dedicirano područje za proslavu.',
+            },
+            {
+                "q": 'Trebaju li roditelji sudjelovati na rođendanu u Glavani Parku?',
+                "a": 'Roditelje potičemo da se pridruže na žutoj i plavoj stazi uz djecu, iako odrasli mogu nadzirati iz osjenčanog piknik područja. Zasebna ulaznica vrijedi za svakog sudionika na stazama.',
+            },
+            {
+                "q": 'Kako rezervirati rođendan u Glavani Parku?',
+                "a": 'Rođendane dogovarate telefonom — nazovite +385 98 224 314 s datumom, brojem gostiju i dobima. Online rezervacija vrijedi do 6 osoba za standardne posjete; veće proslave trebaju unaprijed dogovorenu koordinaciju.',
             },
         ],
         "related": [

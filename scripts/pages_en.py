@@ -275,6 +275,18 @@ PAGES = [
                 "q": "Can I do the zipline without the high-ropes courses?",
                 "a": "Day admission includes access to all attractions. You can focus on the ziplines and standalone rides without completing the high-ropes routes, though many visitors enjoy combining both during a single visit.",
             },
+            {
+                "q": "How high is the zipline at Glavani Park?",
+                "a": "The standalone zipline at Glavani Park reaches up to 20 metres above the forest floor. The zipline on the blue high-ropes route runs at 6 metres height between platforms.",
+            },
+            {
+                "q": "How far is the Glavani Park zipline from Pula?",
+                "a": "Glavani Park is about 30 minutes by car from Pula, making it one of the closest zipline parks to Croatia's Istrian coast. Free parking is available on site at Glavani 10, 52207 Barban.",
+            },
+            {
+                "q": "What is the minimum age for the zipline at Glavani Park?",
+                "a": "Minimum height and age limits apply for safety. Younger children can enjoy the 2-metre yellow route while older children and teens ride the ziplines. Call +385 91 896 4525 before visiting if you are unsure about suitability.",
+            },
         ],
         "related": [
             {"slug": "adventure-park-croatia", "title": "Adventure Parks in Croatia", "desc": "Full attraction overview at Glavani Park Istria"},
@@ -442,6 +454,18 @@ PAGES = [
             {
                 "q": "What time should we arrive?",
                 "a": "Arrive by 9:30 AM for a full morning of activities, or before 1 PM if combining a shorter activity session with an afternoon celebration. Last entry is 3 PM; the park closes at 5 PM.",
+            },
+            {
+                "q": "How much does a Glavani Park birthday party cost?",
+                "a": "Birthday party pricing depends on group size, package options, and season. Call +385 91 896 4525 for current rates and availability — party packages include priority access and a dedicated celebration area.",
+            },
+            {
+                "q": "Do parents need to join a birthday party at Glavani Park?",
+                "a": "Parents are encouraged to join the yellow and blue routes alongside their children, though adults can also supervise from the shaded picnic area. Separate tickets apply for each participant on the courses.",
+            },
+            {
+                "q": "How do I book a birthday party at Glavani Park?",
+                "a": "Birthday parties must be arranged by phone — call +385 91 896 4525 with your preferred date, guest count, and ages. Online booking covers up to 6 people for standard visits; larger celebrations need advance coordination.",
             },
         ],
         "related": [
