@@ -31,7 +31,9 @@ GLAVANI_MAPS_DIRECTIONS = (
     f"https://www.google.com/maps/dir/?api=1&destination={GLAVANI_LAT}%2C{GLAVANI_LNG}"
 )
 GLAVANI_MAPS_LINK = f"https://www.google.com/maps?q={GLAVANI_LAT},{GLAVANI_LNG}"
-LOCATION_MAP_IMAGE = "glavani-park-location-map.jpg"
+LOCATION_MAP_HEAD = """
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>"""
 
 # Istria overview bounds (lat_min, lat_max, lng_min, lng_max)
 ISTRIA_MAP_BOUNDS = (44.62, 45.52, 13.42, 14.28)
@@ -523,7 +525,8 @@ def render_location_map(lang: str) -> str:
         lead = "Istra — Glavani Park u unutrašnjosti između Barbana, Vodnjanja, Pule i Rovinja"
         directions = "Upute za dolazak"
         open_maps = "Otvori u Google Maps"
-        map_alt = "Karta Istre s označenim Glavani Parkom, Barbanom, Vodnjanom, Pulom i Rovinjem"
+        map_alt = "Interaktivna karta Istre s Glavani Parkom, Barbanom, Vodnjanom, Pulom i Rovinjem"
+        map_hint = "Uhvatite ili scrollajte za zum · otvorite Google Maps za navigaciju"
         nearby = (
             "<ul class=\"location-map__towns\">"
             "<li><strong>Barban</strong> ~6 km</li>"
@@ -537,7 +540,8 @@ def render_location_map(lang: str) -> str:
         lead = "Istria overview — Glavani Park inland between Barban, Vodnjan, Pula & Rovinj"
         directions = "Get directions"
         open_maps = "Open in Google Maps"
-        map_alt = "Map of Istria showing Glavani Park, Barban, Vodnjan, Pula, and Rovinj"
+        map_alt = "Interactive map of Istria showing Glavani Park, Barban, Vodnjan, Pula, and Rovinj"
+        map_hint = "Pinch or scroll to zoom · open Google Maps for turn-by-turn directions"
         nearby = (
             "<ul class=\"location-map__towns\">"
             "<li><strong>Barban</strong> ~6 km</li>"
@@ -554,9 +558,10 @@ def render_location_map(lang: str) -> str:
           <p>{lead}</p>
         </div>
         <div class="location-map">
-          <a class="location-map__embed" href="{GLAVANI_MAPS_LINK}" target="_blank" rel="noopener noreferrer" aria-label="{open_maps}">
-            <img src="/images/{LOCATION_MAP_IMAGE}" alt="{map_alt}" width="800" height="560" loading="lazy">
-          </a>
+          <div class="location-map__embed">
+            <div id="istria-map" class="istria-map" data-lang="{lang}" role="img" aria-label="{map_alt}"></div>
+            <p class="location-map__hint">{map_hint}</p>
+          </div>
           <div class="location-map__panel">
             <p class="location-map__pin" aria-hidden="true">📍</p>
             <address class="location-map__address">{GLAVANI_ADDRESS}</address>
@@ -569,7 +574,8 @@ def render_location_map(lang: str) -> str:
           </div>
         </div>
       </div>
-    </section>"""
+    </section>
+<script src="/assets/js/location-map.js" defer></script>"""
 
 
 def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
@@ -602,7 +608,8 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
 
     img = page.get("image", "glavani-park-adventure-istria-croatia.jpg")
     location_map = render_location_map(lang) if page.get("location_map") else ""
-    body = f"""{head_meta(lang, page['title'], page['meta_description'], page['keywords'], canonical, en_slug, hr_slug, og_image=img)}
+    map_head = LOCATION_MAP_HEAD if page.get("location_map") else ""
+    body = f"""{head_meta(lang, page['title'], page['meta_description'], page['keywords'], canonical, en_slug, hr_slug, og_image=img, extra_head=map_head)}
 {quick_actions(lang)}
 {site_header(lang)}
 {site_nav(lang)}
@@ -1091,7 +1098,6 @@ Backlink outreach (hotels, campsites, travel blogs):
 def main() -> None:
     print("Generating WebP/JPEG images...")
     generate_images()
-    generate_location_map_image()
 
     print("Building English pages...")
     write_file(ROOT / "en" / "index.html", render_home("en"))
