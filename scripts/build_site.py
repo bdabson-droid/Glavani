@@ -18,6 +18,7 @@ from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
 from activities import ACTIVITIES, ACTIVITY_SLUG_MAP  # noqa: E402
 from reviews import render_reviews_section  # noqa: E402
 from faqs import FAQ_COPY, FAQ_SLUGS, SMALL_GROUP_FAQS, render_faq_list  # noqa: E402
+from packages import PRICES_COPY, PRICES_SLUGS, render_price_sections  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
 TODAY = date.today().isoformat()
@@ -39,11 +40,13 @@ EN_TO_HR = {v: k for k, v in SLUG_MAP.items()}
 EN_TO_HR.update({v: k for k, v in ACTIVITY_SLUG_MAP.items()})
 EN_TO_HR["book"] = "rezervacija"
 EN_TO_HR["faq"] = "cesta-pitanja"
+EN_TO_HR["prices"] = "cijene"
 
 HR_TO_EN = dict(SLUG_MAP)
 HR_TO_EN.update(ACTIVITY_SLUG_MAP)
 HR_TO_EN["rezervacija"] = "book"
 HR_TO_EN["cesta-pitanja"] = "faq"
+HR_TO_EN["cijene"] = "prices"
 
 IMAGES = [
     ("glavani-park-adventure-istria-croatia.jpg", "Glavani Park", (26, 61, 46), (45, 106, 79)),
@@ -216,7 +219,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
         links = [
             ("Aktivnosti", f"{prefix}#activities" if is_home else activities_hub_path(lang)),
             ("Grupe", f"{prefix}team-building-istri/"),
-            ("Cijene", f"{prefix}rezervacija/"),
+            ("Cijene", f"{prefix}{PRICES_SLUGS['hr']}/"),
             ("Lokacija", f"{prefix}#location" if is_home else f"{prefix}sto-raditi-kod-pule/"),
             ("Pitanja", f"{prefix}{FAQ_SLUGS['hr']}/"),
             ("Sigurnost", f"{prefix}sigurnost/"),
@@ -225,7 +228,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
         links = [
             ("Activities", f"{prefix}#activities" if is_home else activities_hub_path(lang)),
             ("Groups", f"{prefix}team-building-istria/"),
-            ("Prices", f"{prefix}book/"),
+            ("Prices", f"{prefix}{PRICES_SLUGS['en']}/"),
             ("Location", f"{prefix}#location" if is_home else f"{prefix}things-to-do-near-pula/"),
             ("FAQ", f"{prefix}{FAQ_SLUGS['en']}/"),
             ("Safety", f"{prefix}safety/"),
@@ -870,6 +873,53 @@ def render_faq_page(lang: str) -> str:
 </html>"""
 
 
+def render_prices_page(lang: str) -> str:
+    copy = PRICES_COPY[lang]
+    slug = PRICES_SLUGS[lang]
+    en_slug = PRICES_SLUGS["en"]
+    hr_slug = PRICES_SLUGS["hr"]
+    prefix = f"/{lang}/"
+    canonical = f"{BASE}{prefix}{slug}/"
+    home_label = "Početna" if lang == "hr" else "Home"
+    book_href = f"{prefix}rezervacija/" if lang == "hr" else f"{prefix}book/"
+    book_label = "Rezervirajte posjet" if lang == "hr" else "Book Your Visit"
+    cta = "Pozovite za rezervaciju" if lang == "hr" else "Call to Book"
+
+    return f"""{head_meta(lang, copy['title'], copy['meta_description'], copy['keywords'], canonical, en_slug, hr_slug)}
+{quick_actions(lang)}
+{site_header(lang)}
+{site_nav(lang)}
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="{prefix}">{home_label}</a></li>
+      <li>{copy['h1']}</li>
+    </ol>
+  </nav>
+<main>
+  <section class="hero hero--landing">
+    <div class="hero__inner">
+      <p class="hero__badge">{'Online do 6 osoba' if lang == 'hr' else 'Book online · up to 6 people'}</p>
+      <h1>{copy['h1']}</h1>
+      <p class="hero__subtitle">{copy['lead']}</p>
+    </div>
+  </section>
+  <section class="section section--theme-forest">
+    <div class="section__inner">
+      {render_price_sections(lang)}
+      <p style="margin-top:1.5rem;text-align:center;color:var(--rock-mid);">{copy['book_note']}</p>
+      <p style="margin-top:1rem;text-align:center;display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;">
+        <a class="btn-primary" href="{book_href}">{book_label}</a>
+        <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
+      </p>
+    </div>
+  </section>
+</main>
+{footer(lang)}
+{breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (copy['h1'], None)])}
+</body>
+</html>"""
+
+
 def render_booking_app(lang: str) -> str:
     if lang == "hr":
         slug, en_slug, hr_slug = "rezervacija", "book", "rezervacija"
@@ -1048,8 +1098,10 @@ def main() -> None:
     print("Building English pages...")
     write_file(ROOT / "en" / "index.html", render_home("en"))
     write_file(ROOT / "en" / "book" / "index.html", render_booking_app("en"))
+    write_file(ROOT / "en" / PRICES_SLUGS["en"] / "index.html", render_prices_page("en"))
     write_file(ROOT / "en" / FAQ_SLUGS["en"] / "index.html", render_faq_page("en"))
     sitemap_urls = [(f"{BASE}/en/", "weekly"), (f"{BASE}/en/book/", "weekly")]
+    sitemap_urls.append((f"{BASE}/en/{PRICES_SLUGS['en']}/", "monthly"))
     sitemap_urls.append((f"{BASE}/en/{FAQ_SLUGS['en']}/", "monthly"))
     for page in PAGES_EN:
         slug = page["slug"]
@@ -1072,9 +1124,11 @@ def main() -> None:
     print("Building Croatian pages...")
     write_file(ROOT / "hr" / "index.html", render_home("hr"))
     write_file(ROOT / "hr" / "rezervacija" / "index.html", render_booking_app("hr"))
+    write_file(ROOT / "hr" / PRICES_SLUGS["hr"] / "index.html", render_prices_page("hr"))
     write_file(ROOT / "hr" / FAQ_SLUGS["hr"] / "index.html", render_faq_page("hr"))
     sitemap_urls.append((f"{BASE}/hr/", "weekly"))
     sitemap_urls.append((f"{BASE}/hr/rezervacija/", "weekly"))
+    sitemap_urls.append((f"{BASE}/hr/{PRICES_SLUGS['hr']}/", "monthly"))
     sitemap_urls.append((f"{BASE}/hr/{FAQ_SLUGS['hr']}/", "monthly"))
     for page in PAGES_HR:
         slug = page["slug"]

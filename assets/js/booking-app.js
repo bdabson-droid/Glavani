@@ -1,6 +1,7 @@
 /**
  * Glavani Park Booking App — package & guest dropdowns, live pricing.
  * Groups of 7+ must call. No email — WhatsApp, SMS, or phone.
+ * Keep activity names/prices in sync with scripts/packages.py.
  */
 (function () {
   const root = document.getElementById('booking-app');

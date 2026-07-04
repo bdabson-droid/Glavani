@@ -317,6 +317,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-card--safety { background: linear-gradient(145deg, #4c1d95, #312e81); }
 .hub-card--location { background: linear-gradient(145deg, #0f766e, #134e4a); }
 .hub-card--faq { background: linear-gradient(145deg, #b45309, #92400e); }
+.hub-card--prices { background: linear-gradient(145deg, #ea580c, #9a3412); }
 .hub-grid--two { max-width: 720px; margin: 0 auto; }
 @media (min-width: 640px) {
   .hub-grid--two { grid-template-columns: repeat(2, 1fr); }
@@ -1146,6 +1147,56 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 .pricing-teaser h2 { font-size: clamp(1.25rem, 3vw, 1.625rem); margin-bottom: 0.5rem; color: var(--yellow-accent); }
 .pricing-teaser p { opacity: 0.92; margin-bottom: 1.25rem; max-width: 520px; margin-left: auto; margin-right: auto; }
+
+.price-section { margin-bottom: 2rem; }
+.price-section:last-of-type { margin-bottom: 0; }
+.price-section h2 {
+  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+  color: var(--green-deep);
+  margin-bottom: 1rem;
+}
+.price-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+.price-list__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.2rem 1.35rem;
+  box-shadow: var(--shadow);
+  border-left: 5px solid var(--orange-cta);
+}
+.price-list__item h3 {
+  font-size: 1.0625rem;
+  color: var(--green-deep);
+  margin: 0 0 0.25rem;
+}
+.price-list__item p {
+  font-size: 0.9375rem;
+  color: var(--rock-mid);
+  margin: 0;
+  line-height: 1.45;
+  max-width: 36rem;
+}
+.price-list__amount {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--green-deep);
+  text-align: right;
+  white-space: nowrap;
+  margin: 0;
+}
+.price-list__amount span {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--rock-mid);
+}
+@media (max-width: 640px) {
+  .price-list__item { flex-direction: column; align-items: flex-start; }
+  .price-list__amount { text-align: left; }
+}
 
 .location-block { display: grid; gap: 1.5rem; }
 @media (min-width: 640px) { .location-block { grid-template-columns: 1fr 1fr; align-items: start; } }
