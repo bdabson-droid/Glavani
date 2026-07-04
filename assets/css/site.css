@@ -1099,8 +1099,18 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .location-map__coords {
   font-size: 0.875rem;
   color: var(--rock-mid);
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.75rem;
 }
+.location-map__towns {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem;
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.875rem;
+  color: var(--rock-mid);
+}
+.location-map__towns strong { color: var(--green-deep); }
 .location-map__actions {
   display: flex;
   flex-wrap: wrap;
