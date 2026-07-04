@@ -1319,6 +1319,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   .prose h2 { margin: 1.25rem 0 0.5rem; }
   .pricing-teaser { padding: 1.25rem 1rem; }
   .activity-detail-wrap { padding: 1.25rem 1.25rem 1.5rem; }
+  .activity-banner { min-height: 180px; padding: 1.35rem 1.15rem; margin-bottom: 1.15rem; }
   .reviews-carousel__links { margin-top: 0.75rem; }
 }
 
