@@ -314,6 +314,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-card--groups { background: linear-gradient(145deg, var(--rock-mid), var(--rock-dark)); }
 .hub-card--travel { background: linear-gradient(145deg, #0369a1, #0c4a6e); }
 .hub-card--safety { background: linear-gradient(145deg, #4c1d95, #312e81); }
+.hub-card--location { background: linear-gradient(145deg, #0f766e, #134e4a); }
+.hub-card--faq { background: linear-gradient(145deg, #b45309, #92400e); }
+.hub-grid--two { max-width: 720px; margin: 0 auto; }
+@media (min-width: 640px) {
+  .hub-grid--two { grid-template-columns: repeat(2, 1fr); }
+}
 
 /* Activity hub cards — bold colour blocks; swap photo URL when custom images are ready */
 .hub-card--catapult {
@@ -1058,18 +1064,21 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   .location-map { grid-template-columns: 1.4fr 1fr; align-items: stretch; }
 }
 .location-map__embed {
+  display: block;
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
   background: var(--white);
   min-height: 280px;
 }
-.location-map__embed iframe {
+.location-map__embed img {
   display: block;
   width: 100%;
   height: 100%;
   min-height: 280px;
+  object-fit: cover;
 }
+.location-map__embed:hover img { opacity: 0.92; }
 .location-map__panel {
   background: var(--white);
   border-radius: var(--radius);

@@ -15,6 +15,7 @@ SLUG_MAP = {
     "sigurnost": "safety",
     "partneri": "partners",
     "link-na-nas": "link-to-us",
+    "cesta-pitanja": "faq",
 }
 
 HOME = {

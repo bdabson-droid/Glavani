@@ -18,6 +18,7 @@ from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
 from activities import ACTIVITIES, ACTIVITY_SLUG_MAP  # noqa: E402
 from reviews import render_reviews_section  # noqa: E402
+from faqs import FAQ_COPY, FAQ_SLUGS, render_faq_list  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
 TODAY = date.today().isoformat()
@@ -26,18 +27,17 @@ GLAVANI_LAT = 45.021389
 GLAVANI_LNG = 13.951111
 GLAVANI_ADDRESS = "Glavani 10, 52207 Barban, Istria, Croatia"
 GLAVANI_MAPS_QUERY = "Glavani+Park,+Glavani+10,+52207+Barban,+Croatia"
-GLAVANI_MAPS_EMBED = (
-    f"https://maps.google.com/maps?q={GLAVANI_LAT},{GLAVANI_LNG}"
-    f"&hl=en&z=15&output=embed"
-)
 GLAVANI_MAPS_DIRECTIONS = (
     f"https://www.google.com/maps/dir/?api=1&destination={GLAVANI_LAT}%2C{GLAVANI_LNG}"
 )
+GLAVANI_MAPS_LINK = f"https://www.google.com/maps?q={GLAVANI_LAT},{GLAVANI_LNG}"
+LOCATION_MAP_IMAGE = "glavani-park-location-map.jpg"
 
 # Reverse map EN slug -> HR slug
 EN_TO_HR = {v: k for k, v in SLUG_MAP.items()}
 EN_TO_HR.update({v: k for k, v in ACTIVITY_SLUG_MAP.items()})
 EN_TO_HR["book"] = "rezervacija"
+EN_TO_HR["faq"] = "cesta-pitanja"
 
 IMAGES = [
     ("glavani-park-adventure-istria-croatia.jpg", "Glavani Park", (26, 61, 46), (45, 106, 79)),
@@ -80,6 +80,60 @@ def generate_images() -> None:
         else:
             img.save(path, "JPEG", quality=85, optimize=True)
         print(f"  image: {path.name}")
+
+
+def generate_location_map_image() -> None:
+    """Create a map-style location image (links to Google Maps in the page)."""
+    img_dir = ROOT / "images"
+    img_dir.mkdir(parents=True, exist_ok=True)
+    path = img_dir / LOCATION_MAP_IMAGE
+    w, h = 800, 560
+    img = Image.new("RGB", (w, h), (235, 228, 210))
+    draw = ImageDraw.Draw(img)
+
+    for y in range(h):
+        t = y / h
+        r = int(235 + (210 - 235) * t)
+        g = int(228 + (200 - 228) * t)
+        b = int(210 + (175 - 210) * t)
+        draw.line([(0, y), (w, y)], fill=(r, g, b))
+
+    for x in range(0, w, 48):
+        draw.line([(x, 0), (x, h)], fill=(220, 212, 195), width=1)
+    for y in range(0, h, 48):
+        draw.line([(0, y), (w, y)], fill=(220, 212, 195), width=1)
+
+    forest = (45, 106, 79)
+    draw.ellipse([80, 120, 340, 380], fill=(64, 145, 108))
+    draw.ellipse([420, 80, 720, 420], fill=forest)
+    draw.ellipse([260, 300, 580, 520], fill=(74, 124, 89))
+
+    road = (250, 245, 235)
+    draw.line([(0, h // 2 + 20), (w, h // 2 - 30)], fill=road, width=22)
+    draw.line([(w // 3, 0), (w // 3 + 40, h)], fill=road, width=16)
+
+    pin_x, pin_y = w // 2 + 30, h // 2 + 10
+    draw.ellipse([pin_x - 18, pin_y - 44, pin_x + 18, pin_y - 8], fill=(220, 38, 38))
+    draw.polygon(
+        [(pin_x, pin_y + 8), (pin_x - 16, pin_y - 10), (pin_x + 16, pin_y - 10)],
+        fill=(180, 28, 28),
+    )
+    draw.ellipse([pin_x - 7, pin_y - 34, pin_x + 7, pin_y - 20], fill=(255, 255, 255))
+
+    try:
+        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 28)
+        small = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 18)
+    except OSError:
+        font = ImageFont.load_default()
+        small = font
+
+    draw.text((40, 36), "Glavani Park", fill=(26, 61, 46), font=font)
+    draw.text((40, 72), GLAVANI_ADDRESS, fill=(45, 55, 72), font=small)
+    draw.text((40, h - 44), f"GPS {GLAVANI_LAT}, {GLAVANI_LNG}", fill=(45, 55, 72), font=small)
+    draw.text((40, h - 22), "Tap for Google Maps directions", fill=(234, 88, 12), font=small)
+
+    img.save(path, "JPEG", quality=88, optimize=True)
+    print(f"  image: {path.name}")
 
 
 def esc(text: str) -> str:
@@ -188,6 +242,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Grupe", f"{prefix}team-building-istri/"),
             ("Cijene", f"{prefix}rezervacija/"),
             ("Lokacija", f"{prefix}#location" if is_home else f"{prefix}sto-raditi-kod-pule/"),
+            ("Pitanja", f"{prefix}{FAQ_SLUGS['hr']}/"),
             ("Sigurnost", f"{prefix}sigurnost/"),
         ]
     else:
@@ -196,6 +251,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Groups", f"{prefix}team-building-istria/"),
             ("Prices", f"{prefix}book/"),
             ("Location", f"{prefix}#location" if is_home else f"{prefix}things-to-do-near-pula/"),
+            ("FAQ", f"{prefix}{FAQ_SLUGS['en']}/"),
             ("Safety", f"{prefix}safety/"),
         ]
     items = "".join(f'<a href="{href}">{label}</a>' for label, href in links)
@@ -339,13 +395,13 @@ def render_location_map(lang: str) -> str:
         lead = "Glavani 10, 52207 Barban · između Vodnjanja (10 km) i Barbana (6 km)"
         directions = "Upute za dolazak"
         open_maps = "Otvori u Google Maps"
+        map_alt = "Karta lokacije Glavani Parka kod Barbana, Istria"
     else:
         heading = "Find Glavani Park"
         lead = "Glavani 10, 52207 Barban · between Vodnjan (10 km) and Barban (6 km)"
         directions = "Get directions"
         open_maps = "Open in Google Maps"
-    maps_link = f"https://www.google.com/maps?q={GLAVANI_LAT},{GLAVANI_LNG}"
-    embed_src = GLAVANI_MAPS_EMBED.replace("hl=en", f"hl={'hr' if lang == 'hr' else 'en'}")
+        map_alt = "Map showing Glavani Park location near Barban, Istria"
     return f"""
     <section class="section section--alt" id="location-map" aria-labelledby="location-map-heading">
       <div class="section__inner">
@@ -354,24 +410,16 @@ def render_location_map(lang: str) -> str:
           <p>{lead}</p>
         </div>
         <div class="location-map">
-          <div class="location-map__embed">
-            <iframe
-              title="{heading}"
-              src="{embed_src}"
-              width="600"
-              height="450"
-              style="border:0;"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </div>
+          <a class="location-map__embed" href="{GLAVANI_MAPS_LINK}" target="_blank" rel="noopener noreferrer" aria-label="{open_maps}">
+            <img src="/images/{LOCATION_MAP_IMAGE}" alt="{map_alt}" width="800" height="560" loading="lazy">
+          </a>
           <div class="location-map__panel">
             <p class="location-map__pin" aria-hidden="true">📍</p>
             <address class="location-map__address">{GLAVANI_ADDRESS}</address>
             <p class="location-map__coords">GPS: {GLAVANI_LAT}, {GLAVANI_LNG}</p>
             <div class="location-map__actions">
               <a class="btn-primary location-map__directions" href="{GLAVANI_MAPS_DIRECTIONS}" target="_blank" rel="noopener noreferrer">{directions}</a>
-              <a class="btn-secondary location-map__open" href="{maps_link}" target="_blank" rel="noopener noreferrer">{open_maps}</a>
+              <a class="btn-secondary location-map__open" href="{GLAVANI_MAPS_LINK}" target="_blank" rel="noopener noreferrer">{open_maps}</a>
             </div>
           </div>
         </div>
@@ -671,6 +719,53 @@ def home_body_hr() -> str:
     return inject_reviews_section(open(ROOT / "scripts" / "home_hr.html").read(), "hr")
 
 
+def render_faq_page(lang: str) -> str:
+    copy = FAQ_COPY[lang]
+    slug = FAQ_SLUGS[lang]
+    en_slug = FAQ_SLUGS["en"]
+    hr_slug = FAQ_SLUGS["hr"]
+    prefix = f"/{lang}/"
+    canonical = f"{BASE}{prefix}{slug}/"
+    home_label = "Početna" if lang == "hr" else "Home"
+    book_href = f"{prefix}rezervacija/" if lang == "hr" else f"{prefix}book/"
+    book_label = "Rezervirajte posjet" if lang == "hr" else "Book Your Visit"
+    cta = "Pozovite za rezervaciju" if lang == "hr" else "Call to Book"
+
+    return f"""{head_meta(lang, copy['title'], copy['meta_description'], copy['keywords'], canonical, en_slug, hr_slug)}
+{quick_actions(lang)}
+{site_header(lang)}
+{site_nav(lang)}
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="{prefix}">{home_label}</a></li>
+      <li>{copy['h1']}</li>
+    </ol>
+  </nav>
+<main>
+  <section class="hero hero--landing">
+    <div class="hero__inner">
+      <p class="hero__badge">{'Obitelji · manje grupe · do 6 osoba' if lang == 'hr' else 'Families · Small Groups · Up to 6 People'}</p>
+      <h1>{copy['h1']}</h1>
+      <p class="hero__subtitle">{copy['lead']}</p>
+    </div>
+  </section>
+  <section class="section section--theme-forest">
+    <div class="section__inner">
+      {render_faq_list(lang)}
+      <p style="margin-top:1.5rem;text-align:center;color:var(--rock-mid);">{copy['book_note']}</p>
+      <p style="margin-top:1rem;text-align:center;display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;">
+        <a class="btn-primary" href="{book_href}">{book_label}</a>
+        <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
+      </p>
+    </div>
+  </section>
+</main>
+{footer(lang)}
+{breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (copy['h1'], None)])}
+</body>
+</html>"""
+
+
 def render_booking_app(lang: str) -> str:
     if lang == "hr":
         slug, en_slug, hr_slug = "rezervacija", "book", "rezervacija"
@@ -830,11 +925,14 @@ Backlink outreach (hotels, campsites, travel blogs):
 def main() -> None:
     print("Generating WebP/JPEG images...")
     generate_images()
+    generate_location_map_image()
 
     print("Building English pages...")
     write_file(ROOT / "en" / "index.html", render_home("en"))
     write_file(ROOT / "en" / "book" / "index.html", render_booking_app("en"))
+    write_file(ROOT / "en" / FAQ_SLUGS["en"] / "index.html", render_faq_page("en"))
     sitemap_urls = [(f"{BASE}/en/", "weekly"), (f"{BASE}/en/book/", "weekly")]
+    sitemap_urls.append((f"{BASE}/en/{FAQ_SLUGS['en']}/", "monthly"))
     for page in PAGES_EN:
         slug = page["slug"]
         if slug in SKIP_LANDING_SLUGS["en"]:
@@ -856,8 +954,10 @@ def main() -> None:
     print("Building Croatian pages...")
     write_file(ROOT / "hr" / "index.html", render_home("hr"))
     write_file(ROOT / "hr" / "rezervacija" / "index.html", render_booking_app("hr"))
+    write_file(ROOT / "hr" / FAQ_SLUGS["hr"] / "index.html", render_faq_page("hr"))
     sitemap_urls.append((f"{BASE}/hr/", "weekly"))
     sitemap_urls.append((f"{BASE}/hr/rezervacija/", "weekly"))
+    sitemap_urls.append((f"{BASE}/hr/{FAQ_SLUGS['hr']}/", "monthly"))
     for page in PAGES_HR:
         slug = page["slug"]
         if slug in SKIP_LANDING_SLUGS["hr"]:
