@@ -870,12 +870,21 @@ def render_activity_page(activity: dict, lang: str) -> str:
     activities_url = f"{BASE}{activities_href}"
 
     prose = "".join(f"<p>{p}</p>" for p in data["paragraphs"])
+    single_price = activity.get("single_price")
+    price_html = ""
+    if single_price:
+        price_label = (
+            f"€{single_price} po osobi"
+            if lang == "hr"
+            else f"€{single_price} per person"
+        )
+        price_html = f'\n        <p class="activity-banner__price">{price_label}</p>'
 
     if use_banner_header:
         page_header = ""
         article_open = f"""      <header class="activity-banner activity-banner--{mod}" aria-labelledby="activity-heading">
         <p class="activity-banner__badge">{data['hero_badge']}</p>
-        <h1 id="activity-heading">{data['h1']}</h1>
+        <h1 id="activity-heading">{data['h1']}</h1>{price_html}
       </header>"""
     else:
         page_header = f"""  <section class="hero hero--landing hero--activity">
@@ -997,15 +1006,15 @@ def render_booking_app(lang: str) -> str:
     if lang == "hr":
         slug, en_slug, hr_slug = "rezervacija", "book", "rezervacija"
         title = "Rezervacija | Glavani Park – odaberite paket i datum"
-        desc = "Rezervirajte Glavani Park online za do 6 osoba: odaberite paket, datum i pošaljite WhatsAppom ili SMS-om. Grupe 7+ nazovite."
+        desc = "Rezervirajte Glavani Park online za do 6 osoba: odaberite paket ili pojedinačnu aktivnost, datum i pošaljite WhatsAppom ili SMS-om. Grupe 7+ nazovite."
         h1 = "Rezervirajte avanturu"
-        lead = "Odaberite paket (do 6 osoba) i datum — WhatsApp, SMS ili poziv. Grupe 7+ nazovite."
+        lead = "Prvo paketi, zatim pojedinačne aktivnosti (do 6 osoba) — WhatsApp, SMS ili poziv. Grupe 7+ nazovite."
     else:
         slug, en_slug, hr_slug = "book", "book", "rezervacija"
         title = "Book Your Visit | Glavani Park – Pick Package & Date"
-        desc = "Book Glavani Park online for up to 6 people: choose a package, pick a date, and send via WhatsApp or SMS. Groups of 7+ please call."
+        desc = "Book Glavani Park online for up to 6 people: choose a package or single activity, pick a date, and send via WhatsApp or SMS. Groups of 7+ please call."
         h1 = "Book Your Adventure"
-        lead = "Choose a package for up to 6 people, pick your date, and send — WhatsApp, SMS, or call. Groups of 7+ please call to book."
+        lead = "Packages first, then single activities (up to 6 people) — WhatsApp, SMS, or call. Groups of 7+ please call to book."
     prefix = f"/{lang}/"
     canonical = f"{BASE}{prefix}{slug}/"
     home_label = "Početna" if lang == "hr" else "Home"

@@ -478,6 +478,15 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   position: relative;
   z-index: 1;
 }
+.activity-banner__price {
+  margin: 0.65rem 0 0;
+  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+  font-weight: 700;
+  color: var(--yellow-accent);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+  position: relative;
+  z-index: 1;
+}
 .activity-banner--catapult {
   background-position: 0 0, 62% center;
 }

@@ -18,6 +18,7 @@ ACTIVITIES = [
         "tile_mod": "catapult",
         "youtube_id": "X2bRA2Bur-M",
         "youtube_url": "https://youtu.be/X2bRA2Bur-M",
+        "single_price": 40,
         "image": "human-catapult-youtube-still.webp",
         "tile_image": "human-catapult-youtube-still.webp",
         "en": {
