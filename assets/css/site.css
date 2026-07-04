@@ -321,6 +321,25 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
 @media (min-width: 540px) { .hub-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 900px) { .hub-grid { grid-template-columns: repeat(3, 1fr); } }
+.hub-grid__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 0;
+}
+.hub-grid__below-link {
+  display: block;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--green-mid);
+  text-decoration: none;
+  padding: 0.15rem 0.25rem;
+}
+.hub-grid__below-link:hover {
+  color: var(--brand-orange);
+  text-decoration: underline;
+}
 .hub-card {
   display: flex; flex-direction: column; min-height: 160px; padding: 1.35rem 1.25rem;
   border-radius: var(--radius-lg); text-decoration: none; color: var(--white);

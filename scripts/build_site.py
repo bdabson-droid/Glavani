@@ -17,7 +17,7 @@ from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
 from activities import ACTIVITIES, ACTIVITY_SLUG_MAP  # noqa: E402
 from reviews import render_reviews_section  # noqa: E402
-from faqs import FAQ_COPY, FAQ_SLUGS, SMALL_GROUP_FAQS, render_faq_list  # noqa: E402
+from faqs import FAQ_COPY, FAQ_SLUGS, VISITOR_FAQS, render_faq_list  # noqa: E402
 from packages import PRICES_COPY, PRICES_SLUGS, render_price_sections  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
@@ -859,7 +859,7 @@ def render_faq_page(lang: str) -> str:
 <main>
   <section class="hero hero--landing">
     <div class="hero__inner">
-      <p class="hero__badge">{'Obitelji · manje grupe · do 6 osoba' if lang == 'hr' else 'Families · Small Groups · Up to 6 People'}</p>
+      <p class="hero__badge">{'Informacije za posjetitelje' if lang == 'hr' else 'Visitor information'}</p>
       <h1>{copy['h1']}</h1>
       <p class="hero__subtitle">{copy['lead']}</p>
     </div>
@@ -877,7 +877,7 @@ def render_faq_page(lang: str) -> str:
 </main>
 {footer(lang)}
 {breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (copy['h1'], None)])}
-{json_ld_script(faq_page_schema(SMALL_GROUP_FAQS[lang]))}
+{json_ld_script(faq_page_schema(VISITOR_FAQS[lang]))}
 </body>
 </html>"""
 
