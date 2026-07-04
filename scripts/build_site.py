@@ -471,6 +471,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
       <a class="btn-primary" href="tel:+385918964525">{cta}</a>
     </div>
   </section>
+  {location_map}
   <div class="landing-layout section--theme-forest">
     <div class="landing-layout__inner">
     <article>
@@ -482,7 +483,6 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
     {sidebar}
     </div>
   </div>
-  {location_map}
   {render_related(page.get('related', []), lang)}
   <section class="section section--alt">
     <div class="pricing-teaser">
