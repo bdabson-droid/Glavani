@@ -17,6 +17,7 @@ ACTIVITIES = [
         "hr_slug": "ljudska-katapulta",
         "tile_mod": "catapult",
         "youtube_id": "X2bRA2Bur-M",
+        "youtube_url": "https://youtu.be/X2bRA2Bur-M",
         "image": "human-catapult-youtube-still.webp",
         "tile_image": "human-catapult-youtube-still.webp",
         "en": {

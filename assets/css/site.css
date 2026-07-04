@@ -446,6 +446,14 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   max-width: 28rem;
   line-height: 1.5;
 }
+.activity-video__youtube-link {
+  margin-top: 0.75rem;
+  text-align: center;
+  font-size: 0.875rem;
+}
+.activity-video__youtube-link a {
+  font-weight: 600;
+}
 .activity-video__icon {
   width: 4rem;
   height: 4rem;

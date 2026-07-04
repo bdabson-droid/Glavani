@@ -817,7 +817,7 @@ def render_activities_hub_page(lang: str) -> str:
 </html>"""
 
 
-def render_activity_video(activity: dict, data: dict) -> str:
+def render_activity_video(activity: dict, data: dict, lang: str) -> str:
     video_id = activity.get("youtube_id")
     if not video_id:
         return f"""
@@ -828,6 +828,8 @@ def render_activity_video(activity: dict, data: dict) -> str:
           </div>
         </div>"""
     title = esc(data["video_heading"])
+    youtube_url = activity.get("youtube_url", f"https://youtu.be/{video_id}")
+    watch_label = "Pogledajte na YouTubeu" if lang == "hr" else "Watch on YouTube"
     return f"""
         <div class="activity-video__slot" data-activity-video="{activity['en_slug']}">
           <iframe
@@ -837,7 +839,10 @@ def render_activity_video(activity: dict, data: dict) -> str:
             allowfullscreen
             loading="lazy"
             referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </div>"""
+        </div>
+        <p class="activity-video__youtube-link">
+          <a href="{youtube_url}" target="_blank" rel="noopener noreferrer">{watch_label}</a>
+        </p>"""
 
 
 def render_activity_page(activity: dict, lang: str) -> str:
@@ -887,7 +892,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
       </div>
       <section class="activity-video" aria-labelledby="activity-video-heading">
         <h2 id="activity-video-heading">{data['video_heading']}</h2>
-        {render_activity_video(activity, data)}
+        {render_activity_video(activity, data, lang)}
       </section>
       <div class="activity-detail__actions">
         <a class="btn-primary" href="{book_href}">{book_label}</a>
