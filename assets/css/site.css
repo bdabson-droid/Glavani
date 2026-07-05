@@ -357,7 +357,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-card--zipline-low,
 .hub-card--climbing,
 .hub-card--training,
-.hub-card--causeway {
+.hub-card--causeway,
+.hub-card--groups {
   min-height: 160px;
   height: 160px;
   background-repeat: no-repeat;
@@ -372,6 +373,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-card--climbing h3,
 .hub-card--training h3,
 .hub-card--causeway h3,
+.hub-card--groups h3,
 .hub-card--catapult::after,
 .hub-card--swing::after,
 .hub-card--drop::after,
@@ -379,7 +381,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-card--zipline-low::after,
 .hub-card--climbing::after,
 .hub-card--training::after,
-.hub-card--causeway::after {
+.hub-card--causeway::after,
+.hub-card--groups::after {
   position: relative;
   z-index: 1;
 }
@@ -390,7 +393,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-card--zipline-low h3,
 .hub-card--climbing h3,
 .hub-card--training h3,
-.hub-card--causeway h3 {
+.hub-card--causeway h3,
+.hub-card--groups h3 {
   margin-bottom: 0;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
   display: -webkit-box;
@@ -529,6 +533,23 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   background-color: #7f1d1d;
   background-image: var(--hub-fade), var(--hub-photo);
 }
+.hub-card--groups {
+  --hub-color-strong: rgba(87, 83, 78, 0.96);
+  --hub-color-mid: rgba(87, 83, 78, 0.88);
+  --hub-color-soft: rgba(55, 65, 81, 0.45);
+  --hub-color-faint: rgba(55, 65, 81, 0.16);
+  --hub-photo: url("../../images/climbing-wall-outdoor-activities-istria.webp");
+  --hub-fade: linear-gradient(
+    to right,
+    var(--hub-color-strong) 0%,
+    var(--hub-color-mid) 22%,
+    var(--hub-color-soft) 36%,
+    var(--hub-color-faint) 50%,
+    transparent 66%
+  );
+  background-color: #374151;
+  background-image: var(--hub-fade), var(--hub-photo);
+}
 
 .activity-showcase--compact .hub-card--catapult,
 .activity-showcase--compact .hub-card--swing,
@@ -537,7 +558,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .activity-showcase--compact .hub-card--zipline-low,
 .activity-showcase--compact .hub-card--climbing,
 .activity-showcase--compact .hub-card--training,
-.activity-showcase--compact .hub-card--causeway {
+.activity-showcase--compact .hub-card--causeway,
+.activity-showcase--compact .hub-card--groups {
   min-height: 140px;
   height: 140px;
   background-position: 0 0, 74% center;
