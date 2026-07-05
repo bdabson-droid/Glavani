@@ -2,6 +2,8 @@
 
 import re
 
+from booking_policy import BOOKING_POLICY
+
 BASE = "https://www.glavanipark.com"
 
 FAQ_SLUGS = {"en": "faq", "hr": "cesta-pitanja"}
@@ -45,7 +47,10 @@ FAQ_COPY = {
             "Below are the questions visitors ask most before they book."
         ),
         "list_heading": "Common questions",
-        "book_note": "Ready to visit? Book online for up to 6 people, or call for larger groups.",
+        "book_note": (
+            "Saturdays and visits from late September to early July require advance booking — no walk-ins. "
+            "Book online for up to 6 people, or call for larger groups."
+        ),
         "related_heading": "Plan your visit",
     },
     "hr": {
@@ -69,7 +74,10 @@ FAQ_COPY = {
             "Ispod su pitanja koja posjetitelji najčešće postavljaju prije rezervacije."
         ),
         "list_heading": "Najčešća pitanja",
-        "book_note": "Spremni za posjet? Rezervirajte online do 6 osoba ili nazovite za veće grupe.",
+        "book_note": (
+            "Subotom i od kraja rujna do početka srpnja potrebna je unaprijedna rezervacija — bez dolaska bez najave. "
+            "Rezervirajte online do 6 osoba ili nazovite za veće grupe."
+        ),
         "related_heading": "Planirajte posjet",
     },
 }
@@ -99,12 +107,8 @@ VISITOR_FAQS = {
             ),
         },
         {
-            "q": "Do I need to book ahead for Glavani Park?",
-            "a": (
-                "Walk-ins are welcome at Glavani Park, but booking ahead is recommended on weekends "
-                "and in July and August. Use the <a href=\"{book}\">online booking form</a> — "
-                "we confirm via SMS or WhatsApp as soon as possible."
-            ),
+            "q": BOOKING_POLICY["en"]["faq_question"],
+            "a": BOOKING_POLICY["en"]["faq_answer"],
         },
         {
             "q": "How do I book Glavani Park online?",
@@ -169,12 +173,8 @@ VISITOR_FAQS = {
             ),
         },
         {
-            "q": "Trebam li unaprijed rezervirati Glavani Park?",
-            "a": (
-                "Dolazak bez rezervacije moguć je, ali preporučujemo rezervaciju vikendom te u srpnju i kolovozu. "
-                "Koristite <a href=\"{book}\">online obrazac za rezervaciju</a> — "
-                "potvrdu šaljemo SMS-om ili WhatsAppom što prije."
-            ),
+            "q": BOOKING_POLICY["hr"]["faq_question"],
+            "a": BOOKING_POLICY["hr"]["faq_answer"],
         },
         {
             "q": "Kako rezervirati Glavani Park online?",

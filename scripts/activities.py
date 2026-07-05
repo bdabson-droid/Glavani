@@ -2,6 +2,8 @@
 Individual activity pages — brief copy and video placeholder per attraction.
 """
 
+from booking_policy import activity_booking_answer
+
 ACTIVITY_SLUG_MAP = {
     "ljudska-katapulta": "human-catapult",
     "visoka-ljuljacka": "high-swing",
@@ -376,10 +378,7 @@ def activity_faqs(activity: dict, lang: str) -> list[dict]:
             },
             {
                 "q": f"Do I need to book {h1} in advance?",
-                "a": (
-                    f"Walk-ins are welcome for {h1} during park opening hours (9 AM–5 PM, last entry 3 PM). "
-                    "Booking ahead is recommended on weekends and in July and August — call +385 91 896 4525 or use the online form."
-                ),
+                "a": activity_booking_answer("en", h1),
             },
             {
                 "q": f"Is {h1} safe at Glavani Park?",
@@ -405,10 +404,7 @@ def activity_faqs(activity: dict, lang: str) -> list[dict]:
         },
         {
             "q": f"Trebam li unaprijed rezervirati {h1}?",
-            "a": (
-                f"Dolazak bez rezervacije moguć je za {h1} tijekom radnog vremena parka (9–17 h, posljednji ulaz 15 h). "
-                "Preporučujemo rezervaciju vikendom te u srpnju i kolovozu — nazovite +385 98 224 314 ili koristite online obrazac."
-            ),
+            "a": activity_booking_answer("hr", h1),
         },
         {
             "q": f"Je li {h1} siguran u Glavani Parku?",

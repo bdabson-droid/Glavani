@@ -89,7 +89,7 @@ PRICES_COPY = {
         "h1": "Activity Packages & Prices",
         "lead": "Per-person prices for packages and single activities · book online for up to 6 people",
         "per_person": "per person",
-        "book_note": "Groups of 7 or more should call to check availability and pricing.",
+        "book_note": "Saturdays and visits from late September to early July require advance booking — no walk-ins. Groups of 7 or more should call to check availability and pricing.",
         "more_single": "More single activities coming soon.",
     },
     "hr": {
@@ -102,7 +102,7 @@ PRICES_COPY = {
         "h1": "Paketi aktivnosti i cijene",
         "lead": "Cijene po osobi za pakete i pojedinačne aktivnosti · online do 6 osoba",
         "per_person": "po osobi",
-        "book_note": "Grupe od 7 i više osoba neka nazovu radi dostupnosti i cijena.",
+        "book_note": "Subotom i od kraja rujna do početka srpnja potrebna je unaprijedna rezervacija — bez dolaska bez najave. Grupe od 7 i više osoba neka nazovu radi dostupnosti i cijena.",
         "more_single": "Više pojedinačnih aktivnosti uskoro.",
     },
 }

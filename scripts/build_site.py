@@ -33,6 +33,7 @@ from faqs import (  # noqa: E402
     render_faq_related,
     render_page_faq_section,
 )
+from booking_policy import BOOKING_POLICY
 from packages import PRICES_COPY, PRICES_SLUGS, prices_offer_schema, render_price_sections  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
@@ -1140,6 +1141,7 @@ def render_booking_app(lang: str) -> str:
         h1 = "Rezerviraj"
         lead = "Ispunite obrazac — potvrdu rezervacije šaljemo što prije WhatsAppom ili SMS-om."
         notice = "Rezervacija u roku 48 sati od željenog datuma posjeta? Molimo <a href=\"tel:+38598224314\">nazovite</a>."
+        policy = BOOKING_POLICY["hr"]["book_page"]
     else:
         slug, en_slug, hr_slug = "book", "book", "rezervacija"
         title = "Book | Glavani Park – Pick Package & Date"
@@ -1150,6 +1152,7 @@ def render_booking_app(lang: str) -> str:
         h1 = "Book"
         lead = "Fill in the form below — we'll confirm your booking as soon as possible via SMS or WhatsApp."
         notice = "Booking within 48 hours of your requested visit date? Please <a href=\"tel:+385918964525\">call to book</a>."
+        policy = BOOKING_POLICY["en"]["book_page"]
     prefix = f"/{lang}/"
     canonical = f"{BASE}{prefix}{slug}/"
     home_label = "Početna" if lang == "hr" else "Home"
@@ -1168,6 +1171,7 @@ def render_booking_app(lang: str) -> str:
 <div class="book-app-hero">
   <h1>{h1}</h1>
   <p>{lead}</p>
+  <p class="book-app-notice">{policy}</p>
   <p class="book-app-notice">{notice}</p>
 </div>
 <div class="book-app-wrap">
