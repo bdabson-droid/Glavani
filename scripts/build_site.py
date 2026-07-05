@@ -993,6 +993,14 @@ def render_activity_page(activity: dict, lang: str) -> str:
         <img src="/images/{img}" alt="{data['image_alt']}" width="800" height="560" loading="eager">
       </figure>"""
 
+    video_block = ""
+    if not activity.get("hide_video"):
+        video_block = f"""
+      <section class="activity-video" aria-labelledby="activity-video-heading">
+        <h2 id="activity-video-heading">{data['video_heading']}</h2>
+        {render_activity_video(activity, data, lang)}
+      </section>"""
+
     return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=img, og_image_alt=data['image_alt'])}
 {quick_actions(lang)}
 {site_header(lang)}
@@ -1011,11 +1019,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
 {article_open}
       <div class="prose activity-detail__prose">
         {prose}
-      </div>
-      <section class="activity-video" aria-labelledby="activity-video-heading">
-        <h2 id="activity-video-heading">{data['video_heading']}</h2>
-        {render_activity_video(activity, data, lang)}
-      </section>
+      </div>{video_block}
       <div class="activity-detail__actions">
         <a class="btn-primary" href="{book_href}">{book_label}</a>
         <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
@@ -1179,10 +1183,9 @@ def render_gift_voucher_page(lang: str) -> str:
 <main>
   <section class="hero hero--landing">
     <div class="hero__inner">
-      <p class="hero__badge">{'5% popusta pri kupnji' if lang == 'hr' else '5% discount on purchase'}</p>
+      <p class="hero__badge">{'Poklon bonovi' if lang == 'hr' else 'Gift vouchers'}</p>
       <h1>{copy['h1']}</h1>
       <p class="hero__subtitle">{copy['lead']}</p>
-      <p class="voucher-discount-notice">{copy['discount']}</p>
     </div>
   </section>
   <section class="section section--theme-forest">

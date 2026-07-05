@@ -77,7 +77,6 @@ GIFT_VOUCHER_COPY = {
         ),
         "h1": "Gift voucher",
         "lead": "Surprise someone with an adventure in the oak forest — vouchers from €30 per person.",
-        "discount": "Receive a 5% discount when you purchase gift vouchers through us — ask when you order.",
         "intro": (
             "<p>Glavani Park gift vouchers are valid for our activity packages in Istria — "
             "high ropes, ziplines, swing, and adrenaline rides near Pula. "
@@ -108,7 +107,6 @@ GIFT_VOUCHER_COPY = {
         ),
         "h1": "Poklon bon",
         "lead": "Iznenadite nekoga avanturom u hrastovoj šumi — bonovi od 30 € po osobi.",
-        "discount": "Ostvarite 5% popusta pri kupnji poklon bonova — pitajte prilikom narudžbe.",
         "intro": (
             "<p>Poklon bonovi Glavani Parka vrijede za naše pakete aktivnosti u Istri — "
             "visoke staze, zipline, ljuljačka i adrenalinske vožnje kod Pule. "
