@@ -99,84 +99,44 @@ ACTIVITIES = [
         },
     },
     {
-        "en_slug": "20m-drop",
-        "hr_slug": "pad-s-20m",
-        "tile_mod": "drop",
-        "youtube_id": "W5CWJfZlW2o",
-        "youtube_url": "https://youtu.be/W5CWJfZlW2o?is=zZJA4POSAJsYONMr",
-        "image": "quick-jump-youtube-still.webp",
+        "en_slug": "training-route",
+        "hr_slug": "trening-ruta",
+        "tile_mod": "training",
+        "youtube_id": "TDl0ffqPj3U",
+        "youtube_url": "https://youtu.be/TDl0ffqPj3U?is=E0eGJvpDww76o7MV",
+        "image": "training-route-youtube-still.webp",
         "en": {
-            "title": "20 m Drop (Quick Jump) | Glavani Park Istria",
-            "h1": "20m Drop",
+            "title": "Yellow Training Route (High Ropes) | Glavani Park Istria",
+            "h1": "Training Route",
             "meta_description": (
-                "Experience a controlled 20-metre free fall on the Quick Jump at Glavani Park, Istria. "
-                "Professional descender system and instructor briefing. Open daily near Pula."
+                "Try the 2-metre yellow training route at Glavani Park, Istria — a family-friendly high-ropes "
+                "course with harness and instructor briefing. Near Pula, open daily 9 AM–5 PM."
             ),
-            "keywords": "Quick Jump Croatia, 20m free fall Istria, Glavani Park drop, adrenaline near Pula",
-            "hero_badge": "20 m controlled free fall",
-            "image_alt": "Quick Jump 20 metre controlled free fall at Glavani Park, Istria",
+            "keywords": "training route Istria, yellow high ropes Croatia, family adventure park Pula, Glavani Park courses",
+            "hero_badge": "2 m yellow route · all ages with adult",
+            "image_alt": "Yellow training route high-ropes course at Glavani Park, Istria Croatia",
             "paragraphs": [
-                "The 20m Drop — known as Quick Jump — lets you step off a platform high in the trees and feel genuine free fall before a certified descender system brings you smoothly to the ground. It is one of the most intense standalone rides in the park.",
-                "A full briefing covers harness fit, launch position, and what to expect on the way down. Health and age restrictions apply; staff will advise at check-in. Pair the drop with the Human Catapult or high swing for a full adrenaline session.",
+                "Glavani Park's yellow training route is a certified high-ropes course at 2 metres above the forest floor — the perfect introduction for younger children, first-time climbers, and families who want to build confidence before the blue and black routes.",
+                "You stay on continuous belay from start to finish while instructors explain harness fit, safety signals, and how to tackle balance obstacles and rope bridges. The training route is included in day admission and the popular Training route + 2 games package from €30.",
             ],
-            "video_heading": "20m Drop video",
+            "video_heading": "Training Route video",
             "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
         },
         "hr": {
-            "title": "Pad s 20 m (Quick Jump) | Glavani Park Istria",
-            "h1": "Pad s 20 m",
+            "title": "Žuta trening ruta (visoke staze) | Glavani Park Istria",
+            "h1": "Trening ruta",
             "meta_description": (
-                "Kontrolirani slobodni pad s 20 metara na Quick Jumpu u Glavani Parku, Istria. "
-                "Profesionalni sustav usporavanja i obuka instruktora. Otvoreno svaki dan kod Pule."
+                "Isprobajte žutu trening rutu na 2 m u Glavani Parku, Istria — obiteljska visoka staza s harnesom "
+                "i obukom instruktora. Kod Pule, otvoreno svaki dan 9–17 h."
             ),
-            "keywords": "Quick Jump Hrvatska, slobodni pad Istria, Glavani Park pad, adrenalin kod Pule",
-            "hero_badge": "Kontrolirani pad s 20 m",
-            "image_alt": "Quick Jump kontrolirani pad s 20 m u Glavani Parku, Istria",
+            "keywords": "trening ruta Istria, žuta visoka staza Hrvatska, obiteljski avanturistički park Pula, Glavani Park staze",
+            "hero_badge": "Žuta staza 2 m · uz odraslog",
+            "image_alt": "Žuta trening ruta visokih staza u Glavani Parku, Istria Hrvatska",
             "paragraphs": [
-                "Pad s 20 m — Quick Jump — omogućuje korak s platforme visoko u krošnjama i pravi osjećaj slobodnog pada prije nego certificirani sustav usporavanja nježno spusti na tlo. Jedna je od najintenzivnijih samostalnih atrakcija u parku.",
-                "Potpuna obuka pokriva harnes, položaj i što očekivati tijekom spusta. Primjenjuju se zdravstvena i dobna ograničenja; osoblje savjetuje na ulazu. Kombinirajte s katapultom ili ljuljačkom za puni adrenalinski dan.",
+                "Žuta trening ruta u Glavani Parku certificirana je visoka staza na 2 metra iznad šumskog tla — savršen uvod za mlađu djecu, početnike i obitelji koje žele steći samopouzdanje prije plave i crne staze.",
+                "Ostajete na kontinuiranom osiguranju od početka do kraja dok instruktori objašnjavaju harnes, sigurnosne signale i kako savladati prepreke ravnoteže i mostove od užadi. Trening ruta uključena je u dnevnu ulaznicu i popularni paket Trening ruta + 2 igre od 30 €.",
             ],
-            "video_heading": "Video pada s 20 m",
-            "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
-        },
-    },
-    {
-        "en_slug": "valley-zipline",
-        "hr_slug": "dolinski-zipline",
-        "tile_mod": "zipline-valley",
-        "image": "zipline-120m-glavani-park-istria-croatia.webp",
-        "en": {
-            "title": "Valley Zip Line Course | Glavani Park Istria",
-            "h1": "Valley Zip Line Course",
-            "meta_description": (
-                "Fly 120 metres through the valley on Glavani Park's standalone zipline, up to 20 m high. "
-                "Instructor-led launches in Istria near Pula. Open daily 9 AM–5 PM."
-            ),
-            "keywords": "zipline Istria, 120m zipline Croatia, valley zipline Glavani Park, zipline near Pula",
-            "hero_badge": "120 m · up to 20 m high",
-            "image_alt": "120 metre valley zipline course at Glavani Park, Istria Croatia",
-            "paragraphs": [
-                "Glavani Park's Valley Zip Line Course is a standalone 120-metre flight through the oak forest, reaching heights of up to 20 metres. You clip in with park staff, receive a launch briefing, and glide between platforms with views across the valley.",
-                "The course is popular with first-time zipliners and returning visitors alike. Harness and helmet are provided; wear closed shoes and comfortable clothing. Combine with the Low Zip Line Course on the high-ropes routes for a full zipline experience in one visit.",
-            ],
-            "video_heading": "Valley Zip Line video",
-            "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
-        },
-        "hr": {
-            "title": "Dolinski zipline | Glavani Park Istria",
-            "h1": "Dolinski zipline",
-            "meta_description": (
-                "Let 120 metara kroz dolinu na samostalnom ziplineu Glavani Parka, do 20 m visine. "
-                "Polasci pod nadzorom instruktora u Istri kod Pule. Otvoreno 9–17 h."
-            ),
-            "keywords": "zipline Istria, zipline 120 m Hrvatska, dolinski zipline Glavani Park, zipline kod Pule",
-            "hero_badge": "120 m · do 20 m visine",
-            "image_alt": "Dolinski zipline 120 m u Glavani Parku, Istria Hrvatska",
-            "paragraphs": [
-                "Dolinski zipline u Glavani Parku samostalan je let od 120 metara kroz hrastovu šumu, do visine od 20 metara. Osoblje vas spaja na užad, provodi obuku i letite između platformi s pogledom na dolinu.",
-                "Staza je popularna i među početnicima i među onima koji se vraćaju. Harnes i kaciga su osigurani; nosite zatvorenu obuću i udobnu odjeću. Kombinirajte s niskim ziplineom na visokim stazama za puno zipline iskustvo u jednom posjetu.",
-            ],
-            "video_heading": "Video dolinskog ziplinea",
+            "video_heading": "Video trening rute",
             "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
         },
     },
@@ -217,6 +177,46 @@ ACTIVITIES = [
                 "Odličan je uvod za posjetitelje koji prelaze s obiteljske žute staze ili žele brzinu ziplinea bez pune visine doline. Instruktori vode na ulazu i izlazu. Pristup je uključen kada obavite plavu stazu.",
             ],
             "video_heading": "Video niskog ziplinea",
+            "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
+        },
+    },
+    {
+        "en_slug": "valley-zipline",
+        "hr_slug": "dolinski-zipline",
+        "tile_mod": "zipline-valley",
+        "image": "zipline-120m-glavani-park-istria-croatia.webp",
+        "en": {
+            "title": "Valley Zip Line Course | Glavani Park Istria",
+            "h1": "Valley Zip Line Course",
+            "meta_description": (
+                "Fly 120 metres through the valley on Glavani Park's standalone zipline, up to 20 m high. "
+                "Instructor-led launches in Istria near Pula. Open daily 9 AM–5 PM."
+            ),
+            "keywords": "zipline Istria, 120m zipline Croatia, valley zipline Glavani Park, zipline near Pula",
+            "hero_badge": "120 m · up to 20 m high",
+            "image_alt": "120 metre valley zipline course at Glavani Park, Istria Croatia",
+            "paragraphs": [
+                "Glavani Park's Valley Zip Line Course is a standalone 120-metre flight through the oak forest, reaching heights of up to 20 metres. You clip in with park staff, receive a launch briefing, and glide between platforms with views across the valley.",
+                "The course is popular with first-time zipliners and returning visitors alike. Harness and helmet are provided; wear closed shoes and comfortable clothing. Combine with the Low Zip Line Course on the high-ropes routes for a full zipline experience in one visit.",
+            ],
+            "video_heading": "Valley Zip Line video",
+            "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
+        },
+        "hr": {
+            "title": "Dolinski zipline | Glavani Park Istria",
+            "h1": "Dolinski zipline",
+            "meta_description": (
+                "Let 120 metara kroz dolinu na samostalnom ziplineu Glavani Parka, do 20 m visine. "
+                "Polasci pod nadzorom instruktora u Istri kod Pule. Otvoreno 9–17 h."
+            ),
+            "keywords": "zipline Istria, zipline 120 m Hrvatska, dolinski zipline Glavani Park, zipline kod Pule",
+            "hero_badge": "120 m · do 20 m visine",
+            "image_alt": "Dolinski zipline 120 m u Glavani Parku, Istria Hrvatska",
+            "paragraphs": [
+                "Dolinski zipline u Glavani Parku samostalan je let od 120 metara kroz hrastovu šumu, do visine od 20 metara. Osoblje vas spaja na užad, provodi obuku i letite između platformi s pogledom na dolinu.",
+                "Staza je popularna i među početnicima i među onima koji se vraćaju. Harnes i kaciga su osigurani; nosite zatvorenu obuću i udobnu odjeću. Kombinirajte s niskim ziplineom na visokim stazama za puno zipline iskustvo u jednom posjetu.",
+            ],
+            "video_heading": "Video dolinskog ziplinea",
             "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
         },
     },
@@ -263,44 +263,44 @@ ACTIVITIES = [
         },
     },
     {
-        "en_slug": "training-route",
-        "hr_slug": "trening-ruta",
-        "tile_mod": "training",
-        "youtube_id": "TDl0ffqPj3U",
-        "youtube_url": "https://youtu.be/TDl0ffqPj3U?is=E0eGJvpDww76o7MV",
-        "image": "training-route-youtube-still.webp",
+        "en_slug": "20m-drop",
+        "hr_slug": "pad-s-20m",
+        "tile_mod": "drop",
+        "youtube_id": "W5CWJfZlW2o",
+        "youtube_url": "https://youtu.be/W5CWJfZlW2o?is=zZJA4POSAJsYONMr",
+        "image": "quick-jump-youtube-still.webp",
         "en": {
-            "title": "Yellow Training Route (High Ropes) | Glavani Park Istria",
-            "h1": "Training Route",
+            "title": "20 m Drop (Quick Jump) | Glavani Park Istria",
+            "h1": "20m Drop",
             "meta_description": (
-                "Try the 2-metre yellow training route at Glavani Park, Istria — a family-friendly high-ropes "
-                "course with harness and instructor briefing. Near Pula, open daily 9 AM–5 PM."
+                "Experience a controlled 20-metre free fall on the Quick Jump at Glavani Park, Istria. "
+                "Professional descender system and instructor briefing. Open daily near Pula."
             ),
-            "keywords": "training route Istria, yellow high ropes Croatia, family adventure park Pula, Glavani Park courses",
-            "hero_badge": "2 m yellow route · all ages with adult",
-            "image_alt": "Yellow training route high-ropes course at Glavani Park, Istria Croatia",
+            "keywords": "Quick Jump Croatia, 20m free fall Istria, Glavani Park drop, adrenaline near Pula",
+            "hero_badge": "20 m controlled free fall",
+            "image_alt": "Quick Jump 20 metre controlled free fall at Glavani Park, Istria",
             "paragraphs": [
-                "Glavani Park's yellow training route is a certified high-ropes course at 2 metres above the forest floor — the perfect introduction for younger children, first-time climbers, and families who want to build confidence before the blue and black routes.",
-                "You stay on continuous belay from start to finish while instructors explain harness fit, safety signals, and how to tackle balance obstacles and rope bridges. The training route is included in day admission and the popular Training route + 2 games package from €30.",
+                "The 20m Drop — known as Quick Jump — lets you step off a platform high in the trees and feel genuine free fall before a certified descender system brings you smoothly to the ground. It is one of the most intense standalone rides in the park.",
+                "A full briefing covers harness fit, launch position, and what to expect on the way down. Health and age restrictions apply; staff will advise at check-in. Pair the drop with the Human Catapult or high swing for a full adrenaline session.",
             ],
-            "video_heading": "Training Route video",
+            "video_heading": "20m Drop video",
             "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
         },
         "hr": {
-            "title": "Žuta trening ruta (visoke staze) | Glavani Park Istria",
-            "h1": "Trening ruta",
+            "title": "Pad s 20 m (Quick Jump) | Glavani Park Istria",
+            "h1": "Pad s 20 m",
             "meta_description": (
-                "Isprobajte žutu trening rutu na 2 m u Glavani Parku, Istria — obiteljska visoka staza s harnesom "
-                "i obukom instruktora. Kod Pule, otvoreno svaki dan 9–17 h."
+                "Kontrolirani slobodni pad s 20 metara na Quick Jumpu u Glavani Parku, Istria. "
+                "Profesionalni sustav usporavanja i obuka instruktora. Otvoreno svaki dan kod Pule."
             ),
-            "keywords": "trening ruta Istria, žuta visoka staza Hrvatska, obiteljski avanturistički park Pula, Glavani Park staze",
-            "hero_badge": "Žuta staza 2 m · uz odraslog",
-            "image_alt": "Žuta trening ruta visokih staza u Glavani Parku, Istria Hrvatska",
+            "keywords": "Quick Jump Hrvatska, slobodni pad Istria, Glavani Park pad, adrenalin kod Pule",
+            "hero_badge": "Kontrolirani pad s 20 m",
+            "image_alt": "Quick Jump kontrolirani pad s 20 m u Glavani Parku, Istria",
             "paragraphs": [
-                "Žuta trening ruta u Glavani Parku certificirana je visoka staza na 2 metra iznad šumskog tla — savršen uvod za mlađu djecu, početnike i obitelji koje žele steći samopouzdanje prije plave i crne staze.",
-                "Ostajete na kontinuiranom osiguranju od početka do kraja dok instruktori objašnjavaju harnes, sigurnosne signale i kako savladati prepreke ravnoteže i mostove od užadi. Trening ruta uključena je u dnevnu ulaznicu i popularni paket Trening ruta + 2 igre od 30 €.",
+                "Pad s 20 m — Quick Jump — omogućuje korak s platforme visoko u krošnjama i pravi osjećaj slobodnog pada prije nego certificirani sustav usporavanja nježno spusti na tlo. Jedna je od najintenzivnijih samostalnih atrakcija u parku.",
+                "Potpuna obuka pokriva harnes, položaj i što očekivati tijekom spusta. Primjenjuju se zdravstvena i dobna ograničenja; osoblje savjetuje na ulazu. Kombinirajte s katapultom ili ljuljačkom za puni adrenalinski dan.",
             ],
-            "video_heading": "Video trening rute",
+            "video_heading": "Video pada s 20 m",
             "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
         },
     },
