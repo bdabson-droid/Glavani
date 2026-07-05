@@ -744,16 +744,6 @@ ACTIVITIES_HUB_COPY = {
     },
 }
 
-ACTIVITY_ICONS = {
-    "catapult": "",
-    "swing": "🎢",
-    "drop": "⬇️",
-    "zipline-valley": "🪂",
-    "zipline-low": "🌲",
-    "climbing": "🧗",
-    "training": "🪢",
-}
-
 
 def activities_hub_slug(lang: str) -> str:
     return ACTIVITIES_HUB_SLUGS[lang]
@@ -764,10 +754,7 @@ def activities_hub_path(lang: str) -> str:
 
 
 def render_hub_card_icon(mod: str) -> str:
-    icon = ACTIVITY_ICONS.get(mod, "🌲")
-    if not icon:
-        return ""
-    return f'<span class="hub-card__icon" aria-hidden="true">{icon}</span>'
+    return ""
 
 
 def render_activity_hub_grid(lang: str, *, compact: bool = False) -> str:
