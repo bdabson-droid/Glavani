@@ -208,11 +208,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .visitor-bar__contact-link:hover .contact-link__number { color: var(--yellow-accent); }
 .visitor-bar__contact-link .contact-link__text strong { color: var(--brand-green); }
 .visitor-bar__contact-link .contact-link__number { color: var(--yellow-accent); }
-.visitor-bar__photo {
-  width: 32px;
-  height: 32px;
-  border-color: rgba(255, 255, 255, 0.35);
-}
 
 .hero {
   position: relative;
@@ -301,7 +296,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(141, 198, 63, 0.45);
   border-radius: 999px;
-  padding: 0.3rem 0.85rem 0.3rem 0.3rem;
+  padding: 0.45rem 0.85rem;
   color: var(--text-on-dark);
 }
 .hero__contact:hover {

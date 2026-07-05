@@ -270,11 +270,22 @@ def relativize_site() -> None:
     print("  applied relative paths for GitHub Pages compatibility")
 
 
-def contact_link(person: dict, *, css_class: str = "contact-link", image_class: str = "contact-link__photo") -> str:
+def contact_link(
+    person: dict,
+    *,
+    css_class: str = "contact-link",
+    show_photo: bool = False,
+    image_class: str = "contact-link__photo",
+) -> str:
+    photo = ""
+    if show_photo:
+        photo = (
+            f'<img class="{image_class}" src="/images/{person["image"]}" '
+            f'alt="{person["name"]}" width="36" height="36" loading="lazy">'
+        )
     return (
         f'<a class="{css_class}" href="tel:{person["tel"]}">'
-        f'<img class="{image_class}" src="/images/{person["image"]}" '
-        f'alt="{person["name"]}" width="36" height="36" loading="lazy">'
+        f"{photo}"
         f'<span class="contact-link__text"><strong>{person["name"]}</strong> '
         f'<span class="contact-link__number">{person["display"]}</span></span>'
         f"</a>"
@@ -288,7 +299,7 @@ def render_hero_contacts() -> str:
 
 def render_info_strip_contacts(lang: str) -> str:
     return "".join(
-        f'<div class="info-strip__item info-strip__item--contact">{contact_link(p, css_class="info-strip__contact")}</div>'
+        f'<div class="info-strip__item info-strip__item--contact">{contact_link(p, css_class="info-strip__contact", show_photo=True)}</div>'
         for p in PHONES
     )
 
@@ -311,7 +322,7 @@ def quick_actions(lang: str) -> str:
 def visitor_bar(lang: str) -> str:
     copy = VISITOR[lang]
     contacts = "".join(
-        f'<span class="visitor-bar__contact">{contact_link(p, css_class="visitor-bar__contact-link", image_class="visitor-bar__photo")}</span>'
+        f'<span class="visitor-bar__contact">{contact_link(p, css_class="visitor-bar__contact-link")}</span>'
         for p in PHONES
     )
     return f"""
