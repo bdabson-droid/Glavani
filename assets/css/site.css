@@ -449,18 +449,32 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-card--zipline-low {
   background: linear-gradient(145deg, #0369a1, #0c4a6e);
 }
-.hub-card--climbing {
-  background-image:
-    linear-gradient(
-      to right,
-      rgba(64, 145, 108, 0.96) 0%,
-      rgba(64, 145, 108, 0.88) 30%,
-      rgba(26, 61, 46, 0.45) 55%,
-      transparent 80%
-    ),
-    url("../../images/climbing-wall-outdoor-activities-istria.webp");
+.hub-card--climbing,
+.activity-banner--climbing {
+  --hub-photo: url("../../images/climbing-wall-youtube-still.webp");
+  --hub-fade: linear-gradient(
+    to right,
+    rgba(64, 145, 108, 0.96) 0%,
+    rgba(64, 145, 108, 0.88) 30%,
+    rgba(26, 61, 46, 0.45) 55%,
+    transparent 80%
+  );
+  background-color: #1a3d2e;
+  background-image: var(--hub-fade), var(--hub-photo);
   background-size: 100% 100%, cover;
   background-position: 0 0, center right;
+  background-repeat: no-repeat;
+}
+.activity-showcase--compact .hub-card--climbing {
+  background-position: 0 0, 74% center;
+}
+.hub-card--climbing h3,
+.hub-card--climbing::after {
+  position: relative;
+  z-index: 1;
+}
+.hub-card--climbing h3 {
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
 }
 .hub-card--catapult h3,
 .hub-card--swing h3,
@@ -526,6 +540,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 .activity-banner--drop {
   background-position: 0 0, 68% center;
+}
+.activity-banner--climbing {
+  background-position: 0 0, 70% center;
 }
 
 /* Activity detail pages */

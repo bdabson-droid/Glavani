@@ -108,6 +108,7 @@ def generate_images() -> None:
 YOUTUBE_STILLS = [
     ("X2bRA2Bur-M", "human-catapult-youtube-still.webp"),
     ("W5CWJfZlW2o", "quick-jump-youtube-still.webp"),
+    ("Uhbf2TF8PYE", "climbing-wall-youtube-still.webp"),
 ]
 
 

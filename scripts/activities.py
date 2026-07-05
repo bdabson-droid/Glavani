@@ -221,7 +221,9 @@ ACTIVITIES = [
         "en_slug": "climbing-wall",
         "hr_slug": "penjacki-zid",
         "tile_mod": "climbing",
-        "image": "climbing-wall-outdoor-activities-istria.webp",
+        "youtube_id": "Uhbf2TF8PYE",
+        "youtube_url": "https://youtu.be/Uhbf2TF8PYE?is=LwH9p2u6W_SQ_UCZ",
+        "image": "climbing-wall-youtube-still.webp",
         "en": {
             "title": "Outdoor Climbing Wall | Glavani Park Istria",
             "h1": "Climbing Wall",
