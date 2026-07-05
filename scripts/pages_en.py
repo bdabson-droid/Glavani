@@ -84,7 +84,7 @@ PAGES = [
                 "h2": "Planning Your Istria Itinerary with Glavani Park",
                 "paragraphs": [
                     "<p>A well-balanced Istria itinerary might look like this: Day one — explore Pula's Roman heritage and swim at Kamenjak. Day two — Rovinj old town and a sunset dinner on the harbour. Day three — truffle experience or wine tasting inland, then Glavani Park for <a href=\"/en/adventure-park-croatia/\">family activities</a> and ziplines. Day four — Brijuni boat trip or a lazy beach day before departure.</p>",
-                    "<p>Glavani Park is open daily from 9 AM to 5 PM with last entry at 3 PM — allow three to four hours to enjoy the main attractions comfortably. Saturdays are pre-booking only; from the end of September until the start of July all visits require advance booking with no walk-ins. From July through the end of September, walk-ins are welcome on weekdays only, subject to availability. English-speaking staff are on hand throughout the season, and the park is listed by the Istria Tourist Board as one of the region's recommended outdoor attractions.</p>",
+                    "<p>Glavani Park is open daily from 9 AM to 5 PM with last entry at 3 PM — allow three to four hours to enjoy the main attractions comfortably. Saturdays are pre-booking only; from the end of September until the start of July all visits require advance booking with no walk-ins. From July through the end of September, walk-ins are welcome Sunday to Friday, subject to availability. English-speaking staff are on hand throughout the season, and the park is listed by the Istria Tourist Board as one of the region's recommended outdoor attractions.</p>",
                     "<p>Whether your priority is culture, cuisine, coastline, or adrenaline, Istria delivers — and Glavani Park adds an unforgettable active dimension to any trip. Browse our dedicated guides on <a href=\"/en/zipline-croatia/\">ziplines in Croatia</a>, <a href=\"/en/adventure-park-croatia/\">adventure parks</a>, and <a href=\"/en/things-to-do-near-pula/\">day trips from Pula</a> to plan the perfect visit.</p>",
                 ],
             },
@@ -265,7 +265,7 @@ PAGES = [
             },
             {
                 "q": "Do I need a reservation for the zipline?",
-                "a": "Saturdays are pre-booking only — no walk-ins. From the end of September until the start of July, all visits require advance booking. From July through the end of September, walk-ins are welcome on weekdays only, subject to availability. Last entry is 3 PM and the park closes at 5 PM. Call +385 91 896 4525 or book online.",
+                "a": "Saturdays are pre-booking only — no walk-ins. From the end of September until the start of July, all visits require advance booking. From July through the end of September, walk-ins are welcome Sunday to Friday, subject to availability. Last entry is 3 PM and the park closes at 5 PM. Call +385 91 896 4525 or book online.",
             },
             {
                 "q": "Is ziplining safe for first-timers?",
@@ -600,7 +600,7 @@ PAGES = [
                 "paragraphs": [
                     "<p>Spread across 1.5 hectares of oak forest, Glavani Park is one of Croatia's largest dedicated adrenaline parks. Attractions include three high-ropes routes (yellow 2 m, blue 6 m, black 10 m), a 120-metre zipline, a 113-metre zipline on the blue course, a 12.5-metre high swing, Human Catapult, 20-metre Quick Jump, and an outdoor climbing wall. English-speaking instructors operate every station with CE-certified harnesses and helmets.</p>",
                     "<p>The park suits families, couples, and groups based in Pula hotels, villas, or campsites who want a break from sand and sightseeing. Most visitors spend three to four hours on site. Free parking accommodates cars and larger vehicles. Opening hours are daily <strong>9 AM–5 PM</strong> with last entry at <strong>3 PM</strong> — plan to arrive before midday if you want to experience multiple attractions.</p>",
-                    "<p>Book before you drive out — <strong>Saturdays are pre-booking only</strong>, and from the end of September until the start of July all visits require advance booking with no walk-ins. Weekday walk-ins may be accepted from July through the end of September only. Call <a href=\"tel:+385918964525\">+385 91 896 4525</a> or book online to avoid disappointment after the 30-minute drive from Pula.</p>",
+                    "<p>Book before you drive out — <strong>Saturdays are pre-booking only</strong>, and from the end of September until the start of July all visits require advance booking with no walk-ins. Walk-ins Sunday to Friday may be accepted from July through the end of September only. Call <a href=\"tel:+385918964525\">+385 91 896 4525</a> or book online to avoid disappointment after the 30-minute drive from Pula.</p>",
                 ],
             },
             {
@@ -634,7 +634,7 @@ PAGES = [
             },
             {
                 "q": "Do I need to book from Pula or can I just drive there?",
-                "a": "Saturdays are pre-booking only — no walk-ins. From the end of September until the start of July, all visits require advance booking. From July through the end of September, walk-ins are welcome on weekdays only. Call +385 91 896 4525 or book online.",
+                "a": "Saturdays are pre-booking only — no walk-ins. From the end of September until the start of July, all visits require advance booking. From July through the end of September, walk-ins are welcome Sunday to Friday. Call +385 91 896 4525 or book online.",
             },
         ],
         "related": [

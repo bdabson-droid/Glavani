@@ -94,7 +94,7 @@ PAGES = [
                 "h2": 'Planiranje istarskog itinerara s Glavani Parkom',
                 "paragraphs": [
                     '<p>Uravnotežen itinerar mogao bi izgledati ovako: prvi dan — rimska baština Pule i kupanje na Kamenjaku. Drugi — stari grad Rovinj i večera na rivi. Treći — tartufi ili degustacija vina u unutrašnjosti, zatim Glavani Park za <a href="/hr/avanturisticki-park-hrvatska/">obiteljske aktivnosti</a> i zipline. Četvrti — izlet brodom na Brijune ili opušten dan na plaži prije odlaska.</p>',
-                    '<p>Glavani Park radi svaki dan od 9 do 17 sati, posljednji ulaz u 15 sati — planirajte tri do četiri sata za glavne atrakcije. Subotom je moguća samo unaprijedna rezervacija; od kraja rujna do početka srpnja svi posjeti moraju biti unaprijed rezervirani — bez dolaska bez najave. Od srpnja do kraja rujna dolazak bez rezervacije moguć je samo radnim danom, ovisno o dostupnosti. Instruktori govore hrvatski i engleski, a park je naveden na stranicama <a href="https://www.istra.hr/hr/destinacije/barban/1531" rel="noopener noreferrer">Turističke zajednice Istre</a> kao preporučena vanjska atrakcija.</p>',
+                    '<p>Glavani Park radi svaki dan od 9 do 17 sati, posljednji ulaz u 15 sati — planirajte tri do četiri sata za glavne atrakcije. Subotom je moguća samo unaprijedna rezervacija; od kraja rujna do početka srpnja svi posjeti moraju biti unaprijed rezervirani — bez dolaska bez najave. Od srpnja do kraja rujna dolazak bez rezervacije moguć je od nedjelje do petka, ovisno o dostupnosti. Instruktori govore hrvatski i engleski, a park je naveden na stranicama <a href="https://www.istra.hr/hr/destinacije/barban/1531" rel="noopener noreferrer">Turističke zajednice Istre</a> kao preporučena vanjska atrakcija.</p>',
                     '<p>Bilo da vam je prioritet kultura, gastronomija, obala ili adrenalin, Istra isporučuje — a Glavani Park dodaje nezaboravnu aktivnu dimenziju svakom putovanju. Pregledajte vodiče <a href="/hr/zipline-hrvatska/">zipline Hrvatska</a>, <a href="/hr/avanturisticki-park-hrvatska/">avanturistički parkovi</a> i <a href="/hr/sto-raditi-kod-pule/">izleti iz Pule</a> za savršen posjet.</p>',
                 ],
             },
@@ -276,7 +276,7 @@ PAGES = [
             },
             {
                 "q": 'Trebam li rezervaciju za zipline?',
-                "a": 'Subotom je moguća samo unaprijedna rezervacija — bez dolaska bez najave. Od kraja rujna do početka srpnja svi posjeti moraju biti unaprijed rezervirani. Od srpnja do kraja rujna dolazak bez rezervacije moguć je samo radnim danom, ovisno o dostupnosti. Posljednji ulaz u 15 h, zatvaranje u 17 h.',
+                "a": 'Subotom je moguća samo unaprijedna rezervacija — bez dolaska bez najave. Od kraja rujna do početka srpnja svi posjeti moraju biti unaprijed rezervirani. Od srpnja do kraja rujna dolazak bez rezervacije moguć je od nedjelje do petka, ovisno o dostupnosti. Posljednji ulaz u 15 h, zatvaranje u 17 h.',
             },
             {
                 "q": 'Je li zipline siguran za početnike?',
@@ -616,7 +616,7 @@ PAGES = [
                 "paragraphs": [
                     '<p>Na 1,5 hektara hrastove šume Glavani Park je jedan od najvećih namjenskih adrenalinskih parkova u Hrvatskoj. Atrakcije uključuju tri visoke staze (žuta 2 m, plava 6 m, crna 10 m), zipline 120 m, zipline 113 m na plavoj stazi, ljuljačku 12,5 m, ljudsku katapultu, Quick Jump 20 m i vanjski zid za penjanje. Instruktori na engleskom rade na svakoj stanici s CE certificiranim harnesima i kacigama.</p>',
                     '<p>Park odgovara obiteljima, parovima i grupama u pulskim hotelima, vilama ili kampovima koje žele pauzu od pijeska i razgledavanja. Većina provede tri do četiri sata. Besplatno parkiranje za automobile i veće vozilo. Radno vrijeme <strong>9–17 h</strong>, posljednji ulaz <strong>15 h</strong> — dođite prije podneva za više atrakcija.</p>',
-                    '<p>Rezervirajte prije polaska — <strong>subotom je moguća samo unaprijedna rezervacija</strong>, a od kraja rujna do početka srpnja svi posjeti moraju biti unaprijed rezervirani bez dolaska bez najave. Dolazak bez rezervacije moguć je samo radnim danom od srpnja do kraja rujna. Nazovite <a href="tel:+385918964525">+385 91 896 4525</a> ili rezervirajte online.</p>',
+                    '<p>Rezervirajte prije polaska — <strong>subotom je moguća samo unaprijedna rezervacija</strong>, a od kraja rujna do početka srpnja svi posjeti moraju biti unaprijed rezervirani bez dolaska bez najave. Dolazak bez rezervacije moguć je od nedjelje do petka od srpnja do kraja rujna. Nazovite <a href="tel:+385918964525">+385 91 896 4525</a> ili rezervirajte online.</p>',
                     '<p>Poslijepodnevni posjet parku omogućuje jutarnje kupanje na Kamenjaku ili obilazak amfiteatra bez žurbe, uz dolazak u park do 14 sati za solidan broj aktivnosti prije zatvaranja. Noćenje u Puli nakon adrenalinskog dana često uključuje opuštenu večeru u konobi — idealan balans za odmor u Istri.</p>',
                 ],
             },
@@ -652,7 +652,7 @@ PAGES = [
             },
             {
                 "q": 'Trebam li rezervirati iz Pule ili samo doći?',
-                "a": 'Subotom je moguća samo unaprijedna rezervacija — bez dolaska bez najave. Od kraja rujna do početka srpnja svi posjeti moraju biti unaprijed rezervirani. Od srpnja do kraja rujna dolazak bez rezervacije moguć je samo radnim danom. Nazovite +385 91 896 4525 ili rezervirajte online.',
+                "a": 'Subotom je moguća samo unaprijedna rezervacija — bez dolaska bez najave. Od kraja rujna do početka srpnja svi posjeti moraju biti unaprijed rezervirani. Od srpnja do kraja rujna dolazak bez rezervacije moguć je od nedjelje do petka. Nazovite +385 91 896 4525 ili rezervirajte online.',
             },
         ],
         "related": [
