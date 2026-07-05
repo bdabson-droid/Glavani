@@ -147,6 +147,14 @@ EXTERNAL_IMAGES = [
         "https://www.glavanipark.com/upload/katalog/2017-8-29_tri_rute_za_odrasle_osnovni_park.JPG",
         "gift-voucher-70-all-games.webp",
     ),
+    (
+        "https://www.glavanipark.com/upload/katalog/2017-8-22_nigel.jpg",
+        "nigel-simpson-glavanipark.webp",
+    ),
+    (
+        "https://www.glavanipark.com/upload/katalog/2017-8-22_nevenko.jpg",
+        "nevenko-bulic-glavanipark.webp",
+    ),
 ]
 EXTERNAL_IMAGES.extend(EVENT_EXTERNAL_IMAGES)
 
@@ -262,6 +270,29 @@ def relativize_site() -> None:
     print("  applied relative paths for GitHub Pages compatibility")
 
 
+def contact_link(person: dict, *, css_class: str = "contact-link", image_class: str = "contact-link__photo") -> str:
+    return (
+        f'<a class="{css_class}" href="tel:{person["tel"]}">'
+        f'<img class="{image_class}" src="/images/{person["image"]}" '
+        f'alt="{person["name"]}" width="36" height="36" loading="lazy">'
+        f'<span class="contact-link__text"><strong>{person["name"]}</strong> '
+        f'<span class="contact-link__number">{person["display"]}</span></span>'
+        f"</a>"
+    )
+
+
+def render_hero_contacts() -> str:
+    items = "".join(contact_link(p, css_class="hero__contact") for p in PHONES)
+    return f'<div class="hero__contacts">{items}</div>'
+
+
+def render_info_strip_contacts(lang: str) -> str:
+    return "".join(
+        f'<div class="info-strip__item info-strip__item--contact">{contact_link(p, css_class="info-strip__contact")}</div>'
+        for p in PHONES
+    )
+
+
 def quick_actions(lang: str) -> str:
     call = "Pozovite" if lang == "hr" else "Call Now"
     find = "Pronađite nas" if lang == "hr" else "Find Us"
@@ -279,7 +310,10 @@ def quick_actions(lang: str) -> str:
 
 def visitor_bar(lang: str) -> str:
     copy = VISITOR[lang]
-    phones = " · ".join(f'<a href="tel:{p["tel"]}">{p["display"]}</a>' for p in PHONES)
+    contacts = "".join(
+        f'<span class="visitor-bar__contact">{contact_link(p, css_class="visitor-bar__contact-link", image_class="visitor-bar__photo")}</span>'
+        for p in PHONES
+    )
     return f"""
   <div class="visitor-bar" aria-label="{copy['visitor_bar_aria']}">
     <div class="visitor-bar__inner">
@@ -287,9 +321,7 @@ def visitor_bar(lang: str) -> str:
         <span class="visitor-bar__icon" aria-hidden="true">🕐</span>
         <strong>{copy['hours_label']}</strong> {copy['hours']} · {copy['last_entry']}
       </p>
-      <p class="visitor-bar__phones">
-        <span class="visitor-bar__icon" aria-hidden="true">📞</span> {phones}
-      </p>
+      <div class="visitor-bar__phones">{contacts}</div>
     </div>
   </div>"""
 
@@ -1189,11 +1221,17 @@ def inject_reviews_section(body: str, lang: str) -> str:
 
 def home_body_en() -> str:
     """English homepage main content (abbreviated structure with full SEO sections)."""
-    return inject_reviews_section(open(ROOT / "scripts" / "home_en.html").read(), "en")
+    body = open(ROOT / "scripts" / "home_en.html").read()
+    body = body.replace("<!-- HERO_CONTACTS -->", render_hero_contacts())
+    body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("en"))
+    return inject_reviews_section(body, "en")
 
 
 def home_body_hr() -> str:
-    return inject_reviews_section(open(ROOT / "scripts" / "home_hr.html").read(), "hr")
+    body = open(ROOT / "scripts" / "home_hr.html").read()
+    body = body.replace("<!-- HERO_CONTACTS -->", render_hero_contacts())
+    body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("hr"))
+    return inject_reviews_section(body, "hr")
 
 
 def render_faq_page(lang: str) -> str:

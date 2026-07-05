@@ -148,6 +148,32 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   line-height: 1.4;
 }
 
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  text-decoration: none;
+  color: inherit;
+}
+.contact-link:hover { text-decoration: none; }
+.contact-link__photo {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(141, 198, 63, 0.65);
+  flex-shrink: 0;
+}
+.contact-link__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.25;
+  font-size: 0.8125rem;
+}
+.contact-link__text strong { font-size: 0.875rem; }
+.contact-link__number { font-weight: 600; opacity: 0.95; }
+
 .visitor-bar {
   background: var(--green-deep);
   color: var(--text-on-dark);
@@ -169,12 +195,24 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .visitor-bar p { margin: 0; }
 .visitor-bar__icon { margin-right: 0.2rem; }
 .visitor-bar strong { color: var(--brand-green); }
-.visitor-bar a {
-  color: var(--yellow-accent);
-  font-weight: 700;
-  text-decoration: none;
+.visitor-bar__phones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
 }
-.visitor-bar a:hover { color: var(--white); text-decoration: underline; }
+.visitor-bar__contact-link {
+  color: var(--text-on-dark);
+}
+.visitor-bar__contact-link:hover .contact-link__number { color: var(--yellow-accent); }
+.visitor-bar__contact-link .contact-link__text strong { color: var(--brand-green); }
+.visitor-bar__contact-link .contact-link__number { color: var(--yellow-accent); }
+.visitor-bar__photo {
+  width: 32px;
+  height: 32px;
+  border-color: rgba(255, 255, 255, 0.35);
+}
 
 .hero {
   position: relative;
@@ -252,6 +290,27 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   text-decoration: none;
 }
 .hero__essentials a:hover { color: var(--white); text-decoration: underline; }
+.hero__contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin: 0 0 1rem;
+}
+.hero__contact {
+  font-size: 0.8125rem;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(141, 198, 63, 0.45);
+  border-radius: 999px;
+  padding: 0.3rem 0.85rem 0.3rem 0.3rem;
+  color: var(--text-on-dark);
+}
+.hero__contact:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: var(--brand-green);
+}
+.hero__contact .contact-link__text strong { color: var(--brand-green); }
+.hero__contact .contact-link__number { color: var(--yellow-accent); }
+.hero__contact:hover .contact-link__number { color: var(--white); }
 .hero__subtitle {
   font-size: clamp(0.9375rem, 2.2vw, 1.125rem);
   opacity: 0.95;
@@ -804,18 +863,21 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   max-width: 1100px; margin: 0 auto; padding: 1rem 1.25rem;
 }
 @media (min-width: 640px) { .info-strip { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 900px) { .info-strip { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 900px) { .info-strip { grid-template-columns: repeat(5, 1fr); } }
 .info-strip__item {
   text-align: center; background: var(--white); border-radius: var(--radius);
   padding: 1rem; box-shadow: var(--shadow); font-size: 0.875rem; color: var(--rock-mid);
 }
 .info-strip__item strong { display: block; color: var(--green-deep); font-size: 1rem; }
-.info-strip__item--phones a {
-  color: var(--green-deep);
-  font-weight: 700;
-  text-decoration: none;
+.info-strip__item--contact { padding: 0.85rem 1rem; }
+.info-strip__contact {
+  justify-content: center;
+  width: 100%;
 }
-.info-strip__item--phones a:hover { color: var(--orange-cta); text-decoration: underline; }
+.info-strip__contact .contact-link__text { align-items: center; text-align: center; }
+.info-strip__contact .contact-link__text strong { color: var(--green-deep); }
+.info-strip__contact .contact-link__number { color: var(--rock-mid); font-weight: 700; }
+.info-strip__contact:hover .contact-link__number { color: var(--orange-cta); }
 .info-strip__sep { color: var(--rock-mid); font-weight: 400; }
 
 /* Booking */

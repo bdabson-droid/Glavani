@@ -1,8 +1,18 @@
 """Shared brand messaging — hours, phones, and voice for Glavani Park."""
 
 PHONES = (
-    {"display": "+385 91 896 4525", "tel": "+385918964525"},
-    {"display": "+385 98 224 314", "tel": "+38598224314"},
+    {
+        "name": "Nigel Simpson",
+        "display": "+385 91 896 4525",
+        "tel": "+385918964525",
+        "image": "nigel-simpson-glavanipark.webp",
+    },
+    {
+        "name": "Nevenko Bulić",
+        "display": "+385 98 224 314",
+        "tel": "+38598224314",
+        "image": "nevenko-bulic-glavanipark.webp",
+    },
 )
 
 VISITOR = {
