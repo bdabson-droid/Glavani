@@ -393,18 +393,32 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-card--catapult h3 {
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
 }
-.hub-card--swing {
-  background-image:
-    linear-gradient(
-      to right,
-      rgba(124, 58, 237, 0.96) 0%,
-      rgba(124, 58, 237, 0.88) 30%,
-      rgba(76, 29, 149, 0.45) 55%,
-      transparent 80%
-    ),
-    url("../../images/12-5m-high-swing-glavani-park-istria.webp");
+.hub-card--swing,
+.activity-banner--swing {
+  --hub-photo: url("../../images/high-swing-youtube-still.webp");
+  --hub-fade: linear-gradient(
+    to right,
+    rgba(124, 58, 237, 0.96) 0%,
+    rgba(124, 58, 237, 0.88) 30%,
+    rgba(76, 29, 149, 0.45) 55%,
+    transparent 80%
+  );
+  background-color: #4c1d95;
+  background-image: var(--hub-fade), var(--hub-photo);
   background-size: 100% 100%, cover;
   background-position: 0 0, center right;
+  background-repeat: no-repeat;
+}
+.activity-showcase--compact .hub-card--swing {
+  background-position: 0 0, 74% center;
+}
+.hub-card--swing h3,
+.hub-card--swing::after {
+  position: relative;
+  z-index: 1;
+}
+.hub-card--swing h3 {
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
 }
 .hub-card--drop,
 .activity-banner--drop {
@@ -543,6 +557,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 .activity-banner--climbing {
   background-position: 0 0, 70% center;
+}
+.activity-banner--swing {
+  background-position: 0 0, 72% center;
 }
 
 /* Activity detail pages */
