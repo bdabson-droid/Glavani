@@ -60,8 +60,8 @@ ACTIVITIES = [
         "en_slug": "high-swing",
         "hr_slug": "visoka-ljuljacka",
         "tile_mod": "swing",
-        "youtube_id": "ybePV3n9uks",
-        "youtube_url": "https://youtu.be/ybePV3n9uks?is=C_7duYUFbJqnBY6T",
+        "youtube_id": "MNGHsGobVWc",
+        "youtube_url": "https://youtube.com/shorts/MNGHsGobVWc?is=eWd2kCykgsw5fW9t",
         "image": "high-swing-youtube-still.webp",
         "en": {
             "title": "12.5 m High Swing | Glavani Park Istria",
