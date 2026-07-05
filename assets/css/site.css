@@ -406,18 +406,32 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   background-size: 100% 100%, cover;
   background-position: 0 0, center right;
 }
-.hub-card--drop {
-  background-image:
-    linear-gradient(
-      to right,
-      rgba(37, 99, 235, 0.96) 0%,
-      rgba(37, 99, 235, 0.88) 30%,
-      rgba(49, 46, 129, 0.45) 55%,
-      transparent 80%
-    ),
-    url("../../images/quick-jump-20m-free-fall-istria.webp");
+.hub-card--drop,
+.activity-banner--drop {
+  --hub-photo: url("../../images/quick-jump-youtube-still.webp");
+  --hub-fade: linear-gradient(
+    to right,
+    rgba(37, 99, 235, 0.96) 0%,
+    rgba(37, 99, 235, 0.88) 30%,
+    rgba(49, 46, 129, 0.45) 55%,
+    transparent 80%
+  );
+  background-color: #312e81;
+  background-image: var(--hub-fade), var(--hub-photo);
   background-size: 100% 100%, cover;
   background-position: 0 0, center right;
+  background-repeat: no-repeat;
+}
+.activity-showcase--compact .hub-card--drop {
+  background-position: 0 0, 74% center;
+}
+.hub-card--drop h3,
+.hub-card--drop::after {
+  position: relative;
+  z-index: 1;
+}
+.hub-card--drop h3 {
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
 }
 .hub-card--zipline-valley {
   background-image:
@@ -509,6 +523,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 .activity-banner--catapult {
   background-position: 0 0, 62% center;
+}
+.activity-banner--drop {
+  background-position: 0 0, 68% center;
 }
 
 /* Activity detail pages */

@@ -107,6 +107,7 @@ def generate_images() -> None:
 
 YOUTUBE_STILLS = [
     ("X2bRA2Bur-M", "human-catapult-youtube-still.webp"),
+    ("W5CWJfZlW2o", "quick-jump-youtube-still.webp"),
 ]
 
 
@@ -900,7 +901,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
     cta = "Pozovite za rezervaciju" if lang == "hr" else "Call to Book"
     img = activity["image"]
     mod = activity["tile_mod"]
-    use_banner_header = en_slug == "human-catapult"
+    use_banner_header = bool(activity.get("youtube_id"))
 
     activities_href = activities_hub_path(lang)
     activities_url = f"{BASE}{activities_href}"

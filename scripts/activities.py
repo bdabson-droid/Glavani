@@ -99,7 +99,9 @@ ACTIVITIES = [
         "en_slug": "20m-drop",
         "hr_slug": "pad-s-20m",
         "tile_mod": "drop",
-        "image": "quick-jump-20m-free-fall-istria.webp",
+        "youtube_id": "W5CWJfZlW2o",
+        "youtube_url": "https://youtu.be/W5CWJfZlW2o?is=zZJA4POSAJsYONMr",
+        "image": "quick-jump-youtube-still.webp",
         "en": {
             "title": "20 m Drop (Quick Jump) | Glavani Park Istria",
             "h1": "20m Drop",
