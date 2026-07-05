@@ -31,6 +31,10 @@ VISITOR = {
         ),
         "visitor_bar_aria": "Visitor information",
         "logo_alt": "Glavani Park — A Great Place to Be",
+        "payment_label": "Payment",
+        "payment_value": "Card & cash at the park",
+        "refreshments_label": "On site",
+        "refreshments_value": "Refreshments & ice cream",
     },
     "hr": {
         "hours_label": "Otvoreno svaki dan",
@@ -45,5 +49,9 @@ VISITOR = {
         ),
         "visitor_bar_aria": "Informacije za posjetitelje",
         "logo_alt": "Glavani Park — odlično mjesto za avanturu",
+        "payment_label": "Plaćanje",
+        "payment_value": "Kartice i gotovina u parku",
+        "refreshments_label": "U parku",
+        "refreshments_value": "Osvježenja i sladoled",
     },
 }

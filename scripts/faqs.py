@@ -153,8 +153,15 @@ VISITOR_FAQS = {
         {
             "q": "Is there food at Glavani Park?",
             "a": (
-                "Coffee, soft drinks, and ice cream are available at a shaded picnic area at Glavani Park. "
+                "Coffee, soft drinks, refreshments, and ice cream are available at a shaded picnic area at Glavani Park. "
                 "You may bring snacks; there is no full restaurant on site."
+            ),
+        },
+        {
+            "q": "What payment methods do you accept at Glavani Park?",
+            "a": (
+                "We accept card and cash payments at the park ticket desk. "
+                "Online gift vouchers can also be purchased by card on our gift voucher page."
             ),
         },
         {
@@ -219,8 +226,15 @@ VISITOR_FAQS = {
         {
             "q": "Ima li hrane u Glavani Parku?",
             "a": (
-                "Kava, sokovi i sladoled dostupni su na osjenčanom piknik mjestu u Glavani Parku. "
+                "Kava, bezalkoholna pića, osvježenja i sladoled dostupni su na osjenčanom piknik mjestu u Glavani Parku. "
                 "Možete donijeti grickalice; nema punog restorana."
+            ),
+        },
+        {
+            "q": "Koje načine plaćanja prihvaćate u Glavani Parku?",
+            "a": (
+                "Na blagajni u parku prihvaćamo kartice i gotovinu. "
+                "Poklon bon možete kupiti i online karticom na stranici poklon bona."
             ),
         },
         {

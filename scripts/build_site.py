@@ -303,6 +303,16 @@ def render_home_booking_policy(lang: str) -> str:
     return BOOKING_POLICY[lang]["home_notice"]
 
 
+def render_info_strip_amenities(lang: str) -> str:
+    copy = VISITOR[lang]
+    return (
+        f'<div class="info-strip__item"><strong>{copy["payment_label"]}</strong>'
+        f'{copy["payment_value"]}</div>'
+        f'<div class="info-strip__item"><strong>{copy["refreshments_label"]}</strong>'
+        f'{copy["refreshments_value"]}</div>'
+    )
+
+
 def render_info_strip_booking(lang: str) -> str:
     policy = BOOKING_POLICY[lang]
     return (
@@ -1241,6 +1251,7 @@ def home_body_en() -> str:
     body = open(ROOT / "scripts" / "home_en.html").read()
     body = body.replace("<!-- HOME_BOOKING_POLICY -->", render_home_booking_policy("en"))
     body = body.replace("<!-- INFO_STRIP_BOOKING -->", render_info_strip_booking("en"))
+    body = body.replace("<!-- INFO_STRIP_AMENITIES -->", render_info_strip_amenities("en"))
     body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("en"))
     return inject_reviews_section(body, "en")
 
@@ -1249,6 +1260,7 @@ def home_body_hr() -> str:
     body = open(ROOT / "scripts" / "home_hr.html").read()
     body = body.replace("<!-- HOME_BOOKING_POLICY -->", render_home_booking_policy("hr"))
     body = body.replace("<!-- INFO_STRIP_BOOKING -->", render_info_strip_booking("hr"))
+    body = body.replace("<!-- INFO_STRIP_AMENITIES -->", render_info_strip_amenities("hr"))
     body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("hr"))
     return inject_reviews_section(body, "hr")
 
@@ -1478,10 +1490,14 @@ def render_booking_app(lang: str) -> str:
         )
         h1 = "Rezerviraj"
         lead = (
-            f"Ispunite obrazac — za sve unaprijedne rezervacije odgovorit ćemo e-računom za potvrdu "
-            f"na {BOOKING_EMAIL} što je prije moguće."
+            "Ispunite obrazac i pošaljite predložak e-pošte s odabranim paketom i cijenama — "
+            "za sve unaprijedne rezervacije odgovorit ćemo e-računom za potvrdu što je prije moguće."
         )
         notice = "Rezervacija u roku 48 sati od željenog datuma posjeta? Molimo <a href=\"tel:+38598224314\">nazovite</a>."
+        amenities = (
+            "<strong>Plaćanje:</strong> kartice i gotovina u parku. "
+            "<strong>U parku:</strong> osvježenja i sladoled."
+        )
         policy = BOOKING_POLICY["hr"]["book_page"]
     else:
         slug, en_slug, hr_slug = "book", "book", "rezervacija"
@@ -1493,10 +1509,14 @@ def render_booking_app(lang: str) -> str:
         )
         h1 = "Book"
         lead = (
-            f"Fill in the form below — for all advance bookings we will respond with an emailed invoice "
-            f"to confirm your booking to {BOOKING_EMAIL} as soon as possible."
+            "Fill in the form and send the email template with your chosen package and costs — "
+            "for all advance bookings we will respond with an emailed invoice to confirm as soon as possible."
         )
         notice = "Booking within 48 hours of your requested visit date? Please <a href=\"tel:+385918964525\">call to book</a>."
+        amenities = (
+            "<strong>Payment:</strong> card and cash accepted at the park. "
+            "<strong>On site:</strong> refreshments and ice cream available."
+        )
         policy = BOOKING_POLICY["en"]["book_page"]
     prefix = f"/{lang}/"
     canonical = f"{BASE}{prefix}{slug}/"
@@ -1518,6 +1538,7 @@ def render_booking_app(lang: str) -> str:
   <h1>{h1}</h1>
   <p>{lead}</p>
   <p class="book-app-notice">{policy}</p>
+  <p class="book-app-notice">{amenities}</p>
   <p class="book-app-notice">{notice}</p>
 </div>
 <div class="book-app-wrap">
