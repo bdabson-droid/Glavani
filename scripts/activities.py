@@ -10,6 +10,7 @@ ACTIVITY_SLUG_MAP = {
     "niski-zipline": "low-zipline",
     "penjacki-zid": "climbing-wall",
     "trening-ruta": "training-route",
+    "most-s-monociklom": "devils-causeway",
 }
 
 ACTIVITIES = [
@@ -259,6 +260,52 @@ ACTIVITIES = [
                 "Zid je odličan za obitelji, školske grupe na zagrijavanju i posjetitelje između većih vožnji. Nosite tenisice s dobrim gripom. Mlađa djeca često mogu penjati uz pomoć instruktora — pitajte na ulazu o prikladnosti.",
             ],
             "video_heading": "Video penjačkog zida",
+            "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
+        },
+    },
+    {
+        "en_slug": "devils-causeway",
+        "hr_slug": "most-s-monociklom",
+        "tile_mod": "causeway",
+        "image": "devils-causeway-unicycle-glavani-park.webp",
+        "en": {
+            "title": "Devil's Causeway with the Unicycle | Glavani Park Istria",
+            "h1": "Devil's causeway with the unicycle",
+            "meta_description": (
+                "Cross the Devil's Path on a unicycle at Glavani Park, Istria — skateboard, wooden bridge, "
+                "unicycle and Japanese bridge after the yellow and blue routes. Weight limit 85 kg. Near Pula."
+            ),
+            "keywords": (
+                "Devil's causeway Istria, unicycle bridge Croatia, Glavani Park high ropes, "
+                "adventure park near Pula, black route Istria"
+            ),
+            "hero_badge": "Devil's Path · unicycle crossing · 85 kg limit",
+            "image_alt": "Guest crossing Devil's causeway with the unicycle at Glavani Park, Istria Croatia",
+            "paragraphs": [
+                "Once you've completed the yellow and blue routes — or when you're already experienced at our adventure park — it's time to head to the Devil's Path and cross it on a unicycle. You ride a skateboard first, then cross a wooden slatted bridge before the unicycle — the most difficult part of the park.",
+                "If you weigh more than 85 kg or aren't tall enough to reach the unicycle pedals, this game may not be suitable; you can walk on the wire instead. Staff guide you through seat adjustment, balance, and pedalling — hold the safety rope with one hand and the seat with the other. After the unicycle, complete a ropeline and a simple Japanese bridge. The giant swing is the best game to do next.",
+            ],
+            "video_heading": "Devil's causeway with the unicycle video",
+            "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
+        },
+        "hr": {
+            "title": "Most s monociklom | Glavani Park Istria",
+            "h1": "Most s monociklom",
+            "meta_description": (
+                "Prijeđite Vražji put na monociklu u Glavani Parku, Istria — skateboard, drveni most, "
+                "monocikl i japanski most nakon žute i plave staze. Ograničenje težine 85 kg. Kod Pule."
+            ),
+            "keywords": (
+                "most s monociklom Istria, monocikl most Hrvatska, Glavani Park visoke staze, "
+                "avanturistički park kod Pule, crna staza Istria"
+            ),
+            "hero_badge": "Vražji put · monocikl · limit 85 kg",
+            "image_alt": "Gost prelazi most s monociklom u Glavani Parku, Istria Hrvatska",
+            "paragraphs": [
+                "Kada ste prošli žutu, plavu i crnu stazu, vrijeme je da nastavite na najdužu zip liniju i most s monociklom. Zip liniju može svatko proći jer je do nje vrlo jednostavno doći; za most s monociklom vrijede ograničenja — osobe teže od 85 kg ne bi trebale ići na most, a mala djeca moraju dohvatiti pedale monocikla.",
+                "Prije monocikla čeka vas skateboard, malo veći i brži, te mostić kojeg je najlakše pretrčati — kroz cijelo razdoblje slušajte upute osoblja. Monocikl je najzahtjevniji dio u Glavani Parku: namjestite visinu sjedala, jednom rukom držite horizontalnu špagu, drugom se čvrsto držite ispod sjedala. Nakon toga slijede slackline i most; vratite se najdužom zip linijom ili kraćom, bržom do 11 m visoke ljuljačke.",
+            ],
+            "video_heading": "Video mosta s monociklom",
             "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
         },
     },

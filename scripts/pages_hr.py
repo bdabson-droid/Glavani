@@ -118,7 +118,7 @@ PAGES = [
             },
         ],
         "related": [
-            {"slug": 'avanturisticki-park-hrvatska', "title": 'Naše aktivnosti', "desc": 'Sedam glavnih atrakcija u Glavani Parku'},
+            {"slug": 'avanturisticki-park-hrvatska', "title": 'Naše aktivnosti', "desc": 'Osam glavnih atrakcija u Glavani Parku'},
             {"slug": 'sto-raditi-kod-pule', "title": 'Što raditi kod Pule', "desc": 'Izleti i aktivnosti na otvorenom u 30 min vožnje'},
             {"slug": 'avanturisticki-park-hrvatska', "title": 'Avanturistički parkovi u Hrvatskoj', "desc": 'Zašto je Glavani Park vrhunska adrenalinska destinacija'},
             {"slug": 'zipline-hrvatska', "title": 'Vodič zipline Hrvatska', "desc": '120-metarski let kroz krošnje u Glavani Parku'},

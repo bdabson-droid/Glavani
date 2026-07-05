@@ -356,7 +356,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-card--zipline-valley,
 .hub-card--zipline-low,
 .hub-card--climbing,
-.hub-card--training {
+.hub-card--training,
+.hub-card--causeway {
   min-height: 160px;
   height: 160px;
   background-repeat: no-repeat;
@@ -370,13 +371,15 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-card--zipline-low h3,
 .hub-card--climbing h3,
 .hub-card--training h3,
+.hub-card--causeway h3,
 .hub-card--catapult::after,
 .hub-card--swing::after,
 .hub-card--drop::after,
 .hub-card--zipline-valley::after,
 .hub-card--zipline-low::after,
 .hub-card--climbing::after,
-.hub-card--training::after {
+.hub-card--training::after,
+.hub-card--causeway::after {
   position: relative;
   z-index: 1;
 }
@@ -386,7 +389,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-card--zipline-valley h3,
 .hub-card--zipline-low h3,
 .hub-card--climbing h3,
-.hub-card--training h3 {
+.hub-card--training h3,
+.hub-card--causeway h3 {
   margin-bottom: 0;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
   display: -webkit-box;
@@ -508,6 +512,23 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   background-color: #92400e;
   background-image: var(--hub-fade), var(--hub-photo);
 }
+.hub-card--causeway {
+  --hub-color-strong: rgba(185, 28, 28, 0.96);
+  --hub-color-mid: rgba(185, 28, 28, 0.88);
+  --hub-color-soft: rgba(127, 29, 29, 0.45);
+  --hub-color-faint: rgba(127, 29, 29, 0.16);
+  --hub-photo: url("../../images/devils-causeway-unicycle-glavani-park.webp");
+  --hub-fade: linear-gradient(
+    to right,
+    var(--hub-color-strong) 0%,
+    var(--hub-color-mid) 22%,
+    var(--hub-color-soft) 36%,
+    var(--hub-color-faint) 50%,
+    transparent 66%
+  );
+  background-color: #7f1d1d;
+  background-image: var(--hub-fade), var(--hub-photo);
+}
 
 .activity-showcase--compact .hub-card--catapult,
 .activity-showcase--compact .hub-card--swing,
@@ -515,7 +536,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .activity-showcase--compact .hub-card--zipline-valley,
 .activity-showcase--compact .hub-card--zipline-low,
 .activity-showcase--compact .hub-card--climbing,
-.activity-showcase--compact .hub-card--training {
+.activity-showcase--compact .hub-card--training,
+.activity-showcase--compact .hub-card--causeway {
   min-height: 140px;
   height: 140px;
   background-position: 0 0, 74% center;
