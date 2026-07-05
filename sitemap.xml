@@ -29,6 +29,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/prices/"/>
   </url>
   <url>
+    <loc>https://www.glavanipark.com/en/gift-voucher/</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/gift-voucher/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/poklon-bon/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/gift-voucher/"/>
+  </url>
+  <url>
     <loc>https://www.glavanipark.com/en/faq/</loc>
     <lastmod>2026-07-05</lastmod>
     <changefreq>monthly</changefreq>
@@ -234,6 +243,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/prices/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/cijene/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/prices/"/>
+  </url>
+  <url>
+    <loc>https://www.glavanipark.com/hr/poklon-bon/</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/gift-voucher/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/poklon-bon/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/gift-voucher/"/>
   </url>
   <url>
     <loc>https://www.glavanipark.com/hr/cesta-pitanja/</loc>
