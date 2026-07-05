@@ -1,6 +1,7 @@
 """Shared brand messaging — hours, phones, and voice for Glavani Park."""
 
 BOOKING_EMAIL = "office@glavanipark.com"
+BOOKING_SUBMIT_URL = f"https://formsubmit.co/ajax/{BOOKING_EMAIL}"
 ONLINE_BOOKING_MAX = 10
 
 PHONES = (

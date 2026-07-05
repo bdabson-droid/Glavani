@@ -45,7 +45,7 @@ from gift_vouchers import (  # noqa: E402
 )
 from group_events import EVENT_EXTERNAL_IMAGES, EVENT_PAGES, EVENT_SLUGS_EN, EVENT_SLUGS_HR  # noqa: E402
 from booking_policy import BOOKING_POLICY  # noqa: E402
-from brand_voice import BOOKING_EMAIL, ONLINE_BOOKING_MAX, PHONES, VISITOR  # noqa: E402
+from brand_voice import BOOKING_EMAIL, BOOKING_SUBMIT_URL, ONLINE_BOOKING_MAX, PHONES, VISITOR  # noqa: E402
 from packages import PRICES_COPY, PRICES_SLUGS, prices_offer_schema, render_price_sections  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
@@ -1490,8 +1490,8 @@ def render_booking_app(lang: str) -> str:
         )
         h1 = "Rezerviraj"
         lead = (
-            "Ispunite obrazac i pošaljite predložak e-pošte s odabranim paketom i cijenama — "
-            "za sve unaprijedne rezervacije odgovorit ćemo e-računom za potvrdu što je prije moguće."
+            "Ispunite obrazac i pošaljite rezervaciju — za sve unaprijedne rezervacije odgovorit ćemo "
+            "e-računom za potvrdu što je prije moguće."
         )
         notice = "Rezervacija u roku 48 sati od željenog datuma posjeta? Molimo <a href=\"tel:+38598224314\">nazovite</a>."
         amenities = (
@@ -1509,8 +1509,8 @@ def render_booking_app(lang: str) -> str:
         )
         h1 = "Book"
         lead = (
-            "Fill in the form and send the email template with your chosen package and costs — "
-            "for all advance bookings we will respond with an emailed invoice to confirm as soon as possible."
+            "Fill in the form and submit your booking — for all advance bookings we will respond "
+            "with an emailed invoice to confirm as soon as possible."
         )
         notice = "Booking within 48 hours of your requested visit date? Please <a href=\"tel:+385918964525\">call to book</a>."
         amenities = (
@@ -1542,6 +1542,7 @@ def render_booking_app(lang: str) -> str:
   <p class="book-app-notice">{notice}</p>
 </div>
 <div class="book-app-wrap">
+  <script type="application/json" id="booking-app-config">{json.dumps({"lang": lang, "submitUrl": BOOKING_SUBMIT_URL, "recipientEmail": BOOKING_EMAIL})}</script>
   <div id="booking-app" aria-live="polite"></div>
 </div>
 {footer(lang)}

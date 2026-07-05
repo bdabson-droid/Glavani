@@ -114,7 +114,7 @@ VISITOR_FAQS = {
             "q": "How do I book Glavani Park online?",
             "a": (
                 "Choose a package on the <a href=\"{book}\">Book page</a> or see "
-                "<a href=\"{prices}\">packages and prices</a>, pick a date, and send your request by email. "
+                "<a href=\"{prices}\">packages and prices</a>, pick a date, and submit your booking online. "
                 "For all advance bookings we respond with an emailed invoice to confirm as soon as possible. "
                 "If your visit is within 48 hours, please call to book instead."
             ),
@@ -188,7 +188,7 @@ VISITOR_FAQS = {
             "q": "Kako rezervirati Glavani Park online?",
             "a": (
                 "Odaberite paket na stranici <a href=\"{book}\">Rezerviraj</a> ili pogledajte "
-                "<a href=\"{prices}\">pakete i cijene</a>, odaberite datum i pošaljite zahtjev e-poštom. "
+                "<a href=\"{prices}\">pakete i cijene</a>, odaberite datum i pošaljite rezervaciju online. "
                 "Za sve unaprijedne rezervacije odgovaramo e-računom za potvrdu što je prije moguće. "
                 "Ako je posjet unutar 48 sati, molimo nazovite umjesto online obrasca."
             ),

@@ -1,15 +1,24 @@
 /**
  * Glavani Park booking — package & guest dropdowns, live pricing.
- * Groups of more than 10 must call. Advance bookings submitted by email.
+ * Groups of more than 10 must call. Bookings submit directly to the park inbox.
  * Keep activity names/prices in sync with scripts/packages.py.
  */
 (function () {
   const root = document.getElementById('booking-app');
   if (!root) return;
 
+  const configEl = document.getElementById('booking-app-config');
+  if (!configEl) return;
+
+  let config;
+  try {
+    config = JSON.parse(configEl.textContent);
+  } catch (e) {
+    return;
+  }
+
   const MAX_GUESTS = 10;
-  const lang = document.documentElement.lang?.startsWith('hr') ? 'hr' : 'en';
-  const BOOKING_EMAIL = 'office@glavanipark.com';
+  const lang = config.lang === 'hr' ? 'hr' : 'en';
   const PHONE_EN = '385918964525';
   const PHONE_HR = '38598224314';
   const STORAGE_KEY = 'glavani-park-bookings';
@@ -44,11 +53,12 @@
       pickDateLead: 'Open daily 9 AM–5 PM · last entry 3 PM',
       yourDetails: 'Your details',
       confirmTitle: 'Confirm booking',
-      confirmLead: 'Check your package and total below, then open the email template so your costs are included. We will reply with an emailed invoice to confirm your booking as soon as possible.',
+      confirmLead: 'Check your package and total below, then submit your booking. We will reply with an emailed invoice to confirm as soon as possible.',
       within48Title: 'Within 48 hours of your visit?',
       within48Lead: 'Please call to book so we can confirm availability in time.',
       within48Alert: 'Your selected date is within 48 hours. Please call to book instead of using the form.',
       name: 'Your name',
+      email: 'Your email address',
       phone: 'Your phone number',
       guestsHint: 'Groups of more than 10 must call to book.',
       arrival: 'Preferred start time',
@@ -64,13 +74,19 @@
       pricePerPerson: 'Price per person',
       whatsapp: 'Send via WhatsApp',
       sms: 'Send SMS',
-      sendEmail: 'Open email template',
+      sendEmail: 'Submit booking',
+      submitting: 'Sending…',
+      submitSuccessTitle: 'Booking sent',
+      submitSuccess: 'Thank you — your booking request has been sent. We will email your invoice to confirm as soon as possible.',
+      submitError: 'Sorry, we could not send your booking right now. Please call us instead.',
+      newBooking: 'Make another booking',
       call: 'Call to confirm',
       copy: 'Copy details',
       copied: 'Copied to clipboard!',
       selectActivity: 'Please select a package or activity.',
       selectDate: 'Please select a visit date.',
-      fillRequired: 'Please enter your name and phone number.',
+      fillRequired: 'Please enter your name, email address, and phone number.',
+      emailInvalid: 'Please enter a valid email address.',
       tooManyGuests: 'Online booking is for up to 10 people only. Please call to book larger groups:',
       myDiary: 'My booking diary',
       myDiaryLead: 'Saved on this device',
@@ -110,11 +126,12 @@
       pickDateLead: 'Otvoreno 9–17 h · zadnji ulaz 15 h',
       yourDetails: 'Vaši podaci',
       confirmTitle: 'Potvrdite rezervaciju',
-      confirmLead: 'Provjerite paket i ukupnu cijenu u nastavku, zatim otvorite predložak e-pošte kako bi cijene bile uključene. Odgovorit ćemo e-računom za potvrdu što je prije moguće.',
+      confirmLead: 'Provjerite paket i ukupnu cijenu u nastavku, zatim pošaljite rezervaciju. Odgovorit ćemo e-računom za potvrdu što je prije moguće.',
       within48Title: 'Unutar 48 sati od posjeta?',
       within48Lead: 'Molimo nazovite kako bismo na vrijeme potvrdili dostupnost.',
       within48Alert: 'Odabrani datum je unutar 48 sati. Molimo nazovite umjesto online obrasca.',
       name: 'Ime i prezime',
+      email: 'Vaša e-mail adresa',
       phone: 'Broj telefona',
       guestsHint: 'Grupe s više od 10 osoba moraju rezervirati telefonom.',
       arrival: 'Preferirano vrijeme početka',
@@ -130,13 +147,19 @@
       pricePerPerson: 'Cijena po osobi',
       whatsapp: 'Pošalji WhatsApp',
       sms: 'Pošalji SMS',
-      sendEmail: 'Otvori predložak e-pošte',
+      sendEmail: 'Pošalji rezervaciju',
+      submitting: 'Slanje…',
+      submitSuccessTitle: 'Rezervacija poslana',
+      submitSuccess: 'Hvala — vaš zahtjev za rezervaciju je poslan. E-račun za potvrdu poslat ćemo što je prije moguće.',
+      submitError: 'Nažalost, rezervaciju trenutno nismo mogli poslati. Molimo nazovite nas.',
+      newBooking: 'Nova rezervacija',
       call: 'Pozovi za potvrdu',
       copy: 'Kopiraj detalje',
       copied: 'Kopirano!',
       selectActivity: 'Odaberite paket ili aktivnost.',
       selectDate: 'Odaberite datum posjeta.',
-      fillRequired: 'Unesite ime i telefon.',
+      fillRequired: 'Unesite ime, e-mail adresu i telefon.',
+      emailInvalid: 'Unesite ispravnu e-mail adresu.',
       tooManyGuests: 'Online rezervacija je za najviše 10 osoba. Za veće grupe nazovite:',
       myDiary: 'Moj dnevnik rezervacija',
       myDiaryLead: 'Spremljeno na ovom uređaju',
@@ -192,7 +215,8 @@
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const state = { name: '', phone: '', guests: 2, largeGroup: false, arrival: 0, notes: '' };
+  const state = { name: '', email: '', phone: '', guests: 2, largeGroup: false, arrival: 0, notes: '' };
+  let submitted = false;
 
   function isoDate(d) { return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`; }
 
@@ -320,6 +344,7 @@
       `${t.date}: ${selectedDate}`,
       `${t.arrival}: ${arrivalLabel()}`,
       `${t.name}: ${state.name}`,
+      `${t.email}: ${state.email}`,
       `${t.phone}: ${state.phone}`,
       `${t.notes}: ${state.notes || '—'}`,
       '---',
@@ -328,9 +353,57 @@
     ].join('\n');
   }
 
-  function buildMailtoUrl() {
-    const subject = `${t.msgHeader} – ${selectedDate}`;
-    return `mailto:${BOOKING_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildMessage())}`;
+  function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
+  }
+
+  function buildSubmitPayload() {
+    const a = selectedActivity();
+    return {
+      _subject: `${t.msgHeader} – ${selectedDate}`,
+      _template: 'table',
+      _captcha: 'false',
+      _replyto: state.email,
+      name: state.name,
+      email: state.email,
+      phone: state.phone,
+      package: a ? a.name : '—',
+      price_per_person: a ? `€${a.price}` : '—',
+      guests: String(guestCount()),
+      total: `€${bookingTotal()}`,
+      date: selectedDate,
+      arrival: arrivalLabel(),
+      notes: state.notes || '—',
+      message: buildMessage(),
+    };
+  }
+
+  async function submitBooking() {
+    const btn = document.getElementById('btn-submit');
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = t.submitting;
+    }
+    try {
+      const res = await fetch(config.submitUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(buildSubmitPayload()),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.success) throw new Error('submit failed');
+      submitted = true;
+      render();
+    } catch (err) {
+      alert(t.submitError);
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = t.sendEmail;
+      }
+    }
   }
 
   function saveToDiary() {
@@ -341,6 +414,7 @@
       activities: a ? a.name : '',
       date: selectedDate,
       name: state.name,
+      email: state.email,
       phone: state.phone,
       guests: guestCount(),
       total: bookingTotal(),
@@ -421,6 +495,9 @@
       <div class="booking-form">
         <div class="booking-form__row">
           <div><label for="app-name">${t.name}</label><input id="app-name" type="text" value="${state.name}" required autocomplete="name"></div>
+          <div><label for="app-email">${t.email}</label><input id="app-email" type="email" value="${state.email}" required autocomplete="email"></div>
+        </div>
+        <div class="booking-form__row">
           <div><label for="app-phone">${t.phone}</label><input id="app-phone" type="tel" value="${state.phone}" required autocomplete="tel"></div>
         </div>
         <div>
@@ -430,6 +507,14 @@
         </div>
         <div><label for="app-notes">${t.notes}</label><textarea id="app-notes" placeholder="${t.notesPh}">${state.notes}</textarea></div>
       </div>
+    </section>`;
+  }
+
+  function renderSuccess() {
+    return `<section class="book-panel book-panel--success">
+      <h2>${t.submitSuccessTitle}</h2>
+      <p class="book-panel__lead">${t.submitSuccess}</p>
+      <button type="button" class="btn-primary" id="btn-new-booking">${t.newBooking}</button>
     </section>`;
   }
 
@@ -449,11 +534,12 @@
           <dt>${t.date}</dt><dd>${selectedDate}</dd>
           <dt>${t.arrival}</dt><dd>${arrivalLabel()}</dd>
           <dt>${t.name}</dt><dd>${state.name}</dd>
+          <dt>${t.email}</dt><dd>${state.email}</dd>
           <dt>${t.phone}</dt><dd>${state.phone}</dd>
         </dl>
       </div>
       <div class="book-send-grid">
-        <a class="btn-primary btn-email-book" href="${buildMailtoUrl()}">${t.sendEmail}</a>
+        <button type="button" class="btn-primary btn-email-book" id="btn-submit">${t.sendEmail}</button>
         <a class="btn-secondary" href="tel:+${phone}">${t.call}</a>
         <button type="button" class="btn-copy" id="btn-copy">${t.copy}</button>
       </div>
@@ -474,7 +560,7 @@
           <strong>${b.date}</strong> — ${b.activities}
           <span>${b.name} · ${b.guests} ${lang === 'hr' ? 'osoba' : 'guests'}${b.total ? ` · €${b.total}` : ''}</span>
           <div class="diary-item__actions">
-            <a href="mailto:${BOOKING_EMAIL}?subject=${encodeURIComponent(t.msgHeader + ' – ' + b.date)}&body=${encodeURIComponent(b.message)}" class="btn-primary btn-email-book btn-email-book--sm">${t.sendEmail}</a>
+            <button type="button" class="btn-primary btn-email-book btn-email-book--sm diary-resend" data-diary-id="${b.id}">${t.sendEmail}</button>
             <a href="tel:+${phone}" class="btn-secondary btn-secondary--sm">${t.call}</a>
           </div>
         </li>`).join('')}
@@ -493,6 +579,31 @@
         </div>
         ${renderDiary()}`;
       bindTabs();
+      bindDiaryEvents();
+      return;
+    }
+
+    if (submitted) {
+      root.innerHTML = `
+        <div class="book-tabs">
+          <button type="button" class="book-tabs__btn book-tabs__btn--active" data-tab="book">${t.tabBook}</button>
+          <button type="button" class="book-tabs__btn" data-tab="diary">${t.tabDiary}</button>
+        </div>
+        ${renderSuccess()}`;
+      bindTabs();
+      document.getElementById('btn-new-booking')?.addEventListener('click', () => {
+        submitted = false;
+        step = 0;
+        selectedActivityId = '';
+        selectedDate = null;
+        state.name = '';
+        state.email = '';
+        state.phone = '';
+        state.notes = '';
+        state.guests = 2;
+        state.largeGroup = false;
+        render();
+      });
       return;
     }
 
@@ -579,14 +690,20 @@
       }
       if (step === 2) {
         state.name = document.getElementById('app-name')?.value.trim() || '';
+        state.email = document.getElementById('app-email')?.value.trim() || '';
         state.phone = document.getElementById('app-phone')?.value.trim() || '';
         state.arrival = parseInt(document.getElementById('app-arrival')?.value || '0', 10);
         state.notes = document.getElementById('app-notes')?.value.trim() || '';
-        if (!state.name || !state.phone) { alert(t.fillRequired); return; }
+        if (!state.name || !state.phone || !state.email) { alert(t.fillRequired); return; }
+        if (!isValidEmail(state.email)) { alert(t.emailInvalid); return; }
       }
       if (step === 2) saveToDiary();
       step++;
       render();
+    });
+
+    document.getElementById('btn-submit')?.addEventListener('click', () => {
+      submitBooking();
     });
 
     document.getElementById('btn-copy')?.addEventListener('click', async () => {
@@ -596,6 +713,46 @@
       } catch {
         prompt(t.copy, buildMessage());
       }
+    });
+  }
+
+  function bindDiaryEvents() {
+    root.querySelectorAll('.diary-resend').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const id = Number(btn.dataset.diaryId);
+        const bookings = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        const entry = bookings.find((b) => b.id === id);
+        if (!entry) return;
+        btn.disabled = true;
+        btn.textContent = t.submitting;
+        try {
+          const res = await fetch(config.submitUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+            body: JSON.stringify({
+              _subject: `${t.msgHeader} – ${entry.date}`,
+              _template: 'table',
+              _captcha: 'false',
+              _replyto: entry.email || '',
+              name: entry.name,
+              email: entry.email || '',
+              phone: entry.phone,
+              message: entry.message,
+            }),
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok || !data.success) throw new Error('submit failed');
+          alert(t.submitSuccess);
+        } catch (err) {
+          alert(t.submitError);
+        } finally {
+          btn.disabled = false;
+          btn.textContent = t.sendEmail;
+        }
+      });
     });
   }
 
