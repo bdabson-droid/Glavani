@@ -83,26 +83,26 @@ PRICES_COPY = {
         "title": "Activity Packages & Prices | Glavani Park Istria",
         "meta_description": (
             "Glavani Park activity packages from €30 per person — whole park, training routes, "
-            "and single activities. Book online for up to 6 people or call for groups."
+            "and single activities. Book online for up to 10 people or call for larger groups."
         ),
         "keywords": "Glavani Park prices, adventure park packages Istria, zipline park Croatia prices",
         "h1": "Activity Packages & Prices",
-        "lead": "Per-person prices for packages and single activities · book online for up to 6 people",
+        "lead": "Per-person prices for packages and single activities · book online for up to 10 people",
         "per_person": "per person",
-        "book_note": "Visits from late September to early July require advance booking — no walk-ins. Groups of 7 or more should call to check availability and pricing.",
+        "book_note": "Visits from late September to early July require advance booking — no walk-ins. Groups of more than 10 should call to check availability and pricing.",
         "more_single": "More single activities coming soon.",
     },
     "hr": {
         "title": "Paketi aktivnosti i cijene | Glavani Park Istria",
         "meta_description": (
             "Paketi aktivnosti Glavani Parka od €30 po osobi — cijeli park, trening rute "
-            "i pojedinačne aktivnosti. Rezervirajte online do 6 osoba ili nazovite za grupe."
+            "i pojedinačne aktivnosti. Rezervirajte online do 10 osoba ili nazovite za grupe."
         ),
         "keywords": "Glavani Park cijene, paketi avanturistički park Istria, zipline park Hrvatska cijene",
         "h1": "Paketi aktivnosti i cijene",
-        "lead": "Cijene po osobi za pakete i pojedinačne aktivnosti · online do 6 osoba",
+        "lead": "Cijene po osobi za pakete i pojedinačne aktivnosti · online do 10 osoba",
         "per_person": "po osobi",
-        "book_note": "Od kraja rujna do početka srpnja potrebna je unaprijedna rezervacija — bez dolaska bez najave. Grupe od 7 i više osoba neka nazovu radi dostupnosti i cijena.",
+        "book_note": "Od kraja rujna do početka srpnja potrebna je unaprijedna rezervacija — bez dolaska bez najave. Grupe s više od 10 osoba neka nazovu radi dostupnosti i cijena.",
         "more_single": "Više pojedinačnih aktivnosti uskoro.",
     },
 }

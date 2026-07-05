@@ -45,7 +45,7 @@ from gift_vouchers import (  # noqa: E402
 )
 from group_events import EVENT_EXTERNAL_IMAGES, EVENT_PAGES, EVENT_SLUGS_EN, EVENT_SLUGS_HR  # noqa: E402
 from booking_policy import BOOKING_POLICY  # noqa: E402
-from brand_voice import BOOKING_EMAIL, PHONES, VISITOR  # noqa: E402
+from brand_voice import BOOKING_EMAIL, ONLINE_BOOKING_MAX, PHONES, VISITOR  # noqa: E402
 from packages import PRICES_COPY, PRICES_SLUGS, prices_offer_schema, render_price_sections  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
@@ -1343,7 +1343,7 @@ def render_prices_page(lang: str) -> str:
 <main>
   <section class="hero hero--landing">
     <div class="hero__inner">
-      <p class="hero__badge">{'Online do 6 osoba' if lang == 'hr' else 'Book online · up to 6 people'}</p>
+      <p class="hero__badge">{'Online do ' + str(ONLINE_BOOKING_MAX) + ' osoba' if lang == 'hr' else f'Book online · up to {ONLINE_BOOKING_MAX} people'}</p>
       <h1>{copy['h1']}</h1>
       <p class="hero__subtitle">{copy['lead']}</p>
     </div>
@@ -1484,7 +1484,7 @@ def render_booking_app(lang: str) -> str:
         slug, en_slug, hr_slug = "rezervacija", "book", "rezervacija"
         title = "Rezerviraj | Glavani Park – odaberite paket i datum"
         desc = (
-            "Rezervirajte Glavani Park online za do 6 osoba. Ispunite obrazac — "
+            f"Rezervirajte Glavani Park online za do {ONLINE_BOOKING_MAX} osoba. Ispunite obrazac — "
             f"za unaprijedne rezervacije potvrdu šaljemo e-računom na {BOOKING_EMAIL}. "
             "Unutar 48 sati od termina nazovite."
         )
@@ -1503,7 +1503,7 @@ def render_booking_app(lang: str) -> str:
         slug, en_slug, hr_slug = "book", "book", "rezervacija"
         title = "Book | Glavani Park – Pick Package & Date"
         desc = (
-            "Book Glavani Park online for up to 6 people. Fill in the form — "
+            f"Book Glavani Park online for up to {ONLINE_BOOKING_MAX} people. Fill in the form — "
             f"for advance bookings we email an invoice to confirm to {BOOKING_EMAIL} ASAP. "
             "Within 48 hours of your visit date, please call to book."
         )

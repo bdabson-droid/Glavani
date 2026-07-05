@@ -1,13 +1,13 @@
 /**
  * Glavani Park booking — package & guest dropdowns, live pricing.
- * Groups of 7+ must call. Advance bookings submitted by email.
+ * Groups of more than 10 must call. Advance bookings submitted by email.
  * Keep activity names/prices in sync with scripts/packages.py.
  */
 (function () {
   const root = document.getElementById('booking-app');
   if (!root) return;
 
-  const MAX_GUESTS = 6;
+  const MAX_GUESTS = 10;
   const lang = document.documentElement.lang?.startsWith('hr') ? 'hr' : 'en';
   const BOOKING_EMAIL = 'office@glavanipark.com';
   const PHONE_EN = '385918964525';
@@ -29,13 +29,13 @@
       months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
       days: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
       pickActivity: 'Choose your package or activity',
-      pickActivityLead: 'Packages first, then single activities · max 6 people online',
+      pickActivityLead: 'Packages first, then single activities · max 10 people online',
       selectPackage: 'Select a package or activity…',
       selectGuests: 'Number of people',
       guestsOption: '{n} person',
       guestsOptionPlural: '{n} people',
-      guestsOption7Plus: '7 or more people — please call',
-      callInsteadTitle: 'Groups of 7 or more',
+      guestsOptionCallPlus: 'More than 10 people — please call',
+      callInsteadTitle: 'Groups of more than 10',
       callInsteadLead: 'Please call us so we can check availability and accommodate your party.',
       callToBook: 'Call to book your group',
       priceEach: '€{price} per person',
@@ -50,7 +50,7 @@
       within48Alert: 'Your selected date is within 48 hours. Please call to book instead of using the form.',
       name: 'Your name',
       phone: 'Your phone number',
-      guestsHint: 'Groups of 7 or more must call to book.',
+      guestsHint: 'Groups of more than 10 must call to book.',
       arrival: 'Preferred start time',
       arrivalLead: '15-minute slots · your preferred start time · park open 9 AM–5 PM · last entry 3 PM',
       notes: 'Notes (optional)',
@@ -71,7 +71,7 @@
       selectActivity: 'Please select a package or activity.',
       selectDate: 'Please select a visit date.',
       fillRequired: 'Please enter your name and phone number.',
-      tooManyGuests: 'Online booking is for up to 6 people only. Please call to book larger groups:',
+      tooManyGuests: 'Online booking is for up to 10 people only. Please call to book larger groups:',
       myDiary: 'My booking diary',
       myDiaryLead: 'Saved on this device',
       emptyDiary: 'No saved bookings yet.',
@@ -79,7 +79,7 @@
       tabDiary: 'My diary',
       parkHours: 'Confirm on arrival · park open 9 AM – 5 PM',
       msgHeader: 'Glavani Park booking request',
-      callGroups: 'Call for groups of 7+',
+      callGroups: 'Call for groups of 10+',
     },
     hr: {
       steps: ['Paket', 'Datum', 'Podaci', 'Potvrda'],
@@ -95,13 +95,13 @@
       months: ['Siječanj','Veljača','Ožujak','Travanj','Svibanj','Lipanj','Srpanj','Kolovoz','Rujan','Listopad','Studeni','Prosinac'],
       days: ['Pon','Uto','Sri','Čet','Pet','Sub','Ned'],
       pickActivity: 'Odaberite paket ili aktivnost',
-      pickActivityLead: 'Prvo paketi, zatim pojedinačne aktivnosti · max 6 osoba online',
+      pickActivityLead: 'Prvo paketi, zatim pojedinačne aktivnosti · max 10 osoba online',
       selectPackage: 'Odaberite paket ili aktivnost…',
       selectGuests: 'Broj osoba',
       guestsOption: '{n} osoba',
       guestsOptionPlural: '{n} osobe',
-      guestsOption7Plus: '7 ili više osoba — nazovite',
-      callInsteadTitle: 'Grupe od 7 i više osoba',
+      guestsOptionCallPlus: 'Više od 10 osoba — nazovite',
+      callInsteadTitle: 'Grupe s više od 10 osoba',
       callInsteadLead: 'Nazovite nas kako bismo provjerili dostupnost i mogli ugostiti vašu grupu.',
       callToBook: 'Pozovite za rezervaciju grupe',
       priceEach: '€{price} po osobi',
@@ -116,7 +116,7 @@
       within48Alert: 'Odabrani datum je unutar 48 sati. Molimo nazovite umjesto online obrasca.',
       name: 'Ime i prezime',
       phone: 'Broj telefona',
-      guestsHint: 'Grupe od 7 i više osoba moraju rezervirati telefonom.',
+      guestsHint: 'Grupe s više od 10 osoba moraju rezervirati telefonom.',
       arrival: 'Preferirano vrijeme početka',
       arrivalLead: 'Termini od 15 min · željeno vrijeme početka · park 9–17 h · zadnji ulaz 15 h',
       notes: 'Napomena (opcionalno)',
@@ -137,7 +137,7 @@
       selectActivity: 'Odaberite paket ili aktivnost.',
       selectDate: 'Odaberite datum posjeta.',
       fillRequired: 'Unesite ime i telefon.',
-      tooManyGuests: 'Online rezervacija je za najviše 6 osoba. Za veće grupe nazovite:',
+      tooManyGuests: 'Online rezervacija je za najviše 10 osoba. Za veće grupe nazovite:',
       myDiary: 'Moj dnevnik rezervacija',
       myDiaryLead: 'Spremljeno na ovom uređaju',
       emptyDiary: 'Još nema spremljenih rezervacija.',
@@ -145,7 +145,7 @@
       tabDiary: 'Dnevnik',
       parkHours: 'Potvrda na ulazu · park 9–17 h',
       msgHeader: 'Zahtjev za rezervaciju Glavani Park',
-      callGroups: 'Pozovite za grupe 7+',
+      callGroups: 'Pozovite za grupe 10+',
     },
   };
   const t = i18n[lang];
@@ -239,7 +239,7 @@
       const selected = !state.largeGroup && guestCount() === n;
       opts += `<option value="${n}"${selected ? ' selected' : ''}>${guestLabel(n)}</option>`;
     }
-    opts += `<option value="call"${state.largeGroup ? ' selected' : ''}>${t.guestsOption7Plus}</option>`;
+    opts += `<option value="call"${state.largeGroup ? ' selected' : ''}>${t.guestsOptionCallPlus}</option>`;
     return opts;
   }
 

@@ -49,7 +49,7 @@ FAQ_COPY = {
         "list_heading": "Common questions",
         "book_note": (
             "Visits from late September to early July require advance booking — no walk-ins. "
-            "Book online for up to 6 people, or call for larger groups."
+            "Book online for up to 10 people, or call for larger groups."
         ),
         "related_heading": "Plan your visit",
     },
@@ -76,7 +76,7 @@ FAQ_COPY = {
         "list_heading": "Najčešća pitanja",
         "book_note": (
             "Od kraja rujna do početka srpnja potrebna je unaprijedna rezervacija — bez dolaska bez najave. "
-            "Rezervirajte online do 6 osoba ili nazovite za veće grupe."
+            "Rezervirajte online do 10 osoba ili nazovite za veće grupe."
         ),
         "related_heading": "Planirajte posjet",
     },
@@ -167,7 +167,7 @@ VISITOR_FAQS = {
         {
             "q": "Can we book Glavani Park for a large group or birthday?",
             "a": (
-                "Online booking covers up to 6 people. For groups of 7 or more — corporate events, schools, or birthdays — "
+                "Online booking covers up to 10 people. For groups of more than 10 — corporate events, schools, or birthdays — "
                 "see <a href=\"{groups}\">team building and group packages</a> or call +385 91 896 4525."
             ),
         },
@@ -240,7 +240,7 @@ VISITOR_FAQS = {
         {
             "q": "Možemo li rezervirati Glavani Park za veću grupu ili rođendan?",
             "a": (
-                "Online rezervacija vrijedi do 6 osoba. Za 7 i više — korporativne događaje, škole ili rođendane — "
+                "Online rezervacija vrijedi do 10 osoba. Za više od 10 — korporativne događaje, škole ili rođendane — "
                 "pogledajte <a href=\"{groups}\">team building i grupne pakete</a> ili nazovite +385 98 224 314."
             ),
         },
