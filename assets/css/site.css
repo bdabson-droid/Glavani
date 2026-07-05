@@ -321,32 +321,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
 @media (min-width: 540px) { .hub-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 900px) { .hub-grid { grid-template-columns: repeat(3, 1fr); } }
-.hub-grid__stack {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  min-height: 0;
-}
-.hub-grid__below-link {
-  display: block;
-  text-align: center;
-  font-size: 0.875rem;
-  font-weight: 700;
-  line-height: 1.35;
-  color: var(--white);
-  text-decoration: none;
-  padding: 0.85rem 1rem;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(145deg, #b45309, #92400e);
-  box-shadow: var(--shadow);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.hub-grid__below-link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-  color: var(--white);
-  text-decoration: none;
-}
 .hub-card {
   display: flex; flex-direction: column; min-height: 160px; padding: 1.35rem 1.25rem;
   border-radius: var(--radius-lg); text-decoration: none; color: var(--white);
