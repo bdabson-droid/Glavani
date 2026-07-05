@@ -9,6 +9,7 @@ ACTIVITY_SLUG_MAP = {
     "dolinski-zipline": "valley-zipline",
     "niski-zipline": "low-zipline",
     "penjacki-zid": "climbing-wall",
+    "trening-ruta": "training-route",
 }
 
 ACTIVITIES = [
@@ -258,6 +259,48 @@ ACTIVITIES = [
                 "Zid je odličan za obitelji, školske grupe na zagrijavanju i posjetitelje između većih vožnji. Nosite tenisice s dobrim gripom. Mlađa djeca često mogu penjati uz pomoć instruktora — pitajte na ulazu o prikladnosti.",
             ],
             "video_heading": "Video penjačkog zida",
+            "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
+        },
+    },
+    {
+        "en_slug": "training-route",
+        "hr_slug": "trening-ruta",
+        "tile_mod": "training",
+        "youtube_id": "TDl0ffqPj3U",
+        "youtube_url": "https://youtu.be/TDl0ffqPj3U?is=E0eGJvpDww76o7MV",
+        "image": "training-route-youtube-still.webp",
+        "en": {
+            "title": "Yellow Training Route (High Ropes) | Glavani Park Istria",
+            "h1": "Training Route",
+            "meta_description": (
+                "Try the 2-metre yellow training route at Glavani Park, Istria — a family-friendly high-ropes "
+                "course with harness and instructor briefing. Near Pula, open daily 9 AM–5 PM."
+            ),
+            "keywords": "training route Istria, yellow high ropes Croatia, family adventure park Pula, Glavani Park courses",
+            "hero_badge": "2 m yellow route · all ages with adult",
+            "image_alt": "Yellow training route high-ropes course at Glavani Park, Istria Croatia",
+            "paragraphs": [
+                "Glavani Park's yellow training route is a certified high-ropes course at 2 metres above the forest floor — the perfect introduction for younger children, first-time climbers, and families who want to build confidence before the blue and black routes.",
+                "You stay on continuous belay from start to finish while instructors explain harness fit, safety signals, and how to tackle balance obstacles and rope bridges. The training route is included in day admission and the popular Training route + 2 games package from €30.",
+            ],
+            "video_heading": "Training Route video",
+            "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
+        },
+        "hr": {
+            "title": "Žuta trening ruta (visoke staze) | Glavani Park Istria",
+            "h1": "Trening ruta",
+            "meta_description": (
+                "Isprobajte žutu trening rutu na 2 m u Glavani Parku, Istria — obiteljska visoka staza s harnesom "
+                "i obukom instruktora. Kod Pule, otvoreno svaki dan 9–17 h."
+            ),
+            "keywords": "trening ruta Istria, žuta visoka staza Hrvatska, obiteljski avanturistički park Pula, Glavani Park staze",
+            "hero_badge": "Žuta staza 2 m · uz odraslog",
+            "image_alt": "Žuta trening ruta visokih staza u Glavani Parku, Istria Hrvatska",
+            "paragraphs": [
+                "Žuta trening ruta u Glavani Parku certificirana je visoka staza na 2 metra iznad šumskog tla — savršen uvod za mlađu djecu, početnike i obitelji koje žele steći samopouzdanje prije plave i crne staze.",
+                "Ostajete na kontinuiranom osiguranju od početka do kraja dok instruktori objašnjavaju harnes, sigurnosne signale i kako savladati prepreke ravnoteže i mostove od užadi. Trening ruta uključena je u dnevnu ulaznicu i popularni paket Trening ruta + 2 igre od 30 €.",
+            ],
+            "video_heading": "Video trening rute",
             "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
         },
     },

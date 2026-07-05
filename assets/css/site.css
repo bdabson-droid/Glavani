@@ -354,7 +354,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-card--swing,
 .hub-card--drop,
 .hub-card--zipline-valley,
-.hub-card--climbing {
+.hub-card--climbing,
+.hub-card--training {
   background-repeat: no-repeat;
 }
 .hub-card--catapult,
@@ -490,12 +491,40 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hub-card--climbing h3 {
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
 }
+.hub-card--training,
+.activity-banner--training {
+  --hub-photo: url("../../images/training-route-youtube-still.webp");
+  --hub-fade: linear-gradient(
+    to right,
+    rgba(202, 138, 4, 0.96) 0%,
+    rgba(202, 138, 4, 0.88) 30%,
+    rgba(146, 64, 14, 0.45) 55%,
+    transparent 80%
+  );
+  background-color: #92400e;
+  background-image: var(--hub-fade), var(--hub-photo);
+  background-size: 100% 100%, cover;
+  background-position: 0 0, center right;
+  background-repeat: no-repeat;
+}
+.activity-showcase--compact .hub-card--training {
+  background-position: 0 0, 74% center;
+}
+.hub-card--training h3,
+.hub-card--training::after {
+  position: relative;
+  z-index: 1;
+}
+.hub-card--training h3 {
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
 .hub-card--catapult h3,
 .hub-card--swing h3,
 .hub-card--drop h3,
 .hub-card--zipline-valley h3,
 .hub-card--zipline-low h3,
-.hub-card--climbing h3 {
+.hub-card--climbing h3,
+.hub-card--training h3 {
   margin-bottom: 0;
 }
 
@@ -560,6 +589,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 .activity-banner--swing {
   background-position: 0 0, 72% center;
+}
+.activity-banner--training {
+  background-position: 0 0, 65% center;
 }
 
 /* Activity detail pages */

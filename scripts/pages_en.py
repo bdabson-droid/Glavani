@@ -108,7 +108,7 @@ PAGES = [
             },
         ],
         "related": [
-            {"slug": "adventure-park-croatia", "title": "Our Activities", "desc": "Six signature attractions at Glavani Park"},
+            {"slug": "adventure-park-croatia", "title": "Our Activities", "desc": "Seven signature attractions at Glavani Park"},
             {"slug": "things-to-do-near-pula", "title": "Things to Do Near Pula", "desc": "Day trips and outdoor activities within 30 minutes of Pula"},
             {"slug": "adventure-park-croatia", "title": "Adventure Parks in Croatia", "desc": "Why Glavani Park is a top-rated adrenaline destination"},
             {"slug": "zipline-croatia", "title": "Zipline Croatia Guide", "desc": "120-metre treetop flights at Glavani Park Istria"},
