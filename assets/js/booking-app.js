@@ -285,9 +285,10 @@
 
   function renderCallPanel() {
     return `<div class="book-call-panel" id="book-price-box" aria-live="polite">
+      <p class="book-call-panel__badge">${lang === 'hr' ? '10+ osoba' : '10+ guests'}</p>
       <h3>${t.callInsteadTitle}</h3>
-      <p>${t.callInsteadLead}</p>
-      <a class="btn-call-book" href="tel:+${phone}">${t.callToBook}</a>
+      <p class="book-call-panel__lead">${t.callInsteadLead}</p>
+      <a class="btn-call-book btn-call-book--panel" href="tel:+${phone}">${t.callToBook}</a>
       <p class="book-call-panel__number">${lang === 'hr' ? '+385 98 224 314' : '+385 91 896 4525'}</p>
     </div>`;
   }
@@ -308,6 +309,13 @@
     </div>`;
   }
 
+  function updateLargeGroupUI() {
+    const form = root.querySelector('.booking-form--package');
+    const guests = document.getElementById('app-guests');
+    if (form) form.classList.toggle('booking-form--large-group', state.largeGroup);
+    if (guests) guests.classList.toggle('app-guests--call', state.largeGroup);
+  }
+
   function updatePriceBox() {
     const box = document.getElementById('book-price-box');
     if (!box) return;
@@ -316,6 +324,7 @@
     } else {
       box.outerHTML = renderPriceBox();
     }
+    updateLargeGroupUI();
     toggleNextButton();
   }
 
@@ -437,7 +446,7 @@
     return `<section class="book-panel">
       <h2>${t.pickActivity}</h2>
       <p class="book-panel__lead">${t.pickActivityLead}</p>
-      <div class="booking-form booking-form--package">
+      <div class="booking-form booking-form--package${state.largeGroup ? ' booking-form--large-group' : ''}">
         <div>
           <label for="app-package">${t.package}</label>
           <select id="app-package" required>
@@ -447,7 +456,7 @@
         </div>
         <div>
           <label for="app-guests">${t.selectGuests}</label>
-          <select id="app-guests">${renderGuestOptions()}</select>
+          <select id="app-guests" class="${state.largeGroup ? 'app-guests--call' : ''}">${renderGuestOptions()}</select>
         </div>
         ${renderPriceBox()}
       </div>
