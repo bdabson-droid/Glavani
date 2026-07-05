@@ -1101,6 +1101,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .home-book-cta h2 { color: var(--green-deep); font-size: 1.25rem; margin-bottom: 0.35rem; }
 .home-book-cta p { color: var(--rock-mid); font-size: 0.875rem; margin-bottom: 1rem; }
 .home-book-cta .btn-primary { width: 100%; max-width: 320px; }
+.home-book-cta__gift-btn { margin-top: 1rem; }
 
 .section__heading { text-align: center; margin-bottom: 1.75rem; }
 .section__heading h2 {
@@ -1484,19 +1485,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   color: var(--rock-mid);
   text-align: left;
 }
-.home-book-cta__gift {
-  margin-top: 1rem;
-  font-size: 0.8125rem;
-  color: var(--rock-mid);
-}
-.home-book-cta__gift a {
-  color: var(--green-deep);
-  font-weight: 700;
-  text-decoration: none;
-}
-.home-book-cta__gift a:hover { text-decoration: underline; }
-.home-book-cta__gift span { color: var(--rock-mid); font-weight: 500; }
-
 .hub-card--gift { background: linear-gradient(145deg, #be185d, #831843); }
 
 .voucher-discount-notice {
