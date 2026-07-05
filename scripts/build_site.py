@@ -45,6 +45,7 @@ from gift_vouchers import (  # noqa: E402
 )
 from group_events import EVENT_EXTERNAL_IMAGES, EVENT_PAGES, EVENT_SLUGS_EN, EVENT_SLUGS_HR  # noqa: E402
 from booking_policy import BOOKING_POLICY  # noqa: E402
+from brand_voice import PHONES, VISITOR  # noqa: E402
 from packages import PRICES_COPY, PRICES_SLUGS, prices_offer_schema, render_price_sections  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
@@ -264,9 +265,10 @@ def relativize_site() -> None:
 def quick_actions(lang: str) -> str:
     call = "Pozovite" if lang == "hr" else "Call Now"
     find = "Pronađite nas" if lang == "hr" else "Find Us"
+    primary = PHONES[1] if lang == "hr" else PHONES[0]
     return f"""
   <nav class="quick-actions" aria-label="{'Brze radnje' if lang == 'hr' else 'Quick actions'}">
-    <a class="btn-call" href="tel:+385918964525" aria-label="{'Pozovite Glavani Park' if lang == 'hr' else 'Call Glavani Park now'}">
+    <a class="btn-call" href="tel:{primary['tel']}" aria-label="{'Pozovite Glavani Park' if lang == 'hr' else 'Call Glavani Park now'}">
       <span aria-hidden="true">📞</span> {call}
     </a>
     <a class="btn-find" href="https://www.google.com/maps?q=45.021389,13.951111" target="_blank" rel="noopener noreferrer">
@@ -275,21 +277,32 @@ def quick_actions(lang: str) -> str:
   </nav>"""
 
 
+def visitor_bar(lang: str) -> str:
+    copy = VISITOR[lang]
+    phones = " · ".join(f'<a href="tel:{p["tel"]}">{p["display"]}</a>' for p in PHONES)
+    return f"""
+  <div class="visitor-bar" aria-label="{copy['visitor_bar_aria']}">
+    <div class="visitor-bar__inner">
+      <p class="visitor-bar__hours">
+        <span class="visitor-bar__icon" aria-hidden="true">🕐</span>
+        <strong>{copy['hours_label']}</strong> {copy['hours']} · {copy['last_entry']}
+      </p>
+      <p class="visitor-bar__phones">
+        <span class="visitor-bar__icon" aria-hidden="true">📞</span> {phones}
+      </p>
+    </div>
+  </div>"""
+
+
 def site_header(lang: str) -> str:
-    tagline_en = "Adventure &amp; Adrenaline Park · Istria, Croatia · Near Pula, Barban &amp; Vodnjan"
-    tagline_hr = "Avanturistički i adrenalinski park · Istria, Hrvatska · kod Pule, Barbana i Vodnjanja"
+    copy = VISITOR[lang]
     home = f"/{lang}/"
-    logo_alt = (
-        "Glavani Park — A Great Place to Be"
-        if lang == "en"
-        else "Glavani Park — odlično mjesto za avanturu"
-    )
     return f"""
   <header class="site-header">
     <a class="site-header__brand" href="{home}">
-      <img class="site-header__logo-img" src="/images/glavani-park-logo.png" alt="{logo_alt}" width="200" height="115" loading="eager">
+      <img class="site-header__logo-img" src="/images/glavani-park-logo.png" alt="{copy['logo_alt']}" width="200" height="115" loading="eager">
     </a>
-    <p class="site-header__tagline">{tagline_hr if lang == 'hr' else tagline_en}</p>
+    <p class="site-header__tagline">{copy['tagline']}</p>
   </header>"""
 
 
@@ -711,6 +724,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
     body = f"""{head_meta(lang, page['title'], page['meta_description'], page['keywords'], canonical, en_slug, hr_slug, og_image=img, og_image_alt=page.get('image_alt'), extra_head=map_head)}
 {quick_actions(lang)}
 {site_header(lang)}
+{visitor_bar(lang)}
 {site_nav(lang)}
 {crumbs}
 <main>
@@ -878,6 +892,7 @@ def render_activities_hub_page(lang: str) -> str:
     return f"""{head_meta(lang, copy['title'], copy['meta_description'], copy['keywords'], canonical, en_slug, hr_slug)}
 {quick_actions(lang)}
 {site_header(lang)}
+{visitor_bar(lang)}
 {site_nav(lang)}
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <ol>
@@ -1014,6 +1029,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
     return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=img, og_image_alt=data['image_alt'])}
 {quick_actions(lang)}
 {site_header(lang)}
+{visitor_bar(lang)}
 {site_nav(lang)}
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <ol>
@@ -1122,6 +1138,7 @@ def render_event_page(event: dict, lang: str) -> str:
     return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=img, og_image_alt=data['image_alt'])}
 {quick_actions(lang)}
 {site_header(lang)}
+{visitor_bar(lang)}
 {site_nav(lang)}
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <ol>
@@ -1194,6 +1211,7 @@ def render_faq_page(lang: str) -> str:
     return f"""{head_meta(lang, copy['title'], copy['meta_description'], copy['keywords'], canonical, en_slug, hr_slug)}
 {quick_actions(lang)}
 {site_header(lang)}
+{visitor_bar(lang)}
 {site_nav(lang)}
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <ol>
@@ -1245,6 +1263,7 @@ def render_prices_page(lang: str) -> str:
     return f"""{head_meta(lang, copy['title'], copy['meta_description'], copy['keywords'], canonical, en_slug, hr_slug)}
 {quick_actions(lang)}
 {site_header(lang)}
+{visitor_bar(lang)}
 {site_nav(lang)}
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <ol>
@@ -1294,6 +1313,7 @@ def render_gift_voucher_page(lang: str) -> str:
     return f"""{head_meta(lang, copy['title'], copy['meta_description'], copy['keywords'], canonical, en_slug, hr_slug)}
 {quick_actions(lang)}
 {site_header(lang)}
+{visitor_bar(lang)}
 {site_nav(lang)}
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <ol>
@@ -1348,6 +1368,7 @@ def render_gift_voucher_checkout_page(lang: str) -> str:
     return f"""{head_meta(lang, copy['title'], copy['meta_description'], copy['keywords'], canonical, en_slug, hr_slug)}
 {quick_actions(lang)}
 {site_header(lang)}
+{visitor_bar(lang)}
 {site_nav(lang)}
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <ol>
@@ -1423,6 +1444,7 @@ def render_booking_app(lang: str) -> str:
     return f"""{head_meta(lang, title, desc, "book glavani park, reservation istria", canonical, en_slug, hr_slug, extra_head=extra)}
 {quick_actions(lang)}
 {site_header(lang)}
+{visitor_bar(lang)}
 {site_nav(lang)}
 <nav class="breadcrumb" aria-label="Breadcrumb">
   <ol><li><a href="{prefix}">{home_label}</a></li><li>{h1}</li></ol>
@@ -1530,6 +1552,7 @@ def render_home(lang: str) -> str:
     return f"""{head_meta(lang, home['title'], home['meta_description'], home['keywords'], canonical, is_home=True, og_image=home['image'], og_image_alt="Glavani Park adventure and zipline park in Istria, Croatia")}
 {quick_actions(lang)}
 {site_header(lang)}
+{visitor_bar(lang)}
 {site_nav(lang, is_home=True)}
 {body_content}
 {footer(lang)}

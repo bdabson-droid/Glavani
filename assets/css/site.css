@@ -148,6 +148,34 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   line-height: 1.4;
 }
 
+.visitor-bar {
+  background: var(--green-deep);
+  color: var(--text-on-dark);
+  padding: 0.55rem 1rem;
+  border-bottom: 2px solid var(--brand-green);
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+.visitor-bar__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem 1.25rem;
+  text-align: center;
+}
+.visitor-bar p { margin: 0; }
+.visitor-bar__icon { margin-right: 0.2rem; }
+.visitor-bar strong { color: var(--brand-green); }
+.visitor-bar a {
+  color: var(--yellow-accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+.visitor-bar a:hover { color: var(--white); text-decoration: underline; }
+
 .hero {
   position: relative;
   background: linear-gradient(
@@ -200,12 +228,37 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   color: var(--brand-green);
   margin-bottom: 0.75rem;
 }
+.hero__essentials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-start;
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+.hero--home .hero__essentials { justify-content: flex-start; }
+.hero__essentials li {
+  font-size: 0.8125rem;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(141, 198, 63, 0.45);
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+}
+.hero__essentials strong { color: var(--brand-green); margin-right: 0.25rem; }
+.hero__essentials a {
+  color: var(--yellow-accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+.hero__essentials a:hover { color: var(--white); text-decoration: underline; }
 .hero__subtitle {
   font-size: clamp(0.9375rem, 2.2vw, 1.125rem);
   opacity: 0.95;
   max-width: 620px;
   margin: 0 auto 1.75rem;
 }
+.hero--home .hero__subtitle { margin: 0; max-width: none; }
 .hero--landing .hero__subtitle { margin: 0 0 1.25rem; max-width: none; }
 
 .btn-primary {
@@ -757,6 +810,13 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   padding: 1rem; box-shadow: var(--shadow); font-size: 0.875rem; color: var(--rock-mid);
 }
 .info-strip__item strong { display: block; color: var(--green-deep); font-size: 1rem; }
+.info-strip__item--phones a {
+  color: var(--green-deep);
+  font-weight: 700;
+  text-decoration: none;
+}
+.info-strip__item--phones a:hover { color: var(--orange-cta); text-decoration: underline; }
+.info-strip__sep { color: var(--rock-mid); font-weight: 400; }
 
 /* Booking */
 .book-app-wrap {

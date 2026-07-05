@@ -4,26 +4,25 @@ Each page targets 800–1200 words of substantive Istria tourism and park conten
 """
 
 HOME = {
-    "title": "Glavani Park | Adventure & Zipline Park Istria, Croatia",
+    "title": "Glavani Park | Croatia's Number 1 Adventure Park · Istria",
     "meta_description": (
-        "Glavani Park is Istria's leading adventure park, zipline park and adrenaline park in Croatia — "
-        "high ropes, forest ziplines, human catapult and outdoor activities near Pula, Barban & Vodnjan. "
-        "Open daily 9 AM–5 PM. Book online for up to 6 people."
+        "Glavani Park is Croatia's number 1 adventure park in Istria — ziplines, high ropes, human catapult "
+        "and outdoor activities near Pula, Barban & Vodnjan. Open daily 9 AM–5 PM, last entry 3 PM. "
+        "Call +385 91 896 4525 or book online for up to 6 people."
     ),
     "keywords": (
-        "adventure park Istria, adventure park Croatia, zipline park Istria, zipline park Croatia, "
-        "adrenaline park Istria, outdoor activities Istria Croatia, high ropes course Croatia, "
+        "Croatia number 1 adventure park, adventure park Istria, adventure park Croatia, zipline park Istria, "
+        "zipline park Croatia, adrenaline park Istria, outdoor activities Istria Croatia, high ropes course Croatia, "
         "family activities Istria, things to do near Pula, Glavani Park"
     ),
-    "h1": "Glavani Park – Adventure Park in Istria, Croatia",
-    "hero_badge": "Adventure Park · Zipline Park · Outdoor Activities Istria",
+    "h1": "Glavani Park – Croatia's Number 1 Adventure Park",
+    "hero_badge": "Croatia's Number 1 Adventure Park",
     "hero_subtitle": (
-        "One of Croatia's largest adventure and adrenaline parks — a zipline park and high-ropes "
-        "destination with outdoor activities in Istria near Pula, Barban, and Vodnjan. Perfect for "
-        "families, school trips, team building, and birthday parties."
+        "We're a family-run adventure park in the Istrian countryside — friendly, qualified staff, "
+        "forest ziplines, and memories you'll talk about for years. Drop in for a chat before you clip in."
     ),
     "image": "glavani-park-adventure-istria-croatia.jpg",
-    "image_alt": "Aerial view of Glavani Park adventure and adrenaline park in Istria, Croatia",
+    "image_alt": "Aerial view of Glavani Park, Croatia's number 1 adventure park in Istria",
 }
 
 
