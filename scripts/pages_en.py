@@ -170,11 +170,10 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'trip or a lazy beach day before departure.</p>',
                                '<p>Glavani Park is open daily from 9 AM to 5 PM with '
                                'last entry at 3 PM — allow three to four hours to '
-                               'enjoy the main attractions comfortably. Saturdays are '
-                               'pre-booking only; from the end of September until the '
+                               'enjoy the main attractions comfortably. From the end of September until the '
                                'start of July all visits require advance booking with '
                                'no walk-ins. From July through the end of September, '
-                               'walk-ins are welcome Sunday to Friday, subject to '
+                               'walk-ins are welcome, subject to '
                                'availability. English-speaking staff are on hand '
                                'throughout the season, and the park is listed by the '
                                "Istria Tourist Board as one of the region's "
@@ -303,9 +302,7 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'PM</strong>, with last entry at <strong>3 PM</strong>. '
                                'Arriving before midday gives you the best chance to '
                                'complete multiple routes and attractions before '
-                               'closing. <strong>Saturdays are pre-booking '
-                               'only</strong> — no walk-ins. From the end of September '
-                               'until the start of July, all visits require advance '
+                               'closing. From the end of September until the start of July, all visits require advance '
                                'booking. Call <a href="tel:+385918964525">+385 91 896 '
                                '4525</a> or use the online booking form to secure your '
                                'date.</p>',
@@ -501,8 +498,7 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'PM</strong> with last entry at <strong>3 PM</strong>. '
                                'Allow at least three hours if you plan to ride the '
                                'ziplines plus one or two high-ropes routes. '
-                               '<strong>Saturdays are pre-booking only</strong> — no '
-                               'walk-ins. From the end of September until the start of '
+                               'From the end of September until the start of '
                                'July, all visits require advance booking. Call <a '
                                'href="tel:+385918964525">+385 91 896 4525</a> '
                                '(English) or book online before travelling.</p>',
@@ -541,10 +537,10 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                  'above the ground. The blue high-ropes route also includes a '
                  '113-metre zipline between platforms at 6 metres height.'},
            {'q': 'Do I need a reservation for the zipline?',
-            'a': 'Saturdays are pre-booking only — no walk-ins. From the end of '
+            'a': 'From the end of '
                  'September until the start of July, all visits require advance '
                  'booking. From July through the end of September, walk-ins are '
-                 'welcome Sunday to Friday, subject to availability. Last entry is 3 '
+                 'welcome, subject to availability. Last entry is 3 '
                  'PM and the park closes at 5 PM. Call +385 91 896 4525 or book '
                  'online.'},
            {'q': 'Is ziplining safe for first-timers?',
@@ -808,11 +804,9 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'AM–5 PM</strong> with last entry at <strong>3 '
                                'PM</strong> — plan to arrive before midday if you want '
                                'to experience multiple attractions.</p>',
-                               '<p>Book before you drive out — <strong>Saturdays are '
-                               'pre-booking only</strong>, and from the end of '
+                               '<p>Book before you drive out — from the end of '
                                'September until the start of July all visits require '
-                               'advance booking with no walk-ins. Walk-ins Sunday to '
-                               'Friday may be accepted from July through the end of '
+                               'advance booking with no walk-ins. Walk-ins may be accepted from July through the end of '
                                'September only. Call <a href="tel:+385918964525">+385 '
                                '91 896 4525</a> or book online to avoid disappointment '
                                'after the 30-minute drive from Pula.</p>']},
@@ -871,10 +865,10 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                  'flip-flops before arrival. The shaded forest environment is cooler '
                  'than open beach in peak summer heat.'},
            {'q': 'Do I need to book from Pula or can I just drive there?',
-            'a': 'Saturdays are pre-booking only — no walk-ins. From the end of '
+            'a': 'From the end of '
                  'September until the start of July, all visits require advance '
                  'booking. From July through the end of September, walk-ins are '
-                 'welcome Sunday to Friday. Call +385 91 896 4525 or book online.'}],
+                 'welcome, subject to availability. Call +385 91 896 4525 or book online.'}],
   'related': [{'slug': 'things-to-do-in-istria',
                'title': 'Things to Do in Istria',
                'desc': 'Full peninsula destination guide'},

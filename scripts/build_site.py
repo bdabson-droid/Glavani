@@ -292,15 +292,22 @@ def contact_link(
     )
 
 
-def render_hero_contacts() -> str:
-    items = "".join(contact_link(p, css_class="hero__contact") for p in PHONES)
-    return f'<div class="hero__contacts">{items}</div>'
-
-
 def render_info_strip_contacts(lang: str) -> str:
     return "".join(
         f'<div class="info-strip__item info-strip__item--contact">{contact_link(p, css_class="info-strip__contact", show_photo=True)}</div>'
         for p in PHONES
+    )
+
+
+def render_home_booking_policy(lang: str) -> str:
+    return BOOKING_POLICY[lang]["home_notice"]
+
+
+def render_info_strip_booking(lang: str) -> str:
+    policy = BOOKING_POLICY[lang]
+    return (
+        f'<div class="info-strip__item"><strong>{policy["info_strip_label"]}</strong>'
+        f'{policy["info_strip_value"]}</div>'
     )
 
 
@@ -321,10 +328,6 @@ def quick_actions(lang: str) -> str:
 
 def visitor_bar(lang: str) -> str:
     copy = VISITOR[lang]
-    contacts = "".join(
-        f'<span class="visitor-bar__contact">{contact_link(p, css_class="visitor-bar__contact-link")}</span>'
-        for p in PHONES
-    )
     return f"""
   <div class="visitor-bar" aria-label="{copy['visitor_bar_aria']}">
     <div class="visitor-bar__inner">
@@ -332,7 +335,6 @@ def visitor_bar(lang: str) -> str:
         <span class="visitor-bar__icon" aria-hidden="true">🕐</span>
         <strong>{copy['hours_label']}</strong> {copy['hours']} · {copy['last_entry']}
       </p>
-      <div class="visitor-bar__phones">{contacts}</div>
     </div>
   </div>"""
 
@@ -1233,14 +1235,16 @@ def inject_reviews_section(body: str, lang: str) -> str:
 def home_body_en() -> str:
     """English homepage main content (abbreviated structure with full SEO sections)."""
     body = open(ROOT / "scripts" / "home_en.html").read()
-    body = body.replace("<!-- HERO_CONTACTS -->", render_hero_contacts())
+    body = body.replace("<!-- HOME_BOOKING_POLICY -->", render_home_booking_policy("en"))
+    body = body.replace("<!-- INFO_STRIP_BOOKING -->", render_info_strip_booking("en"))
     body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("en"))
     return inject_reviews_section(body, "en")
 
 
 def home_body_hr() -> str:
     body = open(ROOT / "scripts" / "home_hr.html").read()
-    body = body.replace("<!-- HERO_CONTACTS -->", render_hero_contacts())
+    body = body.replace("<!-- HOME_BOOKING_POLICY -->", render_home_booking_policy("hr"))
+    body = body.replace("<!-- INFO_STRIP_BOOKING -->", render_info_strip_booking("hr"))
     body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("hr"))
     return inject_reviews_section(body, "hr")
 

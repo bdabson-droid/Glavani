@@ -176,11 +176,10 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                'Brijune ili opušten dan na plaži prije odlaska.</p>',
                                '<p>Glavani Park radi svaki dan od 9 do 17 sati, '
                                'posljednji ulaz u 15 sati — planirajte tri do četiri '
-                               'sata za glavne atrakcije. Subotom je moguća samo '
-                               'unaprijedna rezervacija; od kraja rujna do početka '
+                               'sata za glavne atrakcije. Od kraja rujna do početka '
                                'srpnja svi posjeti moraju biti unaprijed rezervirani — '
                                'bez dolaska bez najave. Od srpnja do kraja rujna '
-                               'dolazak bez rezervacije moguć je od nedjelje do petka, '
+                               'dolazak bez rezervacije moguć je, '
                                'ovisno o dostupnosti. Instruktori govore hrvatski i '
                                'engleski, a park je naveden na stranicama <a '
                                'href="https://www.istra.hr/hr/destinacije/barban/1531" '
@@ -317,9 +316,7 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                '<p>Park radi svaki dan <strong>9–17 h</strong>, '
                                'posljednji ulaz u <strong>15 h</strong>. Dolazak prije '
                                'podneva daje najbolju šansu za više staza i atrakcija. '
-                               '<strong>Subotom je moguća samo unaprijedna '
-                               'rezervacija</strong> — bez dolaska bez najave. Od '
-                               'kraja rujna do početka srpnja svi posjeti moraju biti '
+                               'Od kraja rujna do početka srpnja svi posjeti moraju biti '
                                'unaprijed rezervirani. Nazovite <a '
                                'href="tel:+385918964525">+385 91 896 4525</a> '
                                '(engleski) ili <a href="tel:+38598224314">+385 98 224 '
@@ -519,9 +516,7 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                'E.</p>',
                                '<p>Park radi <strong>9–17 h</strong>, posljednji ulaz '
                                '<strong>15 h</strong>. Planirajte najmanje tri sata za '
-                               'zipline i jednu-dvije staze. <strong>Subotom je moguća '
-                               'samo unaprijedna rezervacija</strong> — bez dolaska '
-                               'bez najave. Od kraja rujna do početka srpnja svi '
+                               'zipline i jednu-dvije staze. Od kraja rujna do početka srpnja svi '
                                'posjeti moraju biti unaprijed rezervirani. Nazovite <a '
                                'href="tel:+385918964525">+385 91 896 4525</a> '
                                '(engleski) ili <a href="tel:+38598224314">+385 98 224 '
@@ -562,10 +557,9 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
             'a': 'Samostalni zipline dugačak je 120 metara, do 20 metara visine. Plava '
                  'staza uključuje zipline od 113 metara između platformi na 6 metara.'},
            {'q': 'Trebam li rezervaciju za zipline?',
-            'a': 'Subotom je moguća samo unaprijedna rezervacija — bez dolaska bez '
-                 'najave. Od kraja rujna do početka srpnja svi posjeti moraju biti '
+            'a': 'Od kraja rujna do početka srpnja svi posjeti moraju biti '
                  'unaprijed rezervirani. Od srpnja do kraja rujna dolazak bez '
-                 'rezervacije moguć je od nedjelje do petka, ovisno o dostupnosti. '
+                 'rezervacije moguć je, ovisno o dostupnosti. '
                  'Posljednji ulaz u 15 h, zatvaranje u 17 h.'},
            {'q': 'Je li zipline siguran za početnike?',
             'a': 'Da. Svaki vozač dobiva harnes, kacigu i obuku od educiranog '
@@ -860,12 +854,10 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                'vozilo. Radno vrijeme <strong>9–17 h</strong>, '
                                'posljednji ulaz <strong>15 h</strong> — dođite prije '
                                'podneva za više atrakcija.</p>',
-                               '<p>Rezervirajte prije polaska — <strong>subotom je '
-                               'moguća samo unaprijedna rezervacija</strong>, a od '
+                               '<p>Rezervirajte prije polaska — od '
                                'kraja rujna do početka srpnja svi posjeti moraju biti '
                                'unaprijed rezervirani bez dolaska bez najave. Dolazak '
-                               'bez rezervacije moguć je od nedjelje do petka od '
-                               'srpnja do kraja rujna. Nazovite <a '
+                               'bez rezervacije moguć je od srpnja do kraja rujna, ovisno o dostupnosti. Nazovite <a '
                                'href="tel:+385918964525">+385 91 896 4525</a> ili '
                                'rezervirajte online.</p>',
                                '<p>Poslijepodnevni posjet parku omogućuje jutarnje '
@@ -935,10 +927,9 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                  'japanke prije dolaska. Osjenčana šuma hladnija je od otvorene plaže '
                  'u vrućini.'},
            {'q': 'Trebam li rezervirati iz Pule ili samo doći?',
-            'a': 'Subotom je moguća samo unaprijedna rezervacija — bez dolaska bez '
-                 'najave. Od kraja rujna do početka srpnja svi posjeti moraju biti '
+            'a': 'Od kraja rujna do početka srpnja svi posjeti moraju biti '
                  'unaprijed rezervirani. Od srpnja do kraja rujna dolazak bez '
-                 'rezervacije moguć je od nedjelje do petka. Nazovite +385 91 896 4525 '
+                 'rezervacije moguć je, ovisno o dostupnosti. Nazovite +385 91 896 4525 '
                  'ili rezervirajte online.'}],
   'related': [{'slug': 'sto-raditi-u-istri',
                'title': 'Što raditi u Istri',

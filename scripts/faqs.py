@@ -48,7 +48,7 @@ FAQ_COPY = {
         ),
         "list_heading": "Common questions",
         "book_note": (
-            "Saturdays and visits from late September to early July require advance booking — no walk-ins. "
+            "Visits from late September to early July require advance booking — no walk-ins. "
             "Book online for up to 6 people, or call for larger groups."
         ),
         "related_heading": "Plan your visit",
@@ -75,7 +75,7 @@ FAQ_COPY = {
         ),
         "list_heading": "Najčešća pitanja",
         "book_note": (
-            "Subotom i od kraja rujna do početka srpnja potrebna je unaprijedna rezervacija — bez dolaska bez najave. "
+            "Od kraja rujna do početka srpnja potrebna je unaprijedna rezervacija — bez dolaska bez najave. "
             "Rezervirajte online do 6 osoba ili nazovite za veće grupe."
         ),
         "related_heading": "Planirajte posjet",
