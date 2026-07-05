@@ -43,6 +43,7 @@ from gift_vouchers import (  # noqa: E402
     gift_voucher_offer_schema,
     render_voucher_grid,
 )
+from group_events import EVENT_EXTERNAL_IMAGES, EVENT_PAGES, EVENT_SLUGS_EN, EVENT_SLUGS_HR  # noqa: E402
 from booking_policy import BOOKING_POLICY  # noqa: E402
 from packages import PRICES_COPY, PRICES_SLUGS, prices_offer_schema, render_price_sections  # noqa: E402
 
@@ -146,6 +147,7 @@ EXTERNAL_IMAGES = [
         "gift-voucher-70-all-games.webp",
     ),
 ]
+EXTERNAL_IMAGES.extend(EVENT_EXTERNAL_IMAGES)
 
 
 def fetch_external_images() -> None:
@@ -752,8 +754,8 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
 
 
 SKIP_LANDING_SLUGS = {
-    "en": {"adventure-park-croatia"},
-    "hr": {"avanturisticki-park-hrvatska"},
+    "en": {"adventure-park-croatia"} | EVENT_SLUGS_EN,
+    "hr": {"avanturisticki-park-hrvatska"} | EVENT_SLUGS_HR,
 }
 
 ACTIVITIES_HUB_SLUGS = {"en": "adventure-park-croatia", "hr": "avanturisticki-park-hrvatska"}
@@ -1046,6 +1048,117 @@ def render_activity_page(activity: dict, lang: str) -> str:
 {faq_schema}
 {activity_schema_scripts}
 {json_ld_script(webpage_schema(canonical, data['h1'], data['meta_description'], lang))}
+</body>
+</html>"""
+
+
+def render_photo_gallery(event: dict, lang: str) -> str:
+    data = event["hr" if lang == "hr" else "en"]
+    alt_key = "hr_alt" if lang == "hr" else "en_alt"
+    prev_label = "Prethodna fotografija" if lang == "hr" else "Previous photo"
+    next_label = "Sljedeća fotografija" if lang == "hr" else "Next photo"
+    slides = []
+    for item in event["gallery"]:
+        alt = esc(item[alt_key])
+        slides.append(
+            f"""        <figure class="photo-gallery__slide">
+          <img src="/images/{item['image']}" alt="{alt}" width="800" height="560" loading="lazy">
+        </figure>"""
+        )
+    return f"""
+  <section class="section section--alt photo-gallery-section" aria-labelledby="photo-gallery-heading">
+    <div class="section__inner">
+      <div class="section__heading">
+        <h2 id="photo-gallery-heading">{data['gallery_heading']}</h2>
+      </div>
+      <div class="photo-gallery" data-photo-gallery>
+        <button type="button" class="photo-gallery__nav photo-gallery__nav--prev" aria-label="{prev_label}" data-gallery-prev>‹</button>
+        <div class="photo-gallery__track" tabindex="0" data-gallery-track>
+{chr(10).join(slides)}
+        </div>
+        <button type="button" class="photo-gallery__nav photo-gallery__nav--next" aria-label="{next_label}" data-gallery-next>›</button>
+      </div>
+    </div>
+  </section>"""
+
+
+def render_event_page(event: dict, lang: str) -> str:
+    data = event["hr" if lang == "hr" else "en"]
+    en_slug = event["en_slug"]
+    hr_slug = event["hr_slug"]
+    slug = hr_slug if lang == "hr" else en_slug
+    prefix = f"/{lang}/"
+    canonical = f"{BASE}{prefix}{slug}/"
+    home_label = "Početna" if lang == "hr" else "Home"
+    book_label = "Rezervirajte" if lang == "hr" else "Book Your Visit"
+    book_href = f"{prefix}rezervacija/" if lang == "hr" else f"{prefix}book/"
+    cta = "Pozovite za rezervaciju" if lang == "hr" else "Call to Book"
+    img = event["image"]
+
+    prose = "".join(f"<p>{p}</p>" for p in data["paragraphs"])
+    prices_href = f"{prefix}prices/" if lang == "en" else f"{prefix}cijene/"
+    prices_label = "Packages &amp; prices" if lang == "en" else "Paketi i cijene"
+    prose += (
+        f'<p><a href="{book_href}">{book_label}</a> · '
+        f'<a href="{prices_href}">{prices_label}</a></p>'
+    )
+
+    page_faqs = data.get("faqs") or []
+    faq_block = ""
+    faq_schema = ""
+    if page_faqs:
+        faq_block = f"""
+  <section class="section section--alt" aria-labelledby="page-faq-heading">
+    <div class="section__inner">
+      {render_page_faq_section(page_faqs, lang)}
+    </div>
+  </section>"""
+        faq_schema = json_ld_script(
+            build_faq_schema(page_faqs, lang, url=canonical, name=data["h1"], description=data["meta_description"])
+        )
+
+    gallery_block = render_photo_gallery(event, lang)
+
+    return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=img, og_image_alt=data['image_alt'])}
+{quick_actions(lang)}
+{site_header(lang)}
+{site_nav(lang)}
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="{prefix}">{home_label}</a></li>
+      <li>{data['h1']}</li>
+    </ol>
+  </nav>
+<main>
+  <section class="hero hero--landing hero--activity">
+    <div class="hero__inner">
+      <p class="hero__badge">{data['hero_badge']}</p>
+      <h1>{data['h1']}</h1>
+    </div>
+  </section>
+  <div class="activity-detail-wrap section--theme-forest">
+    <article class="activity-detail">
+      <figure class="feature-img">
+        <img src="/images/{img}" alt="{data['image_alt']}" width="800" height="560" loading="eager">
+      </figure>
+      <div class="prose activity-detail__prose">
+        {prose}
+      </div>
+      <div class="activity-detail__actions">
+        <a class="btn-primary" href="tel:+385918964525">{cta}</a>
+        <a class="btn-secondary" href="{book_href}">{book_label}</a>
+      </div>
+    </article>
+  </div>
+  {gallery_block}
+  {render_related(data.get('related', []), lang)}
+  {faq_block}
+</main>
+{footer(lang)}
+{breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (data['h1'], None)])}
+{faq_schema}
+{json_ld_script(webpage_schema(canonical, data['h1'], data['meta_description'], lang))}
+<script src="/assets/js/photo-gallery-carousel.js" defer></script>
 </body>
 </html>"""
 
@@ -1548,6 +1661,9 @@ def main() -> None:
         hr_slug = activity["hr_slug"]
         write_file(ROOT / "en" / slug / "index.html", render_activity_page(activity, "en"))
         sitemap_urls.append((f"{BASE}/en/{slug}/", "monthly"))
+    for event in EVENT_PAGES:
+        write_file(ROOT / "en" / event["en_slug"] / "index.html", render_event_page(event, "en"))
+        sitemap_urls.append((f"{BASE}/en/{event['en_slug']}/", "monthly"))
 
     print("Building Croatian pages...")
     write_file(ROOT / "hr" / "index.html", render_home("hr"))
@@ -1583,6 +1699,9 @@ def main() -> None:
         slug = activity["hr_slug"]
         write_file(ROOT / "hr" / slug / "index.html", render_activity_page(activity, "hr"))
         sitemap_urls.append((f"{BASE}/hr/{slug}/", "monthly"))
+    for event in EVENT_PAGES:
+        write_file(ROOT / "hr" / event["hr_slug"] / "index.html", render_event_page(event, "hr"))
+        sitemap_urls.append((f"{BASE}/hr/{event['hr_slug']}/", "monthly"))
 
     print("Writing robots.txt and sitemap.xml...")
     build_robots()

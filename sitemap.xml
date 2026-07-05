@@ -83,24 +83,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/zipline-croatia/"/>
   </url>
   <url>
-    <loc>https://www.glavanipark.com/en/team-building-istria/</loc>
-    <lastmod>2026-07-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/team-building-istria/"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/team-building-istri/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/team-building-istria/"/>
-  </url>
-  <url>
-    <loc>https://www.glavanipark.com/en/birthday-parties-istria/</loc>
-    <lastmod>2026-07-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/birthday-parties-istria/"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/rodjendanske-zabave-istri/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/birthday-parties-istria/"/>
-  </url>
-  <url>
     <loc>https://www.glavanipark.com/en/school-trips-istria/</loc>
     <lastmod>2026-07-05</lastmod>
     <changefreq>monthly</changefreq>
@@ -227,6 +209,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/20m-drop/"/>
   </url>
   <url>
+    <loc>https://www.glavanipark.com/en/team-building-istria/</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/team-building-istria/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/team-building-istri/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/team-building-istria/"/>
+  </url>
+  <url>
+    <loc>https://www.glavanipark.com/en/birthday-parties-istria/</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/birthday-parties-istria/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/rodjendanske-zabave-istri/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/birthday-parties-istria/"/>
+  </url>
+  <url>
     <loc>https://www.glavanipark.com/hr/</loc>
     <lastmod>2026-07-05</lastmod>
     <changefreq>weekly</changefreq>
@@ -306,24 +306,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/zipline-croatia/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/zipline-hrvatska/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/zipline-croatia/"/>
-  </url>
-  <url>
-    <loc>https://www.glavanipark.com/hr/team-building-istri/</loc>
-    <lastmod>2026-07-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/team-building-istria/"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/team-building-istri/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/team-building-istria/"/>
-  </url>
-  <url>
-    <loc>https://www.glavanipark.com/hr/rodjendanske-zabave-istri/</loc>
-    <lastmod>2026-07-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/birthday-parties-istria/"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/rodjendanske-zabave-istri/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/birthday-parties-istria/"/>
   </url>
   <url>
     <loc>https://www.glavanipark.com/hr/skolski-izleti-istri/</loc>
@@ -450,5 +432,23 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/20m-drop/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/pad-s-20m/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/20m-drop/"/>
+  </url>
+  <url>
+    <loc>https://www.glavanipark.com/hr/team-building-istri/</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/team-building-istria/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/team-building-istri/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/team-building-istria/"/>
+  </url>
+  <url>
+    <loc>https://www.glavanipark.com/hr/rodjendanske-zabave-istri/</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/birthday-parties-istria/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/rodjendanske-zabave-istri/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/birthday-parties-istria/"/>
   </url>
 </urlset>
