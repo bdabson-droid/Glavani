@@ -146,37 +146,37 @@ ACTIVITIES = [
         "tile_mod": "zipline-low",
         "image": "zipline-120m-glavani-park-istria-croatia.webp",
         "en": {
-            "title": "Low Zip Line Course | Glavani Park Istria",
-            "h1": "Low Zip Line Course",
+            "title": "Treetop Course | Glavani Park Istria",
+            "h1": "Treetop Course",
             "meta_description": (
-                "Ride the 113 m zipline integrated into Glavani Park's blue high-ropes course at 6 m. "
-                "A lower, course-linked flight near Pula. Open daily with instructor support."
+                "Glavani Park's blue Treetop Course — high ropes and a 113 m zipline at 6 m above the forest. "
+                "Instructor-led treetop adventure near Pula. Open daily."
             ),
-            "keywords": "low zipline Istria, blue route zipline Croatia, Glavani Park high ropes zipline",
+            "keywords": "treetop course Istria, blue high ropes Croatia, Glavani Park treetop course, adventure near Pula",
             "hero_badge": "113 m on the blue course · 6 m high",
-            "image_alt": "Low zip line course on the blue high-ropes route at Glavani Park, Istria",
+            "image_alt": "Treetop Course on the blue high-ropes route at Glavani Park, Istria",
             "paragraphs": [
-                "The Low Zip Line Course is built into Glavani Park's blue high-ropes route at 6 metres above the ground. The 113-metre zipline section links platforms on the course, so you stay on continuous belay from climb to landing.",
+                "The Treetop Course is Glavani Park's blue high-ropes route at 6 metres above the ground. The 113-metre zipline section links platforms on the course, so you stay on continuous belay from climb to landing.",
                 "It is a great introduction for visitors moving up from the family yellow route or those who want zipline speed without the full valley height. Instructors guide you at entry and exit points. Access is included when you complete the blue course circuit.",
             ],
-            "video_heading": "Low Zip Line video",
+            "video_heading": "Treetop Course video",
             "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
         },
         "hr": {
-            "title": "Niski zipline | Glavani Park Istria",
-            "h1": "Niski zipline",
+            "title": "Staza u krošnjama | Glavani Park Istria",
+            "h1": "Staza u krošnjama",
             "meta_description": (
-                "Vožnja ziplineom od 113 m ugrađenog u plavu visoku stazu Glavani Parka na 6 m. "
-                "Niži let povezan sa stazom kod Pule. Otvoreno svaki dan uz podršku instruktora."
+                "Plava Staza u krošnjama Glavani Parka — visoke staze i zipline od 113 m na 6 m iznad šume. "
+                "Avantura u krošnjama pod nadzorom instruktora kod Pule. Otvoreno svaki dan."
             ),
-            "keywords": "niski zipline Istria, plava staza zipline Hrvatska, Glavani Park visoke staze",
+            "keywords": "staza u krošnjama Istria, plava visoka staza Hrvatska, Glavani Park krošnje, avantura kod Pule",
             "hero_badge": "113 m na plavoj stazi · 6 m visine",
-            "image_alt": "Niski zipline na plavoj visokoj stazi u Glavani Parku, Istria",
+            "image_alt": "Staza u krošnjama na plavoj visokoj stazi u Glavani Parku, Istria",
             "paragraphs": [
-                "Niski zipline ugrađen je u plavu visoku stazu Glavani Parka na 6 metara iznad tla. Dio od 113 metara povezuje platforme na stazi — ostajete na kontinuiranom osiguranju od penjanja do slijetanja.",
+                "Staza u krošnjama plava je visoka staza Glavani Parka na 6 metara iznad tla. Dio od 113 metara povezuje platforme na stazi — ostajete na kontinuiranom osiguranju od penjanja do slijetanja.",
                 "Odličan je uvod za posjetitelje koji prelaze s obiteljske žute staze ili žele brzinu ziplinea bez pune visine doline. Instruktori vode na ulazu i izlazu. Pristup je uključen kada obavite plavu stazu.",
             ],
-            "video_heading": "Video niskog ziplinea",
+            "video_heading": "Video staze u krošnjama",
             "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
         },
     },
@@ -197,7 +197,7 @@ ACTIVITIES = [
             "image_alt": "120 metre valley zipline course at Glavani Park, Istria Croatia",
             "paragraphs": [
                 "Glavani Park's Valley Zip Line Course is a standalone 120-metre flight through the oak forest, reaching heights of up to 20 metres. You clip in with park staff, receive a launch briefing, and glide between platforms with views across the valley.",
-                "The course is popular with first-time zipliners and returning visitors alike. Harness and helmet are provided; wear closed shoes and comfortable clothing. Combine with the Low Zip Line Course on the high-ropes routes for a full zipline experience in one visit.",
+                "The course is popular with first-time zipliners and returning visitors alike. Harness and helmet are provided; wear closed shoes and comfortable clothing. Combine with the Treetop Course on the high-ropes routes for a full zipline experience in one visit.",
             ],
             "video_heading": "Valley Zip Line video",
             "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
@@ -214,7 +214,7 @@ ACTIVITIES = [
             "image_alt": "Dolinski zipline 120 m u Glavani Parku, Istria Hrvatska",
             "paragraphs": [
                 "Dolinski zipline u Glavani Parku samostalan je let od 120 metara kroz hrastovu šumu, do visine od 20 metara. Osoblje vas spaja na užad, provodi obuku i letite između platformi s pogledom na dolinu.",
-                "Staza je popularna i među početnicima i među onima koji se vraćaju. Harnes i kaciga su osigurani; nosite zatvorenu obuću i udobnu odjeću. Kombinirajte s niskim ziplineom na visokim stazama za puno zipline iskustvo u jednom posjetu.",
+                "Staza je popularna i među početnicima i među onima koji se vraćaju. Harnes i kaciga su osigurani; nosite zatvorenu obuću i udobnu odjeću. Kombinirajte sa Stazom u krošnjama na visokim stazama za puno zipline iskustvo u jednom posjetu.",
             ],
             "video_heading": "Video dolinskog ziplinea",
             "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
