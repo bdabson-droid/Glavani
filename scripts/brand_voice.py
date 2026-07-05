@@ -1,5 +1,7 @@
 """Shared brand messaging — hours, phones, and voice for Glavani Park."""
 
+BOOKING_EMAIL = "office@glavanipark.com"
+
 PHONES = (
     {
         "name": "Nigel Simpson",

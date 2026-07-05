@@ -45,7 +45,7 @@ from gift_vouchers import (  # noqa: E402
 )
 from group_events import EVENT_EXTERNAL_IMAGES, EVENT_PAGES, EVENT_SLUGS_EN, EVENT_SLUGS_HR  # noqa: E402
 from booking_policy import BOOKING_POLICY  # noqa: E402
-from brand_voice import PHONES, VISITOR  # noqa: E402
+from brand_voice import BOOKING_EMAIL, PHONES, VISITOR  # noqa: E402
 from packages import PRICES_COPY, PRICES_SLUGS, prices_offer_schema, render_price_sections  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
@@ -1473,10 +1473,14 @@ def render_booking_app(lang: str) -> str:
         title = "Rezerviraj | Glavani Park – odaberite paket i datum"
         desc = (
             "Rezervirajte Glavani Park online za do 6 osoba. Ispunite obrazac — "
-            "potvrdu šaljemo WhatsAppom ili SMS-om. Unutar 48 sati od termina nazovite."
+            f"za unaprijedne rezervacije potvrdu šaljemo e-računom na {BOOKING_EMAIL}. "
+            "Unutar 48 sati od termina nazovite."
         )
         h1 = "Rezerviraj"
-        lead = "Ispunite obrazac — potvrdu rezervacije šaljemo što prije WhatsAppom ili SMS-om."
+        lead = (
+            f"Ispunite obrazac — za sve unaprijedne rezervacije odgovorit ćemo e-računom za potvrdu "
+            f"na {BOOKING_EMAIL} što je prije moguće."
+        )
         notice = "Rezervacija u roku 48 sati od željenog datuma posjeta? Molimo <a href=\"tel:+38598224314\">nazovite</a>."
         policy = BOOKING_POLICY["hr"]["book_page"]
     else:
@@ -1484,10 +1488,14 @@ def render_booking_app(lang: str) -> str:
         title = "Book | Glavani Park – Pick Package & Date"
         desc = (
             "Book Glavani Park online for up to 6 people. Fill in the form — "
-            "we confirm via SMS or WhatsApp ASAP. Within 48 hours of your visit date, please call to book."
+            f"for advance bookings we email an invoice to confirm to {BOOKING_EMAIL} ASAP. "
+            "Within 48 hours of your visit date, please call to book."
         )
         h1 = "Book"
-        lead = "Fill in the form below — we'll confirm your booking as soon as possible via SMS or WhatsApp."
+        lead = (
+            f"Fill in the form below — for all advance bookings we will respond with an emailed invoice "
+            f"to confirm your booking to {BOOKING_EMAIL} as soon as possible."
+        )
         notice = "Booking within 48 hours of your requested visit date? Please <a href=\"tel:+385918964525\">call to book</a>."
         policy = BOOKING_POLICY["en"]["book_page"]
     prefix = f"/{lang}/"

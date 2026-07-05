@@ -1,6 +1,6 @@
 /**
  * Glavani Park booking — package & guest dropdowns, live pricing.
- * Groups of 7+ must call. No email — WhatsApp, SMS, or phone.
+ * Groups of 7+ must call. Advance bookings submitted by email.
  * Keep activity names/prices in sync with scripts/packages.py.
  */
 (function () {
@@ -9,6 +9,7 @@
 
   const MAX_GUESTS = 6;
   const lang = document.documentElement.lang?.startsWith('hr') ? 'hr' : 'en';
+  const BOOKING_EMAIL = 'office@glavanipark.com';
   const PHONE_EN = '385918964525';
   const PHONE_HR = '38598224314';
   const STORAGE_KEY = 'glavani-park-bookings';
@@ -43,11 +44,12 @@
       pickDateLead: 'Open daily 9 AM–5 PM · last entry 3 PM',
       yourDetails: 'Your details',
       confirmTitle: 'Confirm booking',
-      confirmLead: 'Send your request — we\'ll confirm your booking as soon as possible via SMS or WhatsApp.',
+      confirmLead: 'For all advance bookings we will respond with an emailed invoice to confirm your booking as soon as possible.',
       within48Title: 'Within 48 hours of your visit?',
       within48Lead: 'Please call to book so we can confirm availability in time.',
       within48Alert: 'Your selected date is within 48 hours. Please call to book instead of using the form.',
       name: 'Your name',
+      email: 'Your email address',
       phone: 'Your phone number',
       guestsHint: 'Groups of 7 or more must call to book.',
       arrival: 'Preferred start time',
@@ -63,12 +65,14 @@
       pricePerPerson: 'Price per person',
       whatsapp: 'Send via WhatsApp',
       sms: 'Send SMS',
+      sendEmail: 'Send booking by email',
       call: 'Call to confirm',
       copy: 'Copy details',
       copied: 'Copied to clipboard!',
       selectActivity: 'Please select a package or activity.',
       selectDate: 'Please select a visit date.',
-      fillRequired: 'Please enter your name and phone number.',
+      fillRequired: 'Please enter your name, phone number, and a valid email address.',
+      emailInvalid: 'Please enter a valid email address.',
       tooManyGuests: 'Online booking is for up to 6 people only. Please call to book larger groups:',
       myDiary: 'My booking diary',
       myDiaryLead: 'Saved on this device',
@@ -108,11 +112,12 @@
       pickDateLead: 'Otvoreno 9–17 h · zadnji ulaz 15 h',
       yourDetails: 'Vaši podaci',
       confirmTitle: 'Potvrdite rezervaciju',
-      confirmLead: 'Pošaljite zahtjev — potvrdu rezervacije šaljemo što prije SMS-om ili WhatsAppom.',
+      confirmLead: 'Za sve unaprijedne rezervacije odgovorit ćemo e-računom za potvrdu što je prije moguće.',
       within48Title: 'Unutar 48 sati od posjeta?',
       within48Lead: 'Molimo nazovite kako bismo na vrijeme potvrdili dostupnost.',
       within48Alert: 'Odabrani datum je unutar 48 sati. Molimo nazovite umjesto online obrasca.',
       name: 'Ime i prezime',
+      email: 'Vaša e-mail adresa',
       phone: 'Broj telefona',
       guestsHint: 'Grupe od 7 i više osoba moraju rezervirati telefonom.',
       arrival: 'Preferirano vrijeme početka',
@@ -128,12 +133,14 @@
       pricePerPerson: 'Cijena po osobi',
       whatsapp: 'Pošalji WhatsApp',
       sms: 'Pošalji SMS',
+      sendEmail: 'Pošalji rezervaciju e-poštom',
       call: 'Pozovi za potvrdu',
       copy: 'Kopiraj detalje',
       copied: 'Kopirano!',
       selectActivity: 'Odaberite paket ili aktivnost.',
       selectDate: 'Odaberite datum posjeta.',
-      fillRequired: 'Unesite ime i telefon.',
+      fillRequired: 'Unesite ime, telefon i ispravnu e-mail adresu.',
+      emailInvalid: 'Unesite ispravnu e-mail adresu.',
       tooManyGuests: 'Online rezervacija je za najviše 6 osoba. Za veće grupe nazovite:',
       myDiary: 'Moj dnevnik rezervacija',
       myDiaryLead: 'Spremljeno na ovom uređaju',
@@ -189,7 +196,7 @@
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const state = { name: '', phone: '', guests: 2, largeGroup: false, arrival: 0, notes: '' };
+  const state = { name: '', email: '', phone: '', guests: 2, largeGroup: false, arrival: 0, notes: '' };
 
   function isoDate(d) { return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`; }
 
@@ -317,12 +324,22 @@
       `${t.date}: ${selectedDate}`,
       `${t.arrival}: ${arrivalLabel()}`,
       `${t.name}: ${state.name}`,
+      `${t.email}: ${state.email}`,
       `${t.phone}: ${state.phone}`,
       `${t.notes}: ${state.notes || '—'}`,
       '---',
       t.pickDateLead,
       'Glavani Park · Glavani 10, Barban, Istria',
     ].join('\n');
+  }
+
+  function buildMailtoUrl() {
+    const subject = `${t.msgHeader} – ${selectedDate}`;
+    return `mailto:${BOOKING_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildMessage())}`;
+  }
+
+  function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
   }
 
   function saveToDiary() {
@@ -333,6 +350,7 @@
       activities: a ? a.name : '',
       date: selectedDate,
       name: state.name,
+      email: state.email,
       phone: state.phone,
       guests: guestCount(),
       total: bookingTotal(),
@@ -413,6 +431,9 @@
       <div class="booking-form">
         <div class="booking-form__row">
           <div><label for="app-name">${t.name}</label><input id="app-name" type="text" value="${state.name}" required autocomplete="name"></div>
+          <div><label for="app-email">${t.email}</label><input id="app-email" type="email" value="${state.email}" required autocomplete="email"></div>
+        </div>
+        <div class="booking-form__row">
           <div><label for="app-phone">${t.phone}</label><input id="app-phone" type="tel" value="${state.phone}" required autocomplete="tel"></div>
         </div>
         <div>
@@ -427,7 +448,6 @@
 
   function renderConfirm() {
     const a = selectedActivity();
-    const msg = buildMessage();
     const total = bookingTotal();
     return `<section class="book-panel">
       <h2>${t.confirmTitle}</h2>
@@ -442,16 +462,17 @@
           <dt>${t.date}</dt><dd>${selectedDate}</dd>
           <dt>${t.arrival}</dt><dd>${arrivalLabel()}</dd>
           <dt>${t.name}</dt><dd>${state.name}</dd>
+          <dt>${t.email}</dt><dd>${state.email}</dd>
           <dt>${t.phone}</dt><dd>${state.phone}</dd>
         </dl>
       </div>
       <div class="book-send-grid">
-        <a class="btn-whatsapp" href="https://wa.me/${phone}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${t.whatsapp}</a>
-        <a class="btn-sms" href="sms:+${phone}?body=${encodeURIComponent(msg)}">${t.sms}</a>
+        <a class="btn-primary btn-email-book" href="${buildMailtoUrl()}">${t.sendEmail}</a>
         <a class="btn-secondary" href="tel:+${phone}">${t.call}</a>
         <button type="button" class="btn-copy" id="btn-copy">${t.copy}</button>
       </div>
       <p class="book-hint">${t.parkHours}</p>
+      <p class="book-hint">${BOOKING_EMAIL}</p>
     </section>`;
   }
 
@@ -468,7 +489,7 @@
           <strong>${b.date}</strong> — ${b.activities}
           <span>${b.name} · ${b.guests} ${lang === 'hr' ? 'osoba' : 'guests'}${b.total ? ` · €${b.total}` : ''}</span>
           <div class="diary-item__actions">
-            <a href="https://wa.me/${phone}?text=${encodeURIComponent(b.message)}" class="btn-whatsapp btn-whatsapp--sm" target="_blank" rel="noopener">WhatsApp</a>
+            <a href="mailto:${BOOKING_EMAIL}?subject=${encodeURIComponent(t.msgHeader + ' – ' + b.date)}&body=${encodeURIComponent(b.message)}" class="btn-primary btn-email-book btn-email-book--sm">${t.sendEmail}</a>
             <a href="tel:+${phone}" class="btn-secondary btn-secondary--sm">${t.call}</a>
           </div>
         </li>`).join('')}
@@ -573,10 +594,12 @@
       }
       if (step === 2) {
         state.name = document.getElementById('app-name')?.value.trim() || '';
+        state.email = document.getElementById('app-email')?.value.trim() || '';
         state.phone = document.getElementById('app-phone')?.value.trim() || '';
         state.arrival = parseInt(document.getElementById('app-arrival')?.value || '0', 10);
         state.notes = document.getElementById('app-notes')?.value.trim() || '';
-        if (!state.name || !state.phone) { alert(t.fillRequired); return; }
+        if (!state.name || !state.phone || !state.email) { alert(t.fillRequired); return; }
+        if (!isValidEmail(state.email)) { alert(t.emailInvalid); return; }
       }
       if (step === 2) saveToDiary();
       step++;

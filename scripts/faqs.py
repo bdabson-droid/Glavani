@@ -114,8 +114,9 @@ VISITOR_FAQS = {
             "q": "How do I book Glavani Park online?",
             "a": (
                 "Choose a package on the <a href=\"{book}\">Book page</a> or see "
-                "<a href=\"{prices}\">packages and prices</a>, pick a date, and send your details. "
-                "Within 48 hours of your visit date, please call +385 91 896 4525 to book instead."
+                "<a href=\"{prices}\">packages and prices</a>, pick a date, and send your request by email. "
+                "For all advance bookings we respond with an emailed invoice to confirm as soon as possible. "
+                "If your visit is within 48 hours, please call to book instead."
             ),
         },
         {
@@ -180,8 +181,9 @@ VISITOR_FAQS = {
             "q": "Kako rezervirati Glavani Park online?",
             "a": (
                 "Odaberite paket na stranici <a href=\"{book}\">Rezerviraj</a> ili pogledajte "
-                "<a href=\"{prices}\">pakete i cijene</a>, odaberite datum i pošaljite podatke. "
-                "Unutar 48 sati od termina nazovite +385 98 224 314."
+                "<a href=\"{prices}\">pakete i cijene</a>, odaberite datum i pošaljite zahtjev e-poštom. "
+                "Za sve unaprijedne rezervacije odgovaramo e-računom za potvrdu što je prije moguće. "
+                "Ako je posjet unutar 48 sati, molimo nazovite umjesto online obrasca."
             ),
         },
         {

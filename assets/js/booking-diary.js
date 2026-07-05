@@ -114,7 +114,7 @@
       t.lastEntry,
     ].join('\n');
 
-    window.location.href = `mailto:info@glavanipark.com?subject=${encodeURIComponent(t.subject + ' – ' + date)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:office@glavanipark.com?subject=${encodeURIComponent(t.subject + ' – ' + date)}&body=${encodeURIComponent(body)}`;
   });
 
   initCalendar();

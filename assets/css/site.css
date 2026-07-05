@@ -1159,6 +1159,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   gap: 0.5rem;
 }
 @media (min-width: 480px) { .book-send-grid { grid-template-columns: 1fr 1fr; } }
+.btn-email-book {
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+}
+.btn-email-book--sm { min-height: 40px; font-size: 0.8125rem; padding: 0.5rem 0.75rem; }
 .btn-whatsapp {
   display: flex;
   align-items: center;
