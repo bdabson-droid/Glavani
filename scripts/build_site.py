@@ -984,6 +984,10 @@ def render_activity_video(activity: dict, data: dict, lang: str) -> str:
     title = esc(data["video_heading"])
     youtube_url = activity.get("youtube_url", f"https://youtu.be/{video_id}")
     watch_label = "Pogledajte na YouTubeu" if lang == "hr" else "Watch on YouTube"
+    notice = data.get("video_notice")
+    notice_html = (
+        f'<p class="activity-video__notice">{notice}</p>' if notice else ""
+    )
     return f"""
         <div class="activity-video__slot" data-activity-video="{activity['en_slug']}">
           <iframe
@@ -993,7 +997,7 @@ def render_activity_video(activity: dict, data: dict, lang: str) -> str:
             allowfullscreen
             loading="lazy"
             referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </div>
+        </div>{notice_html}
         <p class="activity-video__youtube-link">
           <a href="{youtube_url}" target="_blank" rel="noopener noreferrer">{watch_label}</a>
         </p>"""

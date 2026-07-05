@@ -81,6 +81,10 @@ ACTIVITIES = [
                 "Instructors secure your harness, explain body position and signals, and control each release. The high swing suits teenagers and adults who meet height requirements and is a favourite alongside the ziplines and catapult for a mixed-adrenaline day out.",
             ],
             "video_heading": "High Swing video",
+            "video_notice": (
+                "The swing shown in this video is an earlier version. Our high swing has since been upgraded — "
+                "today's ride is <strong>12.5 m</strong> high."
+            ),
             "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
         },
         "hr": {
@@ -98,6 +102,10 @@ ACTIVITIES = [
                 "Instruktori pričvršćuju harnes, objašnjavaju položaj tijela i signale te kontroliraju svako puštanje. Ljuljačka pogoduje tinejdžerima i odraslima koji zadovoljavaju uvjete visine i omiljena je uz zipline i katapultu.",
             ],
             "video_heading": "Video visoke ljuljačke",
+            "video_notice": (
+                "Ljuljačka u ovom videu raniji je model. Atrakcija je nakon toga nadograđena — "
+                "današnja vožnja na ljuljačici visokoj <strong>12,5 m</strong>."
+            ),
             "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
         },
     },
