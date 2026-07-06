@@ -2,6 +2,14 @@
 
 VISITOR_GALLERY = [
     {
+        "url": "https://www.glavanipark.com/upload/katalog/2017-9-5_ljudski_katapult__atrakcija_broj_1.jpg",
+        "image": "visitor-gallery-human-catapult-launch-14.webp",
+        "en_alt": "Guest launched on the Human Catapult at Glavani Park, Istria Croatia",
+        "hr_alt": "Gost lansiran na ljudskoj katapulti u Glavani Parku, Istria Hrvatska",
+        "activities": ["human-catapult"],
+        "home": True,
+    },
+    {
         "url": "https://www.glavanipark.com/upload/galerija/3/1838321.jpg",
         "image": "visitor-gallery-high-ropes-platform-13.webp",
         "en_alt": "Guest on a high-ropes platform with safety cables at Glavani Park, Istria",
@@ -110,6 +118,7 @@ VISITOR_GALLERY = [
 # Per-activity photo picks (3–4 each). Curated after inspecting gallery content.
 ACTIVITY_GALLERY_MAP: dict[str, list[str]] = {
     "human-catapult": [
+        "visitor-gallery-human-catapult-launch-14.webp",
         "visitor-gallery-group-event-10.webp",
         "visitor-gallery-school-group-7.webp",
     ],
