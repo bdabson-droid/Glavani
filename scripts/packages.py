@@ -57,11 +57,11 @@ BOOKING_OPTIONS = [
         "price": 30,
         "en": {
             "name": "Training route + 2 games",
-            "desc": "Yellow training route plus two additional games — ideal for first visits.",
+            "desc": "Yellow training route plus two additional games.",
         },
         "hr": {
             "name": "Trening ruta + 2 igre",
-            "desc": "Žuta trening ruta plus dvije dodatne igre — idealno za prvi posjet.",
+            "desc": "Žuta trening ruta plus dvije dodatne igre.",
         },
     },
     {
