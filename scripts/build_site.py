@@ -1637,11 +1637,8 @@ def inject_home_extras(body: str, lang: str) -> str:
             f'<a href="/{lang}/{PRICES_SLUGS[lang]}/">'
             f'{"Pogledajte cijene" if lang == "hr" else "See prices"}</a></p>'
         ),
-        "<!-- HERO_DISTANCES -->": render_home_distances(lang),
         "<!-- ACTIVITY_HUB_GRID -->": render_activity_hub_cards(lang),
         "<!-- ACTIVITIES_CTA -->": render_conversion_cta(lang),
-        "<!-- HOME_LOCATION_SECTION -->": render_home_location_section(lang),
-        "<!-- VISITOR_GALLERY_SECTION -->": render_visitor_gallery(lang),
     }
     for marker, html in replacements.items():
         body = body.replace(marker, html)
@@ -1652,22 +1649,14 @@ def home_body_en() -> str:
     """English homepage main content (abbreviated structure with full SEO sections)."""
     body = open(ROOT / "scripts" / "home_en.html").read()
     body = body.replace("<!-- HOME_BOOKING_POLICY -->", render_home_booking_policy("en"))
-    body = body.replace("<!-- INFO_STRIP_BOOKING -->", render_info_strip_booking("en"))
-    body = body.replace("<!-- INFO_STRIP_AMENITIES -->", render_info_strip_amenities("en"))
-    body = body.replace("<!-- INFO_STRIP_LOCATION -->", render_info_strip_location("en"))
     body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("en"))
-    body = inject_home_video_section(body, "en")
     return inject_home_extras(body, "en")
 
 
 def home_body_hr() -> str:
     body = open(ROOT / "scripts" / "home_hr.html").read()
     body = body.replace("<!-- HOME_BOOKING_POLICY -->", render_home_booking_policy("hr"))
-    body = body.replace("<!-- INFO_STRIP_BOOKING -->", render_info_strip_booking("hr"))
-    body = body.replace("<!-- INFO_STRIP_AMENITIES -->", render_info_strip_amenities("hr"))
-    body = body.replace("<!-- INFO_STRIP_LOCATION -->", render_info_strip_location("hr"))
     body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("hr"))
-    body = inject_home_video_section(body, "hr")
     return inject_home_extras(body, "hr")
 
 
@@ -1928,7 +1917,6 @@ def render_home(lang: str) -> str:
 {page_chrome(lang, is_home=True)}
 {body_content}
 {footer(lang)}
-<script src="/assets/js/photo-gallery-carousel.js" defer></script>
 {json_ld_script(org_schema)}
 </body>
 </html>"""
