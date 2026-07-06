@@ -1284,6 +1284,11 @@ def render_activity_page(activity: dict, lang: str) -> str:
     inline_cta = render_conversion_cta(lang, compact=True)
     review_teaser = render_activity_reviews(activity, lang)
     visitor_photos = render_activity_visitor_photos(activity, lang)
+    gallery_script = (
+        '<script src="/assets/js/photo-gallery-carousel.js" defer></script>'
+        if visitor_photos
+        else ""
+    )
 
     video_block = ""
     if not activity.get("hide_video"):
@@ -1331,6 +1336,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
 {faq_schema}
 {activity_schema_scripts}
 {json_ld_script(webpage_schema(canonical, data['h1'], data['meta_description'], lang))}
+{gallery_script}
 </body>
 </html>"""
 
@@ -1538,23 +1544,34 @@ def render_activity_visitor_photos(activity: dict, lang: str) -> str:
     image_names = ACTIVITY_GALLERY_MAP.get(en_slug, [])
     if lang == "hr":
         heading = f"Fotografije posjetitelja — {data['h1']}"
+        prev_label = "Prethodna fotografija"
+        next_label = "Sljedeća fotografija"
     else:
         heading = f"Visitor photos — {data['h1']}"
-    figures = []
+        prev_label = "Previous photo"
+        next_label = "Next photo"
+    slides = []
     for image_name in image_names:
         item = GALLERY_BY_IMAGE.get(image_name)
         if not item:
             continue
         alt = esc(item[alt_key])
-        figures.append(
-            f'<figure class="visitor-photos__item">'
-            f'<img src="/images/{image_name}" alt="{alt}" width="400" height="280" loading="lazy"></figure>'
+        slides.append(
+            f"""        <figure class="photo-gallery__slide">
+          <img src="/images/{image_name}" alt="{alt}" width="800" height="560" loading="lazy">
+        </figure>"""
         )
-    if not figures:
+    if not slides:
         return ""
     return f"""<section class="visitor-photos" aria-label="{heading}">
       <h2 class="visitor-photos__heading">{heading}</h2>
-      <div class="visitor-photos__grid">{"".join(figures)}</div>
+      <div class="photo-gallery" data-photo-gallery>
+        <button type="button" class="photo-gallery__nav photo-gallery__nav--prev" aria-label="{prev_label}" data-gallery-prev>‹</button>
+        <div class="photo-gallery__track" tabindex="0" data-gallery-track>
+{chr(10).join(slides)}
+        </div>
+        <button type="button" class="photo-gallery__nav photo-gallery__nav--next" aria-label="{next_label}" data-gallery-next>›</button>
+      </div>
     </section>"""
 
 

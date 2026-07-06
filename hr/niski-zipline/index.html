@@ -175,7 +175,21 @@
     </aside>
       <section class="visitor-photos" aria-label="Fotografije posjetitelja — Staza u krošnjama">
       <h2 class="visitor-photos__heading">Fotografije posjetitelja — Staza u krošnjama</h2>
-      <div class="visitor-photos__grid"><figure class="visitor-photos__item"><img src="../../images/visitor-gallery-family-day-9.webp" alt="Gost prelazi drveni gredu na stazi u krošnjama u Glavani Parku" width="400" height="280" loading="lazy"></figure><figure class="visitor-photos__item"><img src="../../images/visitor-gallery-adventure-park-3.webp" alt="Platforme visokih staza i označene rute u Glavani Parku kod Barbana" width="400" height="280" loading="lazy"></figure><figure class="visitor-photos__item"><img src="../../images/visitor-gallery-high-ropes-platform-13.webp" alt="Gost na platformi visokih staza sa sigurnosnim užadima u Glavani Parku, Istria" width="400" height="280" loading="lazy"></figure></div>
+      <div class="photo-gallery" data-photo-gallery>
+        <button type="button" class="photo-gallery__nav photo-gallery__nav--prev" aria-label="Prethodna fotografija" data-gallery-prev>‹</button>
+        <div class="photo-gallery__track" tabindex="0" data-gallery-track>
+        <figure class="photo-gallery__slide">
+          <img src="../../images/visitor-gallery-family-day-9.webp" alt="Gost prelazi drveni gredu na stazi u krošnjama u Glavani Parku" width="800" height="560" loading="lazy">
+        </figure>
+        <figure class="photo-gallery__slide">
+          <img src="../../images/visitor-gallery-adventure-park-3.webp" alt="Platforme visokih staza i označene rute u Glavani Parku kod Barbana" width="800" height="560" loading="lazy">
+        </figure>
+        <figure class="photo-gallery__slide">
+          <img src="../../images/visitor-gallery-high-ropes-platform-13.webp" alt="Gost na platformi visokih staza sa sigurnosnim užadima u Glavani Parku, Istria" width="800" height="560" loading="lazy">
+        </figure>
+        </div>
+        <button type="button" class="photo-gallery__nav photo-gallery__nav--next" aria-label="Sljedeća fotografija" data-gallery-next>›</button>
+      </div>
     </section>
       <div class="activity-detail__actions">
         <a class="btn-primary" href="../rezervacija/">Rezervirajte ulaznice</a>
@@ -318,5 +332,6 @@
   }
 }
 </script>
+<script src="../../assets/js/photo-gallery-carousel.js" defer></script>
 </body>
 </html>
