@@ -37,11 +37,14 @@
 <body class="theme-page">
 
   <nav class="quick-actions" aria-label="Quick actions">
+    <a class="btn-book-now" href="../book/">
+      <span aria-hidden="true">📅</span> Book Now
+    </a>
     <a class="btn-call" href="tel:+385918964525" aria-label="Call Glavani Park now">
-      <span aria-hidden="true">📞</span> Call Now
+      <span aria-hidden="true">📞</span> Call
     </a>
     <a class="btn-find" href="https://www.google.com/maps?q=45.021389,13.951111" target="_blank" rel="noopener noreferrer">
-      <span aria-hidden="true">📍</span> Find Us
+      <span aria-hidden="true">📍</span> Map
     </a>
   </nav>
 
@@ -54,16 +57,22 @@
 
   <div class="visitor-bar" aria-label="Visitor information">
     <div class="visitor-bar__inner">
+      <p class="visitor-bar__status visitor-bar__status--open">
+        <span class="visitor-bar__icon" aria-hidden="true">●</span>
+        <span data-open-status data-lang="en">Open now · Last entry 3 PM</span>
+      </p>
       <p class="visitor-bar__hours">
         <span class="visitor-bar__icon" aria-hidden="true">🕐</span>
         <strong>Open daily</strong> 9 AM – 5 PM · Last entry 3 PM
       </p>
     </div>
   </div>
+  <script src="../../assets/js/open-status.js" defer></script>
 
   <nav class="site-nav" aria-label="Main navigation">
     <div class="site-nav__inner">
       <a href="../adventure-park-croatia/">Activities</a><a href="../team-building-istria/">Groups</a><a href="../prices/">Prices</a><a href="../things-to-do-near-pula/">Location</a><a href="../faq/">FAQ</a><a href="../safety/">Safety</a>
+      <a class="site-nav__cta" href="../book/">Book</a>
       <a href="../../hr/" hreflang="hr">Hrvatski</a>
     </div>
   </nav>
@@ -81,7 +90,15 @@
         <p>Nine signature outdoor attractions — adventure park, zipline courses and adrenaline rides in Istria</p>
         <p class="faq-intro">Glavani Park near Barban covers 1.5 hectares of oak forest with nine instructor-led attractions — from the family yellow training route and 120 m ziplines to the Human Catapult, Devil's Causeway Course, Aerotrim, and 12.5 m high swing. Open daily 9 AM–5 PM, about 30 minutes from Pula.</p>
       </div>
-      <div class="hub-grid"><a class="hub-card hub-card--catapult" href="../human-catapult/"><h3>Human Catapult</h3></a><a class="hub-card hub-card--swing" href="../high-swing/"><h3>High Swing</h3></a><a class="hub-card hub-card--training" href="../training-route/"><h3>Training Route</h3></a><a class="hub-card hub-card--zipline-low" href="../low-zipline/"><h3>Treetop Course</h3></a><a class="hub-card hub-card--zipline-valley" href="../valley-zipline/"><h3>Valley Zip Line Course</h3></a><a class="hub-card hub-card--causeway" href="../devils-causeway/"><h3>Devil's Causeway Course</h3></a><a class="hub-card hub-card--climbing" href="../climbing-wall/"><h3>Climbing Wall</h3></a><a class="hub-card hub-card--aerotrim" href="../aerotrim/"><h3>Aerotrim</h3></a><a class="hub-card hub-card--drop" href="../20m-drop/"><h3>20m Drop</h3></a></div>
+      <div class="hub-grid"><a class="hub-card hub-card--catapult" href="../human-catapult/"><h3>Human Catapult</h3><p class="hub-card__price">€40</p></a><a class="hub-card hub-card--swing" href="../high-swing/"><h3>High Swing</h3><p class="hub-card__price">from €50</p></a><a class="hub-card hub-card--training" href="../training-route/"><h3>Training Route</h3><p class="hub-card__price">from €30</p></a><a class="hub-card hub-card--zipline-low" href="../low-zipline/"><h3>Treetop Course</h3><p class="hub-card__price">from €50</p></a><a class="hub-card hub-card--zipline-valley" href="../valley-zipline/"><h3>Valley Zip Line Course</h3><p class="hub-card__price">from €50</p></a><a class="hub-card hub-card--causeway" href="../devils-causeway/"><h3>Devil's Causeway Course</h3><p class="hub-card__price">from €50</p></a><a class="hub-card hub-card--climbing" href="../climbing-wall/"><h3>Climbing Wall</h3><p class="hub-card__price">from €50</p></a><a class="hub-card hub-card--aerotrim" href="../aerotrim/"><h3>Aerotrim</h3><p class="hub-card__price">from €50</p></a><a class="hub-card hub-card--drop" href="../20m-drop/"><h3>20m Drop</h3><p class="hub-card__price">from €50</p></a></div>
+      <div class="section-cta">
+      <h2 class="section-cta__heading">Ready for your adventure?</h2>
+      <p class="section-cta__note">Packages from €30 per person · book online for up to 10</p>
+      <div class="section-cta__actions">
+        <a class="btn-primary" href="../book/">Book Now</a>
+        <a class="btn-secondary" href="../prices/">See Prices</a>
+      </div>
+    </div>
       <div class="activities-hub-packages">
         <div class="section__heading">
           <h2>Activity Packages & Prices</h2>

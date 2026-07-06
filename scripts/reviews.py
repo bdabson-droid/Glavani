@@ -142,3 +142,50 @@ def render_reviews_section(lang: str) -> str:
         </p>
       </div>
     </section>"""
+
+
+def render_review_badge(lang: str) -> str:
+    """Compact TripAdvisor rating for hero areas."""
+    aggregate = aggregate_rating()
+    rating = aggregate["rating_value"]
+    count = aggregate["rating_count"]
+    if lang == "hr":
+        text = f"{rating} na TripAdvisoru · {count} recenzija"
+        label = "Ocjena na TripAdvisoru"
+    else:
+        text = f"{rating} on TripAdvisor · {count} reviews"
+        label = "TripAdvisor rating"
+    return (
+        f'<p class="review-badge">'
+        f'<span class="review-badge__stars" aria-hidden="true">★★★★★</span> '
+        f'<a href="{TRIPADVISOR_URL}" target="_blank" rel="noopener noreferrer" '
+        f'aria-label="{label}"><strong>{text}</strong></a></p>'
+    )
+
+
+def render_review_teaser(lang: str) -> str:
+    """Single featured review + rating for conversion points."""
+    labels = LABELS[lang]
+    quote_key = "hr" if lang == "hr" else "en"
+    aggregate = aggregate_rating()
+    reviews = review_list()
+    if not reviews:
+        return ""
+    review = reviews[0]
+    rating = aggregate["rating_value"]
+    count = aggregate["rating_count"]
+    summary = labels["summary"].format(rating=rating, count=count)
+    quote = review[quote_key]
+    if len(quote) > 180:
+        quote = quote[:177].rstrip() + "…"
+    tripadvisor_cta = labels["read_tripadvisor"].format(count=count)
+    if lang == "hr":
+        heading = "Što kažu gosti"
+    else:
+        heading = "What guests say"
+    return f"""<aside class="review-teaser" aria-label="{heading}">
+      <p class="review-teaser__summary"><strong>{summary}</strong></p>
+      <blockquote class="review-teaser__quote"><p>“{quote}”</p></blockquote>
+      <cite class="review-teaser__author">{review['author']}</cite>
+      <p class="review-teaser__link"><a href="{TRIPADVISOR_URL}" target="_blank" rel="noopener noreferrer">{tripadvisor_cta}</a></p>
+    </aside>"""

@@ -20,7 +20,9 @@ from reviews import (  # noqa: E402
     FACEBOOK_URL,
     TRIPADVISOR_URL,
     aggregate_rating,
+    render_review_badge,
     render_reviews_section,
+    render_review_teaser,
     review_list,
     reset_cache,
 )
@@ -36,7 +38,8 @@ from faqs import (  # noqa: E402
 from group_events import EVENT_EXTERNAL_IMAGES, EVENT_PAGES, EVENT_SLUGS_EN, EVENT_SLUGS_HR  # noqa: E402
 from booking_policy import BOOKING_POLICY  # noqa: E402
 from brand_voice import BOOKING_EMAIL, BOOKING_SUBMIT_URL, ONLINE_BOOKING_MAX, PHONES, VISITOR  # noqa: E402
-from packages import PRICES_COPY, PRICES_SLUGS, prices_offer_schema, render_price_sections  # noqa: E402
+from packages import PRICES_COPY, PRICES_SLUGS, BOOKING_SLUGS, price_summary, prices_offer_schema, render_price_sections  # noqa: E402
+from open_status import park_status  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
 TODAY = date.today().isoformat()
@@ -302,10 +305,10 @@ def render_info_strip_location(lang: str) -> str:
     href = "/hr/sto-raditi-kod-pule/#location-map" if lang == "hr" else "/en/things-to-do-near-pula/#location-map"
     if lang == "hr":
         label = "Lokacija"
-        detail = "Glavani 10, Barban · 30 min od Pule"
+        detail = "Glavani 10, Barban · Pula 30 min · Rovinj 45 min · Rabac 45 min"
     else:
         label = "Location"
-        detail = "Glavani 10, Barban · 30 min from Pula"
+        detail = "Glavani 10, Barban · Pula 30 min · Rovinj 45 min · Rabac 45 min"
     return (
         f'<div class="info-strip__item info-strip__item--location">'
         f'<a class="info-strip__location" href="{href}">'
@@ -338,11 +341,22 @@ def render_info_strip_booking(lang: str) -> str:
 
 
 def quick_actions(lang: str) -> str:
-    call = "Pozovite" if lang == "hr" else "Call Now"
-    find = "Pronađite nas" if lang == "hr" else "Find Us"
+    prefix = f"/{lang}/"
+    book_href = f"{prefix}{BOOKING_SLUGS[lang]}/"
+    if lang == "hr":
+        book = "Rezervirajte odmah"
+        call = "Pozovite"
+        find = "Karta"
+    else:
+        book = "Book Now"
+        call = "Call"
+        find = "Map"
     primary = PHONES[1] if lang == "hr" else PHONES[0]
     return f"""
   <nav class="quick-actions" aria-label="{'Brze radnje' if lang == 'hr' else 'Quick actions'}">
+    <a class="btn-book-now" href="{book_href}">
+      <span aria-hidden="true">📅</span> {book}
+    </a>
     <a class="btn-call" href="tel:{primary['tel']}" aria-label="{'Pozovite Glavani Park' if lang == 'hr' else 'Call Glavani Park now'}">
       <span aria-hidden="true">📞</span> {call}
     </a>
@@ -354,15 +368,21 @@ def quick_actions(lang: str) -> str:
 
 def visitor_bar(lang: str) -> str:
     copy = VISITOR[lang]
+    status = park_status(lang)
     return f"""
   <div class="visitor-bar" aria-label="{copy['visitor_bar_aria']}">
     <div class="visitor-bar__inner">
+      <p class="visitor-bar__status visitor-bar__status--{status['state']}">
+        <span class="visitor-bar__icon" aria-hidden="true">●</span>
+        <span data-open-status data-lang="{lang}">{status['message']}</span>
+      </p>
       <p class="visitor-bar__hours">
         <span class="visitor-bar__icon" aria-hidden="true">🕐</span>
         <strong>{copy['hours_label']}</strong> {copy['hours']} · {copy['last_entry']}
       </p>
     </div>
-  </div>"""
+  </div>
+  <script src="/assets/js/open-status.js" defer></script>"""
 
 
 def site_header(lang: str) -> str:
@@ -390,6 +410,8 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Pitanja", f"{prefix}{FAQ_SLUGS['hr']}/"),
             ("Sigurnost", f"{prefix}sigurnost/"),
         ]
+        book_label = "Rezerviraj"
+        book_href = f"{prefix}{BOOKING_SLUGS['hr']}/"
     else:
         links = [
             ("Activities", f"{prefix}#activities" if is_home else activities_hub_path(lang)),
@@ -399,11 +421,14 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("FAQ", f"{prefix}{FAQ_SLUGS['en']}/"),
             ("Safety", f"{prefix}safety/"),
         ]
+        book_label = "Book"
+        book_href = f"{prefix}{BOOKING_SLUGS['en']}/"
     items = "".join(f'<a href="{href}">{label}</a>' for label, href in links)
     return f"""
   <nav class="site-nav" aria-label="{'Glavna navigacija' if lang == 'hr' else 'Main navigation'}">
     <div class="site-nav__inner">
       {items}
+      <a class="site-nav__cta" href="{book_href}">{book_label}</a>
       <a href="/{other}/" hreflang="{other}">{other_label}</a>
     </div>
   </nav>"""
@@ -693,6 +718,9 @@ def render_location_map(lang: str) -> str:
             "<li><strong>Vodnjan</strong> ~10 km</li>"
             "<li><strong>Pula</strong> ~30 min vožnje</li>"
             "<li><strong>Rovinj</strong> ~45 min vožnje</li>"
+            "<li><strong>Poreč</strong> ~50 min vožnje</li>"
+            "<li><strong>Rabac</strong> ~45 min vožnje</li>"
+            "<li><strong>Medulin</strong> ~35 min vožnje</li>"
             "</ul>"
         )
     else:
@@ -708,6 +736,9 @@ def render_location_map(lang: str) -> str:
             "<li><strong>Vodnjan</strong> ~10 km</li>"
             "<li><strong>Pula</strong> ~30 min drive</li>"
             "<li><strong>Rovinj</strong> ~45 min drive</li>"
+            "<li><strong>Poreč</strong> ~50 min drive</li>"
+            "<li><strong>Rabac</strong> ~45 min drive</li>"
+            "<li><strong>Medulin</strong> ~35 min drive</li>"
             "</ul>"
         )
     return f"""
@@ -800,7 +831,10 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
       <p class="hero__badge">{page['hero_badge']}</p>
       <h1>{page['h1']}</h1>
       <p class="hero__subtitle">{page['hero_subtitle']}</p>
-      <a class="btn-primary" href="tel:+385918964525">{cta}</a>
+      <div class="activity-banner__actions">
+        <a class="btn-primary" href="{prefix}{BOOKING_SLUGS[lang]}/">{'Rezervirajte odmah' if lang == 'hr' else 'Book Now'}</a>
+        <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
+      </div>
     </div>
   </section>
   {location_map}
@@ -821,7 +855,10 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
     <div class="pricing-teaser">
       <h2>{'Rezervirajte avanturu' if lang == 'hr' else 'Book Your Adventure'}</h2>
       <p>{'Pozovite unaprijed za cijene i dostupnost termina.' if lang == 'hr' else 'Call ahead for pricing and availability — especially for groups.'}</p>
-      <a class="btn-primary" href="tel:+385918964525">{cta}</a>
+      <div class="pricing-teaser__actions">
+        <a class="btn-primary" href="{prefix}{BOOKING_SLUGS[lang]}/">{'Rezervirajte odmah' if lang == 'hr' else 'Book Now'}</a>
+        <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
+      </div>
     </div>
   </section>
 </main>
@@ -895,6 +932,95 @@ def activities_hub_path(lang: str) -> str:
     return f"/{lang}/{activities_hub_slug(lang)}/"
 
 
+def activity_price_hint(activity: dict, lang: str) -> str:
+    single = activity.get("single_price")
+    if single:
+        return f"€{single}"
+    if activity["en_slug"] == "training-route":
+        return "od €30" if lang == "hr" else "from €30"
+    return "od €50" if lang == "hr" else "from €50"
+
+
+def render_conversion_cta(lang: str, *, compact: bool = False) -> str:
+    prefix = f"/{lang}/"
+    book_href = f"{prefix}{BOOKING_SLUGS[lang]}/"
+    prices_href = f"{prefix}{PRICES_SLUGS[lang]}/"
+    if lang == "hr":
+        book_label = "Rezervirajte odmah"
+        prices_label = "Pogledajte cijene"
+        heading = "" if compact else "<h2 class=\"section-cta__heading\">Spremni za avanturu?</h2>"
+        note = "Paketi od €30 po osobi · online do 10 osoba"
+    else:
+        book_label = "Book Now"
+        prices_label = "See Prices"
+        heading = "" if compact else "<h2 class=\"section-cta__heading\">Ready for your adventure?</h2>"
+        note = "Packages from €30 per person · book online for up to 10"
+    mod = " section-cta--compact" if compact else ""
+    return f"""<div class="section-cta{mod}">
+      {heading}
+      <p class="section-cta__note">{note}</p>
+      <div class="section-cta__actions">
+        <a class="btn-primary" href="{book_href}">{book_label}</a>
+        <a class="btn-secondary" href="{prices_href}">{prices_label}</a>
+      </div>
+    </div>"""
+
+
+def render_home_distances(lang: str) -> str:
+    map_href = "/hr/sto-raditi-kod-pule/#location-map" if lang == "hr" else "/en/things-to-do-near-pula/#location-map"
+    if lang == "hr":
+        aria = "Vrijeme vožnje od popularnih turističkih destinacija"
+        lead = "Lako stignete iz Pule, Rovinja, Poreča, Rabca i Medulina"
+        map_label = "Karta i upute"
+    else:
+        aria = "Driving time from popular tourist towns"
+        lead = "An easy day trip from Pula, Rovinj, Poreč, Rabac, and Medulin"
+        map_label = "Map & directions"
+    towns = [
+        ("Pula", "30 min"),
+        ("Rovinj", "45 min"),
+        ("Poreč", "50 min"),
+        ("Rabac", "45 min"),
+        ("Medulin", "35 min"),
+    ]
+    chips = "".join(
+        f'<li class="distance-chip"><strong>{town}</strong><span>{time}</span></li>'
+        for town, time in towns
+    )
+    return f"""<div class="home-distances">
+      <p class="home-distances__lead">{lead}</p>
+      <ul class="distance-chips" aria-label="{aria}">
+        {chips}
+      </ul>
+      <p class="home-distances__map"><a href="{map_href}">{map_label}</a></p>
+    </div>"""
+
+
+def render_home_location_section(lang: str) -> str:
+    map_href = "/hr/sto-raditi-kod-pule/#location-map" if lang == "hr" else "/en/things-to-do-near-pula/#location-map"
+    if lang == "hr":
+        heading = "Posjetite nas u Istri"
+        sub = "Glavani 10, 52207 Barban · besplatno parkiranje"
+        maps = "Otvori u Google Maps"
+    else:
+        heading = "Visit Us in Istria"
+        sub = "Glavani 10, 52207 Barban · free parking on site"
+        maps = "Open in Google Maps"
+    return f"""<section class="section" aria-labelledby="location-heading" id="location">
+      <div class="section__inner">
+        <div class="section__heading">
+          <h2 id="location-heading">{heading}</h2>
+          <p>{sub}</p>
+        </div>
+        {render_home_distances(lang)}
+        <p class="home-location__maps">
+          <a class="btn-secondary map-link" href="{GLAVANI_MAPS_LINK}" target="_blank" rel="noopener noreferrer">{maps}</a>
+          <a class="btn-primary map-link" href="{map_href}">{'Karta i upute' if lang == 'hr' else 'Interactive map'}</a>
+        </p>
+      </div>
+    </section>"""
+
+
 def render_activity_hub_grid(lang: str, *, compact: bool = False) -> str:
     prefix = f"/{lang}/"
     cards = []
@@ -902,9 +1028,11 @@ def render_activity_hub_grid(lang: str, *, compact: bool = False) -> str:
         slug = act["hr_slug"] if lang == "hr" else act["en_slug"]
         label = act["hr"]["h1"] if lang == "hr" else act["en"]["h1"]
         mod = act["tile_mod"]
+        hint = activity_price_hint(act, lang)
         cards.append(
             f'<a class="hub-card hub-card--{mod}" href="{prefix}{slug}/">'
-            f'<h3>{label}</h3></a>'
+            f'<h3>{label}</h3>'
+            f'<p class="hub-card__price">{hint}</p></a>'
         )
     grid_class = "hub-grid activity-showcase--compact" if compact else "hub-grid"
     return f'<div class="{grid_class}">{"".join(cards)}</div>'
@@ -929,6 +1057,7 @@ def render_activity_siblings(current_en_slug: str, lang: str) -> str:
       <div class="section__inner">
         <div class="section__heading"><h2>{heading}</h2></div>
         <div class="hub-grid activity-showcase--compact">{''.join(cards)}</div>
+        {render_conversion_cta(lang, compact=True)}
       </div>
     </section>"""
 
@@ -968,6 +1097,7 @@ def render_activities_hub_page(lang: str) -> str:
         <p class="faq-intro">{copy['intro']}</p>
       </div>
       {render_activity_hub_grid(lang)}
+      {render_conversion_cta(lang)}
       <div class="activities-hub-packages">
         <div class="section__heading">
           <h2>{PRICES_COPY[lang]['h1']}</h2>
@@ -1032,7 +1162,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
     canonical = f"{BASE}{prefix}{slug}/"
     home_label = "Početna" if lang == "hr" else "Home"
     activities_label = "Aktivnosti" if lang == "hr" else "Activities"
-    book_label = "Rezervirajte" if lang == "hr" else "Book Your Visit"
+    book_label = "Rezervirajte odmah" if lang == "hr" else "Book Now"
     book_href = f"{prefix}rezervacija/" if lang == "hr" else f"{prefix}book/"
     cta = "Pozovite za rezervaciju" if lang == "hr" else "Call to Book"
     img = activity["image"]
@@ -1069,23 +1199,46 @@ def render_activity_page(activity: dict, lang: str) -> str:
             else f"€{single_price} per person"
         )
         price_html = f'\n        <p class="activity-banner__price">{price_label}</p>'
+    else:
+        hint = activity_price_hint(activity, lang)
+        included = (
+            "Uključeno u pakete parka"
+            if lang == "hr"
+            else "Included in park packages"
+        )
+        price_html = (
+            f'\n        <p class="activity-banner__price">{hint} · {included}</p>'
+        )
+
+    banner_actions = f"""
+        <div class="activity-banner__actions">
+          <a class="btn-primary" href="{book_href}">{book_label}</a>
+          <a class="btn-secondary" href="{prices_href}">{prices_label}</a>
+        </div>"""
 
     if use_banner_header:
         page_header = ""
         article_open = f"""      <header class="activity-banner activity-banner--{mod}" aria-labelledby="activity-heading">
         <p class="activity-banner__badge">{data['hero_badge']}</p>
-        <h1 id="activity-heading">{data['h1']}</h1>{price_html}
+        <h1 id="activity-heading">{data['h1']}</h1>{price_html}{banner_actions}
       </header>"""
     else:
         page_header = f"""  <section class="hero hero--landing hero--activity">
     <div class="hero__inner">
       <p class="hero__badge">{data['hero_badge']}</p>
-      <h1>{data['h1']}</h1>
+      <h1>{data['h1']}</h1>{price_html}
+      <div class="activity-banner__actions">
+        <a class="btn-primary" href="{book_href}">{book_label}</a>
+        <a class="btn-secondary" href="{prices_href}">{prices_label}</a>
+      </div>
     </div>
   </section>"""
         article_open = f"""      <figure class="feature-img">
         <img src="/images/{img}" alt="{data['image_alt']}" width="800" height="560" loading="eager">
       </figure>"""
+
+    inline_cta = render_conversion_cta(lang, compact=True)
+    review_teaser = render_review_teaser(lang)
 
     video_block = ""
     if not activity.get("hide_video"):
@@ -1114,7 +1267,9 @@ def render_activity_page(activity: dict, lang: str) -> str:
 {article_open}
       <div class="prose activity-detail__prose">
         {prose}
-      </div>{video_block}
+      </div>
+      {inline_cta}
+      {review_teaser}{video_block}
       <div class="activity-detail__actions">
         <a class="btn-primary" href="{book_href}">{book_label}</a>
         <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
@@ -1293,6 +1448,41 @@ def inject_home_video_section(body: str, lang: str) -> str:
     return body.replace(marker, render_home_video_section(lang))
 
 
+def render_activity_hub_cards(lang: str) -> str:
+    prefix = f"/{lang}/"
+    cards = []
+    for act in ACTIVITIES:
+        slug = act["hr_slug"] if lang == "hr" else act["en_slug"]
+        label = act["hr"]["h1"] if lang == "hr" else act["en"]["h1"]
+        mod = act["tile_mod"]
+        hint = activity_price_hint(act, lang)
+        cards.append(
+            f'<a class="hub-card hub-card--{mod}" href="{prefix}{slug}/">'
+            f'<h3>{label}</h3>'
+            f'<p class="hub-card__price">{hint}</p></a>'
+        )
+    return "".join(cards)
+
+
+def inject_home_extras(body: str, lang: str) -> str:
+    summary = price_summary(lang)
+    replacements = {
+        "<!-- HERO_REVIEW_BADGE -->": render_review_badge(lang),
+        "<!-- HERO_PRICE_TEASER -->": (
+            f'<p class="hero__price-teaser">{summary["hero_line"]} · '
+            f'<a href="/{lang}/{PRICES_SLUGS[lang]}/">'
+            f'{"Pogledajte cijene" if lang == "hr" else "See prices"}</a></p>'
+        ),
+        "<!-- HERO_DISTANCES -->": render_home_distances(lang),
+        "<!-- ACTIVITY_HUB_GRID -->": render_activity_hub_cards(lang),
+        "<!-- ACTIVITIES_CTA -->": render_conversion_cta(lang),
+        "<!-- HOME_LOCATION_SECTION -->": render_home_location_section(lang),
+    }
+    for marker, html in replacements.items():
+        body = body.replace(marker, html)
+    return body
+
+
 def home_body_en() -> str:
     """English homepage main content (abbreviated structure with full SEO sections)."""
     body = open(ROOT / "scripts" / "home_en.html").read()
@@ -1302,7 +1492,8 @@ def home_body_en() -> str:
     body = body.replace("<!-- INFO_STRIP_LOCATION -->", render_info_strip_location("en"))
     body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("en"))
     body = inject_reviews_section(body, "en")
-    return inject_home_video_section(body, "en")
+    body = inject_home_video_section(body, "en")
+    return inject_home_extras(body, "en")
 
 
 def home_body_hr() -> str:
@@ -1313,7 +1504,8 @@ def home_body_hr() -> str:
     body = body.replace("<!-- INFO_STRIP_LOCATION -->", render_info_strip_location("hr"))
     body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("hr"))
     body = inject_reviews_section(body, "hr")
-    return inject_home_video_section(body, "hr")
+    body = inject_home_video_section(body, "hr")
+    return inject_home_extras(body, "hr")
 
 
 def render_faq_page(lang: str) -> str:
@@ -1401,6 +1593,7 @@ def render_prices_page(lang: str) -> str:
   </section>
   <section class="section section--theme-forest">
     <div class="section__inner">
+      {render_review_teaser(lang)}
       {render_price_sections(lang)}
       <p style="margin-top:1.5rem;text-align:center;color:var(--rock-mid);">{copy['book_note']}</p>
       <p style="margin-top:1rem;text-align:center;display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;">

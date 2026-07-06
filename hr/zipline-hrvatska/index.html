@@ -37,11 +37,14 @@
 <body class="theme-page">
 
   <nav class="quick-actions" aria-label="Brze radnje">
+    <a class="btn-book-now" href="../rezervacija/">
+      <span aria-hidden="true">📅</span> Rezervirajte odmah
+    </a>
     <a class="btn-call" href="tel:+38598224314" aria-label="Pozovite Glavani Park">
       <span aria-hidden="true">📞</span> Pozovite
     </a>
     <a class="btn-find" href="https://www.google.com/maps?q=45.021389,13.951111" target="_blank" rel="noopener noreferrer">
-      <span aria-hidden="true">📍</span> Pronađite nas
+      <span aria-hidden="true">📍</span> Karta
     </a>
   </nav>
 
@@ -54,16 +57,22 @@
 
   <div class="visitor-bar" aria-label="Informacije za posjetitelje">
     <div class="visitor-bar__inner">
+      <p class="visitor-bar__status visitor-bar__status--open">
+        <span class="visitor-bar__icon" aria-hidden="true">●</span>
+        <span data-open-status data-lang="hr">Otvoreno sada · Zadnji ulaz u 15 h</span>
+      </p>
       <p class="visitor-bar__hours">
         <span class="visitor-bar__icon" aria-hidden="true">🕐</span>
         <strong>Otvoreno svaki dan</strong> 9–17 h · Zadnji ulaz u 15 h
       </p>
     </div>
   </div>
+  <script src="../../assets/js/open-status.js" defer></script>
 
   <nav class="site-nav" aria-label="Glavna navigacija">
     <div class="site-nav__inner">
       <a href="../avanturisticki-park-hrvatska/">Aktivnosti</a><a href="../team-building-istri/">Grupe</a><a href="../cijene/">Cijene</a><a href="../sto-raditi-kod-pule/">Lokacija</a><a href="../cesta-pitanja/">Pitanja</a><a href="../sigurnost/">Sigurnost</a>
+      <a class="site-nav__cta" href="../rezervacija/">Rezerviraj</a>
       <a href="../../en/" hreflang="en">English</a>
     </div>
   </nav>
@@ -80,7 +89,10 @@
       <p class="hero__badge">Do 120 m · 20 m iznad tla</p>
       <h1>Zipline Hrvatska: letite kroz istarsku šumsku krošnju</h1>
       <p class="hero__subtitle">Letite kroz hrastovu šumu na jednom od najdužih avanturističkih ziplineova u Istri — pod nadzorom educiranih instruktora u Glavani Parku između Barbana i Vodnjanja, trideset minuta od Pule.</p>
-      <a class="btn-primary" href="tel:+385918964525">Pozovite za rezervaciju</a>
+      <div class="activity-banner__actions">
+        <a class="btn-primary" href="../rezervacija/">Rezervirajte odmah</a>
+        <a class="btn-secondary" href="tel:+385918964525">Pozovite za rezervaciju</a>
+      </div>
     </div>
   </section>
   
@@ -143,7 +155,10 @@
     <div class="pricing-teaser">
       <h2>Rezervirajte avanturu</h2>
       <p>Pozovite unaprijed za cijene i dostupnost termina.</p>
-      <a class="btn-primary" href="tel:+385918964525">Pozovite za rezervaciju</a>
+      <div class="pricing-teaser__actions">
+        <a class="btn-primary" href="../rezervacija/">Rezervirajte odmah</a>
+        <a class="btn-secondary" href="tel:+385918964525">Pozovite za rezervaciju</a>
+      </div>
     </div>
   </section>
 </main>

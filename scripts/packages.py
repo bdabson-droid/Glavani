@@ -127,6 +127,24 @@ PRICES_COPY = {
 }
 
 
+def price_summary(lang: str) -> dict:
+    """Short pricing lines for hero and CTAs."""
+    packages = [opt for opt in BOOKING_OPTIONS if opt["group"] == "packages"]
+    min_price = min(opt["price"] for opt in packages)
+    max_price = max(opt["price"] for opt in packages)
+    if lang == "hr":
+        return {
+            "hero_line": f"Paketi od <strong>€{min_price}</strong> po osobi · cijeli park <strong>€{max_price}</strong>",
+            "from": f"od €{min_price}",
+            "whole_park": f"€{max_price}",
+        }
+    return {
+        "hero_line": f"Packages from <strong>€{min_price}</strong> per person · whole park <strong>€{max_price}</strong>",
+        "from": f"from €{min_price}",
+        "whole_park": f"€{max_price}",
+    }
+
+
 def options_for_group(lang: str, group: str) -> list[dict]:
     items = [opt for opt in BOOKING_OPTIONS if opt["group"] == group]
     return sorted(items, key=lambda opt: opt["price"], reverse=True)
