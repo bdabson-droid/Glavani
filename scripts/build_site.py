@@ -1180,6 +1180,22 @@ def render_activities_hub_page(lang: str) -> str:
 </html>"""
 
 
+def inject_after_nth_paragraph(html: str, insert: str, count: int = 2) -> str:
+    """Insert HTML after the nth closing </p> tag."""
+    if not insert or count < 1:
+        return html
+    pos = 0
+    found = 0
+    lower = html.lower()
+    while found < count:
+        idx = lower.find("</p>", pos)
+        if idx == -1:
+            return html + insert
+        found += 1
+        pos = idx + 4
+    return html[:pos] + insert + html[pos:]
+
+
 def render_activity_video(activity: dict, data: dict, lang: str) -> str:
     video_id = activity.get("youtube_id")
     if not video_id:
@@ -1212,6 +1228,16 @@ def render_activity_video(activity: dict, data: dict, lang: str) -> str:
         </p>"""
 
 
+def render_activity_video_section(activity: dict, data: dict, lang: str) -> str:
+    if activity.get("hide_video"):
+        return ""
+    return f"""
+      <section class="activity-video activity-video--inline" aria-labelledby="activity-video-heading">
+        <h2 id="activity-video-heading">{data['video_heading']}</h2>
+        {render_activity_video(activity, data, lang)}
+      </section>"""
+
+
 def render_activity_page(activity: dict, lang: str) -> str:
     data = activity["hr" if lang == "hr" else "en"]
     en_slug = activity["en_slug"]
@@ -1232,6 +1258,9 @@ def render_activity_page(activity: dict, lang: str) -> str:
     activities_url = f"{BASE}{activities_href}"
 
     prose = render_prose_blocks(data["paragraphs"])
+    video_section = render_activity_video_section(activity, data, lang)
+    if video_section:
+        prose = inject_after_nth_paragraph(prose, video_section, count=2)
     prose += render_activity_seo_footer(activity, lang)
     prices_href = f"{prefix}{PRICES_SLUGS[lang]}/"
     prices_label = "Packages &amp; prices" if lang == "en" else "Paketi i cijene"
@@ -1306,14 +1335,6 @@ def render_activity_page(activity: dict, lang: str) -> str:
         else ""
     )
 
-    video_block = ""
-    if not activity.get("hide_video"):
-        video_block = f"""
-      <section class="activity-video" aria-labelledby="activity-video-heading">
-        <h2 id="activity-video-heading">{data['video_heading']}</h2>
-        {render_activity_video(activity, data, lang)}
-      </section>"""
-
     return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=img, og_image_alt=data['image_alt'])}
 {page_chrome(lang)}
   <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -1333,7 +1354,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
       </div>
       {inline_cta}
       {review_teaser}
-      {visitor_photos}{video_block}
+      {visitor_photos}
       <div class="activity-detail__actions">
         <a class="btn-primary" href="{book_href}">{book_label}</a>
         <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
