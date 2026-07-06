@@ -155,7 +155,8 @@ ACTIVITIES = [
         "en_slug": "low-zipline",
         "hr_slug": "niski-zipline",
         "tile_mod": "zipline-low",
-        "image": "zipline-120m-glavani-park-istria-croatia.webp",
+        "hide_video": True,
+        "image": "gift-voucher-50-whole-park.webp",
         "en": {
             "title": "Treetop Course | Glavani Park Istria",
             "h1": "Treetop Course",
@@ -165,7 +166,7 @@ ACTIVITIES = [
             ),
             "keywords": "treetop course Istria, blue high ropes Croatia, Glavani Park treetop course, adventure near Pula",
             "hero_badge": "113 m on the blue course · 6 m high",
-            "image_alt": "Treetop Course on the blue high-ropes route at Glavani Park, Istria",
+            "image_alt": "Treetop high-ropes course and zipline at Glavani Park, Istria",
             "paragraphs": [
                 "The Treetop Course is Glavani Park's blue high-ropes route at 6 metres above the ground. The 113-metre zipline section links platforms on the course, so you stay on continuous belay from climb to landing.",
                 "It is a great introduction for visitors moving up from the family yellow route or those who want zipline speed without the full valley height. Instructors guide you at entry and exit points. Access is included when you complete the blue course circuit.",
@@ -182,7 +183,7 @@ ACTIVITIES = [
             ),
             "keywords": "staza u krošnjama Istria, plava visoka staza Hrvatska, Glavani Park krošnje, avantura kod Pule",
             "hero_badge": "113 m na plavoj stazi · 6 m visine",
-            "image_alt": "Staza u krošnjama na plavoj visokoj stazi u Glavani Parku, Istria",
+            "image_alt": "Staza u krošnjama — visoka staza i zipline u Glavani Parku, Istria",
             "paragraphs": [
                 "Staza u krošnjama plava je visoka staza Glavani Parka na 6 metara iznad tla. Dio od 113 metara povezuje platforme na stazi — ostajete na kontinuiranom osiguranju od penjanja do slijetanja.",
                 "Odličan je uvod za posjetitelje koji prelaze s obiteljske žute staze ili žele brzinu ziplinea bez pune visine doline. Instruktori vode na ulazu i izlazu. Pristup je uključen kada obavite plavu stazu.",
