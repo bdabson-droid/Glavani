@@ -1945,6 +1945,18 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   line-height: 1.45;
   max-width: 36rem;
 }
+.price-list__amounts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.price-list__amount--child {
+  font-size: 1.25rem;
+  color: var(--rock-mid);
+}
+.price-list__amount--child span {
+  font-size: 0.75rem;
+}
 .price-list__amount {
   font-size: 1.5rem;
   font-weight: 800;

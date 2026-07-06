@@ -28,8 +28,8 @@
       activities: [
         { id: 'all-incl-catapult', group: 'packages', name: 'Whole park — all games incl. human catapult', price: 70 },
         { id: 'catapult-swing', group: 'packages', name: 'Human catapult + 12.5 m swing', price: 50 },
-        { id: 'all-no-catapult', group: 'packages', name: 'Whole park — all games (without catapult)', price: 50 },
-        { id: 'training-2', group: 'packages', name: 'Training route + 2 games', price: 30 },
+        { id: 'all-no-catapult', group: 'packages', name: 'Whole park — all games (without catapult)', price: 50, child_price: 40 },
+        { id: 'training-2', group: 'packages', name: 'Training route + 2 games', price: 30, child_price: 20 },
         { id: 'human-catapult', group: 'single', name: 'Human Catapult', price: 40 },
       ],
       groupPackages: 'Activity packages',
@@ -40,6 +40,8 @@
       pickActivityLead: 'Packages first, then single activities · max 10 people online',
       selectPackage: 'Select a package or activity…',
       selectGuests: 'Number of people',
+      selectAdults: 'Adults',
+      selectChildren: 'Children',
       guestsOption: '{n} person',
       guestsOptionPlural: '{n} people',
       guestsOptionCallPlus: 'More than 10 people — please call',
@@ -47,6 +49,7 @@
       callInsteadLead: 'Please call us so we can check availability and accommodate your party.',
       callToBook: 'Call to book your group',
       priceEach: '€{price} per person',
+      priceAdultsChildren: '€{adult} adults · €{child} children',
       total: 'Total',
       pickDate: 'Pick your visit date',
       pickDateLead: 'Open daily 9 AM–5 PM · last entry 3 PM',
@@ -70,6 +73,8 @@
       package: 'Package',
       date: 'Date',
       guests: 'Number of guests',
+      adults: 'Adults',
+      children: 'Children',
       pricePerPerson: 'Price per person',
       sendEmail: 'Submit booking',
       submitting: 'Sending…',
@@ -94,8 +99,8 @@
       activities: [
         { id: 'all-incl-catapult', group: 'packages', name: 'Cijeli park — sve igre uklj. katapultu', price: 70 },
         { id: 'catapult-swing', group: 'packages', name: 'Ljudska katapulta + ljuljačka 12,5 m', price: 50 },
-        { id: 'all-no-catapult', group: 'packages', name: 'Cijeli park — sve igre (bez katapulata)', price: 50 },
-        { id: 'training-2', group: 'packages', name: 'Trening ruta + 2 igre', price: 30 },
+        { id: 'all-no-catapult', group: 'packages', name: 'Cijeli park — sve igre (bez katapulata)', price: 50, child_price: 40 },
+        { id: 'training-2', group: 'packages', name: 'Trening ruta + 2 igre', price: 30, child_price: 20 },
         { id: 'human-catapult', group: 'single', name: 'Ljudska katapulta', price: 40 },
       ],
       groupPackages: 'Paketi aktivnosti',
@@ -106,6 +111,8 @@
       pickActivityLead: 'Prvo paketi, zatim pojedinačne aktivnosti · max 10 osoba online',
       selectPackage: 'Odaberite paket ili aktivnost…',
       selectGuests: 'Broj osoba',
+      selectAdults: 'Odrasli',
+      selectChildren: 'Djeca',
       guestsOption: '{n} osoba',
       guestsOptionPlural: '{n} osobe',
       guestsOptionCallPlus: 'Više od 10 osoba — nazovite',
@@ -113,6 +120,7 @@
       callInsteadLead: 'Nazovite nas kako bismo provjerili dostupnost i mogli ugostiti vašu grupu.',
       callToBook: 'Pozovite za rezervaciju grupe',
       priceEach: '€{price} po osobi',
+      priceAdultsChildren: '€{adult} odrasli · €{child} djeca',
       total: 'Ukupno',
       pickDate: 'Odaberite datum posjeta',
       pickDateLead: 'Otvoreno 9–17 h · zadnji ulaz 15 h',
@@ -136,6 +144,8 @@
       package: 'Paket',
       date: 'Datum',
       guests: 'Broj gostiju',
+      adults: 'Odrasli',
+      children: 'Djeca',
       pricePerPerson: 'Cijena po osobi',
       sendEmail: 'Pošalji rezervaciju',
       submitting: 'Slanje…',
@@ -200,7 +210,7 @@
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const state = { name: '', email: '', phone: '', guests: 1, largeGroup: false, arrival: 0, notes: '' };
+  const state = { name: '', email: '', phone: '', guests: 1, adults: 1, children: 0, largeGroup: false, arrival: 0, notes: '' };
   let submitted = false;
 
   const PREFILL_KEY = 'glavani-book-prefill';
@@ -266,15 +276,48 @@
     return t.activities.find(a => a.id === selectedActivityId) || null;
   }
 
+  function activityHasChildPrice(a) {
+    return !!(a && typeof a.child_price === 'number');
+  }
+
   function guestCount() {
     if (state.largeGroup) return 0;
+    const a = selectedActivity();
+    if (activityHasChildPrice(a)) {
+      return Math.min(MAX_GUESTS, Math.max(0, parseInt(state.adults, 10) || 0) + Math.max(0, parseInt(state.children, 10) || 0));
+    }
     return Math.min(MAX_GUESTS, Math.max(1, parseInt(state.guests, 10) || 1));
   }
 
   function bookingTotal() {
     const a = selectedActivity();
     if (!a) return 0;
+    if (activityHasChildPrice(a)) {
+      const adults = Math.max(0, parseInt(state.adults, 10) || 0);
+      const children = Math.max(0, parseInt(state.children, 10) || 0);
+      return adults * a.price + children * a.child_price;
+    }
     return a.price * guestCount();
+  }
+
+  function packageOptionLabel(a) {
+    if (activityHasChildPrice(a)) {
+      return `${a.name} — €${a.price} / €${a.child_price}`;
+    }
+    return `${a.name} — €${a.price}/pp`;
+  }
+
+  function priceSummaryLines(a) {
+    if (!a) return [];
+    if (activityHasChildPrice(a)) {
+      const adults = Math.max(0, parseInt(state.adults, 10) || 0);
+      const children = Math.max(0, parseInt(state.children, 10) || 0);
+      const lines = [];
+      if (adults) lines.push(`${adults} × €${a.price} (${t.adults})`);
+      if (children) lines.push(`${children} × €${a.child_price} (${t.children})`);
+      return lines;
+    }
+    return [`${guestCount()} × €${a.price}`];
   }
 
   function guestLabel(n) {
@@ -294,6 +337,36 @@
     return opts;
   }
 
+  function renderCountOptions(selected, max) {
+    let opts = '';
+    for (let n = 0; n <= max; n++) {
+      opts += `<option value="${n}"${selected === n ? ' selected' : ''}>${n}</option>`;
+    }
+    return opts;
+  }
+
+  function renderGuestFields() {
+    const a = selectedActivity();
+    if (activityHasChildPrice(a)) {
+      const maxAdults = Math.min(MAX_GUESTS, MAX_GUESTS - (parseInt(state.children, 10) || 0));
+      const maxChildren = Math.min(MAX_GUESTS, MAX_GUESTS - (parseInt(state.adults, 10) || 0));
+      return `<div class="booking-form__row">
+        <div>
+          <label for="app-adults">${t.selectAdults}</label>
+          <select id="app-adults">${renderCountOptions(state.adults, maxAdults)}</select>
+        </div>
+        <div>
+          <label for="app-children">${t.selectChildren}</label>
+          <select id="app-children">${renderCountOptions(state.children, maxChildren)}</select>
+        </div>
+      </div>`;
+    }
+    return `<div>
+      <label for="app-guests">${t.selectGuests}</label>
+      <select id="app-guests" class="${state.largeGroup ? 'app-guests--call' : ''}">${renderGuestOptions()}</select>
+    </div>`;
+  }
+
   function renderPackageOptions() {
     const groups = [
       { key: 'packages', label: t.groupPackages },
@@ -305,7 +378,7 @@
         .sort((a, b) => b.price - a.price);
       if (!items.length) return '';
       return `<optgroup label="${g.label}">${items.map(a =>
-        `<option value="${a.id}"${selectedActivityId === a.id ? ' selected' : ''}>${a.name} — €${a.price}/pp</option>`
+        `<option value="${a.id}"${selectedActivityId === a.id ? ' selected' : ''}>${packageOptionLabel(a)}</option>`
       ).join('')}</optgroup>`;
     }).join('');
   }
@@ -330,9 +403,11 @@
       </div>`;
     }
     return `<div class="book-price-box" id="book-price-box" aria-live="polite">
-      <p class="book-price-box__each">${t.priceEach.replace('{price}', a.price)}</p>
+      <p class="book-price-box__each">${activityHasChildPrice(a)
+        ? t.priceAdultsChildren.replace('{adult}', a.price).replace('{child}', a.child_price)
+        : t.priceEach.replace('{price}', a.price)}</p>
       <p class="book-price-box__total"><span>${t.total}</span> <strong>€${total}</strong></p>
-      <p class="book-price-box__meta">${guestCount()} × €${a.price}</p>
+      <p class="book-price-box__meta">${priceSummaryLines(a).join(' · ')}</p>
     </div>`;
   }
 
@@ -374,8 +449,12 @@
       t.msgHeader,
       '---',
       `${t.package}: ${a ? a.name : '—'}`,
-      `${t.pricePerPerson}: €${a ? a.price : 0}`,
-      `${t.guests}: ${guestCount()}`,
+      ...(activityHasChildPrice(a)
+        ? [
+            `${t.adults}: ${state.adults} × €${a.price}`,
+            `${t.children}: ${state.children} × €${a.child_price}`,
+          ]
+        : [`${t.pricePerPerson}: €${a ? a.price : 0}`, `${t.guests}: ${guestCount()}`]),
       `${t.total}: €${total}`,
       `${t.date}: ${selectedDate}`,
       `${t.arrival}: ${arrivalLabel()}`,
@@ -404,7 +483,9 @@
       email: state.email,
       phone: state.phone,
       package: a ? a.name : '—',
-      price_per_person: a ? `€${a.price}` : '—',
+      price_per_person: a ? (activityHasChildPrice(a) ? `€${a.price} adults / €${a.child_price} children` : `€${a.price}`) : '—',
+      adults: activityHasChildPrice(a) ? String(state.adults) : '—',
+      children: activityHasChildPrice(a) ? String(state.children) : '—',
       guests: String(guestCount()),
       total: `€${bookingTotal()}`,
       date: selectedDate,
@@ -462,10 +543,7 @@
             ${renderPackageOptions()}
           </select>
         </div>
-        <div>
-          <label for="app-guests">${t.selectGuests}</label>
-          <select id="app-guests" class="${state.largeGroup ? 'app-guests--call' : ''}">${renderGuestOptions()}</select>
-        </div>
+        ${renderGuestFields()}
         ${renderPriceBox()}
       </div>
     </section>`;
@@ -545,8 +623,11 @@
         <h3>${t.summary}</h3>
         <dl>
           <dt>${t.package}</dt><dd>${a ? a.name : '—'}</dd>
-          <dt>${t.pricePerPerson}</dt><dd>€${a ? a.price : 0}</dd>
-          <dt>${t.guests}</dt><dd>${guestCount()}</dd>
+          ${activityHasChildPrice(a)
+            ? `<dt>${t.adults}</dt><dd>${state.adults} × €${a.price}</dd>
+          <dt>${t.children}</dt><dd>${state.children} × €${a.child_price}</dd>`
+            : `<dt>${t.pricePerPerson}</dt><dd>€${a ? a.price : 0}</dd>
+          <dt>${t.guests}</dt><dd>${guestCount()}</dd>`}
           <dt>${t.total}</dt><dd><strong>€${total}</strong></dd>
           <dt>${t.date}</dt><dd>${selectedDate}</dd>
           <dt>${t.arrival}</dt><dd>${arrivalLabel()}</dd>
@@ -577,6 +658,8 @@
         state.phone = '';
         state.notes = '';
         state.guests = 1;
+        state.adults = 1;
+        state.children = 0;
         state.largeGroup = false;
         render();
       });
@@ -600,7 +683,15 @@
   function bindStepEvents() {
     document.getElementById('app-package')?.addEventListener('change', (e) => {
       selectedActivityId = e.target.value;
-      updatePriceBox();
+      const a = selectedActivity();
+      if (activityHasChildPrice(a)) {
+        state.largeGroup = false;
+        state.adults = Math.max(1, state.adults || 1);
+        state.children = state.children || 0;
+      } else {
+        state.guests = Math.max(1, guestCount() || 1);
+      }
+      render();
     });
 
     document.getElementById('app-guests')?.addEventListener('change', (e) => {
@@ -611,6 +702,24 @@
         state.guests = parseInt(e.target.value, 10);
       }
       updatePriceBox();
+    });
+
+    document.getElementById('app-adults')?.addEventListener('change', (e) => {
+      state.adults = parseInt(e.target.value, 10) || 0;
+      if (state.adults + state.children < 1) state.children = 1;
+      if (state.adults + state.children > MAX_GUESTS) {
+        state.children = Math.max(0, MAX_GUESTS - state.adults);
+      }
+      render();
+    });
+
+    document.getElementById('app-children')?.addEventListener('change', (e) => {
+      state.children = parseInt(e.target.value, 10) || 0;
+      if (state.adults + state.children < 1) state.adults = 1;
+      if (state.adults + state.children > MAX_GUESTS) {
+        state.adults = Math.max(0, MAX_GUESTS - state.children);
+      }
+      render();
     });
 
     root.querySelectorAll('.cal-day--open').forEach(btn => {
@@ -636,13 +745,28 @@
     document.getElementById('book-next')?.addEventListener('click', () => {
       if (step === 0) {
         selectedActivityId = document.getElementById('app-package')?.value || '';
-        const guestVal = document.getElementById('app-guests')?.value || '1';
-        if (guestVal === 'call') {
-          state.largeGroup = true;
-          return;
+        const a = selectedActivity();
+        if (activityHasChildPrice(a)) {
+          state.largeGroup = false;
+          state.adults = parseInt(document.getElementById('app-adults')?.value || '1', 10);
+          state.children = parseInt(document.getElementById('app-children')?.value || '0', 10);
+          if (state.adults + state.children < 1) {
+            alert(t.selectGuests);
+            return;
+          }
+          if (state.adults + state.children > MAX_GUESTS) {
+            alert(t.tooManyGuests + ' +' + phone);
+            return;
+          }
+        } else {
+          const guestVal = document.getElementById('app-guests')?.value || '1';
+          if (guestVal === 'call') {
+            state.largeGroup = true;
+            return;
+          }
+          state.largeGroup = false;
+          state.guests = parseInt(guestVal, 10);
         }
-        state.largeGroup = false;
-        state.guests = parseInt(guestVal, 10);
         if (!selectedActivityId) { alert(t.selectActivity); return; }
       }
       if (step === 1 && !selectedDate) { alert(t.selectDate); return; }

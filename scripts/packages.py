@@ -42,6 +42,7 @@ BOOKING_OPTIONS = [
         "id": "all-no-catapult",
         "group": "packages",
         "price": 50,
+        "child_price": 40,
         "en": {
             "name": "Whole park — all games (without catapult)",
             "desc": "Ziplines, high ropes, swing, drop, and climbing wall — catapult excluded.",
@@ -55,6 +56,7 @@ BOOKING_OPTIONS = [
         "id": "training-2",
         "group": "packages",
         "price": 30,
+        "child_price": 20,
         "en": {
             "name": "Training route + 2 games",
             "desc": "Yellow training route plus two additional games.",
@@ -90,6 +92,8 @@ PRICES_COPY = {
         "h1": "Activity Packages & Prices",
         "lead": "Per-person prices for packages and single activities · book online for up to 10 people",
         "per_person": "per person",
+        "adults": "adults",
+        "children": "children",
         "book": "Book",
         "people": "persons",
         "guests_minus": "Fewer people",
@@ -112,6 +116,8 @@ PRICES_COPY = {
         "h1": "Paketi aktivnosti i cijene",
         "lead": "Cijene po osobi za pakete i pojedinačne aktivnosti · online do 10 osoba",
         "per_person": "po osobi",
+        "adults": "odrasli",
+        "children": "djeca",
         "book": "Rezerviraj",
         "people": "osoba",
         "guests_minus": "Manje osoba",
@@ -147,9 +153,19 @@ def options_for_group(lang: str, group: str) -> list[dict]:
     return sorted(items, key=lambda opt: opt["price"], reverse=True)
 
 
+def render_price_amount(opt: dict, copy: dict) -> str:
+    if opt.get("child_price"):
+        return (
+            f"""              <div class="price-list__amounts">
+                <p class="price-list__amount">€{opt['price']}<span>{copy['adults']}</span></p>
+                <p class="price-list__amount price-list__amount--child">€{opt['child_price']}<span>{copy['children']}</span></p>
+              </div>"""
+        )
+    return f"""              <p class="price-list__amount">€{opt['price']}<span>{copy['per_person']}</span></p>"""
+
+
 def render_price_sections(lang: str) -> str:
     copy = PRICES_COPY[lang]
-    per_person = copy["per_person"]
     book_base = f"/{lang}/{BOOKING_SLUGS[lang]}/"
     default_guests = 1
     sections = []
@@ -168,7 +184,7 @@ def render_price_sections(lang: str) -> str:
           </div>
           <div class="price-list__aside">
             <div class="price-list__meta">
-              <p class="price-list__amount">€{opt['price']}<span>{per_person}</span></p>
+{render_price_amount(opt, copy)}
               <div class="price-qty" data-price-qty>
                 <button type="button" class="qty-btn price-qty__btn" data-qty-minus aria-label="{copy['guests_minus']}">−</button>
                 <span class="price-qty__value" data-qty-value aria-live="polite">{default_guests}</span>
@@ -208,6 +224,19 @@ def prices_offer_schema(lang: str, url: str, name: str) -> dict:
                 "seller": {"@type": "Organization", "name": "Glavani Park"},
             }
         )
+        if opt.get("child_price"):
+            offers.append(
+                {
+                    "@type": "Offer",
+                    "name": f"{data['name']} ({PRICES_COPY[lang]['children']})",
+                    "description": data["desc"],
+                    "price": str(opt["child_price"]),
+                    "priceCurrency": "EUR",
+                    "availability": "https://schema.org/InStock",
+                    "url": url,
+                    "seller": {"@type": "Organization", "name": "Glavani Park"},
+                }
+            )
     return {
         "@context": "https://schema.org",
         "@type": "Product",
