@@ -73,7 +73,9 @@
         statusEl.classList.add("visitor-bar__status--" + result.state);
       }
       el.classList.remove("hero__open-status--open", "hero__open-status--closed");
-      el.classList.add("hero__open-status--" + result.state);
+      if (el.closest(".hero")) {
+        el.classList.add("hero__open-status--" + result.state);
+      }
     });
   }
 
