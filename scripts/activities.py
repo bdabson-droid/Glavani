@@ -210,10 +210,14 @@ ACTIVITIES = [
             "hero_badge": "120 m · up to 20 m high",
             "image_alt": "120 metre valley zipline course at Glavani Park, Istria Croatia",
             "paragraphs": [
-                "Glavani Park's Valley Zip Line Course is a standalone 120-metre flight through the oak forest, reaching heights of up to 20 metres. You clip in with park staff, receive a launch briefing, and glide between platforms with views across the valley.",
+                "Glavani Park's Valley Zip Line Course sends you on two zip line runs back and forth over the valley through the oak forest, reaching heights of up to 20 metres. You clip in with park staff, receive a launch briefing, and glide between platforms with views across the valley.",
                 "The course is popular with first-time zipliners and returning visitors alike. Harness and helmet are provided; wear closed shoes and comfortable clothing. Combine with the Treetop Course on the high-ropes routes for a full zipline experience in one visit.",
             ],
             "video_heading": "Valley Zip Line video",
+            "video_notice": (
+                "The course shown in this video is an earlier version. The Valley Zip Line has since been upgraded — "
+                "today's experience includes <strong>two zip lines</strong> back and forth over the valley."
+            ),
             "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
         },
         "hr": {
@@ -227,10 +231,14 @@ ACTIVITIES = [
             "hero_badge": "120 m · do 20 m visine",
             "image_alt": "Dolinski zipline 120 m u Glavani Parku, Istria Hrvatska",
             "paragraphs": [
-                "Dolinski zipline u Glavani Parku samostalan je let od 120 metara kroz hrastovu šumu, do visine od 20 metara. Osoblje vas spaja na užad, provodi obuku i letite između platformi s pogledom na dolinu.",
+                "Dolinski zipline u Glavani Parku vodi vas na dva zipline leta naprijed-natrag preko doline kroz hrastovu šumu, do visine od 20 metara. Osoblje vas spaja na užad, provodi obuku i letite između platformi s pogledom na dolinu.",
                 "Staza je popularna i među početnicima i među onima koji se vraćaju. Harnes i kaciga su osigurani; nosite zatvorenu obuću i udobnu odjeću. Kombinirajte sa Stazom u krošnjama na visokim stazama za puno zipline iskustvo u jednom posjetu.",
             ],
             "video_heading": "Video dolinskog ziplinea",
+            "video_notice": (
+                "Staza u ovom videu ranija je verzija. Dolinski zipline je nakon toga nadograđen — "
+                "današnje iskustvo uključuje <strong>dva ziplinea</strong> naprijed-natrag preko doline."
+            ),
             "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
         },
     },
