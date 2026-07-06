@@ -91,6 +91,7 @@ PRICES_COPY = {
         "lead": "Per-person prices for packages and single activities · book online for up to 10 people",
         "per_person": "per person",
         "book": "Book",
+        "people": "persons",
         "guests_minus": "Fewer people",
         "guests_plus": "More people",
         "book_note": "Visits from late September to early July require advance booking — no walk-ins. Groups of more than 10 should call to check availability and pricing.",
@@ -107,6 +108,7 @@ PRICES_COPY = {
         "lead": "Cijene po osobi za pakete i pojedinačne aktivnosti · online do 10 osoba",
         "per_person": "po osobi",
         "book": "Rezerviraj",
+        "people": "osoba",
         "guests_minus": "Manje osoba",
         "guests_plus": "Više osoba",
         "book_note": "Od kraja rujna do početka srpnja potrebna je unaprijedna rezervacija — bez dolaska bez najave. Grupe s više od 10 osoba neka nazovu radi dostupnosti i cijena.",
@@ -145,6 +147,7 @@ def render_price_sections(lang: str) -> str:
               <div class="price-qty" data-price-qty>
                 <button type="button" class="qty-btn price-qty__btn" data-qty-minus aria-label="{copy['guests_minus']}">−</button>
                 <span class="price-qty__value" data-qty-value aria-live="polite">{default_guests}</span>
+                <span class="price-qty__label">{copy['people']}</span>
                 <button type="button" class="qty-btn price-qty__btn" data-qty-plus aria-label="{copy['guests_plus']}">+</button>
               </div>
             </div>
