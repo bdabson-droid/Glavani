@@ -418,8 +418,7 @@ def page_chrome(lang: str, *, is_home: bool = False) -> str:
 {render_visit_cta_bar(lang)}
 {site_header(lang)}
 {visitor_bar(lang)}
-{site_nav(lang, is_home=is_home)}
-{render_trust_strip(lang)}"""
+{site_nav(lang, is_home=is_home)}"""
 
 
 def visitor_bar(lang: str) -> str:
@@ -519,6 +518,7 @@ def footer(lang: str) -> str:
         ]
     link_html = "".join(f"<li><a href=\"{h}\">{t}</a></li>" for t, h in links)
     return f"""
+{render_trust_strip(lang, in_footer=True)}
   <footer class="site-footer">
     <p>&copy; <time datetime="2026">2026</time> {copy}</p>
     <ul class="site-footer__links">
