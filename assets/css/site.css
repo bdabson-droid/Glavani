@@ -569,12 +569,13 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   background-color: #312e81;
   background-image: var(--hub-fade), var(--hub-photo);
 }
-.hub-card--zipline-valley {
+.hub-card--zipline-valley,
+.activity-banner--zipline-valley {
   --hub-color-strong: rgba(45, 106, 79, 0.96);
   --hub-color-mid: rgba(45, 106, 79, 0.88);
   --hub-color-soft: rgba(26, 61, 46, 0.45);
   --hub-color-faint: rgba(26, 61, 46, 0.16);
-  --hub-photo: url("../../images/zipline-120m-glavani-park-istria-croatia.webp");
+  --hub-photo: url("../../images/valley-zipline-youtube-still.webp");
   --hub-fade: linear-gradient(
     to right,
     var(--hub-color-strong) 0%,
@@ -776,6 +777,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 .activity-banner--training {
   background-position: 0 0, 65% center;
+}
+.activity-banner--zipline-valley {
+  background-position: 0 0, 68% center;
 }
 
 /* Activity detail pages */

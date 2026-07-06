@@ -196,7 +196,9 @@ ACTIVITIES = [
         "en_slug": "valley-zipline",
         "hr_slug": "dolinski-zipline",
         "tile_mod": "zipline-valley",
-        "image": "zipline-120m-glavani-park-istria-croatia.webp",
+        "youtube_id": "cQpPtOe481I",
+        "youtube_url": "https://youtu.be/cQpPtOe481I",
+        "image": "valley-zipline-youtube-still.webp",
         "en": {
             "title": "Valley Zip Line Course | Glavani Park Istria",
             "h1": "Valley Zip Line Course",

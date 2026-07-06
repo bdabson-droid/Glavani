@@ -128,6 +128,7 @@ YOUTUBE_STILLS = [
     ("Uhbf2TF8PYE", "climbing-wall-youtube-still.webp"),
     ("ybePV3n9uks", "high-swing-youtube-still.webp"),
     ("TDl0ffqPj3U", "training-route-youtube-still.webp"),
+    ("cQpPtOe481I", "valley-zipline-youtube-still.webp", 10 / 7),
 ]
 
 EXTERNAL_IMAGES = [
@@ -178,6 +179,21 @@ def fetch_external_images() -> None:
             print(f"  warn: could not fetch {filename}: {exc}")
 
 
+def center_crop_to_aspect(img: Image.Image, aspect: float) -> Image.Image:
+    """Crop an image to aspect ratio (width / height), keeping the centre."""
+    width, height = img.size
+    current_aspect = width / height
+    if current_aspect > aspect:
+        new_width = int(height * aspect)
+        left = (width - new_width) // 2
+        return img.crop((left, 0, left + new_width, height))
+    if current_aspect < aspect:
+        new_height = int(width / aspect)
+        top = (height - new_height) // 2
+        return img.crop((0, top, width, top + new_height))
+    return img
+
+
 def fetch_youtube_stills() -> None:
     """Download high-quality YouTube thumbnails for activity tiles."""
     import io
@@ -185,7 +201,9 @@ def fetch_youtube_stills() -> None:
 
     img_dir = ROOT / "images"
     img_dir.mkdir(parents=True, exist_ok=True)
-    for video_id, filename in YOUTUBE_STILLS:
+    for entry in YOUTUBE_STILLS:
+        video_id, filename = entry[0], entry[1]
+        crop_aspect = entry[2] if len(entry) > 2 else None
         path = img_dir / filename
         for quality in ("maxresdefault", "hqdefault"):
             url = f"https://i.ytimg.com/vi/{video_id}/{quality}.jpg"
@@ -195,6 +213,8 @@ def fetch_youtube_stills() -> None:
                 if len(data) < 1000:
                     continue
                 img = Image.open(io.BytesIO(data)).convert("RGB")
+                if crop_aspect:
+                    img = center_crop_to_aspect(img, crop_aspect)
                 img.save(path, "WEBP", quality=86, method=6)
                 print(f"  image: {path.name} (YouTube {video_id})")
                 break
