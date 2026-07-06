@@ -243,6 +243,46 @@ ACTIVITIES = [
         },
     },
     {
+        "en_slug": "aerotrim",
+        "hr_slug": "aerotrim",
+        "tile_mod": "aerotrim",
+        "image": "aerotrim-glavanipark-istria.webp",
+        "en": {
+            "title": "Aerotrim | Glavani Park Istria",
+            "h1": "Aerotrim",
+            "meta_description": (
+                "Try the Aerotrim human gyroscope at Glavani Park, Istria — multi-axis spins with instructor "
+                "supervision in the oak forest near Pula. Open daily 9 AM–5 PM."
+            ),
+            "keywords": "Aerotrim Croatia, human gyroscope Istria, Glavani Park Aerotrim, adventure park near Pula",
+            "hero_badge": "Human gyroscope · multi-axis spins",
+            "image_alt": "Aerotrim human gyroscope at Glavani Park adventure park, Istria Croatia",
+            "paragraphs": [
+                "Strap into Glavani Park's Aerotrim — a human gyroscope that spins you through multiple axes while you stay secured in the frame. Staff set the pace, explain how to hold your body, and supervise every session in the forest clearing.",
+                "It is a unique sensation between thrill and disorientation — popular with teenagers and adults who want something different from the ziplines and catapult. Height, age, and health restrictions apply; ask at the ticket desk before you book.",
+            ],
+            "video_heading": "Aerotrim video",
+            "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
+        },
+        "hr": {
+            "title": "Aerotrim | Glavani Park Istria",
+            "h1": "Aerotrim",
+            "meta_description": (
+                "Isprobajte Aerotrim ljudski žiroskop u Glavani Parku, Istria — okretanje u više osi pod nadzorom "
+                "instruktora u hrastovoj šumi kod Pule. Otvoreno svaki dan 9–17 h."
+            ),
+            "keywords": "Aerotrim Hrvatska, ljudski žiroskop Istria, Glavani Park Aerotrim, avanturistički park kod Pule",
+            "hero_badge": "Ljudski žiroskop · više osi",
+            "image_alt": "Aerotrim ljudski žiroskop u Glavani Parku, Istria Hrvatska",
+            "paragraphs": [
+                "Zavežite se u Aerotrim Glavani Parka — ljudski žiroskop koji vas okreće u više osi dok ste sigurno pričvršćeni u okviru. Osoblje određuje tempo, objašnjava položaj tijela i nadzire svaku vožnju u šumskoj čistini.",
+                "Jedinstven je spoj adrenalina i dezorijentacije — popularan među tinejdžerima i odraslima koji žele nešto drugačije od ziplinea i katapulata. Primjenjuju se ograničenja visine, dobi i zdravlja; pitajte na blagajni prije rezervacije.",
+            ],
+            "video_heading": "Video Aerotrima",
+            "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
+        },
+    },
+    {
         "en_slug": "climbing-wall",
         "hr_slug": "penjacki-zid",
         "tile_mod": "climbing",
@@ -281,46 +321,6 @@ ACTIVITIES = [
                 "Zid je odličan za obitelji, školske grupe na zagrijavanju i posjetitelje između većih vožnji. Nosite tenisice s dobrim gripom. Mlađa djeca često mogu penjati uz pomoć instruktora — pitajte na ulazu o prikladnosti.",
             ],
             "video_heading": "Video penjačkog zida",
-            "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
-        },
-    },
-    {
-        "en_slug": "aerotrim",
-        "hr_slug": "aerotrim",
-        "tile_mod": "aerotrim",
-        "image": "aerotrim-glavanipark-istria.webp",
-        "en": {
-            "title": "Aerotrim | Glavani Park Istria",
-            "h1": "Aerotrim",
-            "meta_description": (
-                "Try the Aerotrim human gyroscope at Glavani Park, Istria — multi-axis spins with instructor "
-                "supervision in the oak forest near Pula. Open daily 9 AM–5 PM."
-            ),
-            "keywords": "Aerotrim Croatia, human gyroscope Istria, Glavani Park Aerotrim, adventure park near Pula",
-            "hero_badge": "Human gyroscope · multi-axis spins",
-            "image_alt": "Aerotrim human gyroscope at Glavani Park adventure park, Istria Croatia",
-            "paragraphs": [
-                "Strap into Glavani Park's Aerotrim — a human gyroscope that spins you through multiple axes while you stay secured in the frame. Staff set the pace, explain how to hold your body, and supervise every session in the forest clearing.",
-                "It is a unique sensation between thrill and disorientation — popular with teenagers and adults who want something different from the ziplines and catapult. Height, age, and health restrictions apply; ask at the ticket desk before you book.",
-            ],
-            "video_heading": "Aerotrim video",
-            "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
-        },
-        "hr": {
-            "title": "Aerotrim | Glavani Park Istria",
-            "h1": "Aerotrim",
-            "meta_description": (
-                "Isprobajte Aerotrim ljudski žiroskop u Glavani Parku, Istria — okretanje u više osi pod nadzorom "
-                "instruktora u hrastovoj šumi kod Pule. Otvoreno svaki dan 9–17 h."
-            ),
-            "keywords": "Aerotrim Hrvatska, ljudski žiroskop Istria, Glavani Park Aerotrim, avanturistički park kod Pule",
-            "hero_badge": "Ljudski žiroskop · više osi",
-            "image_alt": "Aerotrim ljudski žiroskop u Glavani Parku, Istria Hrvatska",
-            "paragraphs": [
-                "Zavežite se u Aerotrim Glavani Parka — ljudski žiroskop koji vas okreće u više osi dok ste sigurno pričvršćeni u okviru. Osoblje određuje tempo, objašnjava položaj tijela i nadzire svaku vožnju u šumskoj čistini.",
-                "Jedinstven je spoj adrenalina i dezorijentacije — popularan među tinejdžerima i odraslima koji žele nešto drugačije od ziplinea i katapulata. Primjenjuju se ograničenja visine, dobi i zdravlja; pitajte na blagajni prije rezervacije.",
-            ],
-            "video_heading": "Video Aerotrima",
             "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
         },
     },

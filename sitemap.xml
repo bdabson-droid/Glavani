@@ -164,15 +164,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/valley-zipline/"/>
   </url>
   <url>
-    <loc>https://www.glavanipark.com/en/climbing-wall/</loc>
-    <lastmod>2026-07-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/climbing-wall/"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/penjacki-zid/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/climbing-wall/"/>
-  </url>
-  <url>
     <loc>https://www.glavanipark.com/en/aerotrim/</loc>
     <lastmod>2026-07-06</lastmod>
     <changefreq>monthly</changefreq>
@@ -180,6 +171,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/aerotrim/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/aerotrim/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/aerotrim/"/>
+  </url>
+  <url>
+    <loc>https://www.glavanipark.com/en/climbing-wall/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/climbing-wall/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/penjacki-zid/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/climbing-wall/"/>
   </url>
   <url>
     <loc>https://www.glavanipark.com/en/devils-causeway/</loc>
@@ -380,15 +380,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/valley-zipline/"/>
   </url>
   <url>
-    <loc>https://www.glavanipark.com/hr/penjacki-zid/</loc>
-    <lastmod>2026-07-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/climbing-wall/"/>
-    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/penjacki-zid/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/climbing-wall/"/>
-  </url>
-  <url>
     <loc>https://www.glavanipark.com/hr/aerotrim/</loc>
     <lastmod>2026-07-06</lastmod>
     <changefreq>monthly</changefreq>
@@ -396,6 +387,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/aerotrim/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/aerotrim/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/aerotrim/"/>
+  </url>
+  <url>
+    <loc>https://www.glavanipark.com/hr/penjacki-zid/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/climbing-wall/"/>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/penjacki-zid/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/climbing-wall/"/>
   </url>
   <url>
     <loc>https://www.glavanipark.com/hr/most-s-monociklom/</loc>
