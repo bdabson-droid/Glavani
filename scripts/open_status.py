@@ -53,4 +53,7 @@ def park_status(lang: str, now: datetime | None = None) -> dict:
     if minutes < open_at:
         return {"state": "closed", "message": labels["opens_at"]}
 
-    return {"state": "closed", "message": labels["closed"]}
+    return {
+        "state": "closed",
+        "message": f"{labels['closed']} · {labels['opens_tomorrow']}",
+    }

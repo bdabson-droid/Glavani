@@ -7,6 +7,7 @@
     en: {
       open: "Open now",
       closed: "Closed today",
+      opens_tomorrow: "Opens tomorrow at 9 AM",
       opens_at: "Opens at 9 AM",
       last_entry_soon: "Last entry in {minutes} min",
       last_entry: "Last entry 3 PM",
@@ -14,6 +15,7 @@
     hr: {
       open: "Otvoreno sada",
       closed: "Zatvoreno danas",
+      opens_tomorrow: "Otvara se sutra u 9 h",
       opens_at: "Otvara se u 9 h",
       last_entry_soon: "Zadnji ulaz za {minutes} min",
       last_entry: "Zadnji ulaz u 15 h",
@@ -57,7 +59,7 @@
     if (minutes < openAt) {
       return { state: "closed", message: copy.opens_at };
     }
-    return { state: "closed", message: copy.closed };
+    return { state: "closed", message: copy.closed + " · " + copy.opens_tomorrow };
   }
 
   function update() {
