@@ -3,6 +3,7 @@
 import re
 
 from booking_policy import BOOKING_POLICY
+from packages import pricing_hub_blurb
 
 BASE = "https://www.glavanipark.com"
 
@@ -88,13 +89,13 @@ FAQ_COPY = {
 
 FAQ_RELATED = {
     "en": [
-        {"href": "prices", "title": "Packages & Prices", "desc": "Activity packages from €30 per person"},
+        {"href": "prices", "title": "Packages & Prices", "desc": pricing_hub_blurb("en")},
         {"href": "location", "title": "Location & Directions", "desc": "Map, GPS, and free parking near Pula"},
         {"href": "safety", "title": "Safety & Equipment", "desc": "Harness standards and what to wear"},
         {"href": "groups", "title": "Team Building & Groups", "desc": "Corporate events, schools, and birthdays"},
     ],
     "hr": [
-        {"href": "prices", "title": "Paketi i cijene", "desc": "Paketi aktivnosti od 30 € po osobi"},
+        {"href": "prices", "title": "Paketi i cijene", "desc": pricing_hub_blurb("hr")},
         {"href": "location", "title": "Lokacija i upute", "desc": "Karta, GPS i besplatno parkiranje kod Pule"},
         {"href": "safety", "title": "Sigurnost i oprema", "desc": "Standardi opreme i što obući"},
         {"href": "groups", "title": "Team building i grupe", "desc": "Korporativni događaji, škole i rođendani"},

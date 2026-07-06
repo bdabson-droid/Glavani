@@ -38,7 +38,16 @@ from faqs import (  # noqa: E402
 from group_events import EVENT_EXTERNAL_IMAGES, EVENT_PAGES, EVENT_SLUGS_EN, EVENT_SLUGS_HR  # noqa: E402
 from booking_policy import BOOKING_POLICY  # noqa: E402
 from brand_voice import BOOKING_EMAIL, BOOKING_SUBMIT_URL, ONLINE_BOOKING_MAX, PHONES, VISITOR  # noqa: E402
-from packages import PRICES_COPY, PRICES_SLUGS, BOOKING_SLUGS, price_summary, prices_offer_schema, render_price_sections  # noqa: E402
+from packages import (  # noqa: E402
+    PRICES_COPY,
+    PRICES_SLUGS,
+    BOOKING_SLUGS,
+    children_pricing_notice,
+    conversion_cta_note,
+    price_summary,
+    prices_offer_schema,
+    render_price_sections,
+)
 from open_status import park_status  # noqa: E402
 from activity_reviews import render_activity_reviews  # noqa: E402
 from activity_seo import render_activity_seo_footer  # noqa: E402
@@ -990,8 +999,8 @@ def activity_price_hint(activity: dict, lang: str) -> str:
     if single:
         return f"€{single}"
     if activity["en_slug"] == "training-route":
-        return "od €30" if lang == "hr" else "from €30"
-    return "od €50" if lang == "hr" else "from €50"
+        return "€20/€30"
+    return "€40/€50" if lang == "en" else "€40/€50"
 
 
 def render_conversion_cta(lang: str, *, compact: bool = False) -> str:
@@ -1002,11 +1011,10 @@ def render_conversion_cta(lang: str, *, compact: bool = False) -> str:
     if lang == "hr":
         prices_label = "Pogledajte cijene"
         heading = "" if compact else "<h2 class=\"section-cta__heading\">Spremni za avanturu?</h2>"
-        note = "Paketi od €30 po osobi · online do 10 osoba"
     else:
         prices_label = "See Prices"
         heading = "" if compact else "<h2 class=\"section-cta__heading\">Ready for your adventure?</h2>"
-        note = "Packages from €30 per person · book online for up to 10"
+    note = conversion_cta_note(lang)
     mod = " section-cta--compact" if compact else ""
     return f"""<div class="section-cta{mod}">
       {heading}
@@ -1781,6 +1789,7 @@ def render_booking_app(lang: str) -> str:
             "<strong>U parku:</strong> osvježenja i sladoled."
         )
         policy = BOOKING_POLICY["hr"]["book_page"]
+        children_pricing = children_pricing_notice("hr")
     else:
         slug, en_slug, hr_slug = "book", "book", "rezervacija"
         title = "Book | Glavani Park – Pick Package & Date"
@@ -1800,6 +1809,7 @@ def render_booking_app(lang: str) -> str:
             "<strong>On site:</strong> refreshments and ice cream available."
         )
         policy = BOOKING_POLICY["en"]["book_page"]
+        children_pricing = children_pricing_notice("en")
     prefix = f"/{lang}/"
     canonical = f"{BASE}{prefix}{slug}/"
     home_label = "Početna" if lang == "hr" else "Home"
@@ -1822,6 +1832,7 @@ def render_booking_app(lang: str) -> str:
 <div class="book-app-wrap">
   <script type="application/json" id="booking-app-config">{json.dumps({"lang": lang, "submitUrl": BOOKING_SUBMIT_URL, "recipientEmail": BOOKING_EMAIL})}</script>
   <div id="booking-app" aria-live="polite"></div>
+  <p class="book-app-notice book-app-notice--children">{children_pricing}</p>
   <p class="book-app-notice book-app-notice--policy">{policy}</p>
 </div>
 {footer(lang)}
