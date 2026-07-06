@@ -141,14 +141,17 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   align-items: center;
   justify-content: center;
   min-height: 50px;
-  padding: 0.8rem 1.35rem;
+  padding: 0.8rem 1.1rem;
   background: var(--white);
   color: var(--green-deep);
   font-weight: 800;
   text-decoration: none;
   border-radius: var(--radius);
   border: 2px solid rgba(255, 255, 255, 0.85);
-  font-size: 1rem;
+  font-size: 0.9375rem;
+  text-align: center;
+  line-height: 1.25;
+  max-width: 100%;
 }
 .btn-visit-today:hover {
   background: var(--yellow-accent);
@@ -1230,6 +1233,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   line-height: 1.45;
 }
 .book-app-notice a { color: var(--brand-green); font-weight: 700; }
+.book-app-notice--policy {
+  margin: 1.5rem auto 0;
+  color: var(--rock-mid);
+  background: rgba(26, 61, 46, 0.06);
+  border-color: rgba(26, 61, 46, 0.12);
+}
 .book-within48 {
   margin: 1rem 0 0;
   padding: 1rem 1.1rem;

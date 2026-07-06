@@ -391,6 +391,12 @@ def render_visit_cta_bar(lang: str) -> str:
     status = park_status(lang)
     prefix = f"/{lang}/"
     book_href = f"{prefix}{BOOKING_SLUGS[lang]}/"
+    primary = PHONES[1] if lang == "hr" else PHONES[0]
+    visit_aria = (
+        "Posjetite danas — nazovite za dostupnost"
+        if lang == "hr"
+        else "Visit today — call for availability"
+    )
     aria = "Rezervacija i današnji status" if lang == "hr" else "Book tickets and today's status"
     return f"""
   <div class="visit-cta-bar" aria-label="{aria}">
@@ -401,7 +407,7 @@ def render_visit_cta_bar(lang: str) -> str:
       </p>
       <div class="visit-cta-bar__actions">
         <a class="btn-primary btn-primary--xl btn-book-tickets" href="{book_href}">{labels['book_tickets']}</a>
-        <a class="btn-visit-today" href="{book_href}">{labels['visit_today']}</a>
+        <a class="btn-visit-today" href="tel:{primary['tel']}" aria-label="{visit_aria}">{labels['visit_today']}</a>
       </div>
     </div>
   </div>"""
@@ -1810,13 +1816,13 @@ def render_booking_app(lang: str) -> str:
 <div class="book-app-hero">
   <h1>{h1}</h1>
   <p>{lead}</p>
-  <p class="book-app-notice">{policy}</p>
   <p class="book-app-notice">{amenities}</p>
   <p class="book-app-notice">{notice}</p>
 </div>
 <div class="book-app-wrap">
   <script type="application/json" id="booking-app-config">{json.dumps({"lang": lang, "submitUrl": BOOKING_SUBMIT_URL, "recipientEmail": BOOKING_EMAIL})}</script>
   <div id="booking-app" aria-live="polite"></div>
+  <p class="book-app-notice book-app-notice--policy">{policy}</p>
 </div>
 {footer(lang)}
 <script src="/assets/js/booking-app.js" defer></script>

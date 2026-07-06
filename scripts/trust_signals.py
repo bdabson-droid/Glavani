@@ -44,13 +44,13 @@ def book_cta_labels(lang: str) -> dict[str, str]:
     if lang == "hr":
         return {
             "book_tickets": "Rezervirajte ulaznice",
-            "visit_today": "Posjetite danas",
+            "visit_today": "Posjetite danas — nazovite za dostupnost",
             "book_now": "Rezervirajte odmah",
             "book": "Rezerviraj",
         }
     return {
         "book_tickets": "Book Tickets",
-        "visit_today": "Visit Today",
+        "visit_today": "Visit Today - Call For Availability",
         "book_now": "Book Now",
         "book": "Book",
     }
