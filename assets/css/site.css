@@ -1267,7 +1267,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .home-book-cta h2 { color: var(--green-deep); font-size: 1.25rem; margin-bottom: 0.35rem; }
 .home-book-cta p { color: var(--rock-mid); font-size: 0.875rem; margin-bottom: 1rem; }
 .home-book-cta .btn-primary { width: 100%; max-width: 320px; }
-.home-book-cta__gift-btn { margin-top: 1rem; }
 
 .section__heading { text-align: center; margin-bottom: 1.75rem; }
 .section__heading h2 {
