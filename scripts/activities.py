@@ -331,6 +331,7 @@ ACTIVITIES = [
         "en_slug": "aerotrim",
         "hr_slug": "aerotrim",
         "tile_mod": "aerotrim",
+        "hide_video": True,
         "image": "aerotrim-glavanipark-istria.webp",
         "en": {
             "title": "Aerotrim | Glavani Park Istria",
