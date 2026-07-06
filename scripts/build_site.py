@@ -295,6 +295,23 @@ def render_info_strip_contacts(lang: str) -> str:
     )
 
 
+def render_info_strip_location(lang: str) -> str:
+    href = "/hr/sto-raditi-kod-pule/#location-map" if lang == "hr" else "/en/things-to-do-near-pula/#location-map"
+    if lang == "hr":
+        label = "Lokacija"
+        detail = "Glavani 10, Barban · 30 min od Pule"
+    else:
+        label = "Location"
+        detail = "Glavani 10, Barban · 30 min from Pula"
+    return (
+        f'<div class="info-strip__item info-strip__item--location">'
+        f'<a class="info-strip__location" href="{href}">'
+        f'<span class="info-strip__location-icon" aria-hidden="true">📍</span>'
+        f'<span class="info-strip__location-text"><strong>{label}</strong>{detail}</span>'
+        f"</a></div>"
+    )
+
+
 def render_home_booking_policy(lang: str) -> str:
     return BOOKING_POLICY[lang]["home_notice"]
 
@@ -1242,6 +1259,7 @@ def home_body_en() -> str:
     body = body.replace("<!-- HOME_BOOKING_POLICY -->", render_home_booking_policy("en"))
     body = body.replace("<!-- INFO_STRIP_BOOKING -->", render_info_strip_booking("en"))
     body = body.replace("<!-- INFO_STRIP_AMENITIES -->", render_info_strip_amenities("en"))
+    body = body.replace("<!-- INFO_STRIP_LOCATION -->", render_info_strip_location("en"))
     body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("en"))
     return inject_reviews_section(body, "en")
 
@@ -1251,6 +1269,7 @@ def home_body_hr() -> str:
     body = body.replace("<!-- HOME_BOOKING_POLICY -->", render_home_booking_policy("hr"))
     body = body.replace("<!-- INFO_STRIP_BOOKING -->", render_info_strip_booking("hr"))
     body = body.replace("<!-- INFO_STRIP_AMENITIES -->", render_info_strip_amenities("hr"))
+    body = body.replace("<!-- INFO_STRIP_LOCATION -->", render_info_strip_location("hr"))
     body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("hr"))
     return inject_reviews_section(body, "hr")
 
