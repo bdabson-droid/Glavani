@@ -1591,6 +1591,18 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 
 .price-section { margin-bottom: 2rem; }
 .price-section:last-of-type { margin-bottom: 0; }
+.activities-hub-packages {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(26, 61, 46, 0.12);
+}
+.activities-hub-packages__note {
+  margin-top: 1.25rem;
+  text-align: center;
+  color: var(--rock-mid);
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
 .price-section h2 {
   font-size: clamp(1.125rem, 2.5vw, 1.375rem);
   color: var(--green-deep);

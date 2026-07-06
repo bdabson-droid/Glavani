@@ -935,8 +935,6 @@ def render_activities_hub_page(lang: str) -> str:
     prefix = f"/{lang}/"
     canonical = f"{BASE}{prefix}{slug}/"
     home_label = "Početna" if lang == "hr" else "Home"
-    book_href = f"{prefix}rezervacija/" if lang == "hr" else f"{prefix}book/"
-    book_label = "Rezervirajte posjet" if lang == "hr" else "Book Your Visit"
 
     family_href = f"{prefix}{copy['family_link']}/"
     family_card = (
@@ -964,12 +962,17 @@ def render_activities_hub_page(lang: str) -> str:
         <p class="faq-intro">{copy['intro']}</p>
       </div>
       {render_activity_hub_grid(lang)}
+      <div class="activities-hub-packages">
+        <div class="section__heading">
+          <h2>{PRICES_COPY[lang]['h1']}</h2>
+          <p>{PRICES_COPY[lang]['lead']}</p>
+        </div>
+        {render_price_sections(lang)}
+        <p class="activities-hub-packages__note">{PRICES_COPY[lang]['book_note']}</p>
+      </div>
       <div class="topic-grid" style="margin-top:1.5rem;max-width:760px;margin-left:auto;margin-right:auto;">
         {family_card}
       </div>
-      <p style="margin-top:1.5rem;text-align:center;">
-        <a class="btn-primary" href="{book_href}">{book_label}</a>
-      </p>
     </div>
   </section>
 </main>
@@ -977,6 +980,7 @@ def render_activities_hub_page(lang: str) -> str:
 {breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (copy['h1'], None)])}
 {json_ld_script(webpage_schema(canonical, copy['h1'], copy['meta_description'], lang))}
 {json_ld_script(activities_hub_itemlist_schema(lang, canonical))}
+<script src="/assets/js/prices-book.js" defer></script>
 </body>
 </html>"""
 
