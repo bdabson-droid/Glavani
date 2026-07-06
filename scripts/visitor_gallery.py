@@ -2,6 +2,14 @@
 
 VISITOR_GALLERY = [
     {
+        "url": "https://www.glavanipark.com/upload/galerija/8/63982791.jpg",
+        "image": "visitor-gallery-aerotrim-gyroscope-15.webp",
+        "en_alt": "Guest spinning in the Aerotrim human gyroscope at Glavani Park, Istria",
+        "hr_alt": "Gost u Aerotrima ljudskom žiroskopu u Glavani Parku, Istria",
+        "activities": ["aerotrim"],
+        "home": True,
+    },
+    {
         "url": "https://www.glavanipark.com/upload/katalog/2017-9-5_ljudski_katapult__atrakcija_broj_1.jpg",
         "image": "visitor-gallery-human-catapult-launch-14.webp",
         "en_alt": "Guest launched on the Human Catapult at Glavani Park, Istria Croatia",
@@ -152,6 +160,7 @@ ACTIVITY_GALLERY_MAP: dict[str, list[str]] = {
         "visitor-gallery-school-group-7.webp",
     ],
     "aerotrim": [
+        "visitor-gallery-aerotrim-gyroscope-15.webp",
         "visitor-gallery-group-event-10.webp",
         "visitor-gallery-school-group-7.webp",
     ],
