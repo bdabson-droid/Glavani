@@ -207,15 +207,35 @@
   const state = { name: '', email: '', phone: '', guests: 2, largeGroup: false, arrival: 0, notes: '' };
   let submitted = false;
 
-  function applyQueryPrefill() {
+  const PREFILL_KEY = 'glavani-book-prefill';
+
+  function readPrefillParams() {
     const params = new URLSearchParams(window.location.search);
+    if (window.location.hash.length > 1) {
+      const hashParams = new URLSearchParams(window.location.hash.slice(1));
+      hashParams.forEach((value, key) => params.set(key, value));
+    }
+    try {
+      const stored = sessionStorage.getItem(PREFILL_KEY);
+      if (stored) {
+        sessionStorage.removeItem(PREFILL_KEY);
+        const data = JSON.parse(stored);
+        if (data.package) params.set('package', data.package);
+        if (data.guests) params.set('guests', String(data.guests));
+      }
+    } catch (e) {
+      /* ignore */
+    }
+    return params;
+  }
+
+  function applyQueryPrefill() {
+    const params = readPrefillParams();
     const pkg = params.get('package') || params.get('p');
     const guestsRaw = params.get('guests') || params.get('g');
-    let hasPackage = false;
 
     if (pkg && t.activities.some((a) => a.id === pkg)) {
       selectedActivityId = pkg;
-      hasPackage = true;
     }
 
     if (guestsRaw) {
@@ -226,10 +246,6 @@
         state.guests = n;
         state.largeGroup = false;
       }
-    }
-
-    if (hasPackage && !state.largeGroup) {
-      step = 1;
     }
   }
 
