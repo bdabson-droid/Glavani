@@ -3,6 +3,7 @@ Individual activity pages — brief copy and video placeholder per attraction.
 """
 
 from booking_policy import activity_booking_answer
+from packages import package_price_faq_answer
 
 ACTIVITY_SLUG_MAP = {
     "ljudska-katapulta": "human-catapult",
@@ -128,7 +129,7 @@ ACTIVITIES = [
             "image_alt": "Yellow training route high-ropes course at Glavani Park, Istria Croatia",
             "paragraphs": [
                 "Glavani Park's yellow training route is a certified high-ropes course at 2 metres above the forest floor — the perfect introduction for younger children, first-time climbers, and families who want to build confidence before the blue and black routes.",
-                "You stay on continuous belay from start to finish while instructors explain harness fit, safety signals, and how to tackle balance obstacles and rope bridges. The training route is included in day admission and the popular Training route + 2 games package from €30.",
+                "You stay on continuous belay from start to finish while instructors explain harness fit, safety signals, and how to tackle balance obstacles and rope bridges. The training route is included in day admission and the popular Training route + 2 games package — €20 for children, €30 for adults.",
             ],
             "video_heading": "Training Route video",
             "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
@@ -145,7 +146,7 @@ ACTIVITIES = [
             "image_alt": "Žuta trening ruta visokih staza u Glavani Parku, Istria Hrvatska",
             "paragraphs": [
                 "Žuta trening ruta u Glavani Parku certificirana je visoka staza na 2 metra iznad šumskog tla — savršen uvod za mlađu djecu, početnike i obitelji koje žele steći samopouzdanje prije plave i crne staze.",
-                "Ostajete na kontinuiranom osiguranju od početka do kraja dok instruktori objašnjavaju harnes, sigurnosne signale i kako savladati prepreke ravnoteže i mostove od užadi. Trening ruta uključena je u dnevnu ulaznicu i popularni paket Trening ruta + 2 igre od 30 €.",
+                "Ostajete na kontinuiranom osiguranju od početka do kraja dok instruktori objašnjavaju harnes, sigurnosne signale i kako savladati prepreke ravnoteže i mostove od užadi. Trening ruta uključena je u dnevnu ulaznicu i popularni paket Trening ruta + 2 igre — €20 za djecu, €30 za odrasle.",
             ],
             "video_heading": "Video trening rute",
             "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
@@ -427,13 +428,7 @@ def activity_faqs(activity: dict, lang: str) -> list[dict]:
     prefix = f"/{lang}/"
 
     if lang == "en":
-        price_a = (
-            f"The Human Catapult is €{single_price} as a single activity, or included in whole-park packages from €30. "
-            f"See <a href=\"{prefix}prices/\">packages and prices</a> or <a href=\"{prefix}book/\">book online</a>."
-            if single_price
-            else f"Access is included in Glavani Park day admission and packages from €30 per person. "
-            f"See <a href=\"{prefix}prices/\">packages and prices</a>."
-        )
+        price_a = package_price_faq_answer("en", prefix, single_price=single_price)
         return [
             {
                 "q": f"How much does {h1} cost at Glavani Park?",
@@ -453,13 +448,7 @@ def activity_faqs(activity: dict, lang: str) -> list[dict]:
             },
         ]
 
-    price_a = (
-        f"Ljudska katapulta košta {single_price} € kao pojedinačna aktivnost ili je uključena u pakete cijelog parka od 30 €. "
-        f"Pogledajte <a href=\"{prefix}cijene/\">pakete i cijene</a> ili <a href=\"{prefix}rezervacija/\">rezervirajte online</a>."
-        if single_price
-        else f"Pristup je uključen u dnevnu ulaznicu i pakete Glavani Parka od 30 € po osobi. "
-        f"Pogledajte <a href=\"{prefix}cijene/\">pakete i cijene</a>."
-    )
+    price_a = package_price_faq_answer("hr", prefix, single_price=single_price)
     return [
         {
             "q": f"Koliko košta {h1} u Glavani Parku?",

@@ -1244,6 +1244,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   background: rgba(26, 61, 46, 0.06);
   border-color: rgba(26, 61, 46, 0.12);
 }
+.book-app-notice--children {
+  margin: 1.5rem auto 0;
+  color: var(--green-deep);
+  background: rgba(141, 198, 63, 0.1);
+  border-color: rgba(141, 198, 63, 0.35);
+}
 .book-within48 {
   margin: 1rem 0 0;
   padding: 1rem 1.1rem;
@@ -1863,6 +1869,20 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   color: var(--rock-mid);
   font-size: 0.875rem;
   line-height: 1.45;
+}
+.packages-notice {
+  margin: 0 auto 1.25rem;
+  padding: 0.75rem 1rem;
+  max-width: 760px;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  text-align: center;
+}
+.packages-notice--children {
+  color: var(--green-deep);
+  background: rgba(141, 198, 63, 0.1);
+  border: 1px solid rgba(141, 198, 63, 0.35);
 }
 .price-section h2 {
   font-size: clamp(1.125rem, 2.5vw, 1.375rem);

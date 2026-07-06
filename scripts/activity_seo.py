@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-BOOKING_SLUGS = {"en": "book", "hr": "rezervacija"}
-PRICES_SLUGS = {"en": "prices", "hr": "cijene"}
+from packages import PRICES_SLUGS, BOOKING_SLUGS, pricing_visit_footer_line  # noqa: E402
 
 
 def _shared_footer(lang: str, h1: str) -> str:
@@ -14,13 +13,13 @@ def _shared_footer(lang: str, h1: str) -> str:
         return f"""
 <h2>Planiranje posjeta</h2>
 <p>Glavani Park se nalazi u Glavanima 10, Barban — otprilike <strong>30 minuta vožnje od Pule</strong>, 45 minuta od Rovinja i Rabca te 50 minuta od Poreča. Besplatno parkiranje je na licu mjesta. Park radi <strong>svaki dan 9–17 h</strong>; posljednji ulaz u <strong>15 h</strong>, stoga planirajte tri do četiri sata za cijeli park.</p>
-<p>Za {h1.lower()} i ostale atrakcije možete <a href="{book}">rezervirati ulaznice online</a> za grupe do 10 osoba ili nazvati za veće grupe. Pogledajte <a href="{prices}">pakete i cijene</a> — cijeli park od 70 € po osobi, pojedinačne aktivnosti od 30 €.</p>
+<p>Za {h1.lower()} i ostale atrakcije možete <a href="{book}">rezervirati ulaznice online</a> za grupe do 10 osoba ili nazvati za veće grupe. Pogledajte <a href="{prices}">pakete i cijene</a> — {pricing_visit_footer_line("hr")}.</p>
 <h2>Sigurnost i oprema</h2>
 <p>Svaka aktivnost u Glavani Parku vodi se pod nadzorom kvalificiranih instruktora. Oprema je CE certificirana i provjerava se dnevno. Prije početka dobivate harnes, kacigu i jasnu obuku. Više o standardima pročitajte na našoj <a href="{prefix}sigurnost/">stranici o sigurnosti</a>.</p>"""
     return f"""
 <h2>Planning your visit</h2>
 <p>Glavani Park is at Glavani 10, Barban — about <strong>30 minutes from Pula</strong>, 45 minutes from Rovinj and Rabac, and 50 minutes from Poreč. Free parking is on site. The park is open <strong>daily 9 AM–5 PM</strong> with <strong>last entry at 3 PM</strong>, so allow three to four hours for the whole park.</p>
-<p>For {h1} and our other attractions you can <a href="{book}">book tickets online</a> for groups up to 10 or call ahead for larger parties. See <a href="{prices}">packages and prices</a> — whole park from €70 per person, single activities from €30.</p>
+<p>For {h1} and our other attractions you can <a href="{book}">book tickets online</a> for groups up to 10 or call ahead for larger parties. See <a href="{prices}">packages and prices</a> — {pricing_visit_footer_line("en")}.</p>
 <h2>Safety and equipment</h2>
 <p>Every activity at Glavani Park is instructor-led. Equipment is CE-certified and checked daily. You receive a harness, helmet, and clear briefing before you start. Read more on our <a href="{prefix}safety/">safety page</a>.</p>"""
 
@@ -54,12 +53,12 @@ SNIPPETS: dict[str, dict[str, list[str]]] = {
         "en": [
             "<h2>Family-friendly introduction to high ropes</h2>",
             "<p>The yellow training route is where most families start at Glavani Park. At just 2 metres high, children can experience real high-ropes obstacles — rope bridges, balance beams, and cargo nets — while parents walk alongside on the forest path. Continuous belay keeps everyone connected from start to finish.</p>",
-            "<p>Many visitors progress to the blue Treetop Course and black Devil's Causeway Course in the same visit. The training route is included in our popular Training route + 2 games package from €30 per person.</p>",
+            "<p>Many visitors progress to the blue Treetop Course and black Devil's Causeway Course in the same visit. The training route is included in our popular Training route + 2 games package — €20 for children, €30 for adults.</p>",
         ],
         "hr": [
             "<h2>Obiteljski uvod u visoke staze</h2>",
             "<p>Žuta trening ruta je mjesto gdje većina obitelji počinje u Glavani Parku. Na samo 2 metra visine, djeca prolaze prave prepreke visokih staza — mostove, ravnotežu i mreže — dok roditelji hodaju uz stazu. Kontinuirano osiguranje drži sve povezane od početka do kraja.</p>",
-            "<p>Mnogi posjetitelji istog dana prelaze na plavu Stazu u krošnjama i crnu Stazu Vražjeg puta. Trening ruta uključena je u popularni paket Trening ruta + 2 igre od 30 € po osobi.</p>",
+            "<p>Mnogi posjetitelji istog dana prelaze na plavu Stazu u krošnjama i crnu Stazu Vražjeg puta. Trening ruta uključena je u popularni paket Trening ruta + 2 igre — €20 za djecu, €30 za odrasle.</p>",
         ],
     },
     "low-zipline": {

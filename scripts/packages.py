@@ -86,12 +86,12 @@ PRICES_COPY = {
     "en": {
         "title": "Activity Packages & Prices | Glavani Park Istria",
         "meta_description": (
-            "Glavani Park activity packages from €30 per person — whole park, training routes, "
+            "Glavani Park packages from €20 for children and €30 for adults — whole park, training routes, "
             "and single activities. Book online for up to 10 people or call for larger groups."
         ),
         "keywords": "Glavani Park prices, adventure park packages Istria, zipline park Croatia prices",
         "h1": "Activity Packages & Prices",
-        "lead": "Per-person prices for packages and single activities · book online for up to 10 people",
+        "lead": "Adult and children's prices for packages and single activities · book online for up to 10 people",
         "per_person": "per person",
         "adults": "adults",
         "children": "children",
@@ -110,12 +110,12 @@ PRICES_COPY = {
     "hr": {
         "title": "Paketi aktivnosti i cijene | Glavani Park Istria",
         "meta_description": (
-            "Paketi aktivnosti Glavani Parka od €30 po osobi — cijeli park, trening rute "
+            "Paketi Glavani Parka od €20 za djecu i €30 za odrasle — cijeli park, trening rute "
             "i pojedinačne aktivnosti. Rezervirajte online do 10 osoba ili nazovite za grupe."
         ),
         "keywords": "Glavani Park cijene, paketi avanturistički park Istria, zipline park Hrvatska cijene",
         "h1": "Paketi aktivnosti i cijene",
-        "lead": "Cijene po osobi za pakete i pojedinačne aktivnosti · online do 10 osoba",
+        "lead": "Cijene za odrasle i djecu za pakete i pojedinačne aktivnosti · online do 10 osoba",
         "per_person": "po osobi",
         "adults": "odrasli",
         "children": "djeca",
@@ -134,18 +134,104 @@ PRICES_COPY = {
 }
 
 
+def render_children_pricing_ticker(lang: str) -> str:
+    return f'<p class="packages-notice packages-notice--children">{children_pricing_notice(lang)}</p>'
+
+
+def min_package_prices() -> tuple[int, int]:
+    packages = [opt for opt in BOOKING_OPTIONS if opt["group"] == "packages"]
+    min_adult = min(opt["price"] for opt in packages)
+    child_prices = [opt["child_price"] for opt in packages if opt.get("child_price")]
+    min_child = min(child_prices) if child_prices else min_adult
+    return min_adult, min_child
+
+
+def children_pricing_notice(lang: str, *, for_booking: bool = False) -> str:
+    if lang == "hr":
+        notice = (
+            "<strong>Dječje cijene:</strong> trening ruta + 2 igre €20 · cijeli park bez katapulata €40 · "
+            "cijeli park s katapultom €60 po djetetu."
+        )
+        if for_booking:
+            notice += " U obrascu odaberite broj odraslih i djece."
+        return notice
+    notice = (
+        "<strong>Children's prices:</strong> training route + 2 games €20 · whole park without catapult €40 · "
+        "whole park incl. catapult €60 per child."
+    )
+    if for_booking:
+        notice += " Select adults and children in the form."
+    return notice
+
+
+def conversion_cta_note(lang: str) -> str:
+    if lang == "hr":
+        return "Paketi od €20 djeca / €30 odrasli · online do 10 osoba"
+    return "Packages from €20 children / €30 adults · book online for up to 10"
+
+
+def pricing_hub_blurb(lang: str) -> str:
+    if lang == "hr":
+        return "Paketi od €20 za djecu i €30 za odrasle · pojedinačne aktivnosti od €40"
+    return "Packages from €20 for children and €30 for adults · single activities from €40"
+
+
+def pricing_visit_footer_line(lang: str) -> str:
+    if lang == "hr":
+        return (
+            "cijeli park €60–70 (djeca/odrasli), paketi bez katapulata od €40 za djecu, "
+            "trening ruta + 2 igre od €20 za djecu"
+        )
+    return (
+        "whole park €60–70 (children/adults), packages without catapult from €40 for children, "
+        "training route + 2 games from €20 for children"
+    )
+
+
+def package_price_faq_answer(lang: str, prefix: str, *, single_price: int | None = None) -> str:
+    prices_href = f"{prefix}{PRICES_SLUGS[lang]}/"
+    book_href = f"{prefix}{BOOKING_SLUGS[lang]}/"
+    if lang == "hr":
+        if single_price:
+            return (
+                f"Ljudska katapulta košta {single_price} € kao pojedinačna aktivnost ili je uključena u pakete "
+                f"cijelog parka (od €20 za djecu / €30 za odrasle). "
+                f'Pogledajte <a href="{prices_href}">pakete i cijene</a> ili '
+                f'<a href="{book_href}">rezervirajte online</a>.'
+            )
+        return (
+            f"Pristup je uključen u pakete Glavani Parka — od €20 za djecu i €30 za odrasle. "
+            f'Pogledajte <a href="{prices_href}">pakete i cijene</a>.'
+        )
+    if single_price:
+        return (
+            f"The Human Catapult is €{single_price} as a single activity, or included in whole-park packages "
+            f"(from €20 for children / €30 for adults). "
+            f'See <a href="{prices_href}">packages and prices</a> or <a href="{book_href}">book online</a>.'
+        )
+    return (
+        f"Access is included in Glavani Park packages — from €20 for children and €30 for adults. "
+        f'See <a href="{prices_href}">packages and prices</a>.'
+    )
+
+
 def price_summary(lang: str) -> dict:
     """Short pricing lines for hero and CTAs."""
-    packages = [opt for opt in BOOKING_OPTIONS if opt["group"] == "packages"]
-    min_price = min(opt["price"] for opt in packages)
+    min_adult, min_child = min_package_prices()
     if lang == "hr":
         return {
-            "hero_line": f"Paketi od <strong>€{min_price}</strong> po osobi",
-            "from": f"od €{min_price}",
+            "hero_line": (
+                f"Paketi od <strong>€{min_child}</strong> djeca · "
+                f"<strong>€{min_adult}</strong> odrasli"
+            ),
+            "from": f"od €{min_child}",
         }
     return {
-        "hero_line": f"Packages from <strong>€{min_price}</strong> per person",
-        "from": f"from €{min_price}",
+        "hero_line": (
+            f"Packages from <strong>€{min_child}</strong> children · "
+            f"<strong>€{min_adult}</strong> adults"
+        ),
+        "from": f"from €{min_child}",
     }
 
 
