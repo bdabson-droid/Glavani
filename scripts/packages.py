@@ -16,6 +16,7 @@ BOOKING_OPTIONS = [
         "id": "all-incl-catapult",
         "group": "packages",
         "price": 70,
+        "child_price": 60,
         "en": {
             "name": "Whole park — all games incl. human catapult",
             "desc": "Full day access to every attraction including the Human Catapult.",
