@@ -1833,6 +1833,19 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   font-size: 0.8125rem;
 }
 .review-teaser__link a { font-weight: 600; }
+.review-teaser--activity {
+  border-left-color: var(--brand-green);
+}
+.review-teaser__heading {
+  font-size: 1.0625rem;
+  color: var(--green-deep);
+  margin-bottom: 0.5rem;
+}
+.review-teaser--activity .review-teaser__quote + .review-teaser__quote {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
 
 .price-section { margin-bottom: 2rem; }
 .price-section:last-of-type { margin-bottom: 0; }

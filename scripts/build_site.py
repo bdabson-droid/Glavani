@@ -40,9 +40,10 @@ from booking_policy import BOOKING_POLICY  # noqa: E402
 from brand_voice import BOOKING_EMAIL, BOOKING_SUBMIT_URL, ONLINE_BOOKING_MAX, PHONES, VISITOR  # noqa: E402
 from packages import PRICES_COPY, PRICES_SLUGS, BOOKING_SLUGS, price_summary, prices_offer_schema, render_price_sections  # noqa: E402
 from open_status import park_status  # noqa: E402
+from activity_reviews import render_activity_reviews  # noqa: E402
 from activity_seo import render_activity_seo_footer  # noqa: E402
 from trust_signals import book_cta_labels, render_trust_strip  # noqa: E402
-from visitor_gallery import ACTIVITY_GALLERY_IMAGES, VISITOR_GALLERY  # noqa: E402
+from visitor_gallery import ACTIVITY_GALLERY_MAP, GALLERY_BY_IMAGE, HOME_GALLERY_IMAGES, VISITOR_GALLERY  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
 TODAY = date.today().isoformat()
@@ -1281,8 +1282,8 @@ def render_activity_page(activity: dict, lang: str) -> str:
       </figure>"""
 
     inline_cta = render_conversion_cta(lang, compact=True)
-    review_teaser = render_review_teaser(lang)
-    visitor_photos = render_activity_visitor_photos(lang)
+    review_teaser = render_activity_reviews(activity, lang)
+    visitor_photos = render_activity_visitor_photos(activity, lang)
 
     video_block = ""
     if not activity.get("hide_video"):
@@ -1504,8 +1505,9 @@ def render_visitor_gallery(lang: str) -> str:
         prev_label = "Previous photo"
         next_label = "Next photo"
     slides = []
-    for item in VISITOR_GALLERY:
-        alt = esc(item[alt_key])
+    for image_name in HOME_GALLERY_IMAGES:
+        item = GALLERY_BY_IMAGE[image_name]
+        alt = esc(item["hr_alt" if lang == "hr" else "en_alt"])
         slides.append(
             f"""        <figure class="photo-gallery__slide">
           <img src="/images/{item['image']}" alt="{alt}" width="800" height="560" loading="lazy">
@@ -1529,22 +1531,24 @@ def render_visitor_gallery(lang: str) -> str:
     </section>"""
 
 
-def render_activity_visitor_photos(lang: str) -> str:
+def render_activity_visitor_photos(activity: dict, lang: str) -> str:
     alt_key = "hr_alt" if lang == "hr" else "en_alt"
-    by_image = {item["image"]: item for item in VISITOR_GALLERY}
+    en_slug = activity["en_slug"]
+    data = activity[lang]
+    image_names = ACTIVITY_GALLERY_MAP.get(en_slug, [])
     if lang == "hr":
-        heading = "Fotografije posjetitelja"
+        heading = f"Fotografije posjetitelja — {data['h1']}"
     else:
-        heading = "Visitor photos"
+        heading = f"Visitor photos — {data['h1']}"
     figures = []
-    for image in ACTIVITY_GALLERY_IMAGES:
-        item = by_image.get(image)
+    for image_name in image_names:
+        item = GALLERY_BY_IMAGE.get(image_name)
         if not item:
             continue
         alt = esc(item[alt_key])
         figures.append(
             f'<figure class="visitor-photos__item">'
-            f'<img src="/images/{image}" alt="{alt}" width="400" height="280" loading="lazy"></figure>'
+            f'<img src="/images/{image_name}" alt="{alt}" width="400" height="280" loading="lazy"></figure>'
         )
     if not figures:
         return ""

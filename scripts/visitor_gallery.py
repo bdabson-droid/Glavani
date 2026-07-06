@@ -2,83 +2,156 @@
 
 VISITOR_GALLERY = [
     {
+        "url": "https://www.glavanipark.com/upload/galerija/3/1838321.jpg",
+        "image": "visitor-gallery-high-ropes-platform-13.webp",
+        "en_alt": "Guest on a high-ropes platform with safety cables at Glavani Park, Istria",
+        "hr_alt": "Gost na platformi visokih staza sa sigurnosnim užadima u Glavani Parku, Istria",
+        "activities": ["low-zipline", "valley-zipline", "devils-causeway"],
+        "home": True,
+    },
+    {
         "url": "https://www.glavanipark.com/upload/galerija/2/94775027.jpg",
         "image": "visitor-gallery-forest-zipline-1.webp",
-        "en_alt": "Visitors on the zipline course in the oak forest at Glavani Park, Istria",
-        "hr_alt": "Posjetitelji na zipline stazi u hrastovoj šumi Glavani Parka, Istria",
+        "en_alt": "Glavani Park grounds among oak trees in the Istrian countryside",
+        "hr_alt": "Teren Glavani Parka među hrastovima u istarskom zaleđu",
+        "activities": [],
+        "home": False,
     },
     {
         "url": "https://www.glavanipark.com/upload/galerija/2/95772951.jpg",
         "image": "visitor-gallery-high-ropes-2.webp",
-        "en_alt": "Guest crossing a high-ropes bridge between trees at Glavani Park",
-        "hr_alt": "Gost prelazi most visokih staza između stabala u Glavani Parku",
+        "en_alt": "Park maintenance area at Glavani Park adventure park",
+        "hr_alt": "Održavanje terena u avanturističkom parku Glavani",
+        "activities": [],
+        "home": False,
     },
     {
         "url": "https://www.glavanipark.com/upload/galerija/2/47510928.jpg",
         "image": "visitor-gallery-adventure-park-3.webp",
-        "en_alt": "Families enjoying outdoor adventure activities at Glavani Park near Barban",
-        "hr_alt": "Obitelji uživaju u avanturističkim aktivnostima na otvorenom u Glavani Parku kod Barbana",
+        "en_alt": "High-ropes course platforms and numbered routes at Glavani Park near Barban",
+        "hr_alt": "Platforme visokih staza i označene rute u Glavani Parku kod Barbana",
+        "activities": ["high-swing", "low-zipline", "training-route", "20m-drop"],
+        "home": True,
     },
     {
         "url": "https://www.glavanipark.com/upload/galerija/2/58874148.jpg",
         "image": "visitor-gallery-canopy-view-4.webp",
-        "en_alt": "Forest canopy and adventure course platforms at Glavani Park, Istria Croatia",
-        "hr_alt": "Krošnje šume i platforme avanturističkog parka u Glavani Parku, Istria Hrvatska",
+        "en_alt": "Forest clearing at Glavani Park during course development",
+        "hr_alt": "Šumska čistina u Glavani Parku tijekom izgradnje staza",
+        "activities": [],
+        "home": False,
     },
     {
         "url": "https://www.glavanipark.com/upload/galerija/1/35429019.jpg",
         "image": "visitor-gallery-park-grounds-5.webp",
-        "en_alt": "Glavani Park adventure grounds in the Istrian countryside near Pula",
-        "hr_alt": "Teren Glavani Parka u istarskom zaleđu kod Pule",
+        "en_alt": "Children on a suspended log obstacle wearing helmets and harnesses at Glavani Park",
+        "hr_alt": "Djeca na visećoj gredi s kacigama i harnesima u Glavani Parku",
+        "activities": ["high-swing", "training-route"],
+        "home": True,
     },
     {
         "url": "https://www.glavanipark.com/upload/galerija/1/93272036.jpg",
         "image": "visitor-gallery-group-fun-6.webp",
-        "en_alt": "Group of visitors laughing after an activity at Glavani Park",
-        "hr_alt": "Grupa posjetitelja nakon aktivnosti u Glavani Parku",
+        "en_alt": "Guest crossing a wire cable on the Devil's Causeway Course at Glavani Park",
+        "hr_alt": "Gost prelazi žičani kabel na Stazi Vražjeg puta u Glavani Parku",
+        "activities": ["devils-causeway"],
+        "home": True,
     },
     {
         "url": "https://www.glavanipark.com/upload/galerija/4/38381595.jpg",
         "image": "visitor-gallery-school-group-7.webp",
-        "en_alt": "School group on the high-ropes course at Glavani Park, Istria",
-        "hr_alt": "Školska grupa na visokim stazama u Glavani Parku, Istria",
+        "en_alt": "School group in helmets and harnesses ready for the high-ropes course at Glavani Park",
+        "hr_alt": "Školska grupa u kacigama i harnesima prije visokih staza u Glavani Parku",
+        "activities": ["training-route", "climbing-wall", "human-catapult", "aerotrim"],
+        "home": True,
     },
     {
         "url": "https://www.glavanipark.com/upload/galerija/4/99700564.jpg",
         "image": "visitor-gallery-kids-climbing-8.webp",
-        "en_alt": "Children climbing with instructor support at Glavani Park adventure park",
-        "hr_alt": "Djeca penju uz podršku instruktora u avanturističkom parku Glavani",
+        "en_alt": "Children starting the yellow training route with instructors at Glavani Park",
+        "hr_alt": "Djeca na žutoj trening ruti uz instruktore u Glavani Parku",
+        "activities": ["training-route", "climbing-wall"],
+        "home": True,
     },
     {
         "url": "https://www.glavanipark.com/upload/galerija/4/93168276.jpg",
         "image": "visitor-gallery-family-day-9.webp",
-        "en_alt": "Family day out at Glavani Park — outdoor adventure near Pula, Croatia",
-        "hr_alt": "Obiteljski dan u Glavani Parku — avantura na otvorenom kod Pule, Hrvatska",
+        "en_alt": "Guest crossing a wooden beam on the treetop high-ropes course at Glavani Park",
+        "hr_alt": "Gost prelazi drveni gredu na stazi u krošnjama u Glavani Parku",
+        "activities": ["training-route", "low-zipline", "devils-causeway"],
+        "home": True,
     },
     {
         "url": "https://www.glavanipark.com/upload/galerija/5/38879031.jpg",
         "image": "visitor-gallery-group-event-10.webp",
-        "en_alt": "Large group enjoying activities at Glavani Park in the oak forest",
-        "hr_alt": "Velika grupa uživa u aktivnostima u Glavani Parku u hrastovoj šumi",
+        "en_alt": "Group of visitors in harnesses at Glavani Park between activities",
+        "hr_alt": "Grupa posjetitelja u harnesima u Glavani Parku između aktivnosti",
+        "activities": ["human-catapult", "aerotrim", "high-swing"],
+        "home": True,
     },
     {
         "url": "https://www.glavanipark.com/upload/galerija/5/61625308.jpg",
         "image": "visitor-gallery-team-day-11.webp",
-        "en_alt": "Visitors on the adventure course at Glavani Park, Istria Croatia",
-        "hr_alt": "Posjetitelji na avanturističkoj stazi u Glavani Parku, Istria Hrvatska",
+        "en_alt": "Handcrafted wooden souvenirs at Glavani Park gift area",
+        "hr_alt": "Ručno rađeni drveni suveniri u suvenirnici Glavani Parka",
+        "activities": [],
+        "home": False,
     },
     {
         "url": "https://www.glavanipark.com/upload/galerija/3/44248599.jpg",
         "image": "visitor-gallery-swing-action-12.webp",
-        "en_alt": "Guest on the high swing at Glavani Park adventure park, Istria",
-        "hr_alt": "Gost na visokoj ljuljački u avanturističkom parku Glavani, Istria",
+        "en_alt": "Aerial view of a rope bridge on the high-ropes course at Glavani Park",
+        "hr_alt": "Pogled iz zraka na most od užadi na visokim stazama u Glavani Parku",
+        "activities": ["low-zipline", "valley-zipline", "devils-causeway"],
+        "home": True,
     },
 ]
 
-# Subset shown on activity pages (compact row).
-ACTIVITY_GALLERY_IMAGES = [
-    "visitor-gallery-forest-zipline-1.webp",
-    "visitor-gallery-high-ropes-2.webp",
-    "visitor-gallery-family-day-9.webp",
-    "visitor-gallery-swing-action-12.webp",
-]
+# Per-activity photo picks (3–4 each). Curated after inspecting gallery content.
+ACTIVITY_GALLERY_MAP: dict[str, list[str]] = {
+    "human-catapult": [
+        "visitor-gallery-group-event-10.webp",
+        "visitor-gallery-school-group-7.webp",
+    ],
+    "high-swing": [
+        "visitor-gallery-park-grounds-5.webp",
+        "visitor-gallery-adventure-park-3.webp",
+        "visitor-gallery-group-event-10.webp",
+    ],
+    "training-route": [
+        "visitor-gallery-kids-climbing-8.webp",
+        "visitor-gallery-family-day-9.webp",
+        "visitor-gallery-park-grounds-5.webp",
+    ],
+    "low-zipline": [
+        "visitor-gallery-family-day-9.webp",
+        "visitor-gallery-adventure-park-3.webp",
+        "visitor-gallery-high-ropes-platform-13.webp",
+    ],
+    "valley-zipline": [
+        "visitor-gallery-swing-action-12.webp",
+        "visitor-gallery-high-ropes-platform-13.webp",
+        "visitor-gallery-adventure-park-3.webp",
+    ],
+    "devils-causeway": [
+        "visitor-gallery-group-fun-6.webp",
+        "visitor-gallery-swing-action-12.webp",
+        "visitor-gallery-family-day-9.webp",
+    ],
+    "climbing-wall": [
+        "visitor-gallery-kids-climbing-8.webp",
+        "visitor-gallery-school-group-7.webp",
+    ],
+    "aerotrim": [
+        "visitor-gallery-group-event-10.webp",
+        "visitor-gallery-school-group-7.webp",
+    ],
+    "20m-drop": [
+        "visitor-gallery-adventure-park-3.webp",
+        "visitor-gallery-high-ropes-platform-13.webp",
+    ],
+}
+
+HOME_GALLERY_IMAGES = [item["image"] for item in VISITOR_GALLERY if item.get("home")]
+
+GALLERY_BY_IMAGE = {item["image"]: item for item in VISITOR_GALLERY}
