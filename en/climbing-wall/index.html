@@ -174,7 +174,18 @@
     </aside>
       <section class="visitor-photos" aria-label="Visitor photos — Climbing Wall">
       <h2 class="visitor-photos__heading">Visitor photos — Climbing Wall</h2>
-      <div class="visitor-photos__grid"><figure class="visitor-photos__item"><img src="../../images/visitor-gallery-kids-climbing-8.webp" alt="Children starting the yellow training route with instructors at Glavani Park" width="400" height="280" loading="lazy"></figure><figure class="visitor-photos__item"><img src="../../images/visitor-gallery-school-group-7.webp" alt="School group in helmets and harnesses ready for the high-ropes course at Glavani Park" width="400" height="280" loading="lazy"></figure></div>
+      <div class="photo-gallery" data-photo-gallery>
+        <button type="button" class="photo-gallery__nav photo-gallery__nav--prev" aria-label="Previous photo" data-gallery-prev>‹</button>
+        <div class="photo-gallery__track" tabindex="0" data-gallery-track>
+        <figure class="photo-gallery__slide">
+          <img src="../../images/visitor-gallery-kids-climbing-8.webp" alt="Children starting the yellow training route with instructors at Glavani Park" width="800" height="560" loading="lazy">
+        </figure>
+        <figure class="photo-gallery__slide">
+          <img src="../../images/visitor-gallery-school-group-7.webp" alt="School group in helmets and harnesses ready for the high-ropes course at Glavani Park" width="800" height="560" loading="lazy">
+        </figure>
+        </div>
+        <button type="button" class="photo-gallery__nav photo-gallery__nav--next" aria-label="Next photo" data-gallery-next>›</button>
+      </div>
     </section>
       <section class="activity-video" aria-labelledby="activity-video-heading">
         <h2 id="activity-video-heading">Climbing Wall video</h2>
@@ -344,5 +355,6 @@
   }
 }
 </script>
+<script src="../../assets/js/photo-gallery-carousel.js" defer></script>
 </body>
 </html>
