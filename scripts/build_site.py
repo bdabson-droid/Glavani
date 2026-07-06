@@ -47,6 +47,7 @@ from packages import (  # noqa: E402
     price_summary,
     prices_offer_schema,
     render_price_sections,
+    render_children_pricing_ticker,
 )
 from open_status import park_status  # noqa: E402
 from activity_reviews import render_activity_reviews  # noqa: E402
@@ -1160,6 +1161,7 @@ def render_activities_hub_page(lang: str) -> str:
           <h2>{PRICES_COPY[lang]['h1']}</h2>
           <p>{PRICES_COPY[lang]['lead']}</p>
         </div>
+        {render_children_pricing_ticker(lang)}
         {render_price_sections(lang)}
         <p class="activities-hub-packages__note">{PRICES_COPY[lang]['book_note']}</p>
       </div>
@@ -1750,7 +1752,7 @@ def render_prices_page(lang: str) -> str:
   </section>
   <section class="section section--theme-forest">
     <div class="section__inner">
-      {render_review_teaser(lang)}
+      {render_children_pricing_ticker(lang)}
       {render_price_sections(lang)}
       <p style="margin-top:1.5rem;text-align:center;color:var(--rock-mid);">{copy['book_note']}</p>
       <p style="margin-top:1rem;text-align:center;display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;">
@@ -1789,7 +1791,6 @@ def render_booking_app(lang: str) -> str:
             "<strong>U parku:</strong> osvježenja i sladoled."
         )
         policy = BOOKING_POLICY["hr"]["book_page"]
-        children_pricing = children_pricing_notice("hr")
     else:
         slug, en_slug, hr_slug = "book", "book", "rezervacija"
         title = "Book | Glavani Park – Pick Package & Date"
@@ -1809,7 +1810,6 @@ def render_booking_app(lang: str) -> str:
             "<strong>On site:</strong> refreshments and ice cream available."
         )
         policy = BOOKING_POLICY["en"]["book_page"]
-        children_pricing = children_pricing_notice("en")
     prefix = f"/{lang}/"
     canonical = f"{BASE}{prefix}{slug}/"
     home_label = "Početna" if lang == "hr" else "Home"
@@ -1832,7 +1832,7 @@ def render_booking_app(lang: str) -> str:
 <div class="book-app-wrap">
   <script type="application/json" id="booking-app-config">{json.dumps({"lang": lang, "submitUrl": BOOKING_SUBMIT_URL, "recipientEmail": BOOKING_EMAIL})}</script>
   <div id="booking-app" aria-live="polite"></div>
-  <p class="book-app-notice book-app-notice--children">{children_pricing}</p>
+  <p class="book-app-notice book-app-notice--children">{children_pricing_notice(lang, for_booking=True)}</p>
   <p class="book-app-notice book-app-notice--policy">{policy}</p>
 </div>
 {footer(lang)}

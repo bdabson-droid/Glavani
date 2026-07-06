@@ -134,6 +134,10 @@ PRICES_COPY = {
 }
 
 
+def render_children_pricing_ticker(lang: str) -> str:
+    return f'<p class="packages-notice packages-notice--children">{children_pricing_notice(lang)}</p>'
+
+
 def min_package_prices() -> tuple[int, int]:
     packages = [opt for opt in BOOKING_OPTIONS if opt["group"] == "packages"]
     min_adult = min(opt["price"] for opt in packages)
@@ -142,16 +146,22 @@ def min_package_prices() -> tuple[int, int]:
     return min_adult, min_child
 
 
-def children_pricing_notice(lang: str) -> str:
+def children_pricing_notice(lang: str, *, for_booking: bool = False) -> str:
     if lang == "hr":
-        return (
+        notice = (
             "<strong>Dječje cijene:</strong> trening ruta + 2 igre €20 · cijeli park bez katapulata €40 · "
-            "cijeli park s katapultom €60 po djetetu. U obrascu odaberite broj odraslih i djece."
+            "cijeli park s katapultom €60 po djetetu."
         )
-    return (
+        if for_booking:
+            notice += " U obrascu odaberite broj odraslih i djece."
+        return notice
+    notice = (
         "<strong>Children's prices:</strong> training route + 2 games €20 · whole park without catapult €40 · "
-        "whole park incl. catapult €60 per child. Select adults and children in the form."
+        "whole park incl. catapult €60 per child."
     )
+    if for_booking:
+        notice += " Select adults and children in the form."
+    return notice
 
 
 def conversion_cta_note(lang: str) -> str:
