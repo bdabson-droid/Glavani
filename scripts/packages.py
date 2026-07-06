@@ -134,7 +134,7 @@ def render_price_sections(lang: str) -> str:
         for opt in items:
             data = opt[lang]
             rows.append(
-                f"""        <li class="price-list__item">
+                f"""        <li class="price-list__item" data-guests="{default_guests}">
           <div class="price-list__info">
             <h3>{data['name']}</h3>
             <p>{data['desc']}</p>
@@ -144,7 +144,7 @@ def render_price_sections(lang: str) -> str:
               <p class="price-list__amount">€{opt['price']}<span>{per_person}</span></p>
               <div class="price-qty" data-price-qty>
                 <button type="button" class="qty-btn price-qty__btn" data-qty-minus aria-label="{copy['guests_minus']}">−</button>
-                <output class="price-qty__value" data-qty-value>{default_guests}</output>
+                <span class="price-qty__value" data-qty-value aria-live="polite">{default_guests}</span>
                 <button type="button" class="qty-btn price-qty__btn" data-qty-plus aria-label="{copy['guests_plus']}">+</button>
               </div>
             </div>

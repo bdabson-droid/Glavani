@@ -1,52 +1,77 @@
 /**
- * Prices page — guest stepper (1–10) and package prefill for the booking app.
+ * Prices & activities pages — guest stepper (1–10) and booking prefill.
  */
 (function () {
   const STORAGE_KEY = 'glavani-book-prefill';
   const MAX_GUESTS = 10;
   const DEFAULT_GUESTS = 1;
 
-  document.querySelectorAll('.price-list__item').forEach((item) => {
-    const link = item.querySelector('[data-book-package]');
+  function getItem(el) {
+    return el.closest('.price-list__item');
+  }
+
+  function readGuests(item) {
+    const n = parseInt(item.dataset.guests || String(DEFAULT_GUESTS), 10);
+    if (Number.isNaN(n)) return DEFAULT_GUESTS;
+    return Math.min(MAX_GUESTS, Math.max(1, n));
+  }
+
+  function writeGuests(item, guests) {
+    const count = Math.min(MAX_GUESTS, Math.max(1, guests));
+    item.dataset.guests = String(count);
+    const valueEl = item.querySelector('[data-qty-value]');
     const minus = item.querySelector('[data-qty-minus]');
     const plus = item.querySelector('[data-qty-plus]');
-    const valueEl = item.querySelector('[data-qty-value]');
-    const packageId = link?.dataset.bookPackage;
-    if (!link || !minus || !plus || !valueEl || !packageId) return;
+    if (valueEl) valueEl.textContent = String(count);
+    if (minus) minus.disabled = count <= 1;
+    if (plus) plus.disabled = count >= MAX_GUESTS;
+    return count;
+  }
 
-    let guests = DEFAULT_GUESTS;
+  function initItems() {
+    document.querySelectorAll('.price-list__item').forEach((item) => {
+      if (!item.querySelector('[data-book-package]')) return;
+      writeGuests(item, readGuests(item));
+    });
+  }
 
-    function updateQty() {
-      valueEl.textContent = String(guests);
-      minus.disabled = guests <= 1;
-      plus.disabled = guests >= MAX_GUESTS;
+  document.addEventListener('click', (e) => {
+    const minus = e.target.closest('[data-qty-minus]');
+    if (minus) {
+      e.preventDefault();
+      const item = getItem(minus);
+      if (item) writeGuests(item, readGuests(item) - 1);
+      return;
     }
 
-    minus.addEventListener('click', () => {
-      if (guests > 1) {
-        guests -= 1;
-        updateQty();
-      }
-    });
+    const plus = e.target.closest('[data-qty-plus]');
+    if (plus) {
+      e.preventDefault();
+      const item = getItem(plus);
+      if (item) writeGuests(item, readGuests(item) + 1);
+      return;
+    }
 
-    plus.addEventListener('click', () => {
-      if (guests < MAX_GUESTS) {
-        guests += 1;
-        updateQty();
-      }
-    });
+    const book = e.target.closest('[data-book-package]');
+    if (!book) return;
 
-    link.addEventListener('click', () => {
-      try {
-        sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
-          package: packageId,
-          guests: guests,
-        }));
-      } catch (e) {
-        /* ignore */
-      }
-    });
+    const packageId = book.dataset.bookPackage;
+    const item = getItem(book);
+    if (!packageId || !item) return;
 
-    updateQty();
+    try {
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
+        package: packageId,
+        guests: readGuests(item),
+      }));
+    } catch (err) {
+      /* ignore */
+    }
   });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initItems);
+  } else {
+    initItems();
+  }
 })();
