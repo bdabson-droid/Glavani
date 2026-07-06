@@ -207,6 +207,32 @@
   const state = { name: '', email: '', phone: '', guests: 2, largeGroup: false, arrival: 0, notes: '' };
   let submitted = false;
 
+  function applyQueryPrefill() {
+    const params = new URLSearchParams(window.location.search);
+    const pkg = params.get('package') || params.get('p');
+    const guestsRaw = params.get('guests') || params.get('g');
+    let hasPackage = false;
+
+    if (pkg && t.activities.some((a) => a.id === pkg)) {
+      selectedActivityId = pkg;
+      hasPackage = true;
+    }
+
+    if (guestsRaw) {
+      const n = parseInt(guestsRaw, 10);
+      if (n > MAX_GUESTS) {
+        state.largeGroup = true;
+      } else if (n >= 1) {
+        state.guests = n;
+        state.largeGroup = false;
+      }
+    }
+
+    if (hasPackage && !state.largeGroup) {
+      step = 1;
+    }
+  }
+
   function isoDate(d) { return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`; }
 
   function isWithin48Hours(isoDate) {
@@ -641,5 +667,6 @@
 
   viewYear = today.getFullYear();
   viewMonth = today.getMonth();
+  applyQueryPrefill();
   render();
 })();

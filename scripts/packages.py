@@ -4,6 +4,7 @@ Keep assets/js/booking-app.js in sync when prices or options change.
 """
 
 PRICES_SLUGS = {"en": "prices", "hr": "cijene"}
+BOOKING_SLUGS = {"en": "book", "hr": "rezervacija"}
 
 GROUP_LABELS = {
     "en": {"packages": "Activity packages", "single": "Single activities"},
@@ -89,6 +90,10 @@ PRICES_COPY = {
         "h1": "Activity Packages & Prices",
         "lead": "Per-person prices for packages and single activities · book online for up to 10 people",
         "per_person": "per person",
+        "book": "Book",
+        "people": "people",
+        "guests_minus": "Fewer people",
+        "guests_plus": "More people",
         "book_note": "Visits from late September to early July require advance booking — no walk-ins. Groups of more than 10 should call to check availability and pricing.",
         "more_single": "More single activities coming soon.",
     },
@@ -102,6 +107,10 @@ PRICES_COPY = {
         "h1": "Paketi aktivnosti i cijene",
         "lead": "Cijene po osobi za pakete i pojedinačne aktivnosti · online do 10 osoba",
         "per_person": "po osobi",
+        "book": "Rezerviraj",
+        "people": "osoba",
+        "guests_minus": "Manje osoba",
+        "guests_plus": "Više osoba",
         "book_note": "Od kraja rujna do početka srpnja potrebna je unaprijedna rezervacija — bez dolaska bez najave. Grupe s više od 10 osoba neka nazovu radi dostupnosti i cijena.",
         "more_single": "Više pojedinačnih aktivnosti uskoro.",
     },
@@ -116,6 +125,8 @@ def options_for_group(lang: str, group: str) -> list[dict]:
 def render_price_sections(lang: str) -> str:
     copy = PRICES_COPY[lang]
     per_person = copy["per_person"]
+    book_base = f"/{lang}/{BOOKING_SLUGS[lang]}/"
+    default_guests = 2
     sections = []
     for group in ("packages", "single"):
         items = options_for_group(lang, group)
@@ -124,13 +135,26 @@ def render_price_sections(lang: str) -> str:
         rows = []
         for opt in items:
             data = opt[lang]
+            book_href = f"{book_base}?package={opt['id']}&guests={default_guests}"
             rows.append(
-                f"""        <li class="price-list__item">
-          <div>
+                f"""        <li class="price-list__item" data-package-id="{opt['id']}" data-price="{opt['price']}">
+          <div class="price-list__info">
             <h3>{data['name']}</h3>
             <p>{data['desc']}</p>
           </div>
-          <p class="price-list__amount">€{opt['price']}<span>{per_person}</span></p>
+          <div class="price-list__aside">
+            <p class="price-list__amount">€{opt['price']}<span>{per_person}</span></p>
+            <div class="price-list__book">
+              <div class="price-qty" data-price-qty>
+                <button type="button" class="qty-btn price-qty__btn" data-qty-minus aria-label="{copy['guests_minus']}">−</button>
+                <output class="price-qty__value" data-qty-value>{default_guests}</output>
+                <span class="price-qty__label">{copy['people']}</span>
+                <button type="button" class="qty-btn price-qty__btn" data-qty-plus aria-label="{copy['guests_plus']}">+</button>
+              </div>
+              <p class="price-list__total" data-price-total aria-live="polite">€{opt['price'] * default_guests}</p>
+              <a class="btn-primary price-list__book-btn" data-book-link href="{book_href}">{copy['book']}</a>
+            </div>
+          </div>
         </li>"""
             )
         sections.append(

@@ -1363,6 +1363,7 @@ def render_prices_page(lang: str) -> str:
 {breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (copy['h1'], None)])}
 {json_ld_script(prices_offer_schema(lang, canonical, copy['h1']))}
 {json_ld_script(webpage_schema(canonical, copy['h1'], copy['meta_description'], lang))}
+<script src="/assets/js/prices-book.js" defer></script>
 </body>
 </html>"""
 
