@@ -65,11 +65,13 @@
       var lang = el.getAttribute("data-lang") || "en";
       var result = statusFor(lang);
       el.textContent = result.message;
-      var statusEl = el.closest(".visitor-bar__status");
+      var statusEl = el.closest(".visitor-bar__status, .visit-cta-bar__status");
       if (statusEl) {
         statusEl.classList.remove("visitor-bar__status--open", "visitor-bar__status--closed");
         statusEl.classList.add("visitor-bar__status--" + result.state);
       }
+      el.classList.remove("hero__open-status--open", "hero__open-status--closed");
+      el.classList.add("hero__open-status--" + result.state);
     });
   }
 

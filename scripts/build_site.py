@@ -40,6 +40,9 @@ from booking_policy import BOOKING_POLICY  # noqa: E402
 from brand_voice import BOOKING_EMAIL, BOOKING_SUBMIT_URL, ONLINE_BOOKING_MAX, PHONES, VISITOR  # noqa: E402
 from packages import PRICES_COPY, PRICES_SLUGS, BOOKING_SLUGS, price_summary, prices_offer_schema, render_price_sections  # noqa: E402
 from open_status import park_status  # noqa: E402
+from activity_seo import render_activity_seo_footer  # noqa: E402
+from trust_signals import book_cta_labels, render_trust_strip  # noqa: E402
+from visitor_gallery import ACTIVITY_GALLERY_IMAGES, VISITOR_GALLERY  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
 TODAY = date.today().isoformat()
@@ -140,6 +143,23 @@ EXTERNAL_IMAGES = [
     ),
 ]
 EXTERNAL_IMAGES.extend(EVENT_EXTERNAL_IMAGES)
+EXTERNAL_IMAGES.extend((item["url"], item["image"]) for item in VISITOR_GALLERY)
+EXTERNAL_IMAGES.extend(
+    [
+        (
+            "https://www.tripadvisor.co.uk/img/cdsi/img2/awards/CoE2017_WidgetAsset-14348-2.png",
+            "tripadvisor-certificate-excellence.webp",
+        ),
+        (
+            "https://www.glavanipark.com/images/kroatide.png",
+            "kroatide-travel-guide.webp",
+        ),
+        (
+            "https://www.glavanipark.com/images/pitchup_logo.jpg",
+            "pitchup-partner.webp",
+        ),
+    ]
+)
 
 
 def fetch_external_images() -> None:
@@ -343,19 +363,18 @@ def render_info_strip_booking(lang: str) -> str:
 def quick_actions(lang: str) -> str:
     prefix = f"/{lang}/"
     book_href = f"{prefix}{BOOKING_SLUGS[lang]}/"
+    labels = book_cta_labels(lang)
     if lang == "hr":
-        book = "Rezervirajte odmah"
         call = "Pozovite"
         find = "Karta"
     else:
-        book = "Book Now"
         call = "Call"
         find = "Map"
     primary = PHONES[1] if lang == "hr" else PHONES[0]
     return f"""
   <nav class="quick-actions" aria-label="{'Brze radnje' if lang == 'hr' else 'Quick actions'}">
     <a class="btn-book-now" href="{book_href}">
-      <span aria-hidden="true">📅</span> {book}
+      <span aria-hidden="true">🎟️</span> {labels['book_tickets']}
     </a>
     <a class="btn-call" href="tel:{primary['tel']}" aria-label="{'Pozovite Glavani Park' if lang == 'hr' else 'Call Glavani Park now'}">
       <span aria-hidden="true">📞</span> {call}
@@ -364,6 +383,36 @@ def quick_actions(lang: str) -> str:
       <span aria-hidden="true">📍</span> {find}
     </a>
   </nav>"""
+
+
+def render_visit_cta_bar(lang: str) -> str:
+    labels = book_cta_labels(lang)
+    status = park_status(lang)
+    prefix = f"/{lang}/"
+    book_href = f"{prefix}{BOOKING_SLUGS[lang]}/"
+    aria = "Rezervacija i današnji status" if lang == "hr" else "Book tickets and today's status"
+    return f"""
+  <div class="visit-cta-bar" aria-label="{aria}">
+    <div class="visit-cta-bar__inner">
+      <p class="visit-cta-bar__status visitor-bar__status visitor-bar__status--{status['state']}">
+        <span class="visitor-bar__icon" aria-hidden="true">●</span>
+        <span data-open-status data-lang="{lang}">{status['message']}</span>
+      </p>
+      <div class="visit-cta-bar__actions">
+        <a class="btn-primary btn-primary--xl btn-book-tickets" href="{book_href}">{labels['book_tickets']}</a>
+        <a class="btn-visit-today" href="{book_href}">{labels['visit_today']}</a>
+      </div>
+    </div>
+  </div>"""
+
+
+def page_chrome(lang: str, *, is_home: bool = False) -> str:
+    return f"""{quick_actions(lang)}
+{render_visit_cta_bar(lang)}
+{site_header(lang)}
+{visitor_bar(lang)}
+{site_nav(lang, is_home=is_home)}
+{render_trust_strip(lang)}"""
 
 
 def visitor_bar(lang: str) -> str:
@@ -410,7 +459,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Pitanja", f"{prefix}{FAQ_SLUGS['hr']}/"),
             ("Sigurnost", f"{prefix}sigurnost/"),
         ]
-        book_label = "Rezerviraj"
+        book_label = book_cta_labels("hr")["book_tickets"]
         book_href = f"{prefix}{BOOKING_SLUGS['hr']}/"
     else:
         links = [
@@ -421,7 +470,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("FAQ", f"{prefix}{FAQ_SLUGS['en']}/"),
             ("Safety", f"{prefix}safety/"),
         ]
-        book_label = "Book"
+        book_label = book_cta_labels("en")["book_tickets"]
         book_href = f"{prefix}{BOOKING_SLUGS['en']}/"
     items = "".join(f'<a href="{href}">{label}</a>' for label, href in links)
     return f"""
@@ -820,10 +869,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
             )
         )
     body = f"""{head_meta(lang, page['title'], page['meta_description'], page['keywords'], canonical, en_slug, hr_slug, og_image=img, og_image_alt=page.get('image_alt'), extra_head=map_head)}
-{quick_actions(lang)}
-{site_header(lang)}
-{visitor_bar(lang)}
-{site_nav(lang)}
+{page_chrome(lang)}
 {crumbs}
 <main>
   <section class="hero hero--landing">
@@ -832,7 +878,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
       <h1>{page['h1']}</h1>
       <p class="hero__subtitle">{page['hero_subtitle']}</p>
       <div class="activity-banner__actions">
-        <a class="btn-primary" href="{prefix}{BOOKING_SLUGS[lang]}/">{'Rezervirajte odmah' if lang == 'hr' else 'Book Now'}</a>
+        <a class="btn-primary" href="{prefix}{BOOKING_SLUGS[lang]}/">{book_cta_labels(lang)['book_tickets']}</a>
         <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
       </div>
     </div>
@@ -856,7 +902,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
       <h2>{'Rezervirajte avanturu' if lang == 'hr' else 'Book Your Adventure'}</h2>
       <p>{'Pozovite unaprijed za cijene i dostupnost termina.' if lang == 'hr' else 'Call ahead for pricing and availability — especially for groups.'}</p>
       <div class="pricing-teaser__actions">
-        <a class="btn-primary" href="{prefix}{BOOKING_SLUGS[lang]}/">{'Rezervirajte odmah' if lang == 'hr' else 'Book Now'}</a>
+        <a class="btn-primary" href="{prefix}{BOOKING_SLUGS[lang]}/">{book_cta_labels(lang)['book_tickets']}</a>
         <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
       </div>
     </div>
@@ -945,13 +991,12 @@ def render_conversion_cta(lang: str, *, compact: bool = False) -> str:
     prefix = f"/{lang}/"
     book_href = f"{prefix}{BOOKING_SLUGS[lang]}/"
     prices_href = f"{prefix}{PRICES_SLUGS[lang]}/"
+    labels = book_cta_labels(lang)
     if lang == "hr":
-        book_label = "Rezervirajte odmah"
         prices_label = "Pogledajte cijene"
         heading = "" if compact else "<h2 class=\"section-cta__heading\">Spremni za avanturu?</h2>"
         note = "Paketi od €30 po osobi · online do 10 osoba"
     else:
-        book_label = "Book Now"
         prices_label = "See Prices"
         heading = "" if compact else "<h2 class=\"section-cta__heading\">Ready for your adventure?</h2>"
         note = "Packages from €30 per person · book online for up to 10"
@@ -960,7 +1005,7 @@ def render_conversion_cta(lang: str, *, compact: bool = False) -> str:
       {heading}
       <p class="section-cta__note">{note}</p>
       <div class="section-cta__actions">
-        <a class="btn-primary" href="{book_href}">{book_label}</a>
+        <a class="btn-primary" href="{book_href}">{labels['book_tickets']}</a>
         <a class="btn-secondary" href="{prices_href}">{prices_label}</a>
       </div>
     </div>"""
@@ -1078,10 +1123,7 @@ def render_activities_hub_page(lang: str) -> str:
     )
 
     return f"""{head_meta(lang, copy['title'], copy['meta_description'], copy['keywords'], canonical, en_slug, hr_slug)}
-{quick_actions(lang)}
-{site_header(lang)}
-{visitor_bar(lang)}
-{site_nav(lang)}
+{page_chrome(lang)}
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <ol>
       <li><a href="{prefix}">{home_label}</a></li>
@@ -1162,8 +1204,8 @@ def render_activity_page(activity: dict, lang: str) -> str:
     canonical = f"{BASE}{prefix}{slug}/"
     home_label = "Početna" if lang == "hr" else "Home"
     activities_label = "Aktivnosti" if lang == "hr" else "Activities"
-    book_label = "Rezervirajte odmah" if lang == "hr" else "Book Now"
-    book_href = f"{prefix}rezervacija/" if lang == "hr" else f"{prefix}book/"
+    book_label = book_cta_labels(lang)["book_tickets"]
+    book_href = f"{prefix}{BOOKING_SLUGS[lang]}/"
     cta = "Pozovite za rezervaciju" if lang == "hr" else "Call to Book"
     img = activity["image"]
     mod = activity["tile_mod"]
@@ -1172,8 +1214,9 @@ def render_activity_page(activity: dict, lang: str) -> str:
     activities_href = activities_hub_path(lang)
     activities_url = f"{BASE}{activities_href}"
 
-    prose = "".join(f"<p>{p}</p>" for p in data["paragraphs"])
-    prices_href = f"{prefix}prices/" if lang == "en" else f"{prefix}cijene/"
+    prose = render_prose_blocks(data["paragraphs"])
+    prose += render_activity_seo_footer(activity, lang)
+    prices_href = f"{prefix}{PRICES_SLUGS[lang]}/"
     prices_label = "Packages &amp; prices" if lang == "en" else "Paketi i cijene"
     prose += (
         f'<p><a href="{book_href}">{book_label}</a> · '
@@ -1239,6 +1282,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
 
     inline_cta = render_conversion_cta(lang, compact=True)
     review_teaser = render_review_teaser(lang)
+    visitor_photos = render_activity_visitor_photos(lang)
 
     video_block = ""
     if not activity.get("hide_video"):
@@ -1249,10 +1293,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
       </section>"""
 
     return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=img, og_image_alt=data['image_alt'])}
-{quick_actions(lang)}
-{site_header(lang)}
-{visitor_bar(lang)}
-{site_nav(lang)}
+{page_chrome(lang)}
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <ol>
       <li><a href="{prefix}">{home_label}</a></li>
@@ -1269,7 +1310,8 @@ def render_activity_page(activity: dict, lang: str) -> str:
         {prose}
       </div>
       {inline_cta}
-      {review_teaser}{video_block}
+      {review_teaser}
+      {visitor_photos}{video_block}
       <div class="activity-detail__actions">
         <a class="btn-primary" href="{book_href}">{book_label}</a>
         <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
@@ -1360,10 +1402,7 @@ def render_event_page(event: dict, lang: str) -> str:
     gallery_block = render_photo_gallery(event, lang)
 
     return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=img, og_image_alt=data['image_alt'])}
-{quick_actions(lang)}
-{site_header(lang)}
-{visitor_bar(lang)}
-{site_nav(lang)}
+{page_chrome(lang)}
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <ol>
       <li><a href="{prefix}">{home_label}</a></li>
@@ -1375,6 +1414,10 @@ def render_event_page(event: dict, lang: str) -> str:
     <div class="hero__inner">
       <p class="hero__badge">{data['hero_badge']}</p>
       <h1>{data['h1']}</h1>
+      <div class="activity-banner__actions">
+        <a class="btn-primary" href="{book_href}">{book_cta_labels(lang)['book_tickets']}</a>
+        <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
+      </div>
     </div>
   </section>
   <div class="activity-detail-wrap section--theme-forest">
@@ -1386,8 +1429,8 @@ def render_event_page(event: dict, lang: str) -> str:
         {prose}
       </div>
       <div class="activity-detail__actions">
-        <a class="btn-primary" href="tel:+385918964525">{cta}</a>
-        <a class="btn-secondary" href="{book_href}">{book_label}</a>
+        <a class="btn-primary" href="{book_href}">{book_cta_labels(lang)['book_tickets']}</a>
+        <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
       </div>
     </article>
   </div>
@@ -1448,6 +1491,80 @@ def inject_home_video_section(body: str, lang: str) -> str:
     return body.replace(marker, render_home_video_section(lang))
 
 
+def render_visitor_gallery(lang: str) -> str:
+    alt_key = "hr_alt" if lang == "hr" else "en_alt"
+    if lang == "hr":
+        heading = "Posjetitelji u parku"
+        lead = "Prave fotografije gostiju i grupa iz Glavani Parka — avantura u hrastovoj šumi Istre"
+        prev_label = "Prethodna fotografija"
+        next_label = "Sljedeća fotografija"
+    else:
+        heading = "Visitors at the park"
+        lead = "Real guest and group photos from Glavani Park — adventure in the Istrian oak forest"
+        prev_label = "Previous photo"
+        next_label = "Next photo"
+    slides = []
+    for item in VISITOR_GALLERY:
+        alt = esc(item[alt_key])
+        slides.append(
+            f"""        <figure class="photo-gallery__slide">
+          <img src="/images/{item['image']}" alt="{alt}" width="800" height="560" loading="lazy">
+        </figure>"""
+        )
+    return f"""
+    <section class="section section--theme-reviews visitor-gallery-section" aria-labelledby="visitor-gallery-heading">
+      <div class="section__inner">
+        <div class="section__heading">
+          <h2 id="visitor-gallery-heading">{heading}</h2>
+          <p>{lead}</p>
+        </div>
+        <div class="photo-gallery" data-photo-gallery>
+          <button type="button" class="photo-gallery__nav photo-gallery__nav--prev" aria-label="{prev_label}" data-gallery-prev>‹</button>
+          <div class="photo-gallery__track" tabindex="0" data-gallery-track>
+{chr(10).join(slides)}
+          </div>
+          <button type="button" class="photo-gallery__nav photo-gallery__nav--next" aria-label="{next_label}" data-gallery-next>›</button>
+        </div>
+      </div>
+    </section>"""
+
+
+def render_activity_visitor_photos(lang: str) -> str:
+    alt_key = "hr_alt" if lang == "hr" else "en_alt"
+    by_image = {item["image"]: item for item in VISITOR_GALLERY}
+    if lang == "hr":
+        heading = "Fotografije posjetitelja"
+    else:
+        heading = "Visitor photos"
+    figures = []
+    for image in ACTIVITY_GALLERY_IMAGES:
+        item = by_image.get(image)
+        if not item:
+            continue
+        alt = esc(item[alt_key])
+        figures.append(
+            f'<figure class="visitor-photos__item">'
+            f'<img src="/images/{image}" alt="{alt}" width="400" height="280" loading="lazy"></figure>'
+        )
+    if not figures:
+        return ""
+    return f"""<section class="visitor-photos" aria-label="{heading}">
+      <h2 class="visitor-photos__heading">{heading}</h2>
+      <div class="visitor-photos__grid">{"".join(figures)}</div>
+    </section>"""
+
+
+def render_prose_blocks(paragraphs: list[str]) -> str:
+    parts = []
+    for block in paragraphs:
+        text = block.strip()
+        if text.startswith("<"):
+            parts.append(text)
+        else:
+            parts.append(f"<p>{text}</p>")
+    return "".join(parts)
+
+
 def render_activity_hub_cards(lang: str) -> str:
     prefix = f"/{lang}/"
     cards = []
@@ -1466,7 +1583,17 @@ def render_activity_hub_cards(lang: str) -> str:
 
 def inject_home_extras(body: str, lang: str) -> str:
     summary = price_summary(lang)
+    status = park_status(lang)
+    if lang == "hr":
+        status_label = "Danas"
+    else:
+        status_label = "Today"
     replacements = {
+        "<!-- HERO_OPEN_STATUS -->": (
+            f'<strong>{status_label}</strong> '
+            f'<span class="hero__open-status hero__open-status--{status["state"]}" '
+            f'data-open-status data-lang="{lang}">{status["message"]}</span>'
+        ),
         "<!-- HERO_REVIEW_BADGE -->": render_review_badge(lang),
         "<!-- HERO_PRICE_TEASER -->": (
             f'<p class="hero__price-teaser">{summary["hero_line"]} · '
@@ -1477,6 +1604,7 @@ def inject_home_extras(body: str, lang: str) -> str:
         "<!-- ACTIVITY_HUB_GRID -->": render_activity_hub_cards(lang),
         "<!-- ACTIVITIES_CTA -->": render_conversion_cta(lang),
         "<!-- HOME_LOCATION_SECTION -->": render_home_location_section(lang),
+        "<!-- VISITOR_GALLERY_SECTION -->": render_visitor_gallery(lang),
     }
     for marker, html in replacements.items():
         body = body.replace(marker, html)
@@ -1521,10 +1649,7 @@ def render_faq_page(lang: str) -> str:
     cta = "Pozovite za rezervaciju" if lang == "hr" else "Call to Book"
 
     return f"""{head_meta(lang, copy['title'], copy['meta_description'], copy['keywords'], canonical, en_slug, hr_slug)}
-{quick_actions(lang)}
-{site_header(lang)}
-{visitor_bar(lang)}
-{site_nav(lang)}
+{page_chrome(lang)}
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <ol>
       <li><a href="{prefix}">{home_label}</a></li>
@@ -1573,10 +1698,7 @@ def render_prices_page(lang: str) -> str:
     cta = "Pozovite za rezervaciju" if lang == "hr" else "Call to Book"
 
     return f"""{head_meta(lang, copy['title'], copy['meta_description'], copy['keywords'], canonical, en_slug, hr_slug)}
-{quick_actions(lang)}
-{site_header(lang)}
-{visitor_bar(lang)}
-{site_nav(lang)}
+{page_chrome(lang)}
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <ol>
       <li><a href="{prefix}">{home_label}</a></li>
@@ -1660,10 +1782,7 @@ def render_booking_app(lang: str) -> str:
         '  <meta name="apple-mobile-web-app-capable" content="yes">'
     )
     return f"""{head_meta(lang, title, desc, "book glavani park, reservation istria", canonical, en_slug, hr_slug, extra_head=extra)}
-{quick_actions(lang)}
-{site_header(lang)}
-{visitor_bar(lang)}
-{site_nav(lang)}
+{page_chrome(lang)}
 <nav class="breadcrumb" aria-label="Breadcrumb">
   <ol><li><a href="{prefix}">{home_label}</a></li><li>{h1}</li></ol>
 </nav>
@@ -1770,13 +1889,11 @@ def render_home(lang: str) -> str:
         ],
     }
     return f"""{head_meta(lang, home['title'], home['meta_description'], home['keywords'], canonical, is_home=True, og_image=home['image'], og_image_alt="Glavani Park adventure and zipline park in Istria, Croatia")}
-{quick_actions(lang)}
-{site_header(lang)}
-{visitor_bar(lang)}
-{site_nav(lang, is_home=True)}
+{page_chrome(lang, is_home=True)}
 {body_content}
 {footer(lang)}
 <script src="/assets/js/reviews-carousel.js" defer></script>
+<script src="/assets/js/photo-gallery-carousel.js" defer></script>
 {json_ld_script(org_schema)}
 </body>
 </html>"""

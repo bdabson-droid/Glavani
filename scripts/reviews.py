@@ -177,7 +177,7 @@ def render_review_teaser(lang: str) -> str:
     summary = labels["summary"].format(rating=rating, count=count)
     quote = review[quote_key]
     if len(quote) > 180:
-        quote = quote[:177].rstrip() + "…"
+        quote = quote[:177].rsplit(" ", 1)[0].rstrip(".,;:!?") + "…"
     tripadvisor_cta = labels["read_tripadvisor"].format(count=count)
     if lang == "hr":
         heading = "Što kažu gosti"

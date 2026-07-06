@@ -38,7 +38,7 @@
 
   <nav class="quick-actions" aria-label="Brze radnje">
     <a class="btn-book-now" href="rezervacija/">
-      <span aria-hidden="true">📅</span> Rezervirajte odmah
+      <span aria-hidden="true">🎟️</span> Rezervirajte ulaznice
     </a>
     <a class="btn-call" href="tel:+38598224314" aria-label="Pozovite Glavani Park">
       <span aria-hidden="true">📞</span> Pozovite
@@ -47,6 +47,19 @@
       <span aria-hidden="true">📍</span> Karta
     </a>
   </nav>
+
+  <div class="visit-cta-bar" aria-label="Rezervacija i današnji status">
+    <div class="visit-cta-bar__inner">
+      <p class="visit-cta-bar__status visitor-bar__status visitor-bar__status--open">
+        <span class="visitor-bar__icon" aria-hidden="true">●</span>
+        <span data-open-status data-lang="hr">Otvoreno sada · Zadnji ulaz u 15 h</span>
+      </p>
+      <div class="visit-cta-bar__actions">
+        <a class="btn-primary btn-primary--xl btn-book-tickets" href="rezervacija/">Rezervirajte ulaznice</a>
+        <a class="btn-visit-today" href="rezervacija/">Posjetite danas</a>
+      </div>
+    </div>
+  </div>
 
   <header class="site-header">
     <a class="site-header__brand" href="./">
@@ -72,10 +85,45 @@
   <nav class="site-nav" aria-label="Glavna navigacija">
     <div class="site-nav__inner">
       <a href="#activities">Aktivnosti</a><a href="team-building-istri/">Grupe</a><a href="cijene/">Cijene</a><a href="#location">Lokacija</a><a href="cesta-pitanja/">Pitanja</a><a href="sigurnost/">Sigurnost</a>
-      <a class="site-nav__cta" href="rezervacija/">Rezerviraj</a>
+      <a class="site-nav__cta" href="rezervacija/">Rezervirajte ulaznice</a>
       <a href="../en/" hreflang="en">English</a>
     </div>
   </nav>
+<div class="trust-strip" aria-label="Znakovi povjerenja i nagrade">
+      <ul class="trust-strip__list">
+        <li class="trust-strip__item trust-strip__item--tripadvisor">
+          <a href="https://www.tripadvisor.com/Attraction_Review-g1157701-d1973802-Reviews-Glavani_Park-Barban_Istria.html" target="_blank" rel="noopener noreferrer">
+            <span class="trust-strip__stars" aria-hidden="true">★★★★★</span>
+            <span><strong>4.9</strong> na TripAdvisoru · 159 recenzija</span>
+          </a>
+        </li>
+        <li class="trust-strip__item trust-strip__item--google">
+          <a href="https://www.google.com/maps/search/?api=1&query=Glavani+Park+Barban" target="_blank" rel="noopener noreferrer">
+            <span class="trust-strip__icon" aria-hidden="true">G</span>
+            <span>Pročitajte na Googleu</span>
+          </a>
+        </li>
+        <li class="trust-strip__item trust-strip__item--award">
+          <img src="../images/tripadvisor-certificate-excellence.webp" alt="Certificate of Excellence" width="80" height="80" loading="lazy">
+          <span>TripAdvisor · 2017. i 2018.</span>
+        </li>
+        <li class="trust-strip__item trust-strip__item--stat">
+          <span class="trust-strip__icon" aria-hidden="true">👥</span>
+          <span>Tisuće posjetitelja svake sezone</span>
+        </li>
+        <li class="trust-strip__item trust-strip__item--stat">
+          <span class="trust-strip__icon" aria-hidden="true">🛡️</span>
+          <span>CE certificirana oprema</span>
+        </li>
+        <li class="trust-strip__item trust-strip__item--media">
+          <span class="trust-strip__media-label">Preporučeno u</span>
+          <span class="trust-strip__logos">
+            <img src="../images/kroatide-travel-guide.webp" alt="Kroatide vodič" width="72" height="28" loading="lazy">
+            <img src="../images/pitchup-partner.webp" alt="Pitchup.com partner" width="72" height="28" loading="lazy">
+          </span>
+        </li>
+      </ul>
+    </div>
 <nav class="breadcrumb" aria-label="Breadcrumb">
     <ol>
       <li><a href="./">Početna</a></li>
@@ -93,6 +141,7 @@
           <p class="hero__headline">Odlično mjesto za avanturu</p>
           <p class="review-badge"><span class="review-badge__stars" aria-hidden="true">★★★★★</span> <a href="https://www.tripadvisor.com/Attraction_Review-g1157701-d1973802-Reviews-Glavani_Park-Barban_Istria.html" target="_blank" rel="noopener noreferrer" aria-label="Ocjena na TripAdvisoru"><strong>4.9 na TripAdvisoru · 159 recenzija</strong></a></p>
           <ul class="hero__essentials" aria-label="Osnovne informacije za posjetitelje">
+            <li><strong>Danas</strong> <span class="hero__open-status hero__open-status--open" data-open-status data-lang="hr">Otvoreno sada · Zadnji ulaz u 15 h</span></li>
             <li><strong>Otvoreno svaki dan</strong> 9–17 h</li>
             <li><strong>Zadnji ulaz</strong> 15 h</li>
           </ul>
@@ -113,7 +162,7 @@
           <h2>Rezervirajte posjet</h2>
           <p>Odaberite paket za do 10 osoba i pošaljite rezervaciju online.</p>
           <p class="home-book-cta__policy">Od kraja rujna do početka srpnja svi posjeti moraju biti rezervirani — bez dolaska bez najave. U vrhu sezone (srpanj–rujan) dolazak bez rezervacije moguć je tijekom radnog vremena, ovisno o dostupnosti — rezervirajte unaprijed kako biste osigurali termin i izbjegli razočaranje.</p>
-          <a class="btn-primary btn-primary--large" href="rezervacija/">Rezervirajte odmah</a>
+          <a class="btn-primary btn-primary--large" href="rezervacija/">Rezervirajte ulaznice</a>
           <p class="home-book-cta__groups">Više od 10 osoba u grupi?</p>
           <a class="btn-call-book btn-call-book--home" href="#contacts">Pozovite za rezervaciju grupe</a>
         </aside>
@@ -142,7 +191,7 @@
       <h2 class="section-cta__heading">Spremni za avanturu?</h2>
       <p class="section-cta__note">Paketi od €30 po osobi · online do 10 osoba</p>
       <div class="section-cta__actions">
-        <a class="btn-primary" href="rezervacija/">Rezervirajte odmah</a>
+        <a class="btn-primary" href="rezervacija/">Rezervirajte ulaznice</a>
         <a class="btn-secondary" href="cijene/">Pogledajte cijene</a>
       </div>
     </div>
@@ -227,6 +276,57 @@
           <span aria-hidden="true">·</span>
           <a href="https://www.google.com/maps/search/?api=1&query=Glavani+Park+Barban" target="_blank" rel="noopener noreferrer">Više na Googleu</a>
         </p>
+      </div>
+    </section>
+    
+    <section class="section section--theme-reviews visitor-gallery-section" aria-labelledby="visitor-gallery-heading">
+      <div class="section__inner">
+        <div class="section__heading">
+          <h2 id="visitor-gallery-heading">Posjetitelji u parku</h2>
+          <p>Prave fotografije gostiju i grupa iz Glavani Parka — avantura u hrastovoj šumi Istre</p>
+        </div>
+        <div class="photo-gallery" data-photo-gallery>
+          <button type="button" class="photo-gallery__nav photo-gallery__nav--prev" aria-label="Prethodna fotografija" data-gallery-prev>‹</button>
+          <div class="photo-gallery__track" tabindex="0" data-gallery-track>
+        <figure class="photo-gallery__slide">
+          <img src="../images/visitor-gallery-forest-zipline-1.webp" alt="Posjetitelji na zipline stazi u hrastovoj šumi Glavani Parka, Istria" width="800" height="560" loading="lazy">
+        </figure>
+        <figure class="photo-gallery__slide">
+          <img src="../images/visitor-gallery-high-ropes-2.webp" alt="Gost prelazi most visokih staza između stabala u Glavani Parku" width="800" height="560" loading="lazy">
+        </figure>
+        <figure class="photo-gallery__slide">
+          <img src="../images/visitor-gallery-adventure-park-3.webp" alt="Obitelji uživaju u avanturističkim aktivnostima na otvorenom u Glavani Parku kod Barbana" width="800" height="560" loading="lazy">
+        </figure>
+        <figure class="photo-gallery__slide">
+          <img src="../images/visitor-gallery-canopy-view-4.webp" alt="Krošnje šume i platforme avanturističkog parka u Glavani Parku, Istria Hrvatska" width="800" height="560" loading="lazy">
+        </figure>
+        <figure class="photo-gallery__slide">
+          <img src="../images/visitor-gallery-park-grounds-5.webp" alt="Teren Glavani Parka u istarskom zaleđu kod Pule" width="800" height="560" loading="lazy">
+        </figure>
+        <figure class="photo-gallery__slide">
+          <img src="../images/visitor-gallery-group-fun-6.webp" alt="Grupa posjetitelja nakon aktivnosti u Glavani Parku" width="800" height="560" loading="lazy">
+        </figure>
+        <figure class="photo-gallery__slide">
+          <img src="../images/visitor-gallery-school-group-7.webp" alt="Školska grupa na visokim stazama u Glavani Parku, Istria" width="800" height="560" loading="lazy">
+        </figure>
+        <figure class="photo-gallery__slide">
+          <img src="../images/visitor-gallery-kids-climbing-8.webp" alt="Djeca penju uz podršku instruktora u avanturističkom parku Glavani" width="800" height="560" loading="lazy">
+        </figure>
+        <figure class="photo-gallery__slide">
+          <img src="../images/visitor-gallery-family-day-9.webp" alt="Obiteljski dan u Glavani Parku — avantura na otvorenom kod Pule, Hrvatska" width="800" height="560" loading="lazy">
+        </figure>
+        <figure class="photo-gallery__slide">
+          <img src="../images/visitor-gallery-group-event-10.webp" alt="Velika grupa uživa u aktivnostima u Glavani Parku u hrastovoj šumi" width="800" height="560" loading="lazy">
+        </figure>
+        <figure class="photo-gallery__slide">
+          <img src="../images/visitor-gallery-team-day-11.webp" alt="Posjetitelji na avanturističkoj stazi u Glavani Parku, Istria Hrvatska" width="800" height="560" loading="lazy">
+        </figure>
+        <figure class="photo-gallery__slide">
+          <img src="../images/visitor-gallery-swing-action-12.webp" alt="Gost na visokoj ljuljački u avanturističkom parku Glavani, Istria" width="800" height="560" loading="lazy">
+        </figure>
+          </div>
+          <button type="button" class="photo-gallery__nav photo-gallery__nav--next" aria-label="Sljedeća fotografija" data-gallery-next>›</button>
+        </div>
       </div>
     </section>
     <section class="section section--wide home-video" id="park-video" aria-labelledby="park-video-heading">
@@ -346,6 +446,7 @@
     </ul>
   </footer>
 <script src="../assets/js/reviews-carousel.js" defer></script>
+<script src="../assets/js/photo-gallery-carousel.js" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
