@@ -13,7 +13,7 @@ LAST_ENTRY_HOUR = 15
 LABELS = {
     "en": {
         "open": "Open now",
-        "closed": "Closed today",
+        "closed": "Closed now",
         "opens_tomorrow": "Opens tomorrow at 9 AM",
         "opens_at": "Opens at 9 AM",
         "last_entry_soon": "Last entry in {minutes} min",
@@ -21,7 +21,7 @@ LABELS = {
     },
     "hr": {
         "open": "Otvoreno sada",
-        "closed": "Zatvoreno danas",
+        "closed": "Zatvoreno sada",
         "opens_tomorrow": "Otvara se sutra u 9 h",
         "opens_at": "Otvara se u 9 h",
         "last_entry_soon": "Zadnji ulaz za {minutes} min",
