@@ -164,8 +164,7 @@ VISITOR_FAQS = {
         {
             "q": "What payment methods do you accept at Glavani Park?",
             "a": (
-                "We accept card and cash payments at the park ticket desk. "
-                "Online gift vouchers can also be purchased by card on our gift voucher page."
+                "We accept card and cash payments at the park ticket desk."
             ),
         },
         {
@@ -237,8 +236,7 @@ VISITOR_FAQS = {
         {
             "q": "Koje načine plaćanja prihvaćate u Glavani Parku?",
             "a": (
-                "Na blagajni u parku prihvaćamo kartice i gotovinu. "
-                "Poklon bon možete kupiti i online karticom na stranici poklon bona."
+                "Na blagajni u parku prihvaćamo kartice i gotovinu."
             ),
         },
         {

@@ -33,16 +33,6 @@ from faqs import (  # noqa: E402
     render_faq_related,
     render_page_faq_section,
 )
-from gift_vouchers import (  # noqa: E402
-    GIFT_VOUCHER_CHECKOUT_COPY,
-    GIFT_VOUCHER_CHECKOUT_SLUGS,
-    GIFT_VOUCHER_COPY,
-    GIFT_VOUCHER_SLUGS,
-    checkout_config_json,
-    checkout_path,
-    gift_voucher_offer_schema,
-    render_voucher_grid,
-)
 from group_events import EVENT_EXTERNAL_IMAGES, EVENT_PAGES, EVENT_SLUGS_EN, EVENT_SLUGS_HR  # noqa: E402
 from booking_policy import BOOKING_POLICY  # noqa: E402
 from brand_voice import BOOKING_EMAIL, BOOKING_SUBMIT_URL, ONLINE_BOOKING_MAX, PHONES, VISITOR  # noqa: E402
@@ -69,16 +59,12 @@ EN_TO_HR.update({v: k for k, v in ACTIVITY_SLUG_MAP.items()})
 EN_TO_HR["book"] = "rezervacija"
 EN_TO_HR["faq"] = "cesta-pitanja"
 EN_TO_HR["prices"] = "cijene"
-EN_TO_HR["gift-voucher"] = "poklon-bon"
-EN_TO_HR["gift-voucher/buy"] = "poklon-bon/kupnja"
 
 HR_TO_EN = dict(SLUG_MAP)
 HR_TO_EN.update(ACTIVITY_SLUG_MAP)
 HR_TO_EN["rezervacija"] = "book"
 HR_TO_EN["cesta-pitanja"] = "faq"
 HR_TO_EN["cijene"] = "prices"
-HR_TO_EN["poklon-bon"] = "gift-voucher"
-HR_TO_EN["poklon-bon/kupnja"] = "gift-voucher/buy"
 
 IMAGES = [
     ("glavani-park-adventure-istria-croatia.jpg", "Glavani Park", (26, 61, 46), (45, 106, 79)),
@@ -390,7 +376,6 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Aktivnosti", f"{prefix}#activities" if is_home else activities_hub_path(lang)),
             ("Grupe", f"{prefix}team-building-istri/"),
             ("Cijene", f"{prefix}{PRICES_SLUGS['hr']}/"),
-            ("Poklon bon", f"{prefix}{GIFT_VOUCHER_SLUGS['hr']}/"),
             ("Lokacija", f"{prefix}#location" if is_home else f"{prefix}sto-raditi-kod-pule/"),
             ("Pitanja", f"{prefix}{FAQ_SLUGS['hr']}/"),
             ("Sigurnost", f"{prefix}sigurnost/"),
@@ -400,7 +385,6 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Activities", f"{prefix}#activities" if is_home else activities_hub_path(lang)),
             ("Groups", f"{prefix}team-building-istria/"),
             ("Prices", f"{prefix}{PRICES_SLUGS['en']}/"),
-            ("Gift voucher", f"{prefix}{GIFT_VOUCHER_SLUGS['en']}/"),
             ("Location", f"{prefix}#location" if is_home else f"{prefix}things-to-do-near-pula/"),
             ("FAQ", f"{prefix}{FAQ_SLUGS['en']}/"),
             ("Safety", f"{prefix}safety/"),
@@ -424,7 +408,6 @@ def footer(lang: str) -> str:
             ("Početna", prefix),
             ("Aktivnosti", f"{prefix}avanturisticki-park-hrvatska/"),
             ("Cijene", f"{prefix}cijene/"),
-            ("Poklon bon", f"{prefix}poklon-bon/"),
             ("FAQ", f"{prefix}cesta-pitanja/"),
             ("English", f"/en/"),
             ("Partneri", f"{prefix}partneri/"),
@@ -437,7 +420,6 @@ def footer(lang: str) -> str:
             ("Home", prefix),
             ("Activities", f"{prefix}adventure-park-croatia/"),
             ("Prices", f"{prefix}prices/"),
-            ("Gift voucher", f"{prefix}gift-voucher/"),
             ("FAQ", f"{prefix}faq/"),
             ("Hrvatski", f"/hr/"),
             ("Partners", f"{prefix}partners/"),
@@ -1392,118 +1374,6 @@ def render_prices_page(lang: str) -> str:
 </html>"""
 
 
-def render_gift_voucher_page(lang: str) -> str:
-    copy = GIFT_VOUCHER_COPY[lang]
-    slug = GIFT_VOUCHER_SLUGS[lang]
-    en_slug = GIFT_VOUCHER_SLUGS["en"]
-    hr_slug = GIFT_VOUCHER_SLUGS["hr"]
-    prefix = f"/{lang}/"
-    canonical = f"{BASE}{prefix}{slug}/"
-    home_label = "Početna" if lang == "hr" else "Home"
-    prices_href = f"{prefix}cijene/" if lang == "hr" else f"{prefix}prices/"
-    redeem = copy["redeem_text"].format(prices=prices_href)
-    tel = "+385918964525" if lang == "en" else "+38598224314"
-
-    return f"""{head_meta(lang, copy['title'], copy['meta_description'], copy['keywords'], canonical, en_slug, hr_slug)}
-{quick_actions(lang)}
-{site_header(lang)}
-{visitor_bar(lang)}
-{site_nav(lang)}
-  <nav class="breadcrumb" aria-label="Breadcrumb">
-    <ol>
-      <li><a href="{prefix}">{home_label}</a></li>
-      <li>{copy['h1']}</li>
-    </ol>
-  </nav>
-<main>
-  <section class="hero hero--landing">
-    <div class="hero__inner">
-      <p class="hero__badge">{'Poklon bonovi' if lang == 'hr' else 'Gift vouchers'}</p>
-      <h1>{copy['h1']}</h1>
-      <p class="hero__subtitle">{copy['lead']}</p>
-    </div>
-  </section>
-  <section class="section section--theme-forest">
-    <div class="section__inner">
-      <div class="prose voucher-intro">{copy['intro']}</div>
-      {render_voucher_grid(lang)}
-      <div class="voucher-redeem">
-        <h2>{copy['redeem_heading']}</h2>
-        <p>{redeem}</p>
-      </div>
-      <p style="margin-top:1.5rem;text-align:center;display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;">
-        <a class="btn-primary" href="{checkout_path(lang)}">{copy['checkout_label']}</a>
-        <a class="btn-secondary" href="tel:{tel}">{copy['call_label']}</a>
-      </p>
-    </div>
-  </section>
-</main>
-{footer(lang)}
-{breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (copy['h1'], None)])}
-{json_ld_script(gift_voucher_offer_schema(lang, canonical, copy['h1']))}
-{json_ld_script(webpage_schema(canonical, copy['h1'], copy['meta_description'], lang))}
-</body>
-</html>"""
-
-
-def render_gift_voucher_checkout_page(lang: str) -> str:
-    copy = GIFT_VOUCHER_CHECKOUT_COPY[lang]
-    listing_copy = GIFT_VOUCHER_COPY[lang]
-    slug = GIFT_VOUCHER_SLUGS[lang]
-    checkout_slug = GIFT_VOUCHER_CHECKOUT_SLUGS[lang]
-    en_slug = f"{GIFT_VOUCHER_SLUGS['en']}/{GIFT_VOUCHER_CHECKOUT_SLUGS['en']}"
-    hr_slug = f"{GIFT_VOUCHER_SLUGS['hr']}/{GIFT_VOUCHER_CHECKOUT_SLUGS['hr']}"
-    prefix = f"/{lang}/"
-    canonical = f"{BASE}{prefix}{slug}/{checkout_slug}/"
-    listing_href = f"{prefix}{slug}/"
-    home_label = "Početna" if lang == "hr" else "Home"
-    tel = "+385918964525" if lang == "en" else "+38598224314"
-
-    return f"""{head_meta(lang, copy['title'], copy['meta_description'], copy['keywords'], canonical, en_slug, hr_slug)}
-{quick_actions(lang)}
-{site_header(lang)}
-{visitor_bar(lang)}
-{site_nav(lang)}
-  <nav class="breadcrumb" aria-label="Breadcrumb">
-    <ol>
-      <li><a href="{prefix}">{home_label}</a></li>
-      <li><a href="{listing_href}">{listing_copy['h1']}</a></li>
-      <li>{copy['breadcrumb']}</li>
-    </ol>
-  </nav>
-<main>
-  <section class="hero hero--landing hero--compact">
-    <div class="hero__inner">
-      <p class="hero__badge">{'Poklon bonovi' if lang == 'hr' else 'Gift vouchers'}</p>
-      <h1>{copy['h1']}</h1>
-      <p class="hero__subtitle">{copy['lead']}</p>
-    </div>
-  </section>
-  <section class="section section--theme-forest">
-    <div class="section__inner voucher-checkout-wrap">
-      <p class="voucher-checkout-notice">{copy['notice']}</p>
-      <script type="application/json" id="gift-voucher-config">{checkout_config_json(lang)}</script>
-      <div id="gift-voucher-checkout" aria-live="polite"></div>
-      <p class="voucher-checkout-alt">
-        <a href="{listing_href}">← {copy['back']}</a>
-        <span> · </span>
-        {copy['call_alt']} <a href="tel:{tel}">{tel}</a>
-      </p>
-    </div>
-  </section>
-</main>
-{footer(lang)}
-{breadcrumb_schema([
-    (home_label, f"{BASE}{prefix}"),
-    (listing_copy['h1'], f"{BASE}{listing_href}"),
-    (copy['breadcrumb'], None),
-])}
-{json_ld_script(webpage_schema(canonical, copy['h1'], copy['meta_description'], lang))}
-<script src="/assets/js/gift-voucher-checkout.js" defer></script>
-</body>
-</html>"""
-
-
 def render_booking_app(lang: str) -> str:
     if lang == "hr":
         slug, en_slug, hr_slug = "rezervacija", "book", "rezervacija"
@@ -1766,18 +1636,9 @@ def main() -> None:
     write_file(ROOT / "en" / "index.html", render_home("en"))
     write_file(ROOT / "en" / "book" / "index.html", render_booking_app("en"))
     write_file(ROOT / "en" / PRICES_SLUGS["en"] / "index.html", render_prices_page("en"))
-    write_file(ROOT / "en" / GIFT_VOUCHER_SLUGS["en"] / "index.html", render_gift_voucher_page("en"))
-    write_file(
-        ROOT / "en" / GIFT_VOUCHER_SLUGS["en"] / GIFT_VOUCHER_CHECKOUT_SLUGS["en"] / "index.html",
-        render_gift_voucher_checkout_page("en"),
-    )
     write_file(ROOT / "en" / FAQ_SLUGS["en"] / "index.html", render_faq_page("en"))
     sitemap_urls = [(f"{BASE}/en/", "weekly"), (f"{BASE}/en/book/", "weekly")]
     sitemap_urls.append((f"{BASE}/en/{PRICES_SLUGS['en']}/", "monthly"))
-    sitemap_urls.append((f"{BASE}/en/{GIFT_VOUCHER_SLUGS['en']}/", "monthly"))
-    sitemap_urls.append(
-        (f"{BASE}/en/{GIFT_VOUCHER_SLUGS['en']}/{GIFT_VOUCHER_CHECKOUT_SLUGS['en']}/", "monthly")
-    )
     sitemap_urls.append((f"{BASE}/en/{FAQ_SLUGS['en']}/", "monthly"))
     for page in PAGES_EN:
         slug = page["slug"]
@@ -1804,19 +1665,10 @@ def main() -> None:
     write_file(ROOT / "hr" / "index.html", render_home("hr"))
     write_file(ROOT / "hr" / "rezervacija" / "index.html", render_booking_app("hr"))
     write_file(ROOT / "hr" / PRICES_SLUGS["hr"] / "index.html", render_prices_page("hr"))
-    write_file(ROOT / "hr" / GIFT_VOUCHER_SLUGS["hr"] / "index.html", render_gift_voucher_page("hr"))
-    write_file(
-        ROOT / "hr" / GIFT_VOUCHER_SLUGS["hr"] / GIFT_VOUCHER_CHECKOUT_SLUGS["hr"] / "index.html",
-        render_gift_voucher_checkout_page("hr"),
-    )
     write_file(ROOT / "hr" / FAQ_SLUGS["hr"] / "index.html", render_faq_page("hr"))
     sitemap_urls.append((f"{BASE}/hr/", "weekly"))
     sitemap_urls.append((f"{BASE}/hr/rezervacija/", "weekly"))
     sitemap_urls.append((f"{BASE}/hr/{PRICES_SLUGS['hr']}/", "monthly"))
-    sitemap_urls.append((f"{BASE}/hr/{GIFT_VOUCHER_SLUGS['hr']}/", "monthly"))
-    sitemap_urls.append(
-        (f"{BASE}/hr/{GIFT_VOUCHER_SLUGS['hr']}/{GIFT_VOUCHER_CHECKOUT_SLUGS['hr']}/", "monthly")
-    )
     sitemap_urls.append((f"{BASE}/hr/{FAQ_SLUGS['hr']}/", "monthly"))
     for page in PAGES_HR:
         slug = page["slug"]
