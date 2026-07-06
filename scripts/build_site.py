@@ -75,6 +75,7 @@ IMAGES = [
     ("zipline-120m-glavani-park-istria-croatia.webp", "Zipline 120m", (74, 85, 104), (45, 55, 72)),
     ("climbing-wall-outdoor-activities-istria.webp", "Climbing Wall", (64, 145, 108), (26, 61, 46)),
     ("quick-jump-20m-free-fall-istria.webp", "Quick Jump 20m", (124, 58, 237), (76, 29, 149)),
+    ("aerotrim-glavanipark-istria.webp", "Aerotrim", (14, 116, 144), (8, 51, 68)),
 ]
 
 
@@ -846,17 +847,17 @@ ACTIVITIES_HUB_COPY = {
         "title": "Adventure Park Istria | Zipline & Adrenaline Park Croatia",
         "meta_description": (
             "Glavani Park — adventure park, zipline park and adrenaline park in Istria, Croatia. "
-            "Eight outdoor attractions near Pula: training routes, Human Catapult, High Swing, ziplines, Devil's causeway, climbing wall. Open 9 AM–5 PM."
+            "Nine outdoor attractions near Pula: training routes, Human Catapult, High Swing, Aerotrim, ziplines, Devil's causeway, climbing wall. Open 9 AM–5 PM."
         ),
         "keywords": (
             "adventure park Istria, zipline park Croatia, adrenaline park Istria, outdoor activities Istria Croatia, "
             "Glavani Park activities, high ropes Pula, forest zipline Istria"
         ),
         "h1": "Our Activities",
-        "lead": "Eight signature outdoor attractions — adventure park, zipline courses and adrenaline rides in Istria",
+        "lead": "Nine signature outdoor attractions — adventure park, zipline courses and adrenaline rides in Istria",
         "intro": (
-            "Glavani Park near Barban covers 1.5 hectares of oak forest with eight instructor-led attractions — "
-            "from the family yellow training route and 120 m ziplines to the Human Catapult, Devil's causeway with the unicycle, and 12.5 m high swing. "
+            "Glavani Park near Barban covers 1.5 hectares of oak forest with nine instructor-led attractions — "
+            "from the family yellow training route and 120 m ziplines to the Human Catapult, Aerotrim, Devil's causeway with the unicycle, and 12.5 m high swing. "
             "Open daily 9 AM–5 PM, about 30 minutes from Pula."
         ),
         "family_link": "family-activities-istria",
@@ -867,17 +868,17 @@ ACTIVITIES_HUB_COPY = {
         "title": "Avanturistički park Istria | Zipline i adrenalinski park Hrvatska",
         "meta_description": (
             "Glavani Park — avanturistički park, zipline park i adrenalinski park u Istri, Hrvatska. "
-            "Osam atrakcija na otvorenom kod Pule: trening rute, katapulta, ljuljačka, zipline, most s monociklom, penjački zid. Otvoreno 9–17 h."
+            "Devet atrakcija na otvorenom kod Pule: trening rute, katapulta, ljuljačka, Aerotrim, zipline, most s monociklom, penjački zid. Otvoreno 9–17 h."
         ),
         "keywords": (
             "avanturistički park Istria, zipline park Hrvatska, adrenalinski park Istria, aktivnosti na otvorenom Istria, "
             "Glavani Park aktivnosti, visoke staze Pula, zipline šuma Istria"
         ),
         "h1": "Naše aktivnosti",
-        "lead": "Osam atrakcija na otvorenom — avantura, zipline i adrenalin u Istri",
+        "lead": "Devet atrakcija na otvorenom — avantura, zipline i adrenalin u Istri",
         "intro": (
-            "Glavani Park kod Barbana prostire se na 1,5 ha hrastove šume s osam atrakcija pod nadzorom instruktora — "
-            "od obiteljske žute trening rute i ziplinea od 120 m do ljudske katapulata, mosta s monociklom i ljuljačke od 12,5 m. "
+            "Glavani Park kod Barbana prostire se na 1,5 ha hrastove šume s devet atrakcija pod nadzorom instruktora — "
+            "od obiteljske žute trening rute i ziplinea od 120 m do ljudske katapulata, Aerotrima, mosta s monociklom i ljuljačke od 12,5 m. "
             "Otvoreno 9–17 h, otprilike 30 minuta od Pule."
         ),
         "family_link": "obiteljske-aktivnosti-istri",
