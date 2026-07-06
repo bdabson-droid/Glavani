@@ -69,11 +69,9 @@ HR_TO_EN["cijene"] = "prices"
 IMAGES = [
     ("glavani-park-adventure-istria-croatia.jpg", "Glavani Park", (26, 61, 46), (45, 106, 79)),
     ("12-5m-high-swing-glavani-park-istria.webp", "12.5m High Swing", (234, 88, 12), (180, 83, 9)),
-    ("human-catapult-adrenaline-park-croatia.webp", "Human Catapult", (234, 88, 12), (120, 53, 15)),
     ("zipline-120m-glavani-park-istria-croatia.webp", "Zipline 120m", (74, 85, 104), (45, 55, 72)),
     ("climbing-wall-outdoor-activities-istria.webp", "Climbing Wall", (64, 145, 108), (26, 61, 46)),
     ("quick-jump-20m-free-fall-istria.webp", "Quick Jump 20m", (124, 58, 237), (76, 29, 149)),
-    ("partner-badge-glavani-park.webp", "Partner", (26, 61, 46), (251, 191, 36)),
 ]
 
 
@@ -123,16 +121,8 @@ EXTERNAL_IMAGES = [
         "devils-causeway-unicycle-glavani-park.webp",
     ),
     (
-        "https://www.glavanipark.com/upload/katalog/66-poklon-bon-200-6004612273.JPG",
-        "gift-voucher-30-training-route.webp",
-    ),
-    (
         "https://www.glavanipark.com/upload/katalog/68-poklon-bon-400-8173762334.JPG",
         "gift-voucher-50-whole-park.webp",
-    ),
-    (
-        "https://www.glavanipark.com/upload/katalog/2017-8-29_tri_rute_za_odrasle_osnovni_park.JPG",
-        "gift-voucher-70-all-games.webp",
     ),
     (
         "https://www.glavanipark.com/upload/katalog/2017-8-22_nigel.jpg",
@@ -885,10 +875,6 @@ def activities_hub_path(lang: str) -> str:
     return f"/{lang}/{activities_hub_slug(lang)}/"
 
 
-def render_hub_card_icon(mod: str) -> str:
-    return ""
-
-
 def render_activity_hub_grid(lang: str, *, compact: bool = False) -> str:
     prefix = f"/{lang}/"
     cards = []
@@ -898,7 +884,6 @@ def render_activity_hub_grid(lang: str, *, compact: bool = False) -> str:
         mod = act["tile_mod"]
         cards.append(
             f'<a class="hub-card hub-card--{mod}" href="{prefix}{slug}/">'
-            f'{render_hub_card_icon(mod)}'
             f'<h3>{label}</h3></a>'
         )
     grid_class = "hub-grid activity-showcase--compact" if compact else "hub-grid"
@@ -917,7 +902,6 @@ def render_activity_siblings(current_en_slug: str, lang: str) -> str:
         mod = act["tile_mod"]
         cards.append(
             f'<a class="hub-card hub-card--{mod}" href="{prefix}{slug}/">'
-            f'{render_hub_card_icon(mod)}'
             f'<h3>{label}</h3></a>'
         )
     return f"""
@@ -1598,28 +1582,6 @@ def build_root_redirect() -> None:
     write_file(ROOT / "index.html", content)
 
 
-def build_search_console_guide() -> None:
-    content = """Google Search Console Setup for Glavani Park
-=============================================
-
-1. Go to https://search.google.com/search-console
-2. Add property: https://www.glavanipark.com
-3. Verify ownership (HTML file upload, DNS TXT record, or meta tag)
-4. Submit sitemap: https://www.glavanipark.com/sitemap.xml
-5. Request indexing for key URLs:
-   - https://www.glavanipark.com/en/
-   - https://www.glavanipark.com/hr/
-   - https://www.glavanipark.com/en/things-to-do-in-istria/
-   - https://www.glavanipark.com/en/zipline-croatia/
-
-Backlink outreach (hotels, campsites, travel blogs):
-- Use /en/partners/ for partnership programme details
-- Use /en/link-to-us/ for embed codes and suggested anchor text
-- Contact: info@glavanipark.com | +385 91 896 4525
-"""
-    write_file(ROOT / "search-console-setup.txt", content)
-
-
 def main() -> None:
     print("Fetching TripAdvisor reviews...")
     from fetch_reviews import main as fetch_reviews_main
@@ -1694,7 +1656,6 @@ def main() -> None:
     build_robots()
     build_sitemap(sitemap_urls)
     build_root_redirect()
-    build_search_console_guide()
     relativize_site()
     print("Done.")
 
