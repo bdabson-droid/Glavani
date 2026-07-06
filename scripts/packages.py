@@ -91,6 +91,8 @@ PRICES_COPY = {
         "lead": "Per-person prices for packages and single activities · book online for up to 10 people",
         "per_person": "per person",
         "book": "Book",
+        "guests_minus": "Fewer people",
+        "guests_plus": "More people",
         "book_note": "Visits from late September to early July require advance booking — no walk-ins. Groups of more than 10 should call to check availability and pricing.",
         "more_single": "More single activities coming soon.",
     },
@@ -105,6 +107,8 @@ PRICES_COPY = {
         "lead": "Cijene po osobi za pakete i pojedinačne aktivnosti · online do 10 osoba",
         "per_person": "po osobi",
         "book": "Rezerviraj",
+        "guests_minus": "Manje osoba",
+        "guests_plus": "Više osoba",
         "book_note": "Od kraja rujna do početka srpnja potrebna je unaprijedna rezervacija — bez dolaska bez najave. Grupe s više od 10 osoba neka nazovu radi dostupnosti i cijena.",
         "more_single": "Više pojedinačnih aktivnosti uskoro.",
     },
@@ -120,6 +124,7 @@ def render_price_sections(lang: str) -> str:
     copy = PRICES_COPY[lang]
     per_person = copy["per_person"]
     book_base = f"/{lang}/{BOOKING_SLUGS[lang]}/"
+    default_guests = 1
     sections = []
     for group in ("packages", "single"):
         items = options_for_group(lang, group)
@@ -135,7 +140,14 @@ def render_price_sections(lang: str) -> str:
             <p>{data['desc']}</p>
           </div>
           <div class="price-list__aside">
-            <p class="price-list__amount">€{opt['price']}<span>{per_person}</span></p>
+            <div class="price-list__meta">
+              <p class="price-list__amount">€{opt['price']}<span>{per_person}</span></p>
+              <div class="price-qty" data-price-qty>
+                <button type="button" class="qty-btn price-qty__btn" data-qty-minus aria-label="{copy['guests_minus']}">−</button>
+                <output class="price-qty__value" data-qty-value>{default_guests}</output>
+                <button type="button" class="qty-btn price-qty__btn" data-qty-plus aria-label="{copy['guests_plus']}">+</button>
+              </div>
+            </div>
             <a class="btn-primary price-list__book-btn" data-book-package="{opt['id']}" href="{book_base}">{copy['book']}</a>
           </div>
         </li>"""

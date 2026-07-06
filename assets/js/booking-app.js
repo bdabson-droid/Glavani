@@ -204,7 +204,7 @@
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const state = { name: '', email: '', phone: '', guests: 2, largeGroup: false, arrival: 0, notes: '' };
+  const state = { name: '', email: '', phone: '', guests: 1, largeGroup: false, arrival: 0, notes: '' };
   let submitted = false;
 
   const PREFILL_KEY = 'glavani-book-prefill';
@@ -580,7 +580,7 @@
         state.email = '';
         state.phone = '';
         state.notes = '';
-        state.guests = 2;
+        state.guests = 1;
         state.largeGroup = false;
         render();
       });
