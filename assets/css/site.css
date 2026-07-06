@@ -596,7 +596,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   --hub-color-mid: rgba(8, 145, 178, 0.88);
   --hub-color-soft: rgba(14, 116, 144, 0.45);
   --hub-color-faint: rgba(8, 51, 68, 0.16);
-  --hub-photo: url("../../images/aerotrim-glavanipark-istria.webp");
+  --hub-photo: url("../../images/aerotrim-human-gyroscope-glavani-park.webp");
   --hub-fade: linear-gradient(
     to right,
     var(--hub-color-strong) 0%,

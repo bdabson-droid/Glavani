@@ -332,7 +332,7 @@ ACTIVITIES = [
         "hr_slug": "aerotrim",
         "tile_mod": "aerotrim",
         "hide_video": True,
-        "image": "aerotrim-glavanipark-istria.webp",
+        "image": "aerotrim-human-gyroscope-glavani-park.webp",
         "en": {
             "title": "Aerotrim | Glavani Park Istria",
             "h1": "Aerotrim",
@@ -342,7 +342,10 @@ ACTIVITIES = [
             ),
             "keywords": "Aerotrim Croatia, human gyroscope Istria, Glavani Park Aerotrim, adventure park near Pula",
             "hero_badge": "Human gyroscope · multi-axis spins",
-            "image_alt": "Aerotrim human gyroscope at Glavani Park adventure park, Istria Croatia",
+            "image_alt": (
+                "Participant spinning in the Aerotrim human gyroscope at Glavani Park, Istria — "
+                "red and yellow rings with instructor at an outdoor adventure park near Pula"
+            ),
             "paragraphs": [
                 "Strap into Glavani Park's Aerotrim — a human gyroscope that spins you through multiple axes while you stay secured in the frame. Staff set the pace, explain how to hold your body, and supervise every session in the forest clearing.",
                 "It is a unique sensation between thrill and disorientation — popular with teenagers and adults who want something different from the ziplines and catapult. Height, age, and health restrictions apply; ask at the ticket desk before you book.",
@@ -359,7 +362,10 @@ ACTIVITIES = [
             ),
             "keywords": "Aerotrim Hrvatska, ljudski žiroskop Istria, Glavani Park Aerotrim, avanturistički park kod Pule",
             "hero_badge": "Ljudski žiroskop · više osi",
-            "image_alt": "Aerotrim ljudski žiroskop u Glavani Parku, Istria Hrvatska",
+            "image_alt": (
+                "Sudionik u Aerotrima ljudskom žiroskopu u Glavani Parku, Istria — "
+                "crveni i žuti prstenovi s instruktorom u avanturističkom parku na otvorenom kod Pule"
+            ),
             "paragraphs": [
                 "Zavežite se u Aerotrim Glavani Parka — ljudski žiroskop koji vas okreće u više osi dok ste sigurno pričvršćeni u okviru. Osoblje određuje tempo, objašnjava položaj tijela i nadzire svaku vožnju u šumskoj čistini.",
                 "Jedinstven je spoj adrenalina i dezorijentacije — popularan među tinejdžerima i odraslima koji žele nešto drugačije od ziplinea i katapulata. Primjenjuju se ograničenja visine, dobi i zdravlja; pitajte na blagajni prije rezervacije.",

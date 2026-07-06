@@ -75,7 +75,6 @@ IMAGES = [
     ("zipline-120m-glavani-park-istria-croatia.webp", "Zipline 120m", (74, 85, 104), (45, 55, 72)),
     ("climbing-wall-outdoor-activities-istria.webp", "Climbing Wall", (64, 145, 108), (26, 61, 46)),
     ("quick-jump-20m-free-fall-istria.webp", "Quick Jump 20m", (124, 58, 237), (76, 29, 149)),
-    ("aerotrim-glavanipark-istria.webp", "Aerotrim", (14, 116, 144), (8, 51, 68)),
 ]
 
 
