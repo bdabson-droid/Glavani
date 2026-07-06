@@ -2118,6 +2118,31 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .site-footer__links a { font-size: 0.8125rem; }
 
 @media (max-width: 767px) {
+  .visit-cta-bar {
+    padding: 0.5rem 0.75rem;
+  }
+  .visit-cta-bar__inner {
+    gap: 0.5rem;
+  }
+  .visit-cta-bar__status {
+    font-size: 0.8125rem;
+  }
+  .visit-cta-bar__actions {
+    flex: 1 1 100%;
+    gap: 0.45rem;
+  }
+  .visit-cta-bar .btn-primary--xl,
+  .visit-cta-bar .btn-visit-today {
+    flex: 1;
+    min-width: 0;
+    min-height: 44px;
+    padding: 0.55rem 0.5rem;
+    font-size: 0.8125rem;
+    line-height: 1.2;
+  }
+  .visit-cta-bar .btn-visit-today {
+    font-size: 0.75rem;
+  }
   .section { padding: 1.25rem 1.25rem; }
   .section--theme-forest .section__inner,
   .section--theme-rock .section__inner,
