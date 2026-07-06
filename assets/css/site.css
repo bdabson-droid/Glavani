@@ -1919,6 +1919,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   gap: 1rem;
   width: 100%;
 }
+.price-qty-set {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
 .price-qty {
   display: flex;
   align-items: center;

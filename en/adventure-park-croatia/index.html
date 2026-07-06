@@ -121,7 +121,7 @@
               <section class="price-section" aria-labelledby="price-packages-heading">
         <h2 id="price-packages-heading">Activity packages</h2>
         <ul class="price-list">
-        <li class="price-list__item" data-guests="1">
+        <li class="price-list__item" data-adults="1" data-children="0" data-has-child-price>
           <div class="price-list__info">
             <h3>Whole park — all games incl. human catapult</h3>
             <p>Full day access to every attraction including the Human Catapult.</p>
@@ -132,11 +132,19 @@
                 <p class="price-list__amount">€70<span>adults</span></p>
                 <p class="price-list__amount price-list__amount--child">€60<span>children</span></p>
               </div>
-              <div class="price-qty" data-price-qty>
-                <button type="button" class="qty-btn price-qty__btn" data-qty-minus aria-label="Fewer people">−</button>
-                <span class="price-qty__value" data-qty-value aria-live="polite">1</span>
-                <span class="price-qty__label">persons</span>
-                <button type="button" class="qty-btn price-qty__btn" data-qty-plus aria-label="More people">+</button>
+              <div class="price-qty-set" data-price-qty-split>
+                <div class="price-qty price-qty--role">
+                  <button type="button" class="qty-btn price-qty__btn" data-qty-adults-minus aria-label="Fewer people (adults)">−</button>
+                  <span class="price-qty__value" data-qty-adults-value aria-live="polite">1</span>
+                  <span class="price-qty__label">adults</span>
+                  <button type="button" class="qty-btn price-qty__btn" data-qty-adults-plus aria-label="More people (adults)">+</button>
+                </div>
+                <div class="price-qty price-qty--role">
+                  <button type="button" class="qty-btn price-qty__btn" data-qty-children-minus aria-label="Fewer people (children)">−</button>
+                  <span class="price-qty__value" data-qty-children-value aria-live="polite">0</span>
+                  <span class="price-qty__label">children</span>
+                  <button type="button" class="qty-btn price-qty__btn" data-qty-children-plus aria-label="More people (children)">+</button>
+                </div>
               </div>
             </div>
             <a class="btn-primary price-list__book-btn" data-book-package="all-incl-catapult" href="../book/">Book</a>
@@ -160,7 +168,7 @@
             <a class="btn-primary price-list__book-btn" data-book-package="catapult-swing" href="../book/">Book</a>
           </div>
         </li>
-        <li class="price-list__item" data-guests="1">
+        <li class="price-list__item" data-adults="1" data-children="0" data-has-child-price>
           <div class="price-list__info">
             <h3>Whole park — all games (without catapult)</h3>
             <p>Ziplines, high ropes, swing, drop, and climbing wall — catapult excluded.</p>
@@ -171,17 +179,25 @@
                 <p class="price-list__amount">€50<span>adults</span></p>
                 <p class="price-list__amount price-list__amount--child">€40<span>children</span></p>
               </div>
-              <div class="price-qty" data-price-qty>
-                <button type="button" class="qty-btn price-qty__btn" data-qty-minus aria-label="Fewer people">−</button>
-                <span class="price-qty__value" data-qty-value aria-live="polite">1</span>
-                <span class="price-qty__label">persons</span>
-                <button type="button" class="qty-btn price-qty__btn" data-qty-plus aria-label="More people">+</button>
+              <div class="price-qty-set" data-price-qty-split>
+                <div class="price-qty price-qty--role">
+                  <button type="button" class="qty-btn price-qty__btn" data-qty-adults-minus aria-label="Fewer people (adults)">−</button>
+                  <span class="price-qty__value" data-qty-adults-value aria-live="polite">1</span>
+                  <span class="price-qty__label">adults</span>
+                  <button type="button" class="qty-btn price-qty__btn" data-qty-adults-plus aria-label="More people (adults)">+</button>
+                </div>
+                <div class="price-qty price-qty--role">
+                  <button type="button" class="qty-btn price-qty__btn" data-qty-children-minus aria-label="Fewer people (children)">−</button>
+                  <span class="price-qty__value" data-qty-children-value aria-live="polite">0</span>
+                  <span class="price-qty__label">children</span>
+                  <button type="button" class="qty-btn price-qty__btn" data-qty-children-plus aria-label="More people (children)">+</button>
+                </div>
               </div>
             </div>
             <a class="btn-primary price-list__book-btn" data-book-package="all-no-catapult" href="../book/">Book</a>
           </div>
         </li>
-        <li class="price-list__item" data-guests="1">
+        <li class="price-list__item" data-adults="1" data-children="0" data-has-child-price>
           <div class="price-list__info">
             <h3>Training route + 2 games</h3>
             <p>Yellow training route plus two additional games.</p>
@@ -192,11 +208,19 @@
                 <p class="price-list__amount">€30<span>adults</span></p>
                 <p class="price-list__amount price-list__amount--child">€20<span>children</span></p>
               </div>
-              <div class="price-qty" data-price-qty>
-                <button type="button" class="qty-btn price-qty__btn" data-qty-minus aria-label="Fewer people">−</button>
-                <span class="price-qty__value" data-qty-value aria-live="polite">1</span>
-                <span class="price-qty__label">persons</span>
-                <button type="button" class="qty-btn price-qty__btn" data-qty-plus aria-label="More people">+</button>
+              <div class="price-qty-set" data-price-qty-split>
+                <div class="price-qty price-qty--role">
+                  <button type="button" class="qty-btn price-qty__btn" data-qty-adults-minus aria-label="Fewer people (adults)">−</button>
+                  <span class="price-qty__value" data-qty-adults-value aria-live="polite">1</span>
+                  <span class="price-qty__label">adults</span>
+                  <button type="button" class="qty-btn price-qty__btn" data-qty-adults-plus aria-label="More people (adults)">+</button>
+                </div>
+                <div class="price-qty price-qty--role">
+                  <button type="button" class="qty-btn price-qty__btn" data-qty-children-minus aria-label="Fewer people (children)">−</button>
+                  <span class="price-qty__value" data-qty-children-value aria-live="polite">0</span>
+                  <span class="price-qty__label">children</span>
+                  <button type="button" class="qty-btn price-qty__btn" data-qty-children-plus aria-label="More people (children)">+</button>
+                </div>
               </div>
             </div>
             <a class="btn-primary price-list__book-btn" data-book-package="training-2" href="../book/">Book</a>
