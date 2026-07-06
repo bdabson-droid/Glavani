@@ -1,5 +1,5 @@
 """
-Gift voucher catalogue — adult pricing for all vouchers (no children's tiers).
+Gift voucher catalogue — standard package pricing for all vouchers.
 Online checkout posts to the legacy glavanipark.com payment endpoint.
 """
 
@@ -89,7 +89,7 @@ GIFT_VOUCHER_COPY = {
         "title": "Gift Voucher | Glavani Park Istria",
         "meta_description": (
             "Buy a Glavani Park gift voucher from €30 — training routes, whole-park packages, "
-            "and full adrenaline days in Istria. Adult pricing for all vouchers. Purchase online or by phone."
+            "and full adrenaline days in Istria. Purchase online or by phone."
         ),
         "keywords": (
             "Glavani Park gift voucher, adventure park gift card Istria, "
@@ -100,8 +100,7 @@ GIFT_VOUCHER_COPY = {
         "intro": (
             "<p>Glavani Park gift vouchers are valid for our activity packages in Istria — "
             "high ropes, ziplines, swing, and adrenaline rides near Pula. "
-            "All vouchers are priced at our standard adult rates and can be redeemed by any guest "
-            "who meets the activity age and height requirements.</p>"
+            "Vouchers can be redeemed by any guest who meets the activity age and height requirements.</p>"
             "<p>Purchase online with card payment, or call "
             "<a href=\"tel:+385918964525\">+385 91 896 4525</a> / "
             "<a href=\"tel:+38598224314\">+385 98 224 314</a> if you prefer to order by phone. "
@@ -121,7 +120,7 @@ GIFT_VOUCHER_COPY = {
         "title": "Poklon bon | Glavani Park Istria",
         "meta_description": (
             "Kupite poklon bon za Glavani Park od 30 € — trening rute, paketi cijelog parka "
-            "i puni adrenalinski dan u Istri. Cijene za odrasle za sve bonove. Kupnja online ili telefonom."
+            "i puni adrenalinski dan u Istri. Kupnja online ili telefonom."
         ),
         "keywords": (
             "Glavani Park poklon bon, poklon bon avanturistički park Istria, "
@@ -132,8 +131,7 @@ GIFT_VOUCHER_COPY = {
         "intro": (
             "<p>Poklon bonovi Glavani Parka vrijede za naše pakete aktivnosti u Istri — "
             "visoke staze, zipline, ljuljačka i adrenalinske vožnje kod Pule. "
-            "Svi bonovi imaju standardne cijene za odrasle i mogu ih iskoristiti svi gosti "
-            "koji zadovoljavaju dobne i visinske uvjete aktivnosti.</p>"
+            "Bonove mogu iskoristiti svi gosti koji zadovoljavaju dobne i visinske uvjete aktivnosti.</p>"
             "<p>Kupite online karticom ili nazovite "
             "<a href=\"tel:+385918964525\">+385 91 896 4525</a> / "
             "<a href=\"tel:+38598224314\">+385 98 224 314</a> za narudžbu telefonom. "

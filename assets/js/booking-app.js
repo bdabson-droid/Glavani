@@ -21,7 +21,6 @@
   const lang = config.lang === 'hr' ? 'hr' : 'en';
   const PHONE_EN = '385918964525';
   const PHONE_HR = '38598224314';
-  const STORAGE_KEY = 'glavani-park-bookings';
 
   const i18n = {
     en: {
@@ -88,11 +87,6 @@
       fillRequired: 'Please enter your name, email address, and phone number.',
       emailInvalid: 'Please enter a valid email address.',
       tooManyGuests: 'Online booking is for up to 10 people only. Please call to book larger groups:',
-      myDiary: 'My booking diary',
-      myDiaryLead: 'Saved on this device',
-      emptyDiary: 'No saved bookings yet.',
-      tabBook: 'Book',
-      tabDiary: 'My diary',
       parkHours: 'Confirm on arrival · park open 9 AM – 5 PM',
       msgHeader: 'Glavani Park booking request',
       callGroups: 'Call for groups of 10+',
@@ -161,11 +155,6 @@
       fillRequired: 'Unesite ime, e-mail adresu i telefon.',
       emailInvalid: 'Unesite ispravnu e-mail adresu.',
       tooManyGuests: 'Online rezervacija je za najviše 10 osoba. Za veće grupe nazovite:',
-      myDiary: 'Moj dnevnik rezervacija',
-      myDiaryLead: 'Spremljeno na ovom uređaju',
-      emptyDiary: 'Još nema spremljenih rezervacija.',
-      tabBook: 'Rezerviraj',
-      tabDiary: 'Dnevnik',
       parkHours: 'Potvrda na ulazu · park 9–17 h',
       msgHeader: 'Zahtjev za rezervaciju Glavani Park',
       callGroups: 'Pozovite za grupe 10+',
@@ -415,25 +404,6 @@
     }
   }
 
-  function saveToDiary() {
-    const a = selectedActivity();
-    const bookings = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    bookings.unshift({
-      id: Date.now(),
-      activities: a ? a.name : '',
-      date: selectedDate,
-      name: state.name,
-      email: state.email,
-      phone: state.phone,
-      guests: guestCount(),
-      total: bookingTotal(),
-      arrival: arrivalLabel(),
-      notes: state.notes,
-      message: buildMessage(),
-    });
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(bookings.slice(0, 20)));
-  }
-
   function renderProgress() {
     return `<ol class="book-steps" aria-label="Booking steps">
       ${t.steps.map((label, i) =>
@@ -556,50 +526,9 @@
     </section>`;
   }
 
-  function renderDiary() {
-    const bookings = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    if (!bookings.length) {
-      return `<section class="book-panel"><h2>${t.myDiary}</h2><p class="book-panel__lead">${t.emptyDiary}</p></section>`;
-    }
-    return `<section class="book-panel">
-      <h2>${t.myDiary}</h2>
-      <p class="book-panel__lead">${t.myDiaryLead}</p>
-      <ul class="diary-list">
-        ${bookings.map(b => `<li class="diary-item">
-          <strong>${b.date}</strong> — ${b.activities}
-          <span>${b.name} · ${b.guests} ${lang === 'hr' ? 'osoba' : 'guests'}${b.total ? ` · €${b.total}` : ''}</span>
-          <div class="diary-item__actions">
-            <button type="button" class="btn-primary btn-email-book btn-email-book--sm diary-resend" data-diary-id="${b.id}">${t.sendEmail}</button>
-            <a href="tel:+${phone}" class="btn-secondary btn-secondary--sm">${t.call}</a>
-          </div>
-        </li>`).join('')}
-      </ul>
-    </section>`;
-  }
-
-  let activeTab = 'book';
-
   function render() {
-    if (activeTab === 'diary') {
-      root.innerHTML = `
-        <div class="book-tabs">
-          <button type="button" class="book-tabs__btn" data-tab="book">${t.tabBook}</button>
-          <button type="button" class="book-tabs__btn book-tabs__btn--active" data-tab="diary">${t.tabDiary}</button>
-        </div>
-        ${renderDiary()}`;
-      bindTabs();
-      bindDiaryEvents();
-      return;
-    }
-
     if (submitted) {
-      root.innerHTML = `
-        <div class="book-tabs">
-          <button type="button" class="book-tabs__btn book-tabs__btn--active" data-tab="book">${t.tabBook}</button>
-          <button type="button" class="book-tabs__btn" data-tab="diary">${t.tabDiary}</button>
-        </div>
-        ${renderSuccess()}`;
-      bindTabs();
+      root.innerHTML = renderSuccess();
       document.getElementById('btn-new-booking')?.addEventListener('click', () => {
         submitted = false;
         step = 0;
@@ -619,10 +548,6 @@
     const panels = [renderPackageStep(), renderCalendar(), renderDetails(), renderConfirm()];
     const within48Block = step === 1 && selectedDate && isWithin48Hours(selectedDate);
     root.innerHTML = `
-      <div class="book-tabs">
-        <button type="button" class="book-tabs__btn book-tabs__btn--active" data-tab="book">${t.tabBook}</button>
-        <button type="button" class="book-tabs__btn" data-tab="diary">${t.tabDiary}</button>
-      </div>
       ${renderProgress()}
       ${panels[step]}
       <div class="book-nav">
@@ -630,18 +555,8 @@
         ${step < 3 && !(step === 0 && state.largeGroup) && !within48Block ? `<button type="button" class="btn-primary" id="book-next">${t.next}</button>` : ''}
       </div>`;
 
-    bindTabs();
     bindStepEvents();
     if (step === 0) toggleNextButton();
-  }
-
-  function bindTabs() {
-    root.querySelectorAll('.book-tabs__btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        activeTab = btn.dataset.tab;
-        render();
-      });
-    });
   }
 
   function bindStepEvents() {
@@ -706,7 +621,6 @@
         if (!state.name || !state.phone || !state.email) { alert(t.fillRequired); return; }
         if (!isValidEmail(state.email)) { alert(t.emailInvalid); return; }
       }
-      if (step === 2) saveToDiary();
       step++;
       render();
     });
@@ -722,46 +636,6 @@
       } catch {
         prompt(t.copy, buildMessage());
       }
-    });
-  }
-
-  function bindDiaryEvents() {
-    root.querySelectorAll('.diary-resend').forEach((btn) => {
-      btn.addEventListener('click', async () => {
-        const id = Number(btn.dataset.diaryId);
-        const bookings = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-        const entry = bookings.find((b) => b.id === id);
-        if (!entry) return;
-        btn.disabled = true;
-        btn.textContent = t.submitting;
-        try {
-          const res = await fetch(config.submitUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Accept: 'application/json',
-            },
-            body: JSON.stringify({
-              _subject: `${t.msgHeader} – ${entry.date}`,
-              _template: 'table',
-              _captcha: 'false',
-              _replyto: entry.email || '',
-              name: entry.name,
-              email: entry.email || '',
-              phone: entry.phone,
-              message: entry.message,
-            }),
-          });
-          const data = await res.json().catch(() => ({}));
-          if (!res.ok || !data.success) throw new Error('submit failed');
-          alert(t.submitSuccess);
-        } catch (err) {
-          alert(t.submitError);
-        } finally {
-          btn.disabled = false;
-          btn.textContent = t.sendEmail;
-        }
-      });
     });
   }
 
