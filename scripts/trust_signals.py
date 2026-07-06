@@ -56,7 +56,7 @@ def book_cta_labels(lang: str) -> dict[str, str]:
     }
 
 
-def render_trust_strip(lang: str) -> str:
+def render_trust_strip(lang: str, *, in_footer: bool = False) -> str:
     labels = LABELS[lang]
     aggregate = aggregate_rating()
     rating = aggregate["rating_value"]
@@ -67,7 +67,8 @@ def render_trust_strip(lang: str) -> str:
     else:
         ta_line = f"<strong>{rating}</strong> on TripAdvisor · {count} {labels['reviews']}"
         aria = "Trust signals and awards"
-    return f"""<div class="trust-strip" aria-label="{aria}">
+    modifier = " trust-strip--footer" if in_footer else ""
+    return f"""<div class="trust-strip{modifier}" aria-label="{aria}">
       <ul class="trust-strip__list">
         <li class="trust-strip__item trust-strip__item--tripadvisor">
           <a href="{TRIPADVISOR_URL}" target="_blank" rel="noopener noreferrer">
