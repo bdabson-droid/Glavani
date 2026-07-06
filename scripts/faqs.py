@@ -48,7 +48,9 @@ FAQ_COPY = {
         ),
         "list_heading": "Common questions",
         "book_note": (
-            "Visits from late September to early July require advance booking — no walk-ins. "
+            "From late September to early July, advance booking is required — no walk-ins. "
+            "In peak season (July–September) walk-ins may be accepted during opening hours, subject to availability — "
+            "book ahead to guarantee your slot and avoid disappointment. "
             "Book online for up to 10 people, or call for larger groups."
         ),
         "related_heading": "Plan your visit",
@@ -76,6 +78,8 @@ FAQ_COPY = {
         "list_heading": "Najčešća pitanja",
         "book_note": (
             "Od kraja rujna do početka srpnja potrebna je unaprijedna rezervacija — bez dolaska bez najave. "
+            "U vrhu sezone (srpanj–rujan) dolazak bez rezervacije moguć je tijekom radnog vremena, ovisno o dostupnosti — "
+            "rezervirajte unaprijed kako biste osigurali termin i izbjegli razočaranje. "
             "Rezervirajte online do 10 osoba ili nazovite za veće grupe."
         ),
         "related_heading": "Planirajte posjet",

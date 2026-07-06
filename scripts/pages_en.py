@@ -3,6 +3,10 @@ English landing page content for Glavani Park SEO site.
 Each page targets 800–1200 words of substantive Istria tourism and park content.
 """
 
+from booking_policy import BOOKING_POLICY
+
+_EN_BOOKING = BOOKING_POLICY["en"]
+
 HOME = {
     "title": "Glavani Park | Croatia's Number 1 Adventure Park · Istria",
     "meta_description": (
@@ -170,11 +174,10 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'trip or a lazy beach day before departure.</p>',
                                '<p>Glavani Park is open daily from 9 AM to 5 PM with '
                                'last entry at 3 PM — allow three to four hours to '
-                               'enjoy the main attractions comfortably. From the end of September until the '
-                               'start of July all visits require advance booking with '
-                               'no walk-ins. From July through the end of September, '
-                               'walk-ins are welcome, subject to '
-                               'availability. English-speaking staff are on hand '
+                               'enjoy the main attractions comfortably. '
+                               f'{_EN_BOOKING["off_season_note"]} '
+                               f'{_EN_BOOKING["peak_walkin_note"]} '
+                               'English-speaking staff are on hand '
                                'throughout the season, and the park is listed by the '
                                "Istria Tourist Board as one of the region's "
                                'recommended outdoor attractions.</p>',
@@ -498,8 +501,9 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'PM</strong> with last entry at <strong>3 PM</strong>. '
                                'Allow at least three hours if you plan to ride the '
                                'ziplines plus one or two high-ropes routes. '
-                               'From the end of September until the start of '
-                               'July, all visits require advance booking. Call <a '
+                               f'{_EN_BOOKING["off_season_note"]} '
+                               f'{_EN_BOOKING["peak_walkin_note"]} '
+                               'Call <a '
                                'href="tel:+385918964525">+385 91 896 4525</a> '
                                '(English) or book online before travelling.</p>',
                                '<p>From <strong>Pula</strong>, the drive takes '
@@ -537,12 +541,9 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                  'above the ground. The blue high-ropes route also includes a '
                  '113-metre zipline between platforms at 6 metres height.'},
            {'q': 'Do I need a reservation for the zipline?',
-            'a': 'From the end of '
-                 'September until the start of July, all visits require advance '
-                 'booking. From July through the end of September, walk-ins are '
-                 'welcome, subject to availability. Last entry is 3 '
-                 'PM and the park closes at 5 PM. Call +385 91 896 4525 or book '
-                 'online.'},
+            'a': f'{_EN_BOOKING["off_season_note"]} '
+                 f'{_EN_BOOKING["peak_walkin_note"]} '
+                 'Call +385 91 896 4525 or book online.'},
            {'q': 'Is ziplining safe for first-timers?',
             'a': 'Yes. Every rider receives a full harness, helmet, and pre-flight '
                  'briefing from a trained instructor. Equipment is CE-certified and '
@@ -804,12 +805,11 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'AM–5 PM</strong> with last entry at <strong>3 '
                                'PM</strong> — plan to arrive before midday if you want '
                                'to experience multiple attractions.</p>',
-                               '<p>Book before you drive out — from the end of '
-                               'September until the start of July all visits require '
-                               'advance booking with no walk-ins. Walk-ins may be accepted from July through the end of '
-                               'September only. Call <a href="tel:+385918964525">+385 '
-                               '91 896 4525</a> or book online to avoid disappointment '
-                               'after the 30-minute drive from Pula.</p>']},
+                               '<p>Book before you drive out — '
+                               f'{_EN_BOOKING["off_season_note"]} '
+                               f'{_EN_BOOKING["peak_walkin_note"]} '
+                               'Call <a href="tel:+385918964525">+385 '
+                               '91 896 4525</a> or book online.</p>']},
                {'h2': 'Combining Pula and Inland Istria in One Day',
                 'paragraphs': ['<p>A popular itinerary: Roman Pula or Kamenjak beach '
                                'in the morning, then drive to Glavani Park for an '
@@ -865,10 +865,9 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                  'flip-flops before arrival. The shaded forest environment is cooler '
                  'than open beach in peak summer heat.'},
            {'q': 'Do I need to book from Pula or can I just drive there?',
-            'a': 'From the end of '
-                 'September until the start of July, all visits require advance '
-                 'booking. From July through the end of September, walk-ins are '
-                 'welcome, subject to availability. Call +385 91 896 4525 or book online.'}],
+            'a': f'{_EN_BOOKING["off_season_note"]} '
+                 f'{_EN_BOOKING["peak_walkin_note"]} '
+                 'Call +385 91 896 4525 or book online.'}],
   'related': [{'slug': 'things-to-do-in-istria',
                'title': 'Things to Do in Istria',
                'desc': 'Full peninsula destination guide'},
