@@ -240,6 +240,30 @@ def options_for_group(lang: str, group: str) -> list[dict]:
     return sorted(items, key=lambda opt: opt["price"], reverse=True)
 
 
+def render_price_qty(opt: dict, copy: dict) -> str:
+    if opt.get("child_price"):
+        return f"""              <div class="price-qty-set" data-price-qty-split>
+                <div class="price-qty price-qty--role">
+                  <button type="button" class="qty-btn price-qty__btn" data-qty-adults-minus aria-label="{copy['guests_minus']} ({copy['adults']})">−</button>
+                  <span class="price-qty__value" data-qty-adults-value aria-live="polite">1</span>
+                  <span class="price-qty__label">{copy['adults']}</span>
+                  <button type="button" class="qty-btn price-qty__btn" data-qty-adults-plus aria-label="{copy['guests_plus']} ({copy['adults']})">+</button>
+                </div>
+                <div class="price-qty price-qty--role">
+                  <button type="button" class="qty-btn price-qty__btn" data-qty-children-minus aria-label="{copy['guests_minus']} ({copy['children']})">−</button>
+                  <span class="price-qty__value" data-qty-children-value aria-live="polite">0</span>
+                  <span class="price-qty__label">{copy['children']}</span>
+                  <button type="button" class="qty-btn price-qty__btn" data-qty-children-plus aria-label="{copy['guests_plus']} ({copy['children']})">+</button>
+                </div>
+              </div>"""
+    return f"""              <div class="price-qty" data-price-qty>
+                <button type="button" class="qty-btn price-qty__btn" data-qty-minus aria-label="{copy['guests_minus']}">−</button>
+                <span class="price-qty__value" data-qty-value aria-live="polite">1</span>
+                <span class="price-qty__label">{copy['people']}</span>
+                <button type="button" class="qty-btn price-qty__btn" data-qty-plus aria-label="{copy['guests_plus']}">+</button>
+              </div>"""
+
+
 def render_price_amount(opt: dict, copy: dict) -> str:
     if opt.get("child_price"):
         return (
@@ -263,8 +287,12 @@ def render_price_sections(lang: str) -> str:
         rows = []
         for opt in items:
             data = opt[lang]
+            if opt.get("child_price"):
+                data_attrs = 'data-adults="1" data-children="0" data-has-child-price'
+            else:
+                data_attrs = f'data-guests="{default_guests}"'
             rows.append(
-                f"""        <li class="price-list__item" data-guests="{default_guests}">
+                f"""        <li class="price-list__item" {data_attrs}>
           <div class="price-list__info">
             <h3>{data['name']}</h3>
             <p>{data['desc']}</p>
@@ -272,12 +300,7 @@ def render_price_sections(lang: str) -> str:
           <div class="price-list__aside">
             <div class="price-list__meta">
 {render_price_amount(opt, copy)}
-              <div class="price-qty" data-price-qty>
-                <button type="button" class="qty-btn price-qty__btn" data-qty-minus aria-label="{copy['guests_minus']}">−</button>
-                <span class="price-qty__value" data-qty-value aria-live="polite">{default_guests}</span>
-                <span class="price-qty__label">{copy['people']}</span>
-                <button type="button" class="qty-btn price-qty__btn" data-qty-plus aria-label="{copy['guests_plus']}">+</button>
-              </div>
+{render_price_qty(opt, copy)}
             </div>
             <a class="btn-primary price-list__book-btn" data-book-package="{opt['id']}" href="{book_base}">{copy['book']}</a>
           </div>

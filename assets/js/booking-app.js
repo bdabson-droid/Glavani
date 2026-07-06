@@ -227,6 +227,8 @@
         sessionStorage.removeItem(PREFILL_KEY);
         const data = JSON.parse(stored);
         if (data.package) params.set('package', data.package);
+        if (data.adults !== undefined) params.set('adults', String(data.adults));
+        if (data.children !== undefined) params.set('children', String(data.children));
         if (data.guests) params.set('guests', String(data.guests));
       }
     } catch (e) {
@@ -239,17 +241,36 @@
     const params = readPrefillParams();
     const pkg = params.get('package') || params.get('p');
     const guestsRaw = params.get('guests') || params.get('g');
+    const adultsRaw = params.get('adults') || params.get('a');
+    const childrenRaw = params.get('children') || params.get('c');
 
     if (pkg && t.activities.some((a) => a.id === pkg)) {
       selectedActivityId = pkg;
     }
 
-    if (guestsRaw) {
+    if (adultsRaw !== null || childrenRaw !== null) {
+      const adults = parseInt(adultsRaw || '1', 10);
+      const children = parseInt(childrenRaw || '0', 10);
+      const total = adults + children;
+      if (total > MAX_GUESTS) {
+        state.largeGroup = true;
+      } else if (total >= 1) {
+        state.adults = Math.max(0, adults);
+        state.children = Math.max(0, children);
+        if (state.adults + state.children < 1) state.adults = 1;
+        state.largeGroup = false;
+      }
+    } else if (guestsRaw) {
       const n = parseInt(guestsRaw, 10);
       if (n > MAX_GUESTS) {
         state.largeGroup = true;
       } else if (n >= 1) {
         state.guests = n;
+        const activity = pkg && t.activities.find((a) => a.id === pkg);
+        if (activity && activityHasChildPrice(activity)) {
+          state.adults = n;
+          state.children = 0;
+        }
         state.largeGroup = false;
       }
     }
