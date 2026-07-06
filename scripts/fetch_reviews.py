@@ -13,10 +13,9 @@ PEEK_URL = (
     "https://www.peek.com/glavani-istarska-upanija-croatia/r0bvw97/"
     "glavani-park-largest-high-ropes-climbing-course-in-croatia-for-family-adventure/a0dpyrme"
 )
-TRIPADVISOR_URL = (
-    "https://www.tripadvisor.com/Attraction_Review-g295382-d7377536-Reviews-Glavani_Park-Barban_Istria.html"
-)
 OUTPUT = Path(__file__).resolve().parent / "reviews_snapshot.json"
+
+from reviews import TRIPADVISOR_URL  # noqa: E402
 
 MONTHS = {
     "Jan": "01",

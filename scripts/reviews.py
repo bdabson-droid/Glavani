@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 GOOGLE_REVIEWS_URL = "https://www.google.com/maps/search/?api=1&query=Glavani+Park+Barban"
-TRIPADVISOR_URL = "https://www.tripadvisor.com/Attraction_Review-g295382-d7377536-Reviews-Glavani_Park-Barban_Istria.html"
+TRIPADVISOR_URL = "https://www.tripadvisor.com/Attraction_Review-g1157701-d1973802-Reviews-Glavani_Park-Barban_Istria.html"
 FACEBOOK_URL = "https://www.facebook.com/glavanipark"
 SNAPSHOT_PATH = Path(__file__).resolve().parent / "reviews_snapshot.json"
 
