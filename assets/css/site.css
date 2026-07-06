@@ -587,9 +587,21 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   background-image: var(--hub-fade), var(--hub-photo);
 }
 .hub-card--zipline-low {
-  background: linear-gradient(145deg, #0369a1, #0c4a6e);
-  background-size: 100% 100%;
-  background-position: 0 0;
+  --hub-color-strong: rgba(3, 105, 161, 0.96);
+  --hub-color-mid: rgba(3, 105, 161, 0.88);
+  --hub-color-soft: rgba(12, 74, 110, 0.45);
+  --hub-color-faint: rgba(12, 74, 110, 0.16);
+  --hub-photo: url("../../images/gift-voucher-50-whole-park.webp");
+  --hub-fade: linear-gradient(
+    to right,
+    var(--hub-color-strong) 0%,
+    var(--hub-color-mid) 22%,
+    var(--hub-color-soft) 36%,
+    var(--hub-color-faint) 50%,
+    transparent 66%
+  );
+  background-color: #0c4a6e;
+  background-image: var(--hub-fade), var(--hub-photo);
 }
 .hub-card--climbing,
 .activity-banner--climbing {
