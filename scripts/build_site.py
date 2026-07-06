@@ -49,6 +49,9 @@ GLAVANI_MAPS_DIRECTIONS = (
     f"https://www.google.com/maps/dir/?api=1&destination={GLAVANI_LAT}%2C{GLAVANI_LNG}"
 )
 GLAVANI_MAPS_LINK = f"https://www.google.com/maps?q={GLAVANI_LAT},{GLAVANI_LNG}"
+HOME_VIDEO_ID = "Xn5-Jin_1-c"
+HOME_VIDEO_URL = "https://youtu.be/Xn5-Jin_1-c?is=YpNtv2goPpMCCGh-"
+HOME_VIDEO_TITLE = "GLAVANI PARK 2019 - ADVENTURE PARK CROATIA"
 LOCATION_MAP_HEAD = """
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>"""
@@ -1253,6 +1256,43 @@ def inject_reviews_section(body: str, lang: str) -> str:
     return body.replace(marker, render_reviews_section(lang))
 
 
+def render_home_video_section(lang: str) -> str:
+    if lang == "hr":
+        heading = "Glavani Park u akciji"
+        watch_label = "Pogledajte na YouTubeu"
+    else:
+        heading = "Glavani Park in action"
+        watch_label = "Watch on YouTube"
+    return f"""<section class="section section--wide home-video" id="park-video" aria-labelledby="park-video-heading">
+      <div class="section__inner">
+        <div class="section__heading">
+          <h2 id="park-video-heading">{heading}</h2>
+        </div>
+        <div class="activity-video">
+          <div class="activity-video__slot">
+            <iframe
+              src="https://www.youtube.com/embed/{HOME_VIDEO_ID}"
+              title="{esc(HOME_VIDEO_TITLE)}"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <p class="activity-video__youtube-link">
+            <a href="{HOME_VIDEO_URL}" target="_blank" rel="noopener noreferrer">{watch_label}</a>
+          </p>
+        </div>
+      </div>
+    </section>"""
+
+
+def inject_home_video_section(body: str, lang: str) -> str:
+    marker = "<!-- HOME_VIDEO_SECTION -->"
+    if marker not in body:
+        return body
+    return body.replace(marker, render_home_video_section(lang))
+
+
 def home_body_en() -> str:
     """English homepage main content (abbreviated structure with full SEO sections)."""
     body = open(ROOT / "scripts" / "home_en.html").read()
@@ -1261,7 +1301,8 @@ def home_body_en() -> str:
     body = body.replace("<!-- INFO_STRIP_AMENITIES -->", render_info_strip_amenities("en"))
     body = body.replace("<!-- INFO_STRIP_LOCATION -->", render_info_strip_location("en"))
     body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("en"))
-    return inject_reviews_section(body, "en")
+    body = inject_reviews_section(body, "en")
+    return inject_home_video_section(body, "en")
 
 
 def home_body_hr() -> str:
@@ -1271,7 +1312,8 @@ def home_body_hr() -> str:
     body = body.replace("<!-- INFO_STRIP_AMENITIES -->", render_info_strip_amenities("hr"))
     body = body.replace("<!-- INFO_STRIP_LOCATION -->", render_info_strip_location("hr"))
     body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("hr"))
-    return inject_reviews_section(body, "hr")
+    body = inject_reviews_section(body, "hr")
+    return inject_home_video_section(body, "hr")
 
 
 def render_faq_page(lang: str) -> str:
