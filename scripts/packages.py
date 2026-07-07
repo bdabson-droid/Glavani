@@ -26,9 +26,9 @@ GROUP_LABELS = {
 }
 
 SMALL_GROUP_PACKAGES = [
-    {"id": "whole-park-group-3", "size": 3, "price": 190},
+    {"id": "whole-park-group-3", "size": 3, "price": 180},
     {"id": "whole-park-group-4", "size": 4, "price": 230},
-    {"id": "whole-park-group-5", "size": 5, "price": 260},
+    {"id": "whole-park-group-5", "size": 5, "price": 270},
     {"id": "whole-park-group-6", "size": 6, "price": 300},
 ]
 
@@ -108,7 +108,7 @@ PRICES_COPY = {
         "title": "Activity Packages & Prices | Glavani Park Istria",
         "meta_description": (
             "Glavani Park packages from €20 for children and €30 for adults — whole park from €70, "
-            "small group deals for 3–6 people from €190, and single activities. "
+            "small group deals for 3–6 people from €180, and single activities. "
             f"Book online for up to {ONLINE_BOOKING_MAX} people or call for larger groups."
         ),
         "keywords": "Glavani Park prices, adventure park packages Istria, zipline park Croatia prices",
@@ -136,7 +136,7 @@ PRICES_COPY = {
         "title": "Paketi aktivnosti i cijene | Glavani Park Istria",
         "meta_description": (
             "Paketi Glavani Parka od €20 za djecu i €30 za odrasle — cijeli park od €70, "
-            "mali paketi za 3–6 osoba od €190 i pojedinačne aktivnosti. "
+            "mali paketi za 3–6 osoba od €180 i pojedinačne aktivnosti. "
             f"Rezervirajte online do {ONLINE_BOOKING_MAX} osoba ili nazovite za veće grupe."
         ),
         "keywords": "Glavani Park cijene, paketi avanturistički park Istria, zipline park Hrvatska cijene",
@@ -254,11 +254,11 @@ def conversion_cta_note(lang: str) -> str:
     min_adult, min_child = min_package_prices()
     if lang == "hr":
         return (
-            f"Paketi od €{min_child} djeca / €{min_adult} odrasli · mali paketi 3–6 od €190 · "
+            f"Paketi od €{min_child} djeca / €{min_adult} odrasli · mali paketi 3–6 od €180 · "
             f"online do {ONLINE_BOOKING_MAX} osoba"
         )
     return (
-        f"Packages from €{min_child} children / €{min_adult} adults · small groups 3–6 from €190 · "
+        f"Packages from €{min_child} children / €{min_adult} adults · small groups 3–6 from €180 · "
         f"book online for up to {ONLINE_BOOKING_MAX}"
     )
 
@@ -266,11 +266,11 @@ def conversion_cta_note(lang: str) -> str:
 def pricing_hub_blurb(lang: str) -> str:
     if lang == "hr":
         return (
-            "Paketi od €20 za djecu i €30 za odrasle · mali paketi cijelog parka 3–6 od €190 · "
+            "Paketi od €20 za djecu i €30 za odrasle · mali paketi cijelog parka 3–6 od €180 · "
             "pojedinačne aktivnosti od €40"
         )
     return (
-        "Packages from €20 for children and €30 for adults · small group whole park 3–6 from €190 · "
+        "Packages from €20 for children and €30 for adults · small group whole park 3–6 from €180 · "
         "single activities from €40"
     )
 
@@ -278,11 +278,11 @@ def pricing_hub_blurb(lang: str) -> str:
 def pricing_visit_footer_line(lang: str) -> str:
     if lang == "hr":
         return (
-            "cijeli park €60–70 (djeca/odrasli), mali paketi 3–6 od €190, paketi bez katapulata od €40 za djecu, "
+            "cijeli park €60–70 (djeca/odrasli), mali paketi 3–6 od €180, paketi bez katapulata od €40 za djecu, "
             "trening ruta + 2 igre od €20 za djecu"
         )
     return (
-        "whole park €60–70 (children/adults), small groups 3–6 from €190, packages without catapult from €40 for children, "
+        "whole park €60–70 (children/adults), small groups 3–6 from €180, packages without catapult from €40 for children, "
         "training route + 2 games from €20 for children"
     )
 
@@ -295,25 +295,25 @@ def package_price_faq_answer(lang: str, prefix: str, *, single_price: int | None
             return (
                 f"Ljudska katapulta košta {single_price} € kao pojedinačna aktivnost ili je uključena u pakete "
                 f"cijelog parka (od €20 za djecu / €30 za odrasle). "
-                f'Mali paketi za 3–6 osoba počinju od €190. '
+                f'Mali paketi za 3–6 osoba počinju od €180. '
                 f'Pogledajte <a href="{prices_href}">pakete i cijene</a> ili '
                 f'<a href="{book_href}">rezervirajte online</a>.'
             )
         return (
             f"Pristup je uključen u pakete Glavani Parka — od €20 za djecu i €30 za odrasle. "
-            f'Mali paketi cijelog parka za 3–6 osoba od €190. '
+            f'Mali paketi cijelog parka za 3–6 osoba od €180. '
             f'Pogledajte <a href="{prices_href}">pakete i cijene</a>.'
         )
     if single_price:
         return (
             f"The Human Catapult is €{single_price} as a single activity, or included in whole-park packages "
             f"(from €20 for children / €30 for adults). "
-            f"Small group whole-park deals for 3–6 people start at €190. "
+            f"Small group whole-park deals for 3–6 people start at €180. "
             f'See <a href="{prices_href}">packages and prices</a> or <a href="{book_href}">book online</a>.'
         )
     return (
         f"Access is included in Glavani Park packages — from €20 for children and €30 for adults. "
-        f"Small group whole-park packages for 3–6 people start at €190. "
+        f"Small group whole-park packages for 3–6 people start at €180. "
         f'See <a href="{prices_href}">packages and prices</a>.'
     )
 
@@ -325,14 +325,14 @@ def price_summary(lang: str) -> dict:
         return {
             "hero_line": (
                 f"Paketi od <strong>€{min_child}</strong> djeca · "
-                f"<strong>€{min_adult}</strong> odrasli · mali paketi 3–6 od <strong>€190</strong>"
+                f"<strong>€{min_adult}</strong> odrasli · mali paketi 3–6 od <strong>€180</strong>"
             ),
             "from": f"od €{min_child}",
         }
     return {
         "hero_line": (
             f"Packages from <strong>€{min_child}</strong> children · "
-            f"<strong>€{min_adult}</strong> adults · small groups 3–6 from <strong>€190</strong>"
+            f"<strong>€{min_adult}</strong> adults · small groups 3–6 from <strong>€180</strong>"
         ),
         "from": f"from €{min_child}",
     }

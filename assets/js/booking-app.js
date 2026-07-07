@@ -25,15 +25,15 @@
 
   const SMALL_GROUP_ACTIVITIES = {
     en: [
-      { id: 'whole-park-group-3', group: 'small_group', name: 'Whole park for 3 — incl. human catapult', price: 190, fixed_guests: 3, per_person: 63.33, saving: 6.67 },
+      { id: 'whole-park-group-3', group: 'small_group', name: 'Whole park for 3 — incl. human catapult', price: 180, fixed_guests: 3, per_person: 60, saving: 10 },
       { id: 'whole-park-group-4', group: 'small_group', name: 'Whole park for 4 — incl. human catapult', price: 230, fixed_guests: 4, per_person: 57.5, saving: 12.5 },
-      { id: 'whole-park-group-5', group: 'small_group', name: 'Whole park for 5 — incl. human catapult', price: 260, fixed_guests: 5, per_person: 52, saving: 18 },
+      { id: 'whole-park-group-5', group: 'small_group', name: 'Whole park for 5 — incl. human catapult', price: 270, fixed_guests: 5, per_person: 54, saving: 16 },
       { id: 'whole-park-group-6', group: 'small_group', name: 'Whole park for 6 — incl. human catapult', price: 300, fixed_guests: 6, per_person: 50, saving: 20 },
     ],
     hr: [
-      { id: 'whole-park-group-3', group: 'small_group', name: 'Cijeli park za 3 osobe — uklj. katapultu', price: 190, fixed_guests: 3, per_person: 63.33, saving: 6.67 },
+      { id: 'whole-park-group-3', group: 'small_group', name: 'Cijeli park za 3 osobe — uklj. katapultu', price: 180, fixed_guests: 3, per_person: 60, saving: 10 },
       { id: 'whole-park-group-4', group: 'small_group', name: 'Cijeli park za 4 osobe — uklj. katapultu', price: 230, fixed_guests: 4, per_person: 57.5, saving: 12.5 },
-      { id: 'whole-park-group-5', group: 'small_group', name: 'Cijeli park za 5 osoba — uklj. katapultu', price: 260, fixed_guests: 5, per_person: 52, saving: 18 },
+      { id: 'whole-park-group-5', group: 'small_group', name: 'Cijeli park za 5 osoba — uklj. katapultu', price: 270, fixed_guests: 5, per_person: 54, saving: 16 },
       { id: 'whole-park-group-6', group: 'small_group', name: 'Cijeli park za 6 osoba — uklj. katapultu', price: 300, fixed_guests: 6, per_person: 50, saving: 20 },
     ],
   };
