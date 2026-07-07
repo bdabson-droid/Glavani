@@ -18,6 +18,7 @@ LABELS = {
         "opens_at": "Opens at 9 AM",
         "last_entry_soon": "Last entry in {minutes} min",
         "last_entry": "Last entry 3 PM",
+        "no_new_entries": "No new entries today unless pre-arranged",
     },
     "hr": {
         "open": "Otvoreno sada",
@@ -26,6 +27,7 @@ LABELS = {
         "opens_at": "Otvara se u 9 h",
         "last_entry_soon": "Zadnji ulaz za {minutes} min",
         "last_entry": "Zadnji ulaz u 15 h",
+        "no_new_entries": "Nema novih ulaza danas osim po prethodnom dogovoru",
     },
 }
 
@@ -48,7 +50,7 @@ def park_status(lang: str, now: datetime | None = None) -> dict:
         return {"state": "open", "message": message}
 
     if last_entry_at <= minutes < close_at:
-        return {"state": "open", "message": f"{labels['open']} · {labels['last_entry']}"}
+        return {"state": "amber", "message": labels["no_new_entries"]}
 
     if minutes < open_at:
         return {"state": "closed", "message": labels["opens_at"]}
