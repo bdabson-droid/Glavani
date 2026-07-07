@@ -23,7 +23,6 @@ VISITOR = {
     "en": {
         "hours_label": "Open daily",
         "hours": "9 AM – 5 PM",
-        "last_entry": "Last entry 3 PM",
         "tagline": "Croatia's Number 1 Adventure Park · Istria · A Great Place to Be",
         "number_one": "Croatia's Number 1 Adventure Park",
         "welcome": "A Great Place to Be",
@@ -37,7 +36,6 @@ VISITOR = {
     "hr": {
         "hours_label": "Otvoreno svaki dan",
         "hours": "9–17 h",
-        "last_entry": "Zadnji ulaz u 15 h",
         "tagline": "Broj 1 avanturistički park u Hrvatskoj · Istria · odlično mjesto za avanturu",
         "number_one": "Broj 1 avanturistički park u Hrvatskoj",
         "welcome": "Odlično mjesto za avanturu",

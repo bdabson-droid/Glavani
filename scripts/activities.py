@@ -200,6 +200,7 @@ ACTIVITIES = [
         "youtube_id": "cQpPtOe481I",
         "youtube_url": "https://youtu.be/cQpPtOe481I",
         "image": "visitor-gallery-valley-zipline-17.webp",
+        "feature_image": True,
         "en": {
             "title": "Valley Zip Line Course | Glavani Park Istria",
             "h1": "Valley Zip Line Course",

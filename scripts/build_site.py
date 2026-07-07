@@ -435,7 +435,7 @@ def visitor_bar(lang: str) -> str:
       </p>
       <p class="visitor-bar__hours">
         <span class="visitor-bar__icon" aria-hidden="true">🕐</span>
-        <strong>{copy['hours_label']}</strong> {copy['hours']} · {copy['last_entry']}
+        <strong>{copy['hours_label']}</strong> {copy['hours']}
       </p>
     </div>
   </div>
@@ -463,7 +463,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Aktivnosti", f"{prefix}#activities" if is_home else activities_hub_path(lang)),
             ("Grupe", f"{prefix}team-building-istri/"),
             ("Cijene", f"{prefix}{PRICES_SLUGS['hr']}/"),
-            ("Lokacija", f"{prefix}#location" if is_home else f"{prefix}sto-raditi-kod-pule/"),
+            ("Lokacija", f"{prefix}sto-raditi-kod-pule/#location-map"),
             ("Pitanja", f"{prefix}{FAQ_SLUGS['hr']}/"),
             ("Sigurnost", f"{prefix}sigurnost/"),
         ]
@@ -474,7 +474,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Activities", f"{prefix}#activities" if is_home else activities_hub_path(lang)),
             ("Groups", f"{prefix}team-building-istria/"),
             ("Prices", f"{prefix}{PRICES_SLUGS['en']}/"),
-            ("Location", f"{prefix}#location" if is_home else f"{prefix}things-to-do-near-pula/"),
+            ("Location", f"{prefix}things-to-do-near-pula/#location-map"),
             ("FAQ", f"{prefix}{FAQ_SLUGS['en']}/"),
             ("Safety", f"{prefix}safety/"),
         ]
@@ -1297,12 +1297,18 @@ def render_activity_page(activity: dict, lang: str) -> str:
           <a class="btn-secondary" href="{prices_href}">{prices_label}</a>
         </div>"""
 
+    feature_img = f"""      <figure class="feature-img">
+        <img src="/images/{img}" alt="{data['image_alt']}" width="800" height="560" loading="eager">
+      </figure>"""
+
     if use_banner_header:
         page_header = ""
         article_open = f"""      <header class="activity-banner activity-banner--{mod}" aria-labelledby="activity-heading">
         <p class="activity-banner__badge">{data['hero_badge']}</p>
         <h1 id="activity-heading">{data['h1']}</h1>{price_html}{banner_actions}
       </header>"""
+        if activity.get("feature_image"):
+            article_open += f"\n{feature_img}"
     else:
         page_header = f"""  <section class="hero hero--landing hero--activity">
     <div class="hero__inner">
@@ -1314,9 +1320,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
       </div>
     </div>
   </section>"""
-        article_open = f"""      <figure class="feature-img">
-        <img src="/images/{img}" alt="{data['image_alt']}" width="800" height="560" loading="eager">
-      </figure>"""
+        article_open = feature_img
 
     inline_cta = render_conversion_cta(lang, compact=True)
     review_teaser = render_activity_reviews(activity, lang)
