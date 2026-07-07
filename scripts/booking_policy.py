@@ -37,8 +37,6 @@ BOOKING_POLICY = {
             "during opening hours (9 AM–5 PM, last entry 3 PM). Please call ahead to check we have space — "
             "we may not be able to accommodate walk-ins when we have a large group booking."
         ),
-        "info_strip_label": "Booking policy",
-        "info_strip_value": "Oct–Jun: pre-book only",
         "summary_paragraph": (
             "Glavani Park is open daily from 9 AM to 5 PM with last entry at 3 PM. "
             "From the <strong>end of September until the start of July</strong>, all visits require advance booking; "
@@ -93,8 +91,6 @@ BOOKING_POLICY = {
             "kako biste provjerili imamo li mjesta — ponekad ne možemo primiti dolazak bez rezervacije ako imamo "
             "rezervaciju velike grupe."
         ),
-        "info_strip_label": "Rezervacije",
-        "info_strip_value": "Lis–lip: samo najava",
         "summary_paragraph": (
             "Glavani Park radi svaki dan od 9 do 17 sati, posljednji ulaz u 15 sati. "
             "Od <strong>kraja rujna do početka srpnja</strong> svi posjeti moraju biti unaprijed rezervirani; "

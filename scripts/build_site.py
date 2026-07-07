@@ -359,43 +359,8 @@ def render_info_strip_contacts(lang: str) -> str:
     return contacts + location
 
 
-def render_info_strip_location(lang: str) -> str:
-    href = "/hr/sto-raditi-kod-pule/#location-map" if lang == "hr" else "/en/things-to-do-near-pula/#location-map"
-    if lang == "hr":
-        label = "Lokacija"
-        detail = "Glavani 10, Barban · Pula 30 min · Rovinj 45 min · Rabac 45 min"
-    else:
-        label = "Location"
-        detail = "Glavani 10, Barban · Pula 30 min · Rovinj 45 min · Rabac 45 min"
-    return (
-        f'<div class="info-strip__item info-strip__item--location">'
-        f'<a class="info-strip__location" href="{href}">'
-        f'<span class="info-strip__location-icon" aria-hidden="true">📍</span>'
-        f'<span class="info-strip__location-text"><strong>{label}</strong>{detail}</span>'
-        f"</a></div>"
-    )
-
-
 def render_home_booking_policy(lang: str) -> str:
     return BOOKING_POLICY[lang]["home_notice"]
-
-
-def render_info_strip_amenities(lang: str) -> str:
-    copy = VISITOR[lang]
-    return (
-        f'<div class="info-strip__item"><strong>{copy["payment_label"]}</strong>'
-        f'{copy["payment_value"]}</div>'
-        f'<div class="info-strip__item"><strong>{copy["refreshments_label"]}</strong>'
-        f'{copy["refreshments_value"]}</div>'
-    )
-
-
-def render_info_strip_booking(lang: str) -> str:
-    policy = BOOKING_POLICY[lang]
-    return (
-        f'<div class="info-strip__item"><strong>{policy["info_strip_label"]}</strong>'
-        f'{policy["info_strip_value"]}</div>'
-    )
 
 
 def quick_actions(lang: str) -> str:
