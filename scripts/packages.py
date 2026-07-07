@@ -325,14 +325,14 @@ def price_summary(lang: str) -> dict:
         return {
             "hero_line": (
                 f"Paketi od <strong>€{min_child}</strong> djeca · "
-                f"<strong>€{min_adult}</strong> odrasli · mali paketi 3–6 od <strong>€180</strong>"
+                f"<strong>€{min_adult}</strong> odrasli"
             ),
             "from": f"od €{min_child}",
         }
     return {
         "hero_line": (
             f"Packages from <strong>€{min_child}</strong> children · "
-            f"<strong>€{min_adult}</strong> adults · small groups 3–6 from <strong>€180</strong>"
+            f"<strong>€{min_adult}</strong> adults"
         ),
         "from": f"from €{min_child}",
     }

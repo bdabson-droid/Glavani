@@ -2088,8 +2088,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 @media (max-width: 640px) {
   .price-list__item { flex-direction: column; align-items: stretch; }
-  .price-list__aside { align-self: flex-end; margin-left: 0; min-width: 10rem; }
-  .price-list__book-btn { min-width: 9rem; }
+  .price-list__aside { align-self: stretch; margin-left: 0; min-width: 0; }
+  .price-list__meta { justify-content: space-between; }
+  .price-list__amounts--inline { justify-content: flex-start; }
+  .price-list__book-btn { min-width: 9rem; align-self: flex-end; }
 }
 
 .home-book-cta__policy {
