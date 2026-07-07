@@ -32,6 +32,9 @@ SMALL_GROUP_PACKAGES = [
     {"id": "whole-park-group-6", "size": 6, "price": 300},
 ]
 
+WHOLE_PARK_CATAPULT_PACKAGE = "all-incl-catapult"
+SMALL_GROUP_BY_SIZE = {opt["size"]: opt["id"] for opt in SMALL_GROUP_PACKAGES}
+
 BOOKING_OPTIONS = [
     {
         "id": "all-incl-catapult",
@@ -40,11 +43,17 @@ BOOKING_OPTIONS = [
         "child_price": 60,
         "en": {
             "name": "Whole park — all games incl. human catapult",
-            "desc": "Full day access to every attraction including the Human Catapult.",
+            "desc": (
+                "Full day access to every attraction including the Human Catapult. "
+                "Book 3–6 people and the small-group discount is applied automatically when you continue to book."
+            ),
         },
         "hr": {
             "name": "Cijeli park — sve igre uklj. katapultu",
-            "desc": "Cjelodnevni pristup svim atrakcijama uključujući ljudsku katapultu.",
+            "desc": (
+                "Cjelodnevni pristup svim atrakcijama uključujući ljudsku katapultu. "
+                "Rezervirajte 3–6 osoba i mali paket se automatski primjenjuje kad nastavite na rezervaciju."
+            ),
         },
     },
     {
@@ -58,6 +67,20 @@ BOOKING_OPTIONS = [
         "hr": {
             "name": "Ljudska katapulta + ljuljačka 12,5 m",
             "desc": "Dvije glavne adrenalinske atrakcije u jednom paketu.",
+        },
+    },
+    {
+        "id": "all-no-catapult",
+        "group": "packages",
+        "price": 50,
+        "child_price": 40,
+        "en": {
+            "name": "Whole park — all games (without catapult)",
+            "desc": "Ziplines, high ropes, swing, drop, climbing wall, Aerotrim, and more — catapult excluded.",
+        },
+        "hr": {
+            "name": "Cijeli park — sve igre (bez katapulata)",
+            "desc": "Zipline, visoke staze, ljuljačka, pad, penjački zid, Aerotrim i više — bez katapulata.",
         },
     },
     {
@@ -121,8 +144,10 @@ PRICES_COPY = {
         "more_single": "More single activities coming soon.",
         "small_group_intro": (
             f"Fixed-price whole-park packages for exactly 3–6 people (all games incl. Human Catapult). "
-            f"Each price works out below the €{WHOLE_PARK_SINGLE_ADULT} single-person rate — savings shown per person."
+            f"Each price works out below the €{WHOLE_PARK_SINGLE_ADULT} single-person rate — savings shown per person. "
+            "You can also select 3–6 people on the whole-park package above — the matching discount applies automatically when you book."
         ),
+        "auto_small_group_hint": "Small-group price €{total} for {n} people — applied automatically when you book.",
     },
     "hr": {
         "title": "Paketi aktivnosti i cijene | Glavani Park Istria",
@@ -149,8 +174,10 @@ PRICES_COPY = {
         "more_single": "Više pojedinačnih aktivnosti uskoro.",
         "small_group_intro": (
             f"Fiksne cijene cijelog parka za točno 3–6 osoba (sve igre uklj. ljudsku katapultu). "
-            f"Svaka cijena je niža od €{WHOLE_PARK_SINGLE_ADULT} po osobi — ušteda je prikazana po osobi."
+            f"Svaka cijena je niža od €{WHOLE_PARK_SINGLE_ADULT} po osobi — ušteda je prikazana po osobi. "
+            "Možete i odabrati 3–6 osoba na paketu cijelog parka iznad — odgovarajući popust se automatski primjenjuje pri rezervaciji."
         ),
+        "auto_small_group_hint": "Mali paket €{total} za {n} osoba — primjenjuje se automatski pri rezervaciji.",
     },
 }
 
@@ -207,7 +234,12 @@ def small_group_options() -> list[dict]:
 
 
 def all_booking_options() -> list[dict]:
-    return small_group_options() + BOOKING_OPTIONS
+    return BOOKING_OPTIONS + small_group_options()
+
+
+def small_group_package_id(party_size: int) -> str | None:
+    """Map 3–6 guests on whole-park incl. catapult to the discounted small-group package."""
+    return SMALL_GROUP_BY_SIZE.get(party_size)
 
 
 def render_children_pricing_ticker(lang: str) -> str:
@@ -226,7 +258,7 @@ def children_pricing_notice(lang: str, *, for_booking: bool = False) -> str:
     if lang == "hr":
         notice = (
             f"<strong>Dječje cijene (mlađi od {CHILD_MAX_AGE} godina):</strong> "
-            "trening ruta + 2 igre (sve osim katapulata) €20 · "
+            "trening ruta + 2 igre (sve osim katapulata) €20 · cijeli park bez katapulata €40 · "
             "cijeli park s katapultom €60 po djetetu."
         )
         if for_booking:
@@ -234,7 +266,7 @@ def children_pricing_notice(lang: str, *, for_booking: bool = False) -> str:
         return notice
     notice = (
         f"<strong>Children's prices (under {CHILD_MAX_AGE} years old):</strong> "
-        "training route + 2 games (all games except catapult) €20 · "
+        "training route + 2 games (all games except catapult) €20 · whole park without catapult €40 · "
         "whole park incl. catapult €60 per child."
     )
     if for_booking:
@@ -270,12 +302,12 @@ def pricing_hub_blurb(lang: str) -> str:
 def pricing_visit_footer_line(lang: str) -> str:
     if lang == "hr":
         return (
-            "cijeli park s katapultom €60–70 (djeca/odrasli), sve ostale igre €20–30, "
-            "mali paketi 3–6 od €180"
+            "cijeli park s katapultom €60–70 (djeca/odrasli), cijeli park bez katapulata €40–50, "
+            "trening ruta + 2 igre €20–30, mali paketi 3–6 od €180"
         )
     return (
-        "whole park incl. catapult €60–70 (children/adults), all other games €20–30, "
-        "small groups 3–6 from €180"
+        "whole park incl. catapult €60–70 (children/adults), whole park without catapult €40–50, "
+        "training route + 2 games €20–30, small groups 3–6 from €180"
     )
 
 
@@ -292,8 +324,8 @@ def package_price_faq_answer(lang: str, prefix: str, *, single_price: int | None
                 f'<a href="{book_href}">rezervirajte online</a>.'
             )
         return (
-            f"Pristup je uključen u paket trening ruta + 2 igre — sve igre osim katapulata, "
-            f"od €20 za djecu i €30 za odrasle. "
+            f"Pristup je uključen u paket trening ruta + 2 igre (sve osim katapulata, od €20/€30) "
+            f"ili cijeli park bez katapulata (od €40/€50). "
             f'Mali paketi cijelog parka s katapultom za 3–6 osoba od €180. '
             f'Pogledajte <a href="{prices_href}">pakete i cijene</a>.'
         )
@@ -305,8 +337,8 @@ def package_price_faq_answer(lang: str, prefix: str, *, single_price: int | None
             f'See <a href="{prices_href}">packages and prices</a> or <a href="{book_href}">book online</a>.'
         )
     return (
-        f"Access is included in the Training route + 2 games package — all park games except the Human Catapult, "
-        f"from €20 for children and €30 for adults. "
+        f"Access is included in the Training route + 2 games package (all games except catapult, from €20/€30) "
+        f"or whole park without catapult (from €40/€50). "
         f"Small group whole-park packages with catapult for 3–6 people start at €180. "
         f'See <a href="{prices_href}">packages and prices</a>.'
     )
@@ -392,7 +424,7 @@ def render_price_sections(lang: str) -> str:
     book_base = f"/{lang}/{BOOKING_SLUGS[lang]}/"
     default_guests = 1
     sections = []
-    for group in ("small_group", "packages", "single"):
+    for group in ("packages", "small_group", "single"):
         items = options_for_group(lang, group)
         if not items:
             continue
@@ -405,6 +437,13 @@ def render_price_sections(lang: str) -> str:
                 data_attrs = 'data-adults="1" data-children="0" data-has-child-price'
             else:
                 data_attrs = f'data-guests="{default_guests}"'
+            auto_note = ""
+            if opt["id"] == WHOLE_PARK_CATAPULT_PACKAGE:
+                data_attrs += f' data-auto-small-group data-auto-small-group-hint="{copy["auto_small_group_hint"]}"'
+                auto_note = (
+                    '\n            <p class="price-list__auto-discount" data-auto-small-group-note '
+                    'hidden aria-live="polite"></p>'
+                )
             rows.append(
                 f"""        <li class="price-list__item{' price-list__item--group' if opt.get('group') == 'small_group' else ''}" {data_attrs}>
           <div class="price-list__info">
@@ -415,7 +454,7 @@ def render_price_sections(lang: str) -> str:
             <div class="price-list__meta">
 {render_price_amount(opt, copy, lang)}
 {'' if opt.get('group') == 'small_group' else render_price_qty(opt, copy)}
-            </div>
+            </div>{auto_note}
             <a class="btn-primary price-list__book-btn" data-book-package="{opt['id']}" href="{book_base}">{copy['book']}</a>
           </div>
         </li>"""

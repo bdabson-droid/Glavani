@@ -1961,6 +1961,20 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   color: var(--green-deep);
   white-space: nowrap;
 }
+.price-list__auto-discount {
+  margin: 0;
+  padding: 0.45rem 0.65rem;
+  border-radius: var(--radius);
+  background: rgba(141, 198, 63, 0.1);
+  border: 1px solid rgba(141, 198, 63, 0.35);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--green-deep);
+  line-height: 1.35;
+}
+.price-list__auto-discount[hidden] {
+  display: none;
+}
 .book-price-box__saving {
   margin: 0.15rem 0 0.35rem;
   font-size: 0.875rem;

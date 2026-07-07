@@ -991,7 +991,9 @@ def activity_price_hint(activity: dict, lang: str) -> str:
     single = activity.get("single_price")
     if single:
         return f"€{single}"
-    return "€20/€30"
+    if activity["en_slug"] == "training-route":
+        return "€20/€30"
+    return "€40/€50"
 
 
 def render_conversion_cta(lang: str, *, compact: bool = False) -> str:

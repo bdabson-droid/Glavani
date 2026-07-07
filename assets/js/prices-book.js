@@ -1,10 +1,28 @@
 /**
- * Prices & activities pages — guest steppers (1–10) and booking prefill.
+ * Prices & activities pages — guest steppers and booking prefill.
  */
 (function () {
   const STORAGE_KEY = 'glavani-book-prefill';
   const MAX_GUESTS = 6;
   const DEFAULT_GUESTS = 1;
+  const WHOLE_PARK_CATAPULT_ID = 'all-incl-catapult';
+  const SMALL_GROUP_BY_SIZE = {
+    3: 'whole-park-group-3',
+    4: 'whole-park-group-4',
+    5: 'whole-park-group-5',
+    6: 'whole-park-group-6',
+  };
+  const SMALL_GROUP_PRICES = {
+    3: 180,
+    4: 230,
+    5: 270,
+    6: 300,
+  };
+
+  function smallGroupPackageForParty(packageId, totalGuests) {
+    if (packageId !== WHOLE_PARK_CATAPULT_ID || totalGuests < 3) return packageId;
+    return SMALL_GROUP_BY_SIZE[totalGuests] || packageId;
+  }
 
   function getItem(el) {
     return el.closest('.price-list__item');
@@ -41,6 +59,7 @@
     if (valueEl) valueEl.textContent = String(count);
     if (minus) minus.disabled = count <= 1;
     if (plus) plus.disabled = count >= MAX_GUESTS;
+    updateAutoSmallGroupNote(item);
     return count;
   }
 
@@ -79,6 +98,7 @@
     if (childrenMinus) childrenMinus.disabled = c <= 0;
     if (childrenPlus) childrenPlus.disabled = a + c >= MAX_GUESTS;
 
+    updateAutoSmallGroupNote(item);
     return { adults: a, children: c };
   }
 
@@ -90,6 +110,31 @@
     return parseInt(item.dataset.fixedGuests || '0', 10);
   }
 
+  function formatAutoHint(template, n, total) {
+    return template.replace('{n}', String(n)).replace('{total}', String(total));
+  }
+
+  function updateAutoSmallGroupNote(item) {
+    if (!item || !item.hasAttribute('data-auto-small-group')) return;
+    const note = item.querySelector('[data-auto-small-group-note]');
+    if (!note) return;
+    const template = item.dataset.autoSmallGroupHint;
+    if (!template) return;
+
+    const totalGuests = hasChildPrice(item)
+      ? readAdults(item) + readChildren(item)
+      : readGuests(item);
+    const groupPrice = SMALL_GROUP_PRICES[totalGuests];
+
+    if (groupPrice) {
+      note.textContent = formatAutoHint(template, totalGuests, groupPrice);
+      note.hidden = false;
+    } else {
+      note.textContent = '';
+      note.hidden = true;
+    }
+  }
+
   function initItems() {
     document.querySelectorAll('.price-list__item').forEach((item) => {
       if (!item.querySelector('[data-book-package]')) return;
@@ -99,6 +144,7 @@
       } else {
         writeGuests(item, readGuests(item));
       }
+      updateAutoSmallGroupNote(item);
     });
   }
 
@@ -159,14 +205,24 @@
     if (!packageId || !item) return;
 
     try {
-      const payload = { package: packageId };
+      let payload = { package: packageId };
       if (isFlatPrice(item)) {
         payload.guests = fixedGuests(item);
       } else if (hasChildPrice(item)) {
-        payload.adults = readAdults(item);
-        payload.children = readChildren(item);
+        const adults = readAdults(item);
+        const children = readChildren(item);
+        const total = adults + children;
+        payload.package = smallGroupPackageForParty(packageId, total);
+        if (payload.package === packageId) {
+          payload.adults = adults;
+          payload.children = children;
+        }
       } else {
-        payload.guests = readGuests(item);
+        const guests = readGuests(item);
+        payload.package = smallGroupPackageForParty(packageId, guests);
+        if (payload.package === packageId) {
+          payload.guests = guests;
+        }
       }
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
     } catch (err) {
