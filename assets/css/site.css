@@ -270,6 +270,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hero__open-status { font-weight: 700; }
 .hero__open-status--open { color: var(--brand-green); }
 .hero__open-status--closed { color: #fca5a5; }
+.hero__open-status-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  vertical-align: middle;
+}
 
 .visitor-gallery-section { max-width: none; }
 .visitor-photos {

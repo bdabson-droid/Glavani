@@ -1642,15 +1642,13 @@ def render_activity_hub_cards(lang: str) -> str:
 def inject_home_extras(body: str, lang: str) -> str:
     summary = price_summary(lang)
     status = park_status(lang)
-    if lang == "hr":
-        status_label = "Danas"
-    else:
-        status_label = "Today"
     replacements = {
         "<!-- HERO_OPEN_STATUS -->": (
-            f'<strong>{status_label}</strong> '
+            f'<span class="hero__open-status-row visitor-bar__status visitor-bar__status--{status["state"]}">'
+            f'<span class="visitor-bar__icon" aria-hidden="true">●</span>'
             f'<span class="hero__open-status hero__open-status--{status["state"]}" '
             f'data-open-status data-lang="{lang}">{status["message"]}</span>'
+            f"</span>"
         ),
         "<!-- HERO_REVIEW_BADGE -->": render_review_badge(lang),
         "<!-- HERO_PRICE_TEASER -->": (
