@@ -1920,6 +1920,53 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   color: var(--green-deep);
   margin-bottom: 1rem;
 }
+.price-section__intro {
+  margin: 0 0 1rem;
+  color: var(--rock-mid);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  max-width: 52rem;
+}
+.price-list__item--group {
+  border-left-color: var(--green-mid);
+}
+.price-list__amounts--group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+}
+.price-list__amount--group-total {
+  font-size: 1.35rem;
+}
+.price-list__amount--group-each {
+  font-size: 0.95rem;
+  color: var(--rock-mid);
+}
+.price-list__saving {
+  margin: 0.15rem 0 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--green-deep);
+  text-align: right;
+  line-height: 1.35;
+}
+.book-price-box__saving {
+  margin: 0.15rem 0 0.35rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--green-deep);
+}
+.booking-form__fixed-group {
+  margin: 0;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius);
+  background: rgba(141, 198, 63, 0.1);
+  border: 1px solid rgba(141, 198, 63, 0.35);
+  color: var(--green-deep);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
 .price-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
 .price-list__item {
   display: flex;

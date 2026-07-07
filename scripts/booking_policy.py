@@ -29,7 +29,7 @@ BOOKING_POLICY = {
             "In peak season (July–September) walk-ins are accepted during opening hours — "
             "please call ahead to check we have space, as we may not be able to accommodate walk-ins "
             "when we have a large group booking. "
-            "Book online for up to 10 people, or call for larger groups."
+            "Book online for up to 6 people, or call for larger groups — discounts available for parties of more than 6."
         ),
         "book_page": (
             "<strong>Booking policy:</strong> From the end of September until the start of July, all visits require "
@@ -82,7 +82,7 @@ BOOKING_POLICY = {
             "U vrhu sezone (srpanj–rujan) dolazak bez rezervacije moguć je tijekom radnog vremena — "
             "molimo nazovite unaprijed kako biste provjerili imamo li mjesta, jer ponekad ne možemo primiti "
             "dolazak bez rezervacije ako imamo rezervaciju velike grupe. "
-            "Rezervirajte online do 10 osoba ili nazovite za veće grupe."
+            "Rezervirajte online do 6 osoba ili nazovite za veće grupe — popusti za grupe s više od 6 osoba."
         ),
         "book_page": (
             "<strong>Pravila rezervacije:</strong> od kraja rujna do početka srpnja svi posjeti zahtijevaju "

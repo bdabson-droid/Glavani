@@ -12,7 +12,7 @@ HOME = {
     "meta_description": (
         "Glavani Park is Croatia's number 1 adventure park in Istria — ziplines, high ropes, human catapult "
         "and outdoor activities near Pula, Barban & Vodnjan. Open daily 9 AM–5 PM, last entry 3 PM. "
-        "Call +385 91 896 4525 or book online for up to 10 people."
+        "Call +385 91 896 4525 or book online for up to 6 people."
     ),
     "keywords": (
         "Croatia number 1 adventure park, adventure park Istria, adventure park Croatia, zipline park Istria, "

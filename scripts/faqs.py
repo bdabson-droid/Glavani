@@ -125,7 +125,7 @@ VISITOR_FAQS = {
         {
             "q": "What ages can take part at Glavani Park?",
             "a": (
-                "The yellow training route at Glavani Park suits younger children with adult supervision. "
+                "Children's prices apply to visitors under 10 years old. The yellow training route at Glavani Park suits younger children with adult supervision. "
                 "Taller attractions such as the Human Catapult and Quick Jump have minimum age and height limits — "
                 "call +385 91 896 4525 if unsure."
             ),
@@ -161,8 +161,9 @@ VISITOR_FAQS = {
         {
             "q": "Can we book Glavani Park for a large group or birthday?",
             "a": (
-                "Online booking covers up to 10 people. For groups of more than 10 — corporate events, schools, or birthdays — "
-                "see <a href=\"{groups}\">team building and group packages</a> or call +385 91 896 4525."
+                "Online booking covers up to 6 people, including small group whole-park packages for 3–6. "
+                "For groups of more than 6 — corporate events, schools, or birthdays — "
+                "see <a href=\"{groups}\">team building and group packages</a> or call +385 91 896 4525 for group discounts."
             ),
         },
     ],
@@ -198,7 +199,7 @@ VISITOR_FAQS = {
         {
             "q": "Koje dobne skupine mogu sudjelovati u Glavani Parku?",
             "a": (
-                "Žuta trening ruta u Glavani Parku odgovara mlađoj djeci pod nadzorom odrasle osobe. "
+                "Dječje cijene vrijede za posjetitelje mlađe od 10 godina. Žuta trening ruta u Glavani Parku odgovara mlađoj djeci pod nadzorom odrasle osobe. "
                 "Više atrakcije imaju minimalnu dob i visinu — nazovite +385 98 224 314 ako niste sigurni."
             ),
         },
@@ -233,8 +234,9 @@ VISITOR_FAQS = {
         {
             "q": "Možemo li rezervirati Glavani Park za veću grupu ili rođendan?",
             "a": (
-                "Online rezervacija vrijedi do 10 osoba. Za više od 10 — korporativne događaje, škole ili rođendane — "
-                "pogledajte <a href=\"{groups}\">team building i grupne pakete</a> ili nazovite +385 98 224 314."
+                "Online rezervacija vrijedi do 6 osoba, uključujući male pakete cijelog parka za 3–6. "
+                "Za više od 6 — korporativne događaje, škole ili rođendane — "
+                "pogledajte <a href=\"{groups}\">team building i grupne pakete</a> ili nazovite +385 98 224 314 za grupne popuste."
             ),
         },
     ],

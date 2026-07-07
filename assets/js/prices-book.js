@@ -3,7 +3,7 @@
  */
 (function () {
   const STORAGE_KEY = 'glavani-book-prefill';
-  const MAX_GUESTS = 10;
+  const MAX_GUESTS = 6;
   const DEFAULT_GUESTS = 1;
 
   function getItem(el) {
@@ -82,9 +82,18 @@
     return { adults: a, children: c };
   }
 
+  function isFlatPrice(item) {
+    return item.hasAttribute('data-flat-price');
+  }
+
+  function fixedGuests(item) {
+    return parseInt(item.dataset.fixedGuests || '0', 10);
+  }
+
   function initItems() {
     document.querySelectorAll('.price-list__item').forEach((item) => {
       if (!item.querySelector('[data-book-package]')) return;
+      if (isFlatPrice(item)) return;
       if (hasChildPrice(item)) {
         writeSplitGuests(item, readAdults(item), readChildren(item));
       } else {
@@ -151,7 +160,9 @@
 
     try {
       const payload = { package: packageId };
-      if (hasChildPrice(item)) {
+      if (isFlatPrice(item)) {
+        payload.guests = fixedGuests(item);
+      } else if (hasChildPrice(item)) {
         payload.adults = readAdults(item);
         payload.children = readChildren(item);
       } else {
