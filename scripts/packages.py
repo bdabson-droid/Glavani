@@ -325,14 +325,14 @@ def price_summary(lang: str) -> dict:
         return {
             "hero_line": (
                 f"Paketi od <strong>€{min_child}</strong> djeca · "
-                f"<strong>€{min_adult}</strong> odrasli · mali paketi 3–6 od <strong>€180</strong>"
+                f"<strong>€{min_adult}</strong> odrasli"
             ),
             "from": f"od €{min_child}",
         }
     return {
         "hero_line": (
             f"Packages from <strong>€{min_child}</strong> children · "
-            f"<strong>€{min_adult}</strong> adults · small groups 3–6 from <strong>€180</strong>"
+            f"<strong>€{min_adult}</strong> adults"
         ),
         "from": f"from €{min_child}",
     }
@@ -377,7 +377,7 @@ def render_price_amount(opt: dict, copy: dict, lang: str) -> str:
         per_person, _ = small_group_rates(opt["size"], opt["price"])
         data = opt[lang]
         return (
-            f"""              <div class="price-list__amounts price-list__amounts--group">
+            f"""              <div class="price-list__amounts price-list__amounts--inline">
                 <p class="price-list__amount price-list__amount--group-total">€{opt['price']}<span>{copy['group_total']}</span></p>
                 <p class="price-list__amount price-list__amount--group-each">{_format_euro(per_person)}<span>{copy['per_person']}</span></p>
                 <p class="price-list__saving">{data['saving']}</p>
@@ -385,7 +385,7 @@ def render_price_amount(opt: dict, copy: dict, lang: str) -> str:
         )
     if opt.get("child_price"):
         return (
-            f"""              <div class="price-list__amounts">
+            f"""              <div class="price-list__amounts price-list__amounts--inline">
                 <p class="price-list__amount">€{opt['price']}<span>{copy['adults']}</span></p>
                 <p class="price-list__amount price-list__amount--child">€{opt['child_price']}<span>{copy['children']}</span></p>
               </div>"""
@@ -420,6 +420,7 @@ def render_price_sections(lang: str) -> str:
           <div class="price-list__aside">
             <div class="price-list__meta">
 {render_price_amount(opt, copy, lang)}
+{'' if opt.get('group') == 'small_group' else render_price_qty(opt, copy)}
             </div>
             <a class="btn-primary price-list__book-btn" data-book-package="{opt['id']}" href="{book_base}">{copy['book']}</a>
           </div>
