@@ -154,7 +154,7 @@ EXTERNAL_IMAGES = [
     ),
 ]
 EXTERNAL_IMAGES.extend(EVENT_EXTERNAL_IMAGES)
-EXTERNAL_IMAGES.extend((item["url"], item["image"]) for item in VISITOR_GALLERY)
+EXTERNAL_IMAGES.extend((item["url"], item["image"]) for item in VISITOR_GALLERY if item.get("url"))
 EXTERNAL_IMAGES.extend(
     [
         (
