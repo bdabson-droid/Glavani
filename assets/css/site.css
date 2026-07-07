@@ -140,7 +140,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   overflow: hidden;
   margin-right: 0.35rem;
   vertical-align: -0.05em;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   box-sizing: content-box;
 }
 .visitor-bar__status--open .visitor-bar__icon {
