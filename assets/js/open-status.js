@@ -3,6 +3,11 @@
   var CLOSE = 17;
   var LAST_ENTRY = 15;
 
+  var PHONES = {
+    en: { tel: "+385918964525" },
+    hr: { tel: "+38598224314" },
+  };
+
   var labels = {
     en: {
       open: "Open now",
@@ -12,6 +17,7 @@
       last_entry_soon: "Last entry in {minutes} min",
       last_entry: "Last entry 3 PM",
       no_new_entries: "No new entries today unless pre-arranged",
+      call_to_book: "Call to book",
     },
     hr: {
       open: "Otvoreno sada",
@@ -21,8 +27,22 @@
       last_entry_soon: "Zadnji ulaz za {minutes} min",
       last_entry: "Zadnji ulaz u 15 h",
       no_new_entries: "Nema novih ulaza danas osim po prethodnom dogovoru",
+      call_to_book: "Pozovite za rezervaciju",
     },
   };
+
+  function amberMessage(lang) {
+    var copy = labels[lang] || labels.en;
+    var phone = (PHONES[lang] || PHONES.en).tel;
+    return (
+      copy.no_new_entries +
+      ' · <a class="open-status__call" href="tel:' +
+      phone +
+      '">' +
+      copy.call_to_book +
+      "</a>"
+    );
+  }
 
   function zagrebParts() {
     var parts = new Intl.DateTimeFormat("en-GB", {
@@ -56,7 +76,7 @@
       return { state: "open", message: copy.open + " · " + copy.last_entry };
     }
     if (minutes >= lastEntryAt && minutes < closeAt) {
-      return { state: "amber", message: copy.no_new_entries };
+      return { state: "amber", message: amberMessage(lang), html: true };
     }
     if (minutes < openAt) {
       return { state: "closed", message: copy.opens_at };
@@ -68,7 +88,11 @@
     document.querySelectorAll("[data-open-status]").forEach(function (el) {
       var lang = el.getAttribute("data-lang") || "en";
       var result = statusFor(lang);
-      el.textContent = result.message;
+      if (result.html) {
+        el.innerHTML = result.message;
+      } else {
+        el.textContent = result.message;
+      }
       var statusEl = el.closest(".visitor-bar__status, .visit-cta-bar__status");
       if (statusEl) {
         statusEl.classList.remove("visitor-bar__status--open", "visitor-bar__status--closed", "visitor-bar__status--amber");
