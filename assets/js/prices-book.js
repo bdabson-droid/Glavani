@@ -66,19 +66,10 @@
   function writeSplitGuests(item, adults, children) {
     let a = Math.max(0, adults);
     let c = Math.max(0, children);
-    if (a + c < 1) {
-      if (a < 1 && c < 1) {
-        a = 1;
-        c = 0;
-      } else if (a < 1) {
-        a = 1;
-      } else {
-        c = Math.max(0, 1 - a);
-      }
-    }
+
     if (a + c > MAX_GUESTS) {
       if (c > MAX_GUESTS - a) c = Math.max(0, MAX_GUESTS - a);
-      if (a + c > MAX_GUESTS) a = Math.max(1, MAX_GUESTS - c);
+      if (a + c > MAX_GUESTS) a = Math.max(0, MAX_GUESTS - c);
     }
 
     item.dataset.adults = String(a);
@@ -93,9 +84,9 @@
 
     if (adultsVal) adultsVal.textContent = String(a);
     if (childrenVal) childrenVal.textContent = String(c);
-    if (adultsMinus) adultsMinus.disabled = a <= 0;
+    if (adultsMinus) adultsMinus.disabled = a <= 0 || (a <= 1 && c === 0);
     if (adultsPlus) adultsPlus.disabled = a + c >= MAX_GUESTS;
-    if (childrenMinus) childrenMinus.disabled = c <= 0;
+    if (childrenMinus) childrenMinus.disabled = c <= 0 || (c <= 1 && a === 0);
     if (childrenPlus) childrenPlus.disabled = a + c >= MAX_GUESTS;
 
     updateAutoSmallGroupNote(item);
