@@ -4,7 +4,7 @@ Keep assets/js/booking-app.js in sync when prices or options change.
 """
 
 from booking_policy import BOOKING_POLICY
-from brand_voice import CALL_FOR_GROUPS_ABOVE, ONLINE_BOOKING_MAX
+from brand_voice import CALL_FOR_GROUPS_ABOVE, ONLINE_BOOKING_MAX, PHONES
 
 PRICES_SLUGS = {"en": "prices", "hr": "cijene"}
 BOOKING_SLUGS = {"en": "book", "hr": "rezervacija"}
@@ -76,11 +76,17 @@ BOOKING_OPTIONS = [
         "child_price": 40,
         "en": {
             "name": "Whole park — all games (without catapult)",
-            "desc": "Ziplines, high ropes, swing, drop, climbing wall, Aerotrim, and more — catapult excluded.",
+            "desc": (
+                "Ziplines, high ropes, swing, drop, climbing wall, Aerotrim, and more — catapult excluded. "
+                "€50 adults · €40 children (under 10)."
+            ),
         },
         "hr": {
             "name": "Cijeli park — sve igre (bez katapulata)",
-            "desc": "Zipline, visoke staze, ljuljačka, pad, penjački zid, Aerotrim i više — bez katapulata.",
+            "desc": (
+                "Zipline, visoke staze, ljuljačka, pad, penjački zid, Aerotrim i više — bez katapulata. "
+                "€50 odrasli · €40 djeca (do 10 godina)."
+            ),
         },
     },
     {
@@ -129,8 +135,8 @@ PRICES_COPY = {
         "keywords": "Glavani Park prices, adventure park packages Istria, zipline park Croatia prices",
         "h1": "Activity Packages & Prices",
         "lead": (
-            f"Adult and children's prices · small group whole-park deals for 3–6 · book online for up to "
-            f"{ONLINE_BOOKING_MAX} people"
+            f"Adult and children's prices · book online for up to {ONLINE_BOOKING_MAX} people · "
+            f"call to book for {CALL_FOR_GROUPS_ABOVE + 1}+"
         ),
         "per_person": "per person",
         "group_total": "group total",
@@ -159,8 +165,8 @@ PRICES_COPY = {
         "keywords": "Glavani Park cijene, paketi avanturistički park Istria, zipline park Hrvatska cijene",
         "h1": "Paketi aktivnosti i cijene",
         "lead": (
-            f"Cijene za odrasle i djecu · mali paketi cijelog parka za 3–6 osoba · online do "
-            f"{ONLINE_BOOKING_MAX} osoba"
+            f"Cijene za odrasle i djecu · online do {ONLINE_BOOKING_MAX} osoba · "
+            f"nazovite za rezervaciju za {CALL_FOR_GROUPS_ABOVE + 1}+"
         ),
         "per_person": "po osobi",
         "group_total": "ukupno za grupu",
@@ -244,6 +250,25 @@ def small_group_package_id(party_size: int) -> str | None:
 
 def render_children_pricing_ticker(lang: str) -> str:
     return f'<p class="packages-notice packages-notice--children">{children_pricing_notice(lang)}</p>'
+
+
+def large_group_booking_notice(lang: str) -> str:
+    phone = PHONES[1] if lang == "hr" else PHONES[0]
+    if lang == "hr":
+        return (
+            f"<strong>Više od {ONLINE_BOOKING_MAX} osoba?</strong> "
+            f"Online rezervacija vrijedi do {ONLINE_BOOKING_MAX} osoba. Za veće grupe "
+            f'<a href="tel:{phone["tel"]}">nazovite za rezervaciju</a> — popusti dostupni.'
+        )
+    return (
+        f"<strong>More than {ONLINE_BOOKING_MAX} people?</strong> "
+        f"Book online for up to {ONLINE_BOOKING_MAX}. For larger groups, "
+        f'<a href="tel:{phone["tel"]}">call to book</a> — group discounts available.'
+    )
+
+
+def render_large_group_booking_notice(lang: str) -> str:
+    return f'<p class="packages-notice packages-notice--groups">{large_group_booking_notice(lang)}</p>'
 
 
 def min_package_prices() -> tuple[int, int]:

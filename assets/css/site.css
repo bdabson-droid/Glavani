@@ -1943,6 +1943,20 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   background: rgba(141, 198, 63, 0.1);
   border: 1px solid rgba(141, 198, 63, 0.35);
 }
+.packages-notice--groups {
+  color: var(--green-deep);
+  background: rgba(255, 159, 28, 0.12);
+  border: 1px solid rgba(255, 159, 28, 0.4);
+}
+.packages-notice--groups a {
+  font-weight: 700;
+  color: var(--brand-orange-dark);
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+.packages-notice--groups a:hover {
+  text-decoration-thickness: 2px;
+}
 .price-section h2 {
   font-size: clamp(1.125rem, 2.5vw, 1.375rem);
   color: var(--green-deep);

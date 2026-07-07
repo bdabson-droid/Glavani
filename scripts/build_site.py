@@ -37,7 +37,7 @@ from faqs import (  # noqa: E402
 )
 from group_events import EVENT_EXTERNAL_IMAGES, EVENT_PAGES, EVENT_SLUGS_EN, EVENT_SLUGS_HR  # noqa: E402
 from booking_policy import BOOKING_POLICY  # noqa: E402
-from brand_voice import BOOKING_EMAIL, BOOKING_SUBMIT_URL, ONLINE_BOOKING_MAX, PHONES, VISITOR  # noqa: E402
+from brand_voice import BOOKING_EMAIL, BOOKING_SUBMIT_URL, CALL_FOR_GROUPS_ABOVE, ONLINE_BOOKING_MAX, PHONES, VISITOR  # noqa: E402
 from packages import (  # noqa: E402
     PRICES_COPY,
     PRICES_SLUGS,
@@ -48,6 +48,7 @@ from packages import (  # noqa: E402
     prices_offer_schema,
     render_price_sections,
     render_children_pricing_ticker,
+    render_large_group_booking_notice,
 )
 from open_status import park_status  # noqa: E402
 from activity_reviews import render_activity_reviews  # noqa: E402
@@ -1152,6 +1153,7 @@ def render_activities_hub_page(lang: str) -> str:
           <p>{PRICES_COPY[lang]['lead']}</p>
         </div>
         {render_children_pricing_ticker(lang)}
+        {render_large_group_booking_notice(lang)}
         {render_price_sections(lang)}
         <p class="activities-hub-packages__note">{PRICES_COPY[lang]['book_note']}</p>
       </div>
@@ -1745,7 +1747,7 @@ def render_prices_page(lang: str) -> str:
 <main>
   <section class="hero hero--landing">
     <div class="hero__inner">
-      <p class="hero__badge">{'Online do ' + str(ONLINE_BOOKING_MAX) + ' osoba' if lang == 'hr' else f'Book online · up to {ONLINE_BOOKING_MAX} people'}</p>
+      <p class="hero__badge">{'Online do ' + str(ONLINE_BOOKING_MAX) + ' osoba · nazovite za ' + str(CALL_FOR_GROUPS_ABOVE + 1) + '+' if lang == 'hr' else f'Book online · up to {ONLINE_BOOKING_MAX} · call for {CALL_FOR_GROUPS_ABOVE + 1}+'}</p>
       <h1>{copy['h1']}</h1>
       <p class="hero__subtitle">{copy['lead']}</p>
     </div>
@@ -1753,6 +1755,7 @@ def render_prices_page(lang: str) -> str:
   <section class="section section--theme-forest">
     <div class="section__inner">
       {render_children_pricing_ticker(lang)}
+      {render_large_group_booking_notice(lang)}
       {render_price_sections(lang)}
       <p style="margin-top:1.5rem;text-align:center;color:var(--rock-mid);">{copy['book_note']}</p>
       <p style="margin-top:1rem;text-align:center;display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;">
