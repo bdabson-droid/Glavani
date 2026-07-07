@@ -1433,7 +1433,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   color: var(--rock-mid);
 }
 .home-book-cta__policy {
-  margin: 0 0 1rem;
+  margin: 1rem 0 0;
   padding: 0.65rem 0.75rem;
   background: rgba(245, 130, 32, 0.1);
   border: 1px solid rgba(245, 130, 32, 0.35);
@@ -2021,7 +2021,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 
 .home-book-cta__policy {
-  margin: 0 0 1rem;
+  margin: 1rem 0 0;
   padding: 0.65rem 0.75rem;
   background: rgba(245, 130, 32, 0.1);
   border: 1px solid rgba(245, 130, 32, 0.35);

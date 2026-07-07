@@ -3,6 +3,8 @@ Activity packages and single-activity prices for the prices page and booking app
 Keep assets/js/booking-app.js in sync when prices or options change.
 """
 
+from booking_policy import BOOKING_POLICY
+
 PRICES_SLUGS = {"en": "prices", "hr": "cijene"}
 BOOKING_SLUGS = {"en": "book", "hr": "rezervacija"}
 
@@ -99,12 +101,7 @@ PRICES_COPY = {
         "people": "persons",
         "guests_minus": "Fewer people",
         "guests_plus": "More people",
-        "book_note": (
-            "From late September to early July, advance booking is required — no walk-ins. "
-            "In peak season (July–September) walk-ins may be accepted during opening hours, subject to availability — "
-            "book ahead to guarantee your slot and avoid disappointment. "
-            "Groups of more than 10 should call to check availability and pricing."
-        ),
+        "book_note": BOOKING_POLICY["en"]["book_note"],
         "more_single": "More single activities coming soon.",
     },
     "hr": {
@@ -123,12 +120,7 @@ PRICES_COPY = {
         "people": "osoba",
         "guests_minus": "Manje osoba",
         "guests_plus": "Više osoba",
-        "book_note": (
-            "Od kraja rujna do početka srpnja potrebna je unaprijedna rezervacija — bez dolaska bez najave. "
-            "U vrhu sezone (srpanj–rujan) dolazak bez rezervacije moguć je tijekom radnog vremena, ovisno o dostupnosti — "
-            "rezervirajte unaprijed kako biste osigurali termin i izbjegli razočaranje. "
-            "Grupe s više od 10 osoba neka nazovu radi dostupnosti i cijena."
-        ),
+        "book_note": BOOKING_POLICY["hr"]["book_note"],
         "more_single": "Više pojedinačnih aktivnosti uskoro.",
     },
 }
