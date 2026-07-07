@@ -292,15 +292,14 @@
     }
 
     if (adultsRaw !== null || childrenRaw !== null) {
-      const adults = parseInt(adultsRaw || '1', 10);
-      const children = parseInt(childrenRaw || '0', 10);
+      const adults = adultsRaw !== null ? parseInt(adultsRaw, 10) : 1;
+      const children = childrenRaw !== null ? parseInt(childrenRaw, 10) : 0;
       const total = adults + children;
       if (total > MAX_GUESTS) {
         state.largeGroup = true;
       } else if (total >= 1) {
         state.adults = Math.max(0, adults);
         state.children = Math.max(0, children);
-        if (state.adults + state.children < 1) state.adults = 1;
         state.largeGroup = false;
       }
       if (pkg === WHOLE_PARK_CATAPULT_ID && SMALL_GROUP_BY_SIZE[total]) {
@@ -795,8 +794,12 @@
       if (activityIsSmallGroup(a)) {
         state.guests = a.fixed_guests;
       } else if (activityHasChildPrice(a)) {
-        state.adults = Math.max(1, state.adults || 1);
-        state.children = state.children || 0;
+        state.adults = Math.max(0, parseInt(state.adults, 10) || 0);
+        state.children = Math.max(0, parseInt(state.children, 10) || 0);
+        if (state.adults + state.children < 1) {
+          state.adults = 1;
+          state.children = 0;
+        }
       } else {
         state.guests = Math.max(1, guestCount() || 1);
       }
@@ -824,7 +827,10 @@
 
     document.getElementById('app-children')?.addEventListener('change', (e) => {
       state.children = parseInt(e.target.value, 10) || 0;
-      if (state.adults + state.children < 1) state.adults = 1;
+      if (state.adults + state.children < 1) {
+        state.adults = 0;
+        state.children = 1;
+      }
       if (state.adults + state.children > MAX_GUESTS) {
         state.adults = Math.max(0, MAX_GUESTS - state.children);
       }
@@ -859,7 +865,7 @@
           state.largeGroup = false;
         } else if (activityHasChildPrice(a)) {
           state.largeGroup = false;
-          state.adults = parseInt(document.getElementById('app-adults')?.value || '1', 10);
+          state.adults = parseInt(document.getElementById('app-adults')?.value || '0', 10);
           state.children = parseInt(document.getElementById('app-children')?.value || '0', 10);
           if (state.adults + state.children < 1) {
             alert(t.selectGuests);
