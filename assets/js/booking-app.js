@@ -23,6 +23,29 @@
   const PHONE_EN = '385918964525';
   const PHONE_HR = '38598224314';
 
+  const WHOLE_PARK_CATAPULT_ID = 'all-incl-catapult';
+  const SMALL_GROUP_BY_SIZE = {
+    3: 'whole-park-group-3',
+    4: 'whole-park-group-4',
+    5: 'whole-park-group-5',
+    6: 'whole-park-group-6',
+  };
+
+  const PACKAGE_ACTIVITIES = {
+    en: [
+      { id: 'all-incl-catapult', group: 'packages', name: 'Whole park — all games incl. human catapult', price: 70, child_price: 60 },
+      { id: 'catapult-swing', group: 'packages', name: 'Human catapult + 12.5 m swing', price: 50 },
+      { id: 'all-no-catapult', group: 'packages', name: 'Whole park — all games (without catapult)', price: 50, child_price: 40 },
+      { id: 'training-2', group: 'packages', name: 'Training route + 2 games', price: 30, child_price: 20 },
+    ],
+    hr: [
+      { id: 'all-incl-catapult', group: 'packages', name: 'Cijeli park — sve igre uklj. katapultu', price: 70, child_price: 60 },
+      { id: 'catapult-swing', group: 'packages', name: 'Ljudska katapulta + ljuljačka 12,5 m', price: 50 },
+      { id: 'all-no-catapult', group: 'packages', name: 'Cijeli park — sve igre (bez katapulata)', price: 50, child_price: 40 },
+      { id: 'training-2', group: 'packages', name: 'Trening ruta + 2 igre', price: 30, child_price: 20 },
+    ],
+  };
+
   const SMALL_GROUP_ACTIVITIES = {
     en: [
       { id: 'whole-park-group-3', group: 'small_group', name: 'Whole park for 3 — incl. human catapult', price: 180, fixed_guests: 3, per_person: 60, saving: 10 },
@@ -42,10 +65,8 @@
     en: {
       steps: ['Package', 'Date', 'Details', 'Confirm'],
       activities: [
+        ...PACKAGE_ACTIVITIES.en,
         ...SMALL_GROUP_ACTIVITIES.en,
-        { id: 'all-incl-catapult', group: 'packages', name: 'Whole park — all games incl. human catapult', price: 70, child_price: 60 },
-        { id: 'catapult-swing', group: 'packages', name: 'Human catapult + 12.5 m swing', price: 50 },
-        { id: 'training-2', group: 'packages', name: 'Training route + 2 games', price: 30, child_price: 20 },
         { id: 'human-catapult', group: 'single', name: 'Human Catapult', price: 40 },
       ],
       groupSmallGroup: 'Small group — whole park incl. catapult',
@@ -54,7 +75,7 @@
       months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
       days: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
       pickActivity: 'Choose your package or activity',
-      pickActivityLead: 'Small group deals for 3–6 people · per-person packages · children under 10 on family rates · max 6 people online',
+      pickActivityLead: 'Activity packages · small group deals for 3–6 · children under 10 on family rates · max 6 people online',
       selectPackage: 'Select a package or activity…',
       selectGuests: 'Number of people',
       selectAdults: 'Adults',
@@ -117,10 +138,8 @@
     hr: {
       steps: ['Paket', 'Datum', 'Podaci', 'Potvrda'],
       activities: [
+        ...PACKAGE_ACTIVITIES.hr,
         ...SMALL_GROUP_ACTIVITIES.hr,
-        { id: 'all-incl-catapult', group: 'packages', name: 'Cijeli park — sve igre uklj. katapultu', price: 70, child_price: 60 },
-        { id: 'catapult-swing', group: 'packages', name: 'Ljudska katapulta + ljuljačka 12,5 m', price: 50 },
-        { id: 'training-2', group: 'packages', name: 'Trening ruta + 2 igre', price: 30, child_price: 20 },
         { id: 'human-catapult', group: 'single', name: 'Ljudska katapulta', price: 40 },
       ],
       groupSmallGroup: 'Mali paket — cijeli park uklj. katapultu',
@@ -129,7 +148,7 @@
       months: ['Siječanj','Veljača','Ožujak','Travanj','Svibanj','Lipanj','Srpanj','Kolovoz','Rujan','Listopad','Studeni','Prosinac'],
       days: ['Pon','Uto','Sri','Čet','Pet','Sub','Ned'],
       pickActivity: 'Odaberite paket ili aktivnost',
-      pickActivityLead: 'Mali paketi za 3–6 osoba · paketi po osobi · djeca mlađa od 10 na obiteljskim cijenama · max 6 osoba online',
+      pickActivityLead: 'Paketi aktivnosti · mali paketi za 3–6 · djeca mlađa od 10 na obiteljskim cijenama · max 6 osoba online',
       selectPackage: 'Odaberite paket ili aktivnost…',
       selectGuests: 'Broj osoba',
       selectAdults: 'Odrasli',
@@ -284,6 +303,9 @@
         if (state.adults + state.children < 1) state.adults = 1;
         state.largeGroup = false;
       }
+      if (pkg === WHOLE_PARK_CATAPULT_ID && SMALL_GROUP_BY_SIZE[total]) {
+        selectedActivityId = SMALL_GROUP_BY_SIZE[total];
+      }
     } else if (guestsRaw) {
       const n = parseInt(guestsRaw, 10);
       if (n > MAX_GUESTS) {
@@ -296,6 +318,9 @@
           state.children = 0;
         }
         state.largeGroup = false;
+      }
+      if (pkg === WHOLE_PARK_CATAPULT_ID && SMALL_GROUP_BY_SIZE[n]) {
+        selectedActivityId = SMALL_GROUP_BY_SIZE[n];
       }
     }
   }
@@ -438,14 +463,14 @@
 
   function renderPackageOptions() {
     const groups = [
-      { key: 'small_group', label: t.groupSmallGroup },
       { key: 'packages', label: t.groupPackages },
+      { key: 'small_group', label: t.groupSmallGroup },
       { key: 'single', label: t.groupSingle },
     ];
     return groups.map(g => {
       const items = t.activities
         .filter(a => a.group === g.key)
-        .sort((a, b) => b.price - a.price);
+        .sort((a, b) => (g.key === 'small_group' ? a.fixed_guests - b.fixed_guests : b.price - a.price));
       if (!items.length) return '';
       return `<optgroup label="${g.label}">${items.map(a =>
         `<option value="${a.id}"${selectedActivityId === a.id ? ' selected' : ''}>${packageOptionLabel(a)}</option>`

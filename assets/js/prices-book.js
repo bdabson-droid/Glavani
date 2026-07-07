@@ -1,10 +1,22 @@
 /**
- * Prices & activities pages — guest steppers (1–10) and booking prefill.
+ * Prices & activities pages — guest steppers and booking prefill.
  */
 (function () {
   const STORAGE_KEY = 'glavani-book-prefill';
   const MAX_GUESTS = 6;
   const DEFAULT_GUESTS = 1;
+  const WHOLE_PARK_CATAPULT_ID = 'all-incl-catapult';
+  const SMALL_GROUP_BY_SIZE = {
+    3: 'whole-park-group-3',
+    4: 'whole-park-group-4',
+    5: 'whole-park-group-5',
+    6: 'whole-park-group-6',
+  };
+
+  function smallGroupPackageForParty(packageId, totalGuests) {
+    if (packageId !== WHOLE_PARK_CATAPULT_ID || totalGuests < 3) return packageId;
+    return SMALL_GROUP_BY_SIZE[totalGuests] || packageId;
+  }
 
   function getItem(el) {
     return el.closest('.price-list__item');
@@ -159,14 +171,24 @@
     if (!packageId || !item) return;
 
     try {
-      const payload = { package: packageId };
+      let payload = { package: packageId };
       if (isFlatPrice(item)) {
         payload.guests = fixedGuests(item);
       } else if (hasChildPrice(item)) {
-        payload.adults = readAdults(item);
-        payload.children = readChildren(item);
+        const adults = readAdults(item);
+        const children = readChildren(item);
+        const total = adults + children;
+        payload.package = smallGroupPackageForParty(packageId, total);
+        if (payload.package === packageId) {
+          payload.adults = adults;
+          payload.children = children;
+        }
       } else {
-        payload.guests = readGuests(item);
+        const guests = readGuests(item);
+        payload.package = smallGroupPackageForParty(packageId, guests);
+        if (payload.package === packageId) {
+          payload.guests = guests;
+        }
       }
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
     } catch (err) {
