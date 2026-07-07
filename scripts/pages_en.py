@@ -744,8 +744,8 @@ PAGES = [{'slug': 'things-to-do-in-istria',
   'hero_subtitle': 'Beyond the amphitheatre and Adriatic beaches, inland Istria offers '
                    'ziplines, high ropes, and adrenaline rides at Glavani Park — an '
                    'easy half-day escape near Barban and Vodnjan.',
-  'image': 'zipline-120m-glavani-park-istria-croatia.webp',
-  'image_alt': 'Zipline adventure at Glavani Park, a top day trip from Pula, Istria',
+  'image': 'visitor-gallery-forest-zipline-1.webp',
+  'image_alt': 'Glavani Park grounds among oak trees in the Istrian countryside',
   'location_map': True,
   'sections': [{'h2': 'Pula as Your Istria Base Camp',
                 'paragraphs': ['<p><strong>Pula</strong> anchors the southern tip of '
