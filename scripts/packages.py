@@ -278,11 +278,11 @@ def conversion_cta_note(lang: str) -> str:
     min_adult, min_child = min_package_prices()
     if lang == "hr":
         return (
-            f"Paketi od €{min_child} djeca / €{min_adult} odrasli · mali paketi 3–6 od €180 · "
+            f"Paketi od €{min_child} djeca / €{min_adult} odrasli · "
             f"online do {ONLINE_BOOKING_MAX} osoba"
         )
     return (
-        f"Packages from €{min_child} children / €{min_adult} adults · small groups 3–6 from €180 · "
+        f"Packages from €{min_child} children / €{min_adult} adults · "
         f"book online for up to {ONLINE_BOOKING_MAX}"
     )
 
