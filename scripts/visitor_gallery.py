@@ -162,7 +162,6 @@ ACTIVITY_GALLERY_MAP: dict[str, list[str]] = {
         "visitor-gallery-high-ropes-platform-13.webp",
     ],
     "valley-zipline": [
-        "visitor-gallery-valley-zipline-17.webp",
         "visitor-gallery-swing-action-12.webp",
         "visitor-gallery-high-ropes-platform-13.webp",
         "visitor-gallery-adventure-park-3.webp",
