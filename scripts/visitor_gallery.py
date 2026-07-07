@@ -129,6 +129,14 @@ VISITOR_GALLERY = [
         "activities": ["low-zipline", "valley-zipline", "training-route"],
         "home": False,
     },
+    {
+        "image": "visitor-gallery-valley-zipline-17.webp",
+        "en_alt": "Guests riding the Valley Zip Line Course through the oak forest valley at Glavani Park, Istria",
+        "hr_alt": "Gosti na dolinskoj zipline stazi kroz hrastovu dolinu u Glavani Parku, Istria",
+        "activities": ["valley-zipline"],
+        "home": False,
+        "local": True,
+    },
 ]
 
 # Per-activity photo picks (3–4 each). Curated after inspecting gallery content.
@@ -154,6 +162,7 @@ ACTIVITY_GALLERY_MAP: dict[str, list[str]] = {
         "visitor-gallery-high-ropes-platform-13.webp",
     ],
     "valley-zipline": [
+        "visitor-gallery-valley-zipline-17.webp",
         "visitor-gallery-swing-action-12.webp",
         "visitor-gallery-high-ropes-platform-13.webp",
         "visitor-gallery-adventure-park-3.webp",
