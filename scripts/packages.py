@@ -123,7 +123,7 @@ PRICES_COPY = {
         "title": "Activity Packages & Prices | Glavani Park Istria",
         "meta_description": (
             "Glavani Park packages from €20 for children and €30 for adults — all games except catapult. "
-            "Whole park with catapult from €70, small group deals for 3–6 from €180. "
+            "Whole park with catapult from €70. "
             f"Book online for up to {ONLINE_BOOKING_MAX} people or call for larger groups."
         ),
         "keywords": "Glavani Park prices, adventure park packages Istria, zipline park Croatia prices",
@@ -153,7 +153,7 @@ PRICES_COPY = {
         "title": "Paketi aktivnosti i cijene | Glavani Park Istria",
         "meta_description": (
             "Paketi Glavani Parka od €20 za djecu i €30 za odrasle — sve igre osim katapulata. "
-            "Cijeli park s katapultom od €70, mali paketi za 3–6 od €180. "
+            "Cijeli park s katapultom od €70. "
             f"Rezervirajte online do {ONLINE_BOOKING_MAX} osoba ili nazovite za veće grupe."
         ),
         "keywords": "Glavani Park cijene, paketi avanturistički park Istria, zipline park Hrvatska cijene",
@@ -278,36 +278,30 @@ def conversion_cta_note(lang: str) -> str:
     min_adult, min_child = min_package_prices()
     if lang == "hr":
         return (
-            f"Paketi od €{min_child} djeca / €{min_adult} odrasli · mali paketi 3–6 od €180 · "
+            f"Paketi od €{min_child} djeca / €{min_adult} odrasli · "
             f"online do {ONLINE_BOOKING_MAX} osoba"
         )
     return (
-        f"Packages from €{min_child} children / €{min_adult} adults · small groups 3–6 from €180 · "
+        f"Packages from €{min_child} children / €{min_adult} adults · "
         f"book online for up to {ONLINE_BOOKING_MAX}"
     )
 
 
 def pricing_hub_blurb(lang: str) -> str:
     if lang == "hr":
-        return (
-            "Paketi od €20 za djecu i €30 za odrasle · mali paketi cijelog parka 3–6 od €180 · "
-            "pojedinačne aktivnosti od €40"
-        )
-    return (
-        "Packages from €20 for children and €30 for adults · small group whole park 3–6 from €180 · "
-        "single activities from €40"
-    )
+        return "Paketi od €20 za djecu i €30 za odrasle · pojedinačne aktivnosti od €40"
+    return "Packages from €20 for children and €30 for adults · single activities from €40"
 
 
 def pricing_visit_footer_line(lang: str) -> str:
     if lang == "hr":
         return (
             "cijeli park s katapultom €60–70 (djeca/odrasli), cijeli park bez katapulata €40–50, "
-            "trening ruta + 2 igre €20–30, mali paketi 3–6 od €180"
+            "trening ruta + 2 igre €20–30"
         )
     return (
         "whole park incl. catapult €60–70 (children/adults), whole park without catapult €40–50, "
-        "training route + 2 games €20–30, small groups 3–6 from €180"
+        "training route + 2 games €20–30"
     )
 
 
@@ -319,27 +313,23 @@ def package_price_faq_answer(lang: str, prefix: str, *, single_price: int | None
             return (
                 f"Ljudska katapulta košta {single_price} € kao pojedinačna aktivnost ili je uključena u paket "
                 f"cijelog parka s katapultom (€60 djeca / €70 odrasli). "
-                f'Mali paketi za 3–6 osoba počinju od €180. '
                 f'Pogledajte <a href="{prices_href}">pakete i cijene</a> ili '
                 f'<a href="{book_href}">rezervirajte online</a>.'
             )
         return (
             f"Pristup je uključen u paket trening ruta + 2 igre (sve osim katapulata, od €20/€30) "
             f"ili cijeli park bez katapulata (od €40/€50). "
-            f'Mali paketi cijelog parka s katapultom za 3–6 osoba od €180. '
             f'Pogledajte <a href="{prices_href}">pakete i cijene</a>.'
         )
     if single_price:
         return (
             f"The Human Catapult is €{single_price} as a single activity, or included in the whole-park "
             f"package with catapult (€60 children / €70 adults). "
-            f"Small group whole-park deals for 3–6 people start at €180. "
             f'See <a href="{prices_href}">packages and prices</a> or <a href="{book_href}">book online</a>.'
         )
     return (
         f"Access is included in the Training route + 2 games package (all games except catapult, from €20/€30) "
         f"or whole park without catapult (from €40/€50). "
-        f"Small group whole-park packages with catapult for 3–6 people start at €180. "
         f'See <a href="{prices_href}">packages and prices</a>.'
     )
 
