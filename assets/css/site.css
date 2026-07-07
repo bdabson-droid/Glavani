@@ -129,8 +129,38 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .visit-cta-bar__status [data-open-status] {
   color: inherit;
 }
-.visit-cta-bar .visitor-bar__status--open .visitor-bar__icon { color: #bbf7d0; }
-.visit-cta-bar .visitor-bar__status--closed .visitor-bar__icon { color: #fecaca; }
+.visitor-bar__icon {
+  display: inline-block;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+  font-size: 0;
+  line-height: 0;
+  overflow: hidden;
+  margin-right: 0.35rem;
+  vertical-align: -0.05em;
+  border: 2px solid transparent;
+  box-sizing: content-box;
+}
+.visitor-bar__status--open .visitor-bar__icon {
+  background: #16a34a;
+  border-color: #86efac;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+.visitor-bar__status--closed .visitor-bar__icon {
+  background: #dc2626;
+  border-color: #fca5a5;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+.visit-cta-bar .visitor-bar__status--open .visitor-bar__icon {
+  background: #15803d;
+  border-color: #bbf7d0;
+}
+.visit-cta-bar .visitor-bar__status--closed .visitor-bar__icon {
+  background: #b91c1c;
+  border-color: #fecaca;
+}
 .visit-cta-bar__actions {
   display: flex;
   flex-wrap: wrap;
@@ -387,10 +417,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .visitor-bar__status [data-open-status] {
   color: inherit;
 }
-.visitor-bar__status--open .visitor-bar__icon { color: #86efac; }
-.visitor-bar__status--closed .visitor-bar__icon { color: #fca5a5; }
 .visitor-bar__hours { opacity: 0.95; }
-.visitor-bar__icon { margin-right: 0.2rem; }
 .visitor-bar strong { color: var(--brand-green); }
 
 .hero {
