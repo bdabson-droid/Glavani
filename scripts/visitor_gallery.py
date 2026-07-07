@@ -121,6 +121,14 @@ VISITOR_GALLERY = [
         "activities": ["low-zipline", "valley-zipline", "devils-causeway"],
         "home": True,
     },
+    {
+        "url": "https://www.glavanipark.com/upload/galerija/8/27947635.jpg",
+        "image": "visitor-gallery-zipline-trio-16.webp",
+        "en_alt": "Three visitors on a suspended log high above the forest on the zipline course at Glavani Park, Istria",
+        "hr_alt": "Tri posjetitelja na visećoj gredi visoko iznad šume na zipline stazi u Glavani Parku, Istria",
+        "activities": ["low-zipline", "valley-zipline", "training-route"],
+        "home": False,
+    },
 ]
 
 # Per-activity photo picks (3–4 each). Curated after inspecting gallery content.
