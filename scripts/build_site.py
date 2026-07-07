@@ -435,7 +435,7 @@ def visitor_bar(lang: str) -> str:
       </p>
       <p class="visitor-bar__hours">
         <span class="visitor-bar__icon" aria-hidden="true">🕐</span>
-        <strong>{copy['hours_label']}</strong> {copy['hours']} · {copy['last_entry']}
+        <strong>{copy['hours_label']}</strong> {copy['hours']}
       </p>
     </div>
   </div>
@@ -463,7 +463,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Aktivnosti", f"{prefix}#activities" if is_home else activities_hub_path(lang)),
             ("Grupe", f"{prefix}team-building-istri/"),
             ("Cijene", f"{prefix}{PRICES_SLUGS['hr']}/"),
-            ("Lokacija", f"{prefix}#location" if is_home else f"{prefix}sto-raditi-kod-pule/"),
+            ("Lokacija", f"{prefix}sto-raditi-kod-pule/#location-map"),
             ("Pitanja", f"{prefix}{FAQ_SLUGS['hr']}/"),
             ("Sigurnost", f"{prefix}sigurnost/"),
         ]
@@ -474,7 +474,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Activities", f"{prefix}#activities" if is_home else activities_hub_path(lang)),
             ("Groups", f"{prefix}team-building-istria/"),
             ("Prices", f"{prefix}{PRICES_SLUGS['en']}/"),
-            ("Location", f"{prefix}#location" if is_home else f"{prefix}things-to-do-near-pula/"),
+            ("Location", f"{prefix}things-to-do-near-pula/#location-map"),
             ("FAQ", f"{prefix}{FAQ_SLUGS['en']}/"),
             ("Safety", f"{prefix}safety/"),
         ]
