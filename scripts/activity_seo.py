@@ -53,12 +53,12 @@ SNIPPETS: dict[str, dict[str, list[str]]] = {
         "en": [
             "<h2>Family-friendly introduction to high ropes</h2>",
             "<p>The yellow training route is where most families start at Glavani Park. At just 2 metres high, children can experience real high-ropes obstacles — rope bridges, balance beams, and cargo nets — while parents walk alongside on the forest path. Continuous belay keeps everyone connected from start to finish.</p>",
-            "<p>Many visitors progress to the blue Treetop Course and black Devil's Causeway Course in the same visit. The training route is included in our popular Training route + 2 games package — €20 for children, €30 for adults.</p>",
+            "<p>Many visitors progress to the blue Treetop Course and black Devil's Causeway Course in the same visit. The Training route + 2 games package covers all park games except the Human Catapult — €20 for children, €30 for adults.</p>",
         ],
         "hr": [
             "<h2>Obiteljski uvod u visoke staze</h2>",
             "<p>Žuta trening ruta je mjesto gdje većina obitelji počinje u Glavani Parku. Na samo 2 metra visine, djeca prolaze prave prepreke visokih staza — mostove, ravnotežu i mreže — dok roditelji hodaju uz stazu. Kontinuirano osiguranje drži sve povezane od početka do kraja.</p>",
-            "<p>Mnogi posjetitelji istog dana prelaze na plavu Stazu u krošnjama i crnu Stazu Vražjeg puta. Trening ruta uključena je u popularni paket Trening ruta + 2 igre — €20 za djecu, €30 za odrasle.</p>",
+            "<p>Mnogi posjetitelji istog dana prelaze na plavu Stazu u krošnjama i crnu Stazu Vražjeg puta. Paket Trening ruta + 2 igre obuhvaća sve igre parka osim katapulata — €20 za djecu, €30 za odrasle.</p>",
         ],
     },
     "low-zipline": {
