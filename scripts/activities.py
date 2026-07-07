@@ -199,7 +199,7 @@ ACTIVITIES = [
         "tile_mod": "zipline-valley",
         "youtube_id": "cQpPtOe481I",
         "youtube_url": "https://youtu.be/cQpPtOe481I",
-        "image": "visitor-gallery-valley-zipline-17.webp",
+        "image": "visitor-gallery-valley-zipline-18.webp",
         "en": {
             "title": "Valley Zip Line Course | Glavani Park Istria",
             "h1": "Valley Zip Line Course",
@@ -209,7 +209,7 @@ ACTIVITIES = [
             ),
             "keywords": "zipline Istria, 120m zipline Croatia, valley zipline Glavani Park, zipline near Pula",
             "hero_badge": "120 m · up to 20 m high",
-            "image_alt": "Guests riding the Valley Zip Line Course through the oak forest valley at Glavani Park, Istria",
+            "image_alt": "Guest on the Valley Zip Line Course at Glavani Park, Istria",
             "paragraphs": [
                 "Glavani Park's Valley Zip Line Course sends you on two zip line runs back and forth over the valley through the oak forest, reaching heights of up to 20 metres. You clip in with park staff, receive a launch briefing, and glide between platforms with views across the valley.",
                 "The course is popular with first-time zipliners and returning visitors alike. Harness and helmet are provided; wear closed shoes and comfortable clothing. Combine with the Treetop Course on the high-ropes routes for a full zipline experience in one visit.",
@@ -230,7 +230,7 @@ ACTIVITIES = [
             ),
             "keywords": "zipline Istria, zipline 120 m Hrvatska, dolinski zipline Glavani Park, zipline kod Pule",
             "hero_badge": "120 m · do 20 m visine",
-            "image_alt": "Gosti na dolinskoj zipline stazi kroz hrastovu dolinu u Glavani Parku, Istria",
+            "image_alt": "Gost na dolinskoj zipline stazi u Glavani Parku, Istria",
             "paragraphs": [
                 "Dolinski zipline u Glavani Parku vodi vas na dva zipline leta naprijed-natrag preko doline kroz hrastovu šumu, do visine od 20 metara. Osoblje vas spaja na užad, provodi obuku i letite između platformi s pogledom na dolinu.",
                 "Staza je popularna i među početnicima i među onima koji se vraćaju. Harnes i kaciga su osigurani; nosite zatvorenu obuću i udobnu odjeću. Kombinirajte sa Stazom u krošnjama na visokim stazama za puno zipline iskustvo u jednom posjetu.",
