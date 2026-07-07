@@ -281,6 +281,23 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hero__open-status--open { color: var(--brand-green); }
 .hero__open-status--closed { color: #fca5a5; }
 .hero__open-status--amber { color: #fbbf24; }
+.open-status__call {
+  color: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+.open-status__call:hover {
+  text-decoration-thickness: 2px;
+}
+.visit-cta-bar .open-status__call,
+.visitor-bar .open-status__call {
+  color: var(--white);
+}
+.hero__open-status--amber .open-status__call {
+  color: #fff;
+  text-decoration-color: rgba(255, 255, 255, 0.75);
+}
 .hero__open-status-row {
   display: inline-flex;
   align-items: center;

@@ -5,6 +5,8 @@ from __future__ import annotations
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
+from brand_voice import PHONES
+
 TZ = ZoneInfo("Europe/Zagreb")
 OPEN_HOUR = 9
 CLOSE_HOUR = 17
@@ -19,6 +21,7 @@ LABELS = {
         "last_entry_soon": "Last entry in {minutes} min",
         "last_entry": "Last entry 3 PM",
         "no_new_entries": "No new entries today unless pre-arranged",
+        "call_to_book": "Call to book",
     },
     "hr": {
         "open": "Otvoreno sada",
@@ -28,8 +31,18 @@ LABELS = {
         "last_entry_soon": "Zadnji ulaz za {minutes} min",
         "last_entry": "Zadnji ulaz u 15 h",
         "no_new_entries": "Nema novih ulaza danas osim po prethodnom dogovoru",
+        "call_to_book": "Pozovite za rezervaciju",
     },
 }
+
+
+def amber_status_message(lang: str) -> str:
+    labels = LABELS[lang]
+    phone = PHONES[1] if lang == "hr" else PHONES[0]
+    return (
+        f'{labels["no_new_entries"]} · '
+        f'<a class="open-status__call" href="tel:{phone["tel"]}">{labels["call_to_book"]}</a>'
+    )
 
 
 def park_status(lang: str, now: datetime | None = None) -> dict:
@@ -50,7 +63,7 @@ def park_status(lang: str, now: datetime | None = None) -> dict:
         return {"state": "open", "message": message}
 
     if last_entry_at <= minutes < close_at:
-        return {"state": "amber", "message": labels["no_new_entries"]}
+        return {"state": "amber", "message": amber_status_message(lang), "html": True}
 
     if minutes < open_at:
         return {"state": "closed", "message": labels["opens_at"]}
