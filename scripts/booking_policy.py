@@ -6,42 +6,51 @@ BOOKING_POLICY = {
         "faq_answer": (
             "From the <strong>end of September until the start of July</strong>, all visits must be booked in advance; "
             "<strong>no walk-ins</strong> during that period. "
-            "From the start of July through the end of September, walk-ins may be accepted during opening hours "
-            "(9 AM–5 PM, last entry 3 PM), subject to availability — "
-            "<strong>book in advance to guarantee your slot and avoid disappointment</strong>. "
+            "From the start of July through the end of September, <strong>walk-ins are accepted</strong> during opening hours "
+            "(9 AM–5 PM, last entry 3 PM). Please call ahead to check we have space — "
+            "we may not be able to accommodate walk-ins when we have a large group booking. "
             'Use the <a href="{book}">online booking form</a> or call +385 91 896 4525.'
         ),
         "activity_answer": (
             "From the end of September until the start of July, "
             "{name} and all other attractions require advance booking; walk-ins are not accepted. "
-            "From July through the end of September, walk-ins may be accepted during opening hours "
-            "(9 AM–5 PM, last entry 3 PM), subject to availability — "
-            "book in advance to guarantee your slot and avoid disappointment."
+            "From July through the end of September, walk-ins are accepted during opening hours "
+            "(9 AM–5 PM, last entry 3 PM). Please call ahead to check we have space — "
+            "we may not be able to accommodate walk-ins when we have a large group booking."
         ),
         "home_notice": (
             "From late September to early July, all visits must be booked in advance — no walk-ins. "
-            "In peak season (July–September) we may accept walk-ins during opening hours, subject to availability — "
-            "book ahead to guarantee your slot and avoid disappointment."
+            "In peak season (July–September) walk-ins are accepted during opening hours — "
+            "please call ahead to check we have space, as we may not be able to accommodate walk-ins "
+            "when we have a large group booking."
+        ),
+        "book_note": (
+            "From late September to early July, advance booking is required — no walk-ins. "
+            "In peak season (July–September) walk-ins are accepted during opening hours — "
+            "please call ahead to check we have space, as we may not be able to accommodate walk-ins "
+            "when we have a large group booking. "
+            "Book online for up to 10 people, or call for larger groups."
         ),
         "book_page": (
             "<strong>Booking policy:</strong> From the end of September until the start of July, all visits require "
-            "advance booking; walk-ins are not accepted. From July through the end of September, walk-ins may be "
-            "accepted during opening hours (9 AM–5 PM, last entry 3 PM), subject to availability — "
-            "we recommend booking in advance to guarantee your slot and avoid disappointment."
+            "advance booking; walk-ins are not accepted. From July through the end of September, walk-ins are accepted "
+            "during opening hours (9 AM–5 PM, last entry 3 PM). Please call ahead to check we have space — "
+            "we may not be able to accommodate walk-ins when we have a large group booking."
         ),
         "info_strip_label": "Booking policy",
         "info_strip_value": "Oct–Jun: pre-book only",
         "summary_paragraph": (
             "Glavani Park is open daily from 9 AM to 5 PM with last entry at 3 PM. "
             "From the <strong>end of September until the start of July</strong>, all visits require advance booking; "
-            "walk-ins are not accepted. From July through the end of September, walk-ins may be accepted during "
-            "opening hours, subject to availability — book in advance to guarantee your slot and avoid disappointment. "
+            "walk-ins are not accepted. From July through the end of September, walk-ins are accepted during "
+            "opening hours. Please call ahead to check we have space — we may not be able to accommodate walk-ins "
+            "when we have a large group booking. "
             "English-speaking staff are on hand throughout the season."
         ),
         "peak_walkin_note": (
-            "From July through the end of September, walk-ins may be accepted during opening hours "
-            "(9 AM–5 PM, last entry 3 PM), subject to availability — "
-            "book in advance to guarantee your slot and avoid disappointment."
+            "From July through the end of September, walk-ins are accepted during opening hours "
+            "(9 AM–5 PM, last entry 3 PM). Please call ahead to check we have space — "
+            "we may not be able to accommodate walk-ins when we have a large group booking."
         ),
         "off_season_note": (
             "From the end of September until the start of July, all visits require advance booking; "
@@ -53,27 +62,36 @@ BOOKING_POLICY = {
         "faq_answer": (
             "Od <strong>kraja rujna do početka srpnja</strong> svi posjeti moraju biti unaprijed rezervirani; "
             "<strong>dolazak bez rezervacije nije moguć</strong> u tom razdoblju. "
-            "Od početka srpnja do kraja rujna dolazak bez rezervacije moguć je tijekom radnog vremena "
-            "(9–17 h, posljednji ulaz 15 h), ovisno o dostupnosti — "
-            "<strong>rezervirajte unaprijed kako biste osigurali termin i izbjegli razočaranje</strong>. "
+            "Od početka srpnja do kraja rujna <strong>dolazak bez rezervacije je moguć</strong> tijekom radnog vremena "
+            "(9–17 h, posljednji ulaz 15 h). Molimo nazovite unaprijed kako biste provjerili imamo li mjesta — "
+            "ponekad ne možemo primiti dolazak bez rezervacije ako imamo rezervaciju velike grupe. "
             'Koristite <a href="{book}">online obrazac za rezervaciju</a> ili nazovite +385 98 224 314.'
         ),
         "activity_answer": (
             "Od kraja rujna do početka srpnja {name} i sve ostale atrakcije zahtijevaju unaprijednu rezervaciju; "
             "dolazak bez rezervacije nije moguć. Od srpnja do kraja rujna dolazak bez rezervacije moguć je "
-            "tijekom radnog vremena (9–17 h, posljednji ulaz 15 h), ovisno o dostupnosti — "
-            "rezervirajte unaprijed kako biste osigurali termin i izbjegli razočaranje."
+            "tijekom radnog vremena (9–17 h, posljednji ulaz 15 h). Molimo nazovite unaprijed kako biste provjerili "
+            "imamo li mjesta — ponekad ne možemo primiti dolazak bez rezervacije ako imamo rezervaciju velike grupe."
         ),
         "home_notice": (
             "Od kraja rujna do početka srpnja svi posjeti moraju biti rezervirani — bez dolaska bez najave. "
-            "U vrhu sezone (srpanj–rujan) dolazak bez rezervacije moguć je tijekom radnog vremena, ovisno o dostupnosti — "
-            "rezervirajte unaprijed kako biste osigurali termin i izbjegli razočaranje."
+            "U vrhu sezone (srpanj–rujan) dolazak bez rezervacije moguć je tijekom radnog vremena — "
+            "molimo nazovite unaprijed kako biste provjerili imamo li mjesta, jer ponekad ne možemo primiti "
+            "dolazak bez rezervacije ako imamo rezervaciju velike grupe."
+        ),
+        "book_note": (
+            "Od kraja rujna do početka srpnja potrebna je unaprijedna rezervacija — bez dolaska bez najave. "
+            "U vrhu sezone (srpanj–rujan) dolazak bez rezervacije moguć je tijekom radnog vremena — "
+            "molimo nazovite unaprijed kako biste provjerili imamo li mjesta, jer ponekad ne možemo primiti "
+            "dolazak bez rezervacije ako imamo rezervaciju velike grupe. "
+            "Rezervirajte online do 10 osoba ili nazovite za veće grupe."
         ),
         "book_page": (
             "<strong>Pravila rezervacije:</strong> od kraja rujna do početka srpnja svi posjeti zahtijevaju "
             "unaprijednu rezervaciju; dolazak bez rezervacije nije moguć. Od srpnja do kraja rujna dolazak bez "
-            "rezervacije moguć je tijekom radnog vremena (9–17 h, posljednji ulaz 15 h), ovisno o dostupnosti — "
-            "preporučujemo unaprijednu rezervaciju kako biste osigurali termin i izbjegli razočaranje."
+            "rezervacije moguć je tijekom radnog vremena (9–17 h, posljednji ulaz 15 h). Molimo nazovite unaprijed "
+            "kako biste provjerili imamo li mjesta — ponekad ne možemo primiti dolazak bez rezervacije ako imamo "
+            "rezervaciju velike grupe."
         ),
         "info_strip_label": "Rezervacije",
         "info_strip_value": "Lis–lip: samo najava",
@@ -81,13 +99,14 @@ BOOKING_POLICY = {
             "Glavani Park radi svaki dan od 9 do 17 sati, posljednji ulaz u 15 sati. "
             "Od <strong>kraja rujna do početka srpnja</strong> svi posjeti moraju biti unaprijed rezervirani; "
             "dolazak bez rezervacije nije moguć. Od srpnja do kraja rujna dolazak bez rezervacije moguć je "
-            "tijekom radnog vremena, ovisno o dostupnosti — rezervirajte unaprijed kako biste osigurali termin "
-            "i izbjegli razočaranje. Instruktori govore hrvatski i engleski."
+            "tijekom radnog vremena. Molimo nazovite unaprijed kako biste provjerili imamo li mjesta — ponekad "
+            "ne možemo primiti dolazak bez rezervacije ako imamo rezervaciju velike grupe. "
+            "Instruktori govore hrvatski i engleski."
         ),
         "peak_walkin_note": (
             "Od srpnja do kraja rujna dolazak bez rezervacije moguć je tijekom radnog vremena "
-            "(9–17 h, posljednji ulaz 15 h), ovisno o dostupnosti — "
-            "rezervirajte unaprijed kako biste osigurali termin i izbjegli razočaranje."
+            "(9–17 h, posljednji ulaz 15 h). Molimo nazovite unaprijed kako biste provjerili imamo li mjesta — "
+            "ponekad ne možemo primiti dolazak bez rezervacije ako imamo rezervaciju velike grupe."
         ),
         "off_season_note": (
             "Od kraja rujna do početka srpnja svi posjeti moraju biti unaprijed rezervirani; "
