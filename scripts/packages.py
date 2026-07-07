@@ -61,31 +61,23 @@ BOOKING_OPTIONS = [
         },
     },
     {
-        "id": "all-no-catapult",
-        "group": "packages",
-        "price": 50,
-        "child_price": 40,
-        "en": {
-            "name": "Whole park — all games (without catapult)",
-            "desc": "Ziplines, high ropes, swing, drop, and climbing wall — catapult excluded.",
-        },
-        "hr": {
-            "name": "Cijeli park — sve igre (bez katapulata)",
-            "desc": "Zipline, visoke staze, ljuljačka, pad i penjački zid — bez katapulata.",
-        },
-    },
-    {
         "id": "training-2",
         "group": "packages",
         "price": 30,
         "child_price": 20,
         "en": {
             "name": "Training route + 2 games",
-            "desc": "Yellow training route plus two additional games.",
+            "desc": (
+                "All park games except the Human Catapult — training route, ziplines, high ropes, "
+                "swing, drop, climbing wall, Aerotrim, and more."
+            ),
         },
         "hr": {
             "name": "Trening ruta + 2 igre",
-            "desc": "Žuta trening ruta plus dvije dodatne igre.",
+            "desc": (
+                "Sve igre parka osim ljudske katapulti — trening ruta, zipline, visoke staze, "
+                "ljuljačka, pad, penjački zid, Aerotrim i više."
+            ),
         },
     },
     {
@@ -107,8 +99,8 @@ PRICES_COPY = {
     "en": {
         "title": "Activity Packages & Prices | Glavani Park Istria",
         "meta_description": (
-            "Glavani Park packages from €20 for children and €30 for adults — whole park from €70, "
-            "small group deals for 3–6 people from €180, and single activities. "
+            "Glavani Park packages from €20 for children and €30 for adults — all games except catapult. "
+            "Whole park with catapult from €70, small group deals for 3–6 from €180. "
             f"Book online for up to {ONLINE_BOOKING_MAX} people or call for larger groups."
         ),
         "keywords": "Glavani Park prices, adventure park packages Istria, zipline park Croatia prices",
@@ -135,8 +127,8 @@ PRICES_COPY = {
     "hr": {
         "title": "Paketi aktivnosti i cijene | Glavani Park Istria",
         "meta_description": (
-            "Paketi Glavani Parka od €20 za djecu i €30 za odrasle — cijeli park od €70, "
-            "mali paketi za 3–6 osoba od €180 i pojedinačne aktivnosti. "
+            "Paketi Glavani Parka od €20 za djecu i €30 za odrasle — sve igre osim katapulata. "
+            "Cijeli park s katapultom od €70, mali paketi za 3–6 od €180. "
             f"Rezervirajte online do {ONLINE_BOOKING_MAX} osoba ili nazovite za veće grupe."
         ),
         "keywords": "Glavani Park cijene, paketi avanturistički park Istria, zipline park Hrvatska cijene",
@@ -234,7 +226,7 @@ def children_pricing_notice(lang: str, *, for_booking: bool = False) -> str:
     if lang == "hr":
         notice = (
             f"<strong>Dječje cijene (mlađi od {CHILD_MAX_AGE} godina):</strong> "
-            "trening ruta + 2 igre €20 · cijeli park bez katapulata €40 · "
+            "trening ruta + 2 igre (sve osim katapulata) €20 · "
             "cijeli park s katapultom €60 po djetetu."
         )
         if for_booking:
@@ -242,7 +234,7 @@ def children_pricing_notice(lang: str, *, for_booking: bool = False) -> str:
         return notice
     notice = (
         f"<strong>Children's prices (under {CHILD_MAX_AGE} years old):</strong> "
-        "training route + 2 games €20 · whole park without catapult €40 · "
+        "training route + 2 games (all games except catapult) €20 · "
         "whole park incl. catapult €60 per child."
     )
     if for_booking:
@@ -278,12 +270,12 @@ def pricing_hub_blurb(lang: str) -> str:
 def pricing_visit_footer_line(lang: str) -> str:
     if lang == "hr":
         return (
-            "cijeli park €60–70 (djeca/odrasli), mali paketi 3–6 od €180, paketi bez katapulata od €40 za djecu, "
-            "trening ruta + 2 igre od €20 za djecu"
+            "cijeli park s katapultom €60–70 (djeca/odrasli), sve ostale igre €20–30, "
+            "mali paketi 3–6 od €180"
         )
     return (
-        "whole park €60–70 (children/adults), small groups 3–6 from €180, packages without catapult from €40 for children, "
-        "training route + 2 games from €20 for children"
+        "whole park incl. catapult €60–70 (children/adults), all other games €20–30, "
+        "small groups 3–6 from €180"
     )
 
 
@@ -293,27 +285,29 @@ def package_price_faq_answer(lang: str, prefix: str, *, single_price: int | None
     if lang == "hr":
         if single_price:
             return (
-                f"Ljudska katapulta košta {single_price} € kao pojedinačna aktivnost ili je uključena u pakete "
-                f"cijelog parka (od €20 za djecu / €30 za odrasle). "
+                f"Ljudska katapulta košta {single_price} € kao pojedinačna aktivnost ili je uključena u paket "
+                f"cijelog parka s katapultom (€60 djeca / €70 odrasli). "
                 f'Mali paketi za 3–6 osoba počinju od €180. '
                 f'Pogledajte <a href="{prices_href}">pakete i cijene</a> ili '
                 f'<a href="{book_href}">rezervirajte online</a>.'
             )
         return (
-            f"Pristup je uključen u pakete Glavani Parka — od €20 za djecu i €30 za odrasle. "
-            f'Mali paketi cijelog parka za 3–6 osoba od €180. '
+            f"Pristup je uključen u paket trening ruta + 2 igre — sve igre osim katapulata, "
+            f"od €20 za djecu i €30 za odrasle. "
+            f'Mali paketi cijelog parka s katapultom za 3–6 osoba od €180. '
             f'Pogledajte <a href="{prices_href}">pakete i cijene</a>.'
         )
     if single_price:
         return (
-            f"The Human Catapult is €{single_price} as a single activity, or included in whole-park packages "
-            f"(from €20 for children / €30 for adults). "
+            f"The Human Catapult is €{single_price} as a single activity, or included in the whole-park "
+            f"package with catapult (€60 children / €70 adults). "
             f"Small group whole-park deals for 3–6 people start at €180. "
             f'See <a href="{prices_href}">packages and prices</a> or <a href="{book_href}">book online</a>.'
         )
     return (
-        f"Access is included in Glavani Park packages — from €20 for children and €30 for adults. "
-        f"Small group whole-park packages for 3–6 people start at €180. "
+        f"Access is included in the Training route + 2 games package — all park games except the Human Catapult, "
+        f"from €20 for children and €30 for adults. "
+        f"Small group whole-park packages with catapult for 3–6 people start at €180. "
         f'See <a href="{prices_href}">packages and prices</a>.'
     )
 

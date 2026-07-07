@@ -129,7 +129,7 @@ ACTIVITIES = [
             "image_alt": "Yellow training route high-ropes course at Glavani Park, Istria Croatia",
             "paragraphs": [
                 "Glavani Park's yellow training route is a certified high-ropes course at 2 metres above the forest floor — the perfect introduction for younger children, first-time climbers, and families who want to build confidence before the blue and black routes.",
-                "You stay on continuous belay from start to finish while instructors explain harness fit, safety signals, and how to tackle balance obstacles and rope bridges. The training route is included in day admission and the popular Training route + 2 games package — €20 for children, €30 for adults.",
+                "You stay on continuous belay from start to finish while instructors explain harness fit, safety signals, and how to tackle balance obstacles and rope bridges. The training route is included in the Training route + 2 games package — all park games except the Human Catapult, €20 for children and €30 for adults.",
             ],
             "video_heading": "Training Route video",
             "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
@@ -146,7 +146,7 @@ ACTIVITIES = [
             "image_alt": "Žuta trening ruta visokih staza u Glavani Parku, Istria Hrvatska",
             "paragraphs": [
                 "Žuta trening ruta u Glavani Parku certificirana je visoka staza na 2 metra iznad šumskog tla — savršen uvod za mlađu djecu, početnike i obitelji koje žele steći samopouzdanje prije plave i crne staze.",
-                "Ostajete na kontinuiranom osiguranju od početka do kraja dok instruktori objašnjavaju harnes, sigurnosne signale i kako savladati prepreke ravnoteže i mostove od užadi. Trening ruta uključena je u dnevnu ulaznicu i popularni paket Trening ruta + 2 igre — €20 za djecu, €30 za odrasle.",
+                "Ostajete na kontinuiranom osiguranju od početka do kraja dok instruktori objašnjavaju harnes, sigurnosne signale i kako savladati prepreke ravnoteže i mostove od užadi. Trening ruta uključena je u paket Trening ruta + 2 igre — sve igre parka osim katapulata, €20 za djecu i €30 za odrasle.",
             ],
             "video_heading": "Video trening rute",
             "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
