@@ -325,11 +325,38 @@ def contact_link(
     )
 
 
+def location_contact_link(lang: str) -> str:
+    href = "/hr/sto-raditi-kod-pule/#location-map" if lang == "hr" else "/en/things-to-do-near-pula/#location-map"
+    if lang == "hr":
+        label = "Lokacija i upute"
+        detail = "30 min iz Pule · karta i GPS"
+        alt = "Lokacija Glavani Parka"
+    else:
+        label = "Location & Directions"
+        detail = "30 min from Pula · map & GPS"
+        alt = "Glavani Park location"
+    photo = (
+        f'<img class="contact-link__photo" src="/images/glavani-park-adventure-istria-croatia.jpg" '
+        f'alt="{alt}" width="36" height="36" loading="lazy">'
+    )
+    return (
+        f'<a class="info-strip__contact" href="{href}">'
+        f"{photo}"
+        f'<span class="contact-link__text"><strong>{label}</strong> '
+        f'<span class="contact-link__number">{detail}</span></span>'
+        f"</a>"
+    )
+
+
 def render_info_strip_contacts(lang: str) -> str:
-    return "".join(
+    contacts = "".join(
         f'<div class="info-strip__item info-strip__item--contact">{contact_link(p, css_class="info-strip__contact", show_photo=True)}</div>'
         for p in PHONES
     )
+    location = (
+        f'<div class="info-strip__item info-strip__item--contact">{location_contact_link(lang)}</div>'
+    )
+    return contacts + location
 
 
 def render_info_strip_location(lang: str) -> str:
