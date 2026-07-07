@@ -880,6 +880,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   );
   background-color: #1a3d2e;
   background-image: var(--hub-fade), var(--hub-photo);
+  background-position: 0 0, 50% center;
 }
 .hub-card--zipline-low {
   --hub-color-strong: rgba(3, 105, 161, 0.96);
@@ -1112,9 +1113,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 .activity-banner--training {
   background-position: 0 0, 65% center;
-}
-.activity-banner--zipline-valley {
-  background-position: 0 0, 68% center;
 }
 
 /* Activity detail pages */
