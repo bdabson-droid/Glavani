@@ -11,6 +11,7 @@
       opens_at: "Opens at 9 AM",
       last_entry_soon: "Last entry in {minutes} min",
       last_entry: "Last entry 3 PM",
+      no_new_entries: "No new entries today unless pre-arranged",
     },
     hr: {
       open: "Otvoreno sada",
@@ -19,6 +20,7 @@
       opens_at: "Otvara se u 9 h",
       last_entry_soon: "Zadnji ulaz za {minutes} min",
       last_entry: "Zadnji ulaz u 15 h",
+      no_new_entries: "Nema novih ulaza danas osim po prethodnom dogovoru",
     },
   };
 
@@ -54,7 +56,7 @@
       return { state: "open", message: copy.open + " · " + copy.last_entry };
     }
     if (minutes >= lastEntryAt && minutes < closeAt) {
-      return { state: "open", message: copy.open + " · " + copy.last_entry };
+      return { state: "amber", message: copy.no_new_entries };
     }
     if (minutes < openAt) {
       return { state: "closed", message: copy.opens_at };
@@ -69,10 +71,10 @@
       el.textContent = result.message;
       var statusEl = el.closest(".visitor-bar__status, .visit-cta-bar__status");
       if (statusEl) {
-        statusEl.classList.remove("visitor-bar__status--open", "visitor-bar__status--closed");
+        statusEl.classList.remove("visitor-bar__status--open", "visitor-bar__status--closed", "visitor-bar__status--amber");
         statusEl.classList.add("visitor-bar__status--" + result.state);
       }
-      el.classList.remove("hero__open-status--open", "hero__open-status--closed");
+      el.classList.remove("hero__open-status--open", "hero__open-status--closed", "hero__open-status--amber");
       if (el.closest(".hero")) {
         el.classList.add("hero__open-status--" + result.state);
       }
