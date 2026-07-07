@@ -43,11 +43,17 @@ BOOKING_OPTIONS = [
         "child_price": 60,
         "en": {
             "name": "Whole park — all games incl. human catapult",
-            "desc": "Full day access to every attraction including the Human Catapult.",
+            "desc": (
+                "Full day access to every attraction including the Human Catapult. "
+                "Book 3–6 people and the small-group discount is applied automatically when you continue to book."
+            ),
         },
         "hr": {
             "name": "Cijeli park — sve igre uklj. katapultu",
-            "desc": "Cjelodnevni pristup svim atrakcijama uključujući ljudsku katapultu.",
+            "desc": (
+                "Cjelodnevni pristup svim atrakcijama uključujući ljudsku katapultu. "
+                "Rezervirajte 3–6 osoba i mali paket se automatski primjenjuje kad nastavite na rezervaciju."
+            ),
         },
     },
     {
@@ -138,8 +144,10 @@ PRICES_COPY = {
         "more_single": "More single activities coming soon.",
         "small_group_intro": (
             f"Fixed-price whole-park packages for exactly 3–6 people (all games incl. Human Catapult). "
-            f"Each price works out below the €{WHOLE_PARK_SINGLE_ADULT} single-person rate — savings shown per person."
+            f"Each price works out below the €{WHOLE_PARK_SINGLE_ADULT} single-person rate — savings shown per person. "
+            "You can also select 3–6 people on the whole-park package above — the matching discount applies automatically when you book."
         ),
+        "auto_small_group_hint": "Small-group price €{total} for {n} people — applied automatically when you book.",
     },
     "hr": {
         "title": "Paketi aktivnosti i cijene | Glavani Park Istria",
@@ -166,8 +174,10 @@ PRICES_COPY = {
         "more_single": "Više pojedinačnih aktivnosti uskoro.",
         "small_group_intro": (
             f"Fiksne cijene cijelog parka za točno 3–6 osoba (sve igre uklj. ljudsku katapultu). "
-            f"Svaka cijena je niža od €{WHOLE_PARK_SINGLE_ADULT} po osobi — ušteda je prikazana po osobi."
+            f"Svaka cijena je niža od €{WHOLE_PARK_SINGLE_ADULT} po osobi — ušteda je prikazana po osobi. "
+            "Možete i odabrati 3–6 osoba na paketu cijelog parka iznad — odgovarajući popust se automatski primjenjuje pri rezervaciji."
         ),
+        "auto_small_group_hint": "Mali paket €{total} za {n} osoba — primjenjuje se automatski pri rezervaciji.",
     },
 }
 
@@ -427,6 +437,13 @@ def render_price_sections(lang: str) -> str:
                 data_attrs = 'data-adults="1" data-children="0" data-has-child-price'
             else:
                 data_attrs = f'data-guests="{default_guests}"'
+            auto_note = ""
+            if opt["id"] == WHOLE_PARK_CATAPULT_PACKAGE:
+                data_attrs += f' data-auto-small-group data-auto-small-group-hint="{copy["auto_small_group_hint"]}"'
+                auto_note = (
+                    '\n            <p class="price-list__auto-discount" data-auto-small-group-note '
+                    'hidden aria-live="polite"></p>'
+                )
             rows.append(
                 f"""        <li class="price-list__item{' price-list__item--group' if opt.get('group') == 'small_group' else ''}" {data_attrs}>
           <div class="price-list__info">
@@ -437,7 +454,7 @@ def render_price_sections(lang: str) -> str:
             <div class="price-list__meta">
 {render_price_amount(opt, copy, lang)}
 {'' if opt.get('group') == 'small_group' else render_price_qty(opt, copy)}
-            </div>
+            </div>{auto_note}
             <a class="btn-primary price-list__book-btn" data-book-package="{opt['id']}" href="{book_base}">{copy['book']}</a>
           </div>
         </li>"""
