@@ -1811,14 +1811,14 @@ def render_booking_app(lang: str) -> str:
         desc = (
             f"Rezervirajte Glavani Park online za do {ONLINE_BOOKING_MAX} osoba. Ispunite obrazac — "
             f"za unaprijedne rezervacije potvrdu šaljemo e-računom na {BOOKING_EMAIL}. "
-            "Unutar 48 sati od termina nazovite."
+            "Za grupe s više od 6 osoba ili posjet u sljedećih par dana, nazovite."
         )
         h1 = "Rezerviraj"
         lead = (
             "Ispunite obrazac i pošaljite rezervaciju — za sve unaprijedne rezervacije odgovorit ćemo "
             "e-računom za potvrdu što je prije moguće."
         )
-        notice = "Rezervacija u roku 48 sati od željenog datuma posjeta? Molimo <a href=\"tel:+38598224314\">nazovite</a>."
+        notice = BOOKING_POLICY["hr"]["book_call_notice"]
         amenities = (
             "<strong>Plaćanje:</strong> kartice i gotovina u parku. "
             "<strong>U parku:</strong> osvježenja i sladoled."
@@ -1830,14 +1830,14 @@ def render_booking_app(lang: str) -> str:
         desc = (
             f"Book Glavani Park online for up to {ONLINE_BOOKING_MAX} people. Fill in the form — "
             f"for advance bookings we email an invoice to confirm to {BOOKING_EMAIL} ASAP. "
-            "Within 48 hours of your visit date, please call to book."
+            "For parties of more than 6 or visits in the next couple of days, please call."
         )
         h1 = "Book"
         lead = (
             "Fill in the form and submit your booking — for all advance bookings we will respond "
             "with an emailed invoice to confirm as soon as possible."
         )
-        notice = "Booking within 48 hours of your requested visit date? Please <a href=\"tel:+385918964525\">call to book</a>."
+        notice = BOOKING_POLICY["en"]["book_call_notice"]
         amenities = (
             "<strong>Payment:</strong> card and cash accepted at the park. "
             "<strong>On site:</strong> refreshments and ice cream available."
