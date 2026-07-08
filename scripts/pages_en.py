@@ -175,8 +175,8 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                '<p>Glavani Park is open daily from 9 AM to 5 PM with '
                                'last entry at 3 PM — allow three to four hours to '
                                'enjoy the main attractions comfortably. '
-                               f'{_EN_BOOKING["off_season_note"]} '
                                f'{_EN_BOOKING["peak_walkin_note"]} '
+                               f'{_EN_BOOKING["off_season_note"]} '
                                'English-speaking staff are on hand '
                                'throughout the season, and the park is listed by the '
                                "Istria Tourist Board as one of the region's "
@@ -499,8 +499,8 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'PM</strong> with last entry at <strong>3 PM</strong>. '
                                'Allow at least three hours if you plan to ride the '
                                'ziplines plus one or two high-ropes routes. '
-                               f'{_EN_BOOKING["off_season_note"]} '
                                f'{_EN_BOOKING["peak_walkin_note"]} '
+                               f'{_EN_BOOKING["off_season_note"]} '
                                'Call <a '
                                'href="tel:+385918964525">+385 91 896 4525</a> '
                                '(English) or book online before travelling.</p>',
@@ -539,8 +539,8 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                  'above the ground. The blue high-ropes route also includes a '
                  '113-metre zipline between platforms at 6 metres height.'},
            {'q': 'Do I need a reservation for the zipline?',
-            'a': f'{_EN_BOOKING["off_season_note"]} '
-                 f'{_EN_BOOKING["peak_walkin_note"]} '
+            'a': f'{_EN_BOOKING["peak_walkin_note"]} '
+                 f'{_EN_BOOKING["off_season_note"]} '
                  'Call +385 91 896 4525 or book online.'},
            {'q': 'Is ziplining safe for first-timers?',
             'a': 'Yes. Every rider receives a full harness, helmet, and pre-flight '
@@ -804,8 +804,8 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'PM</strong> — plan to arrive before midday if you want '
                                'to experience multiple attractions.</p>',
                                '<p>Book before you drive out — '
-                               f'{_EN_BOOKING["off_season_note"]} '
                                f'{_EN_BOOKING["peak_walkin_note"]} '
+                               f'{_EN_BOOKING["off_season_note"]} '
                                'Call <a href="tel:+385918964525">+385 '
                                '91 896 4525</a> or book online.</p>']},
                {'h2': 'Combining Pula and Inland Istria in One Day',
@@ -863,8 +863,8 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                  'flip-flops before arrival. The shaded forest environment is cooler '
                  'than open beach in peak summer heat.'},
            {'q': 'Do I need to book from Pula or can I just drive there?',
-            'a': f'{_EN_BOOKING["off_season_note"]} '
-                 f'{_EN_BOOKING["peak_walkin_note"]} '
+            'a': f'{_EN_BOOKING["peak_walkin_note"]} '
+                 f'{_EN_BOOKING["off_season_note"]} '
                  'Call +385 91 896 4525 or book online.'}],
   'related': [{'slug': 'things-to-do-in-istria',
                'title': 'Things to Do in Istria',

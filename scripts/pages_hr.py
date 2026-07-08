@@ -181,8 +181,8 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                '<p>Glavani Park radi svaki dan od 9 do 17 sati, '
                                'posljednji ulaz u 15 sati — planirajte tri do četiri '
                                'sata za glavne atrakcije. '
-                               f'{_HR_BOOKING["off_season_note"]} '
                                f'{_HR_BOOKING["peak_walkin_note"]} '
+                               f'{_HR_BOOKING["off_season_note"]} '
                                'Instruktori govore hrvatski i '
                                'engleski, a park je naveden na stranicama <a '
                                'href="https://www.istra.hr/hr/destinacije/barban/1531" '
@@ -317,8 +317,8 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                '<p>Park radi svaki dan <strong>9–17 h</strong>, '
                                'posljednji ulaz u <strong>15 h</strong>. Dolazak prije '
                                'podneva daje najbolju šansu za više staza i atrakcija. '
-                               f'{_HR_BOOKING["off_season_note"]} '
                                f'{_HR_BOOKING["peak_walkin_note"]} '
+                               f'{_HR_BOOKING["off_season_note"]} '
                                'Nazovite <a '
                                'href="tel:+385918964525">+385 91 896 4525</a> '
                                '(engleski) ili <a href="tel:+38598224314">+385 98 224 '
@@ -519,8 +519,8 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                '<p>Park radi <strong>9–17 h</strong>, posljednji ulaz '
                                '<strong>15 h</strong>. Planirajte najmanje tri sata za '
                                'zipline i jednu-dvije staze. '
-                               f'{_HR_BOOKING["off_season_note"]} '
                                f'{_HR_BOOKING["peak_walkin_note"]} '
+                               f'{_HR_BOOKING["off_season_note"]} '
                                'Nazovite <a '
                                'href="tel:+385918964525">+385 91 896 4525</a> '
                                '(engleski) ili <a href="tel:+38598224314">+385 98 224 '
@@ -561,8 +561,8 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
             'a': 'Samostalni zipline dugačak je 120 metara, do 20 metara visine. Plava '
                  'staza uključuje zipline od 113 metara između platformi na 6 metara.'},
            {'q': 'Trebam li rezervaciju za zipline?',
-            'a': f'{_HR_BOOKING["off_season_note"]} '
-                 f'{_HR_BOOKING["peak_walkin_note"]} '
+            'a': f'{_HR_BOOKING["peak_walkin_note"]} '
+                 f'{_HR_BOOKING["off_season_note"]} '
                  'Nazovite +385 98 224 314 ili rezervirajte online.'},
            {'q': 'Je li zipline siguran za početnike?',
             'a': 'Da. Svaki vozač dobiva harnes, kacigu i obuku od educiranog '
@@ -858,8 +858,8 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                'posljednji ulaz <strong>15 h</strong> — dođite prije '
                                'podneva za više atrakcija.</p>',
                                '<p>Rezervirajte prije polaska — '
-                               f'{_HR_BOOKING["off_season_note"]} '
                                f'{_HR_BOOKING["peak_walkin_note"]} '
+                               f'{_HR_BOOKING["off_season_note"]} '
                                'Nazovite <a '
                                'href="tel:+385918964525">+385 91 896 4525</a> ili '
                                'rezervirajte online.</p>',
@@ -930,8 +930,8 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                  'japanke prije dolaska. Osjenčana šuma hladnija je od otvorene plaže '
                  'u vrućini.'},
            {'q': 'Trebam li rezervirati iz Pule ili samo doći?',
-            'a': f'{_HR_BOOKING["off_season_note"]} '
-                 f'{_HR_BOOKING["peak_walkin_note"]} '
+            'a': f'{_HR_BOOKING["peak_walkin_note"]} '
+                 f'{_HR_BOOKING["off_season_note"]} '
                  'Nazovite +385 98 224 314 ili rezervirajte online.'}],
   'related': [{'slug': 'sto-raditi-u-istri',
                'title': 'Što raditi u Istri',
