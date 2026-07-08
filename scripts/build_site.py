@@ -1818,7 +1818,6 @@ def render_booking_app(lang: str) -> str:
             "Ispunite obrazac i pošaljite rezervaciju — za sve unaprijedne rezervacije odgovorit ćemo "
             "e-računom za potvrdu što je prije moguće."
         )
-        notice = BOOKING_POLICY["hr"]["book_call_notice"]
         amenities = (
             "<strong>Plaćanje:</strong> kartice i gotovina u parku. "
             "<strong>U parku:</strong> osvježenja i sladoled."
@@ -1837,7 +1836,6 @@ def render_booking_app(lang: str) -> str:
             "Fill in the form and submit your booking — for all advance bookings we will respond "
             "with an emailed invoice to confirm as soon as possible."
         )
-        notice = BOOKING_POLICY["en"]["book_call_notice"]
         amenities = (
             "<strong>Payment:</strong> card and cash accepted at the park. "
             "<strong>On site:</strong> refreshments and ice cream available."
@@ -1860,7 +1858,6 @@ def render_booking_app(lang: str) -> str:
   <h1>{h1}</h1>
   <p>{lead}</p>
   <p class="book-app-notice">{amenities}</p>
-  <p class="book-app-notice">{notice}</p>
 </div>
 <div class="book-app-wrap">
   <script type="application/json" id="booking-app-config">{json.dumps({"lang": lang, "submitUrl": BOOKING_SUBMIT_URL, "recipientEmail": BOOKING_EMAIL})}</script>
