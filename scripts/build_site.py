@@ -499,9 +499,9 @@ def site_nav(lang: str, is_home: bool = False) -> str:
     if lang == "hr":
         links = [
             ("Aktivnosti", f"{prefix}#activities" if is_home else activities_hub_path(lang)),
-            ("Grupe", f"{prefix}team-building-istri/"),
             ("Cijene", f"{prefix}{PRICES_SLUGS['hr']}/"),
             ("Lokacija", f"{prefix}sto-raditi-kod-pule/#location-map"),
+            ("Grupe", f"{prefix}team-building-istri/"),
             ("Pitanja", f"{prefix}{FAQ_SLUGS['hr']}/"),
             ("Sigurnost", f"{prefix}sigurnost/"),
         ]
@@ -510,9 +510,9 @@ def site_nav(lang: str, is_home: bool = False) -> str:
     else:
         links = [
             ("Activities", f"{prefix}#activities" if is_home else activities_hub_path(lang)),
-            ("Groups", f"{prefix}team-building-istria/"),
             ("Prices", f"{prefix}{PRICES_SLUGS['en']}/"),
             ("Location", f"{prefix}things-to-do-near-pula/#location-map"),
+            ("Groups", f"{prefix}team-building-istria/"),
             ("FAQ", f"{prefix}{FAQ_SLUGS['en']}/"),
             ("Safety", f"{prefix}safety/"),
         ]
