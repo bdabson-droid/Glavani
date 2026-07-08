@@ -302,6 +302,17 @@ def relativize_paths(html: str, depth: int, lang: str) -> str:
     return html
 
 
+def relativize_root_paths(html: str) -> str:
+    """Root-level pages (404.html) — assets and language folders without a leading slash."""
+    import re
+
+    html = re.sub(r'(href|src)="/assets/', r'\1="assets/', html)
+    html = re.sub(r'(href|src)="/images/', r'\1="images/', html)
+    html = html.replace('href="/manifest.webmanifest"', 'href="manifest.webmanifest"')
+    html = re.sub(r'href="/(en|hr)/([^"]*)"', r'href="\1/\2"', html)
+    return html
+
+
 def relativize_site() -> None:
     """Rewrite internal links in all built HTML to be path-relative."""
     import re
@@ -315,6 +326,10 @@ def relativize_site() -> None:
             text = text.replace("location.replace('/en/", "location.replace('en/")
             text = text.replace('href="/en/"', 'href="en/"')
             html_file.write_text(text, encoding="utf-8")
+            continue
+        if rel == Path("404.html"):
+            text = html_file.read_text(encoding="utf-8")
+            html_file.write_text(relativize_root_paths(text), encoding="utf-8")
             continue
         if rel.parts[-1] != "index.html" or rel.parts[0] not in ("en", "hr"):
             continue
@@ -577,6 +592,8 @@ def head_meta(
     og_image: str = "glavani-park-adventure-istria-croatia.jpg",
     og_image_alt: str | None = None,
     extra_head: str = "",
+    robots: str = "index, follow",
+    body_class: str = "theme-page",
 ) -> str:
     og_locale = "hr_HR" if lang == "hr" else "en_GB"
     alt_locale = "en_GB" if lang == "hr" else "hr_HR"
@@ -595,7 +612,7 @@ def head_meta(
   <title>{safe_title}</title>
   <meta name="description" content="{safe_desc}">
   <meta name="keywords" content="{safe_keywords}">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="{robots}">
   <link rel="canonical" href="{canonical}">
 {hreflang_tags(en_slug, hr_slug, is_home)}
   <meta property="og:type" content="website">
@@ -620,7 +637,7 @@ def head_meta(
   <link rel="stylesheet" href="/assets/css/site.css">
 {extra_head}
 </head>
-<body class="theme-page">"""
+<body class="{body_class}">"""
 
 
 def render_sections(sections: list) -> str:
@@ -1754,6 +1771,223 @@ def render_faq_page(lang: str) -> str:
 </html>"""
 
 
+NOT_FOUND_COPY = {
+    "en": {
+        "title": "Page Not Found | Glavani Park Istria",
+        "description": (
+            "This page could not be found. Browse Glavani Park prices, book tickets online, "
+            "see our attractions, or check opening hours — Croatia's number 1 adventure park in Istria."
+        ),
+        "keywords": "Glavani Park, page not found, adventure park Istria, book tickets",
+        "badge": "404",
+        "h1": "We couldn't find that page",
+        "lead": (
+            "Don't worry — you're still at Glavani Park. "
+            "Here are the pages visitors look for most:"
+        ),
+        "home": "Back to Home",
+        "prices_title": "Looking for Prices?",
+        "prices_desc": "Packages from €20 children / €30 adults · family deals from €150",
+        "book_title": "Book Now",
+        "book_desc": "Reserve online for up to 5 people — or call for larger groups",
+        "activities_title": "Attractions",
+        "activities_desc": "Human catapult, ziplines, high swing, climbing wall & more",
+        "hours_title": "Opening Hours",
+        "hours_line": "Open daily 9 AM – 5 PM",
+        "hours_entry": "Last entry 3 PM",
+        "hours_link": "Visit info & FAQ",
+        "cta_heading": "Still planning your visit?",
+        "cta_note": "Call or book online — we're in the Istrian countryside, 30 minutes from Pula.",
+    },
+    "hr": {
+        "title": "Stranica nije pronađena | Glavani Park Istria",
+        "description": (
+            "Ova stranica nije pronađena. Pogledajte cijene Glavani Parka, rezervirajte ulaznice online, "
+            "pogledajte atrakcije ili radno vrijeme — broj 1 avanturistički park u Istri."
+        ),
+        "keywords": "Glavani Park, stranica nije pronađena, avanturistički park Istria, rezervacija",
+        "badge": "404",
+        "h1": "Nismo pronašli tu stranicu",
+        "lead": (
+            "Bez brige — još ste na Glavani Parku. "
+            "Evo stranica koje posjetitelji najčešće traže:"
+        ),
+        "home": "Natrag na početnu",
+        "prices_title": "Tražite cijene?",
+        "prices_desc": "Paketi od €20 djeca / €30 odrasli · obiteljski paketi od €150",
+        "book_title": "Rezervirajte sada",
+        "book_desc": "Online do 5 osoba — ili nazovite za veće grupe",
+        "activities_title": "Atrakcije",
+        "activities_desc": "Ljudska katapulta, zipline, visoka ljuljačka, penjački zid i više",
+        "hours_title": "Radno vrijeme",
+        "hours_line": "Otvoreno svaki dan 9–17 h",
+        "hours_entry": "Posljednji ulaz 15 h",
+        "hours_link": "Informacije za posjet & FAQ",
+        "cta_heading": "Još planirate posjet?",
+        "cta_note": "Nazovite ili rezervirajte online — u istarskom krajoliku, 30 minuta od Pule.",
+    },
+}
+
+
+def not_found_bilingual(text_en: str, text_hr: str, *, block: bool = False) -> str:
+    block_class = " block" if block else ""
+    return (
+        f'<span class="lang-en{block_class}" lang="en">{esc(text_en)}</span>'
+        f'<span class="lang-hr{block_class}" lang="hr">{esc(text_hr)}</span>'
+    )
+
+
+def not_found_link(en_href: str, hr_href: str, inner: str, modifier: str = "") -> str:
+    mod = f" not-found-card--{modifier}" if modifier else ""
+    return (
+        f'<a class="not-found-card{mod}" href="{en_href}" '
+        f'data-en-href="{en_href}" data-hr-href="{hr_href}">{inner}</a>'
+    )
+
+
+def render_404_page() -> str:
+    en = NOT_FOUND_COPY["en"]
+    hr = NOT_FOUND_COPY["hr"]
+    canonical = f"{BASE}/en/"
+    status = park_status("en")
+    status_hr = park_status("hr")
+    en_prices = f"/en/{PRICES_SLUGS['en']}/"
+    hr_prices = f"/hr/{PRICES_SLUGS['hr']}/"
+    en_book = f"/en/{BOOKING_SLUGS['en']}/"
+    hr_book = f"/hr/{BOOKING_SLUGS['hr']}/"
+    en_activities = activities_hub_path("en")
+    hr_activities = activities_hub_path("hr")
+    en_faq = f"/en/{FAQ_SLUGS['en']}/"
+    hr_faq = f"/hr/{FAQ_SLUGS['hr']}/"
+    en_home = "/en/"
+    hr_home = "/hr/"
+    phone_en = PHONES[0]
+    phone_hr = PHONES[1]
+
+    return f"""{head_meta("en", en["title"], en["description"], en["keywords"], canonical, is_home=True, robots="noindex, follow", body_class="theme-page page-404")}
+{quick_actions("en")}
+  <div class="visit-cta-bar" aria-label="Book tickets and today's status">
+    <div class="visit-cta-bar__inner">
+      <p class="visit-cta-bar__status visitor-bar__status visitor-bar__status--{status['state']}">
+        <span class="visitor-bar__icon" aria-hidden="true">●</span>
+        <span data-open-status data-lang="en" class="lang-en">{status['message']}</span>
+        <span data-open-status data-lang="hr" class="lang-hr">{status_hr['message']}</span>
+      </p>
+      <div class="visit-cta-bar__actions">
+        <a class="btn-primary btn-primary--xl btn-book-tickets not-found-link" href="{en_book}" data-en-href="{en_book}" data-hr-href="{hr_book}">
+          <span class="lang-en">{book_cta_labels('en')['book_tickets']}</span>
+          <span class="lang-hr">{book_cta_labels('hr')['book_tickets']}</span>
+        </a>
+        <a class="btn-visit-today not-found-link" href="tel:{phone_en['tel']}" data-en-href="tel:{phone_en['tel']}" data-hr-href="tel:{phone_hr['tel']}">
+          <span class="lang-en">{book_cta_labels('en')['visit_today']}</span>
+          <span class="lang-hr">{book_cta_labels('hr')['visit_today']}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+{site_header("en")}
+{visitor_bar("en")}
+{site_nav("en")}
+<main class="page-404">
+  <section class="hero hero--landing hero--404">
+    <div class="hero__inner">
+      <p class="hero__badge">404</p>
+      <h1>{not_found_bilingual(en['h1'], hr['h1'], block=True)}</h1>
+      <p class="hero__subtitle">{not_found_bilingual(en['lead'], hr['lead'], block=True)}</p>
+      <p class="page-404__home">
+        <a class="btn-secondary not-found-link" href="{en_home}" data-en-href="{en_home}" data-hr-href="{hr_home}">
+          {not_found_bilingual(en['home'], hr['home'])}
+        </a>
+      </p>
+    </div>
+  </section>
+  <section class="section section--theme-forest" aria-labelledby="not-found-help-heading">
+    <div class="section__inner">
+      <h2 id="not-found-help-heading" class="visually-hidden">
+        {not_found_bilingual("Helpful links", "Korisne poveznice")}
+      </h2>
+      <div class="not-found-grid">
+        {not_found_link(
+            en_prices,
+            hr_prices,
+            f'<span class="not-found-card__icon" aria-hidden="true">€</span>'
+            f"<h3>{not_found_bilingual(en['prices_title'], hr['prices_title'], block=True)}</h3>"
+            f'<p>{not_found_bilingual(en["prices_desc"], hr["prices_desc"], block=True)}</p>',
+            "prices",
+        )}
+        {not_found_link(
+            en_book,
+            hr_book,
+            f'<span class="not-found-card__icon" aria-hidden="true">🎟️</span>'
+            f"<h3>{not_found_bilingual(en['book_title'], hr['book_title'], block=True)}</h3>"
+            f'<p>{not_found_bilingual(en["book_desc"], hr["book_desc"], block=True)}</p>',
+            "book",
+        )}
+        {not_found_link(
+            en_activities,
+            hr_activities,
+            f'<span class="not-found-card__icon" aria-hidden="true">🎯</span>'
+            f"<h3>{not_found_bilingual(en['activities_title'], hr['activities_title'], block=True)}</h3>"
+            f'<p>{not_found_bilingual(en["activities_desc"], hr["activities_desc"], block=True)}</p>',
+            "activities",
+        )}
+        <article class="not-found-card not-found-card--hours">
+          <span class="not-found-card__icon" aria-hidden="true">🕐</span>
+          <h3>{not_found_bilingual(en['hours_title'], hr['hours_title'], block=True)}</h3>
+          <p>
+            <strong>{not_found_bilingual(en['hours_line'], hr['hours_line'], block=True)}</strong>
+            <span class="not-found-card__hours-break" aria-hidden="true"><br></span>
+            {not_found_bilingual(en['hours_entry'], hr['hours_entry'], block=True)}
+          </p>
+          <a class="not-found-card__link not-found-link" href="{en_faq}" data-en-href="{en_faq}" data-hr-href="{hr_faq}">
+            {not_found_bilingual(en['hours_link'], hr['hours_link'])}
+          </a>
+        </article>
+      </div>
+      <div class="section-cta section-cta--compact">
+        <h2 class="section-cta__heading">{not_found_bilingual(en['cta_heading'], hr['cta_heading'])}</h2>
+        <p class="section-cta__note">{not_found_bilingual(en['cta_note'], hr['cta_note'])}</p>
+        <div class="section-cta__actions">
+          <a class="btn-primary not-found-link" href="{en_book}" data-en-href="{en_book}" data-hr-href="{hr_book}">
+            <span class="lang-en">{book_cta_labels('en')['book_tickets']}</span>
+            <span class="lang-hr">{book_cta_labels('hr')['book_tickets']}</span>
+          </a>
+          <a class="btn-secondary not-found-link" href="{en_prices}" data-en-href="{en_prices}" data-hr-href="{hr_prices}">
+            <span class="lang-en">See Prices</span>
+            <span class="lang-hr">Pogledajte cijene</span>
+          </a>
+          <a class="btn-secondary not-found-link" href="tel:{phone_en['tel']}" data-en-href="tel:{phone_en['tel']}" data-hr-href="tel:{phone_hr['tel']}">
+            <span class="lang-en">Call {phone_en['display']}</span>
+            <span class="lang-hr">Pozovite {phone_hr['display']}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{footer("en")}
+<script>
+(function () {{
+  var hr = /\\/hr(\\/|$)/.test(location.pathname);
+  if (hr) document.body.classList.add('is-hr');
+  document.documentElement.lang = hr ? 'hr' : 'en';
+  document.querySelectorAll('.not-found-link[data-en-href]').forEach(function (el) {{
+    el.setAttribute('href', hr ? el.getAttribute('data-hr-href') : el.getAttribute('data-en-href'));
+  }});
+  document.querySelectorAll('[data-open-status]').forEach(function (el) {{
+    el.hidden = el.classList.contains(hr ? 'lang-en' : 'lang-hr');
+  }});
+}})();
+</script>
+{render_page_scripts("open-status")}
+</body>
+</html>"""
+
+
+def build_404() -> None:
+    write_file(ROOT / "404.html", render_404_page())
+
+
 def render_prices_page(lang: str) -> str:
     copy = PRICES_COPY[lang]
     slug = PRICES_SLUGS[lang]
@@ -2094,6 +2328,7 @@ def main() -> None:
     build_robots()
     build_sitemap(sitemap_urls)
     build_root_redirect()
+    build_404()
     relativize_site()
     print("Done.")
 
