@@ -74,6 +74,9 @@
       groupSingle: 'Single activities',
       months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
       days: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+      calPrev: 'Previous month',
+      calNext: 'Next month',
+      calChoose: 'Choose {date}',
       pickActivity: 'Choose your package or activity',
       pickActivityLead: 'Activity packages · small group deals for 3–6 · children under 10 on family rates · max 6 people online',
       selectPackage: 'Select a package or activity…',
@@ -147,6 +150,9 @@
       groupSingle: 'Pojedinačne aktivnosti',
       months: ['Siječanj','Veljača','Ožujak','Travanj','Svibanj','Lipanj','Srpanj','Kolovoz','Rujan','Listopad','Studeni','Prosinac'],
       days: ['Pon','Uto','Sri','Čet','Pet','Sub','Ned'],
+      calPrev: 'Prethodni mjesec',
+      calNext: 'Sljedeći mjesec',
+      calChoose: 'Odaberite {date}',
       pickActivity: 'Odaberite paket ili aktivnost',
       pickActivityLead: 'Paketi aktivnosti · mali paketi za 3–6 · djeca mlađa od 10 na obiteljskim cijenama · max 6 osoba online',
       selectPackage: 'Odaberite paket ili aktivnost…',
@@ -216,6 +222,18 @@
   const ARRIVAL_END = 15 * 60;
 
   function pad(n) { return String(n).padStart(2, '0'); }
+
+  function formatCalendarDayLabel(year, month, day) {
+    const date = new Date(year, month, day);
+    const locale = lang === 'hr' ? 'hr-HR' : 'en-GB';
+    const formatted = date.toLocaleDateString(locale, {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+    return t.calChoose.replace('{date}', formatted);
+  }
 
   function formatArrivalLabel(h, m) {
     if (lang === 'hr') return `${pad(h)}:${pad(m)}`;
@@ -446,17 +464,19 @@
       return `<div class="booking-form__row">
         <div>
           <label for="app-adults">${t.selectAdults}</label>
-          <select id="app-adults">${renderCountOptions(state.adults, maxAdults)}</select>
+          <select id="app-adults" aria-describedby="app-guests-hint">${renderCountOptions(state.adults, maxAdults)}</select>
         </div>
         <div>
           <label for="app-children">${t.selectChildren}</label>
-          <select id="app-children">${renderCountOptions(state.children, maxChildren)}</select>
+          <select id="app-children" aria-describedby="app-guests-hint">${renderCountOptions(state.children, maxChildren)}</select>
         </div>
-      </div>`;
+      </div>
+      <p class="field-hint" id="app-guests-hint">${t.guestsHint}</p>`;
     }
     return `<div>
       <label for="app-guests">${t.selectGuests}</label>
-      <select id="app-guests" class="${state.largeGroup ? 'app-guests--call' : ''}">${renderGuestOptions()}</select>
+      <select id="app-guests" class="${state.largeGroup ? 'app-guests--call' : ''}" aria-describedby="app-guests-hint">${renderGuestOptions()}</select>
+      <p class="field-hint" id="app-guests-hint">${t.guestsHint}</p>
     </div>`;
   }
 
@@ -665,7 +685,8 @@
       const isPast = d < today;
       const isSel = selectedDate === iso;
       const cls = ['cal-cell','cal-day', isPast ? 'cal-day--past' : 'cal-day--open', isSel ? 'cal-day--selected' : ''].filter(Boolean).join(' ');
-      dayCells += `<button type="button" class="${cls}" data-date="${iso}" ${isPast ? 'disabled' : ''}>${day}</button>`;
+      const aria = isPast ? '' : ` aria-label="${formatCalendarDayLabel(viewYear, viewMonth, day)}"`;
+      dayCells += `<button type="button" class="${cls}" data-date="${iso}" ${isPast ? 'disabled' : ''}${aria}>${day}</button>`;
     }
     const a = selectedActivity();
     const summary = a ? `<p class="book-package-preview">${a.name} · ${guestCount()} ${lang === 'hr' ? 'osoba' : 'guests'} · <strong>€${bookingTotal()}</strong></p>` : '';
@@ -676,9 +697,9 @@
       ${summary}
       ${within48}
       <div class="cal-nav">
-        <button type="button" id="app-cal-prev" aria-label="Previous">‹</button>
+        <button type="button" id="app-cal-prev" aria-label="${t.calPrev}">‹</button>
         <span id="app-cal-month">${t.months[viewMonth]} ${viewYear}</span>
-        <button type="button" id="app-cal-next" aria-label="Next">›</button>
+        <button type="button" id="app-cal-next" aria-label="${t.calNext}">›</button>
       </div>
       <div class="cal-grid cal-grid--head">${t.days.map(d => `<span class="cal-cell cal-cell--head">${d}</span>`).join('')}</div>
       <div class="cal-grid">${dayCells}</div>
@@ -701,10 +722,14 @@
         </div>
         <div>
           <label for="app-arrival">${t.arrival}</label>
-          <select id="app-arrival">${renderArrivalOptions()}</select>
-          <p class="field-hint">${t.arrivalLead}</p>
+          <select id="app-arrival" aria-describedby="app-arrival-hint">${renderArrivalOptions()}</select>
+          <p class="field-hint" id="app-arrival-hint">${t.arrivalLead}</p>
         </div>
-        <div><label for="app-notes">${t.notes}</label><textarea id="app-notes" placeholder="${t.notesPh}">${state.notes}</textarea></div>
+        <div>
+          <label for="app-notes">${t.notes} <span class="label-optional">(${lang === 'hr' ? 'neobavezno' : 'optional'})</span></label>
+          <p class="field-hint" id="app-notes-hint">${t.notesPh}</p>
+          <textarea id="app-notes" aria-describedby="app-notes-hint">${state.notes}</textarea>
+        </div>
       </div>
     </section>`;
   }

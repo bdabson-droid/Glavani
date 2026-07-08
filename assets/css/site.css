@@ -11,6 +11,12 @@
   --green-deep: var(--brand-green-dark);
   --green-mid: #4a8f2e;
   --green-light: var(--brand-green);
+  /* WCAG AA text on white (≥4.5:1) */
+  --green-link: #2f6b1e;
+  --orange-link: #9a4a00;
+  --text-muted: #4a5568;
+  /* Accents on dark backgrounds (footer, nav, hero) */
+  --accent-on-dark: #c8eb9a;
   --rock-dark: #2d3748;
   --rock-mid: #4a5568;
   --rock-light: #718096;
@@ -30,6 +36,18 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 body {
   font-family: var(--font);
   font-size: 1rem;
@@ -47,8 +65,8 @@ body.theme-page {
 
 img { max-width: 100%; height: auto; display: block; }
 
-a { color: var(--green-mid); }
-a:focus-visible, button:focus-visible, summary:focus-visible {
+a { color: var(--green-link); }
+a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible {
   outline: 3px solid var(--yellow-accent);
   outline-offset: 2px;
 }
@@ -61,8 +79,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   color: var(--rock-mid);
 }
 .breadcrumb ol { display: flex; flex-wrap: wrap; gap: 0.35rem; list-style: none; }
-.breadcrumb li + li::before { content: "›"; margin-right: 0.35rem; color: var(--rock-light); }
-.breadcrumb a { color: var(--green-mid); text-decoration: none; }
+.breadcrumb li + li::before { content: "›"; margin-right: 0.35rem; color: var(--text-muted); }
+.breadcrumb a { color: var(--green-link); text-decoration: none; }
 .breadcrumb a:hover { text-decoration: underline; }
 
 .site-nav {
@@ -86,7 +104,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   padding: 0.35rem 0;
   opacity: 0.9;
 }
-.site-nav a:hover { opacity: 1; color: var(--brand-green); }
+.site-nav a:hover { opacity: 1; color: var(--accent-on-dark); }
 .site-nav__cta {
   background: var(--brand-orange);
   color: var(--white) !important;
@@ -239,7 +257,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   text-decoration: none;
   font-weight: 600;
 }
-.trust-strip__item a:hover { color: var(--brand-orange); }
+.trust-strip__item a:hover { color: var(--orange-link); }
 .trust-strip__stars { color: var(--yellow-accent); }
 .trust-strip__icon { font-size: 1rem; }
 .trust-strip__item--award {
@@ -260,7 +278,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 .trust-strip__media-label {
   font-weight: 700;
-  color: var(--rock-light);
+  color: var(--text-muted);
   text-transform: uppercase;
   font-size: 0.6875rem;
   letter-spacing: 0.06em;
@@ -278,9 +296,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 
 .hero__open-status { font-weight: 700; }
-.hero__open-status--open { color: var(--brand-green); }
-.hero__open-status--closed { color: #fca5a5; }
-.hero__open-status--amber { color: #fbbf24; }
+.hero__open-status--open { color: var(--accent-on-dark); }
+.hero__open-status--closed { color: #fecaca; }
+.hero__open-status--amber { color: #fde68a; }
 .open-status__call {
   color: inherit;
   font-weight: 700;
@@ -454,7 +472,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   color: inherit;
 }
 .visitor-bar__hours { opacity: 0.95; }
-.visitor-bar strong { color: var(--brand-green); }
+.visitor-bar strong { color: var(--accent-on-dark); }
 
 .hero {
   position: relative;
@@ -485,8 +503,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hero__badge {
   display: inline-block;
   background: rgba(141, 198, 63, 0.18);
-  border: 1px solid var(--brand-green);
-  color: var(--brand-green);
+  border: 1px solid var(--accent-on-dark);
+  color: var(--accent-on-dark);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -505,7 +523,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .hero__headline {
   font-size: clamp(1.125rem, 2.5vw, 1.375rem);
   font-weight: 700;
-  color: var(--brand-green);
+  color: var(--accent-on-dark);
   margin-bottom: 0.75rem;
 }
 .hero__essentials {
@@ -525,7 +543,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   border-radius: 999px;
   padding: 0.35rem 0.75rem;
 }
-.hero__essentials strong { color: var(--brand-green); margin-right: 0.25rem; }
+.hero__essentials strong { color: var(--accent-on-dark); margin-right: 0.25rem; }
 .hero__essentials a {
   color: var(--yellow-accent);
   font-weight: 700;
@@ -550,7 +568,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   background: rgba(255, 255, 255, 0.18);
   border-color: var(--brand-green);
 }
-.hero__contact .contact-link__text strong { color: var(--brand-green); }
+.hero__contact .contact-link__text strong { color: var(--accent-on-dark); }
 .hero__contact .contact-link__number { color: var(--yellow-accent); }
 .hero__contact:hover .contact-link__number { color: var(--white); }
 .hero__subtitle {
@@ -630,7 +648,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 .review-badge__stars { color: var(--yellow-accent); letter-spacing: 0.05em; }
 .review-badge a { color: var(--text-on-dark); text-decoration: none; }
-.review-badge a:hover { color: var(--brand-green); text-decoration: underline; }
+.review-badge a:hover { color: var(--accent-on-dark); text-decoration: underline; }
 
 .hero__price-teaser {
   margin: 0.85rem 0 0;
@@ -645,7 +663,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   text-decoration: underline;
   text-underline-offset: 2px;
 }
-.hero__price-teaser a:hover { color: var(--brand-green); }
+.hero__price-teaser a:hover { color: var(--accent-on-dark); }
 
 .home-distances {
   margin: 0.85rem 0 0;
@@ -675,11 +693,11 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   padding: 0.35rem 0.75rem;
   font-size: 0.8125rem;
 }
-.distance-chip strong { color: var(--brand-green); font-weight: 700; }
+.distance-chip strong { color: var(--accent-on-dark); font-weight: 700; }
 .distance-chip span { opacity: 0.9; }
 .home-distances__map { margin: 0.65rem 0 0; font-size: 0.8125rem; }
 .home-distances__map a { color: var(--text-on-dark); font-weight: 600; }
-.home-distances__map a:hover { color: var(--brand-green); }
+.home-distances__map a:hover { color: var(--accent-on-dark); }
 
 .section:not(.hero) .home-distances { text-align: center; }
 .section:not(.hero) .home-distances__lead { color: var(--rock-mid); }
@@ -690,7 +708,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   box-shadow: var(--shadow);
 }
 .section:not(.hero) .distance-chip strong { color: var(--green-deep); }
-.section:not(.hero) .home-distances__map a { color: var(--green-mid); }
+.section:not(.hero) .home-distances__map a { color: var(--green-link); }
 
 .home-location__maps {
   display: flex;
@@ -725,6 +743,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 
 .booking-form { margin-top: 1.25rem; display: grid; gap: 0.75rem; }
 .booking-form label { display: block; font-size: 0.8125rem; font-weight: 600; color: var(--green-deep); margin-bottom: 0.25rem; }
+.booking-form label .label-optional {
+  font-weight: 500;
+  color: var(--text-muted);
+}
 .booking-form input, .booking-form select, .booking-form textarea {
   width: 100%; min-height: 48px; padding: 0.625rem 0.75rem;
   border: 1px solid #cbd5e0; border-radius: var(--radius); font: inherit; font-size: 1rem;
@@ -1296,7 +1318,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   font-size: 0.875rem;
   line-height: 1.45;
 }
-.book-app-notice a { color: var(--brand-green); font-weight: 700; }
+.book-app-notice a { color: var(--accent-on-dark); font-weight: 700; }
 .book-app-notice--policy {
   margin: 1.5rem auto 0;
   color: var(--rock-mid);
@@ -1486,7 +1508,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   text-align: left;
 }
 
-.field-hint { font-size: 0.75rem; color: var(--rock-mid); margin-top: 0.25rem; }
+.field-hint { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
 .book-package-preview {
   font-size: 0.9375rem;
   color: var(--green-deep);
@@ -1632,7 +1654,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   font-size: 0.9375rem;
   transition: border-color 0.2s, background 0.2s;
 }
-.topic-link:hover { border-color: var(--green-mid); background: var(--white); color: var(--green-mid); }
+.topic-link:hover { border-color: var(--green-link); background: var(--white); color: var(--green-link); }
 .topic-link span { display: block; font-weight: 400; font-size: 0.8125rem; color: var(--rock-mid); margin-top: 0.2rem; }
 
 /* Reviews carousel (homepage) */
@@ -1657,7 +1679,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   gap: 1rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
+  scroll-behavior: smooth; /* overridden by prefers-reduced-motion globally */
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   padding: 0.25rem 0.125rem 0.75rem;
@@ -1768,7 +1790,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   gap: 1rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
+  scroll-behavior: smooth; /* overridden by prefers-reduced-motion globally */
   flex: 1;
   padding: 0.25rem 0;
   -webkit-overflow-scrolling: touch;
@@ -1950,7 +1972,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 .packages-notice--groups a {
   font-weight: 700;
-  color: var(--brand-orange-dark);
+  color: var(--orange-link);
   text-decoration: underline;
   text-underline-offset: 0.12em;
 }
@@ -2296,7 +2318,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   font-size: 0.875rem;
   border-top: 3px solid var(--brand-orange);
 }
-.site-footer a { color: var(--brand-green); }
+.site-footer a { color: var(--accent-on-dark); }
 .site-footer__links {
   display: flex;
   flex-wrap: wrap;
