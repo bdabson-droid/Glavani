@@ -195,16 +195,13 @@ def _catapult_word(lang: str, count: int) -> str:
 
 def family_copy(opt: dict, lang: str) -> dict:
     size = opt["size"]
-    price = opt["price"]
     catapults = opt["catapults"]
-    per_person = price / size
-    per_fmt = _format_euro(per_person)
     catapult_label = _catapult_word(lang, catapults)
     if lang == "hr":
         return {
             "name": f"Obiteljski paket cijelog parka za {size}",
             "desc": (
-                f"Sve igre za {size} osoba — {per_fmt} po osobi. "
+                f"Sve igre za {size} osoba. "
                 f"Uključuje {catapults} {catapult_label}."
             ),
             "includes": f"Uključuje {catapults} {catapult_label}",
@@ -212,7 +209,7 @@ def family_copy(opt: dict, lang: str) -> dict:
     return {
         "name": f"Whole park family package for {size}",
         "desc": (
-            f"All games for {size} people — {per_fmt} per person. "
+            f"All games for {size} people. "
             f"Includes {catapults} Human Catapult {catapult_label}."
         ),
         "includes": f"Includes {catapults} Human Catapult {catapult_label}",
@@ -405,12 +402,10 @@ def render_price_qty(opt: dict, copy: dict) -> str:
 
 def render_price_amount(opt: dict, copy: dict, lang: str) -> str:
     if opt.get("group") == "family":
-        per_person = opt["price"] / opt["size"]
         data = opt[lang]
         return (
             f"""              <div class="price-list__amounts price-list__amounts--inline">
                 <p class="price-list__amount price-list__amount--group-total">€{opt['price']}<span>{copy['group_total']}</span></p>
-                <p class="price-list__amount price-list__amount--group-each">{_format_euro(per_person)}<span>{copy['per_person']}</span></p>
                 <p class="price-list__saving">{data['includes']}</p>
               </div>"""
         )

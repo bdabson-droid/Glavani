@@ -39,12 +39,12 @@
 
   const FAMILY_ACTIVITIES = {
     en: [
-      { id: 'whole-park-family-4', group: 'family', name: 'Whole park family package for 4', price: 150, fixed_guests: 4, per_person: 37.5, includes: 'Includes 2 Human Catapult launches' },
-      { id: 'whole-park-family-5', group: 'family', name: 'Whole park family package for 5', price: 200, fixed_guests: 5, per_person: 40, includes: 'Includes 3 Human Catapult launches' },
+      { id: 'whole-park-family-4', group: 'family', name: 'Whole park family package for 4', price: 150, fixed_guests: 4, includes: 'Includes 2 Human Catapult launches' },
+      { id: 'whole-park-family-5', group: 'family', name: 'Whole park family package for 5', price: 200, fixed_guests: 5, includes: 'Includes 3 Human Catapult launches' },
     ],
     hr: [
-      { id: 'whole-park-family-4', group: 'family', name: 'Obiteljski paket cijelog parka za 4', price: 150, fixed_guests: 4, per_person: 37.5, includes: 'Uključuje 2 katapulte' },
-      { id: 'whole-park-family-5', group: 'family', name: 'Obiteljski paket cijelog parka za 5', price: 200, fixed_guests: 5, per_person: 40, includes: 'Uključuje 3 katapulte' },
+      { id: 'whole-park-family-4', group: 'family', name: 'Obiteljski paket cijelog parka za 4', price: 150, fixed_guests: 4, includes: 'Uključuje 2 katapulte' },
+      { id: 'whole-park-family-5', group: 'family', name: 'Obiteljski paket cijelog parka za 5', price: 200, fixed_guests: 5, includes: 'Uključuje 3 katapulte' },
     ],
   };
 
@@ -79,7 +79,7 @@
       callToBook: 'Call to book your group',
       priceEach: '€{price} per person',
       priceAdultsChildren: '€{adult} adults · €{child} children',
-      familyEach: '€{price} per person · €{total} package total',
+      familyTotal: '€{total} package total',
       familyIncludes: '{includes}',
       groupSizeFixed: '{n} people (fixed package size)',
       total: 'Total',
@@ -156,7 +156,7 @@
       callToBook: 'Pozovite za rezervaciju grupe',
       priceEach: '€{price} po osobi',
       priceAdultsChildren: '€{adult} odrasli · €{child} djeca',
-      familyEach: '€{price} po osobi · €{total} ukupno za paket',
+      familyTotal: '€{total} ukupno za paket',
       familyIncludes: '{includes}',
       groupSizeFixed: '{n} osoba (fiksna veličina paketa)',
       total: 'Ukupno',
@@ -396,7 +396,7 @@
     if (activityIsFamilyPackage(a)) {
       return [
         t.groupSizeFixed.replace('{n}', a.fixed_guests),
-        t.familyEach.replace('{price}', formatMoney(a.per_person)).replace('{total}', a.price),
+        t.familyTotal.replace('{total}', a.price),
         t.familyIncludes.replace('{includes}', a.includes),
       ];
     }
@@ -501,7 +501,7 @@
     }
     return `<div class="book-price-box" id="book-price-box" aria-live="polite">
       <p class="book-price-box__each">${activityIsFamilyPackage(a)
-        ? t.familyEach.replace('{price}', formatMoney(a.per_person)).replace('{total}', a.price)
+        ? t.familyTotal.replace('{total}', a.price)
         : activityHasChildPrice(a)
         ? t.priceAdultsChildren.replace('{adult}', a.price).replace('{child}', a.child_price)
         : t.priceEach.replace('{price}', a.price)}</p>
@@ -589,7 +589,7 @@
       phone: state.phone,
       package: a ? a.name : '—',
       price_per_person: a ? (activityIsFamilyPackage(a)
-        ? `€${formatMoney(a.per_person)} per person (€${a.price} package)`
+        ? `€${a.price} package total`
         : activityHasChildPrice(a) ? `€${a.price} adults / €${a.child_price} children` : `€${a.price}`) : '—',
       adults: activityHasChildPrice(a) ? String(state.adults) : '—',
       children: activityHasChildPrice(a) ? String(state.children) : '—',
