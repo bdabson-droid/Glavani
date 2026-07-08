@@ -1577,6 +1577,70 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 }
 .book-hint { text-align: center; font-size: 0.8125rem; color: var(--rock-mid); margin-top: 1rem; }
 
+.book-panel--success .book-panel__lead--spam {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  background: #fff8eb;
+  border: 1px solid rgba(245, 130, 32, 0.25);
+  color: var(--green-deep);
+}
+
+.book-success-dialog {
+  width: min(92vw, 26rem);
+  max-width: none;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 48px rgba(10, 10, 10, 0.28);
+  background: var(--white);
+  color: var(--green-deep);
+}
+.book-success-dialog::backdrop {
+  background: rgba(10, 10, 10, 0.55);
+}
+.book-success-dialog__inner {
+  padding: 1.5rem 1.25rem 1.25rem;
+  text-align: center;
+}
+.book-success-dialog__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 0.75rem;
+  border-radius: 50%;
+  background: linear-gradient(145deg, var(--green-deep), var(--green-mid));
+  color: var(--white);
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.book-success-dialog h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--green-deep);
+}
+.book-success-dialog__lead {
+  font-size: 0.9375rem;
+  color: var(--rock-mid);
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+.book-success-dialog__spam {
+  font-size: 0.875rem;
+  color: var(--green-deep);
+  line-height: 1.45;
+  margin-bottom: 1.25rem;
+  padding: 0.75rem 0.875rem;
+  border-radius: var(--radius);
+  background: #fff8eb;
+  border: 1px solid rgba(245, 130, 32, 0.25);
+}
+.book-success-dialog__ok {
+  width: 100%;
+}
+
 .home-book-cta {
   background: var(--white);
   border-radius: var(--radius-lg);

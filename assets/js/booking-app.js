@@ -87,7 +87,7 @@
       pickDateLead: 'Open daily 9 AM–5 PM · last entry 3 PM',
       yourDetails: 'Your details',
       confirmTitle: 'Confirm booking',
-      confirmLead: 'Check your package and total below, then submit your booking. We will reply with an emailed invoice to confirm as soon as possible.',
+      confirmLead: 'Check your package and total below, then submit your booking.',
       within48Title: 'Within 48 hours of your visit?',
       within48Lead: 'Please call to book so we can confirm availability in time.',
       within48Alert: 'Your selected date is within 48 hours. Please call to book instead of using the form.',
@@ -110,8 +110,10 @@
       pricePerPerson: 'Price per person',
       sendEmail: 'Submit booking',
       submitting: 'Sending…',
-      submitSuccessTitle: 'Booking sent',
-      submitSuccess: 'Thank you — your booking request has been sent. We will email your invoice to confirm as soon as possible.',
+      submitSuccessTitle: 'Booking submitted',
+      submitSuccess: 'Thank you — your booking request has been sent. We will email you to confirm your booking.',
+      submitSuccessSpam: 'Please check your inbox — and your spam or junk folder if you do not see our email within a few minutes.',
+      submitSuccessOk: 'Got it',
       submitError: 'Sorry, we could not send your booking right now. Please call us instead.',
       newBooking: 'Make another booking',
       call: 'Call to confirm',
@@ -164,7 +166,7 @@
       pickDateLead: 'Otvoreno 9–17 h · zadnji ulaz 15 h',
       yourDetails: 'Vaši podaci',
       confirmTitle: 'Potvrdite rezervaciju',
-      confirmLead: 'Provjerite paket i ukupnu cijenu u nastavku, zatim pošaljite rezervaciju. Odgovorit ćemo e-računom za potvrdu što je prije moguće.',
+      confirmLead: 'Provjerite paket i ukupnu cijenu u nastavku, zatim pošaljite rezervaciju.',
       within48Title: 'Unutar 48 sati od posjeta?',
       within48Lead: 'Molimo nazovite kako bismo na vrijeme potvrdili dostupnost.',
       within48Alert: 'Odabrani datum je unutar 48 sati. Molimo nazovite umjesto online obrasca.',
@@ -188,7 +190,9 @@
       sendEmail: 'Pošalji rezervaciju',
       submitting: 'Slanje…',
       submitSuccessTitle: 'Rezervacija poslana',
-      submitSuccess: 'Hvala — vaš zahtjev za rezervaciju je poslan. E-račun za potvrdu poslat ćemo što je prije moguće.',
+      submitSuccess: 'Hvala — vaš zahtjev za rezervaciju je poslan. Poslat ćemo vam e-mail za potvrdu rezervacije.',
+      submitSuccessSpam: 'Provjerite pristiglu poštu — i spam/junk mapu ako poruku ne vidite u nekoliko minuta.',
+      submitSuccessOk: 'U redu',
       submitError: 'Nažalost, rezervaciju trenutno nismo mogli poslati. Molimo nazovite nas.',
       newBooking: 'Nova rezervacija',
       call: 'Pozovi za potvrdu',
@@ -602,6 +606,38 @@
     };
   }
 
+  function showSuccessDialog() {
+    let dialog = document.getElementById('book-success-dialog');
+    if (!dialog) {
+      dialog = document.createElement('dialog');
+      dialog.id = 'book-success-dialog';
+      dialog.className = 'book-success-dialog';
+      dialog.setAttribute('aria-labelledby', 'book-success-dialog-title');
+      dialog.innerHTML = `<div class="book-success-dialog__inner">
+        <p class="book-success-dialog__badge" aria-hidden="true">✓</p>
+        <h2 id="book-success-dialog-title"></h2>
+        <p class="book-success-dialog__lead"></p>
+        <p class="book-success-dialog__spam"></p>
+        <form method="dialog">
+          <button type="submit" class="btn-primary book-success-dialog__ok"></button>
+        </form>
+      </div>`;
+      document.body.appendChild(dialog);
+      dialog.addEventListener('close', () => {
+        document.getElementById('btn-new-booking')?.focus();
+      });
+    }
+    dialog.querySelector('#book-success-dialog-title').textContent = t.submitSuccessTitle;
+    dialog.querySelector('.book-success-dialog__lead').textContent = t.submitSuccess;
+    dialog.querySelector('.book-success-dialog__spam').textContent = t.submitSuccessSpam;
+    dialog.querySelector('.book-success-dialog__ok').textContent = t.submitSuccessOk;
+    if (typeof dialog.showModal === 'function') {
+      dialog.showModal();
+    } else {
+      alert(`${t.submitSuccess}\n\n${t.submitSuccessSpam}`);
+    }
+  }
+
   async function submitBooking() {
     const btn = document.getElementById('btn-submit');
     if (btn) {
@@ -621,6 +657,7 @@
       if (!res.ok || !data.success) throw new Error('submit failed');
       submitted = true;
       render();
+      showSuccessDialog();
     } catch (err) {
       alert(t.submitError);
       if (btn) {
@@ -726,6 +763,7 @@
     return `<section class="book-panel book-panel--success">
       <h2>${t.submitSuccessTitle}</h2>
       <p class="book-panel__lead">${t.submitSuccess}</p>
+      <p class="book-panel__lead book-panel__lead--spam">${t.submitSuccessSpam}</p>
       <button type="button" class="btn-primary" id="btn-new-booking">${t.newBooking}</button>
     </section>`;
   }

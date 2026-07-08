@@ -2053,13 +2053,13 @@ def render_booking_app(lang: str) -> str:
         title = "Rezerviraj | Glavani Park – odaberite paket i datum"
         desc = (
             f"Rezervirajte Glavani Park online za do {ONLINE_BOOKING_MAX} osoba. Ispunite obrazac — "
-            f"za unaprijedne rezervacije potvrdu šaljemo e-računom na {BOOKING_EMAIL}. "
+            f"za potvrdu rezervacije poslat ćemo vam e-mail na {BOOKING_EMAIL}. "
             f"Za grupe s više od {ONLINE_BOOKING_MAX} osoba ili posjet u sljedećih par dana, nazovite."
         )
         h1 = "Rezerviraj"
         lead = (
-            "Ispunite obrazac i pošaljite rezervaciju — za sve unaprijedne rezervacije odgovorit ćemo "
-            "e-računom za potvrdu što je prije moguće."
+            "Ispunite obrazac i pošaljite rezervaciju — za potvrdu poslat ćemo vam e-mail. "
+            "Provjerite i spam/junk mapu ako poruku ne vidite u nekoliko minuta."
         )
         amenities = (
             "<strong>Plaćanje:</strong> kartice i gotovina u parku. "
@@ -2071,13 +2071,13 @@ def render_booking_app(lang: str) -> str:
         title = "Book | Glavani Park – Pick Package & Date"
         desc = (
             f"Book Glavani Park online for up to {ONLINE_BOOKING_MAX} people. Fill in the form — "
-            f"for advance bookings we email an invoice to confirm to {BOOKING_EMAIL} ASAP. "
+            f"we will email you to confirm your booking at {BOOKING_EMAIL}. "
             f"For parties of more than {ONLINE_BOOKING_MAX} or visits in the next couple of days, please call."
         )
         h1 = "Book"
         lead = (
-            "Fill in the form and submit your booking — for all advance bookings we will respond "
-            "with an emailed invoice to confirm as soon as possible."
+            "Fill in the form and submit your booking — we will email you to confirm. "
+            "Check your spam or junk folder if you do not see our email within a few minutes."
         )
         amenities = (
             "<strong>Payment:</strong> card and cash accepted at the park. "
