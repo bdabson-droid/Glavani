@@ -3,6 +3,7 @@
 import re
 
 from booking_policy import BOOKING_POLICY
+from brand_voice import ONLINE_BOOKING_MAX
 from packages import pricing_hub_blurb
 
 BASE = "https://www.glavanipark.com"
@@ -161,9 +162,9 @@ VISITOR_FAQS = {
         {
             "q": "Can we book Glavani Park for a large group or birthday?",
             "a": (
-                "Online booking covers up to 6 people, including small group whole-park packages for 3–6. "
-                "For groups of more than 6 — corporate events, schools, or birthdays — "
-                "see <a href=\"{groups}\">team building and group packages</a> or call +385 91 896 4525 for group discounts."
+                f"Online booking covers up to {ONLINE_BOOKING_MAX} people, including family whole-park packages for 4 or 5. "
+                f"For groups of more than {ONLINE_BOOKING_MAX} — corporate events, schools, or birthdays — "
+                'see <a href="{groups}">team building and group packages</a> or call +385 91 896 4525.'
             ),
         },
     ],
@@ -234,9 +235,9 @@ VISITOR_FAQS = {
         {
             "q": "Možemo li rezervirati Glavani Park za veću grupu ili rođendan?",
             "a": (
-                "Online rezervacija vrijedi do 6 osoba, uključujući male pakete cijelog parka za 3–6. "
-                "Za više od 6 — korporativne događaje, škole ili rođendane — "
-                "pogledajte <a href=\"{groups}\">team building i grupne pakete</a> ili nazovite +385 98 224 314 za grupne popuste."
+                f"Online rezervacija vrijedi do {ONLINE_BOOKING_MAX} osoba, uključujući obiteljske pakete cijelog parka za 4 ili 5. "
+                f"Za više od {ONLINE_BOOKING_MAX} — korporativne događaje, škole ili rođendane — "
+                'pogledajte <a href="{groups}">team building i grupne pakete</a> ili nazovite +385 98 224 314.'
             ),
         },
     ],

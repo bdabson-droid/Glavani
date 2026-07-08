@@ -1,6 +1,6 @@
 /**
  * Glavani Park booking — package & guest dropdowns, live pricing.
- * Groups of more than 6 must call. Bookings submit directly to the park inbox.
+ * Groups of more than 5 must call. Bookings submit directly to the park inbox.
  * Keep activity names/prices in sync with scripts/packages.py.
  */
 (function () {
@@ -17,19 +17,10 @@
     return;
   }
 
-  const MAX_GUESTS = 6;
-  const SINGLE_WHOLE_PARK = 70;
+  const MAX_GUESTS = 5;
   const lang = config.lang === 'hr' ? 'hr' : 'en';
   const PHONE_EN = '385918964525';
   const PHONE_HR = '38598224314';
-
-  const WHOLE_PARK_CATAPULT_ID = 'all-incl-catapult';
-  const SMALL_GROUP_BY_SIZE = {
-    3: 'whole-park-group-3',
-    4: 'whole-park-group-4',
-    5: 'whole-park-group-5',
-    6: 'whole-park-group-6',
-  };
 
   const PACKAGE_ACTIVITIES = {
     en: [
@@ -46,18 +37,14 @@
     ],
   };
 
-  const SMALL_GROUP_ACTIVITIES = {
+  const FAMILY_ACTIVITIES = {
     en: [
-      { id: 'whole-park-group-3', group: 'small_group', name: 'Whole park for 3 — incl. human catapult', price: 180, fixed_guests: 3, per_person: 60, saving: 10 },
-      { id: 'whole-park-group-4', group: 'small_group', name: 'Whole park for 4 — incl. human catapult', price: 230, fixed_guests: 4, per_person: 57.5, saving: 12.5 },
-      { id: 'whole-park-group-5', group: 'small_group', name: 'Whole park for 5 — incl. human catapult', price: 270, fixed_guests: 5, per_person: 54, saving: 16 },
-      { id: 'whole-park-group-6', group: 'small_group', name: 'Whole park for 6 — incl. human catapult', price: 300, fixed_guests: 6, per_person: 50, saving: 20 },
+      { id: 'whole-park-family-4', group: 'family', name: 'Whole park family package for 4', price: 150, fixed_guests: 4, per_person: 37.5, includes: 'Includes 2 Human Catapult launches' },
+      { id: 'whole-park-family-5', group: 'family', name: 'Whole park family package for 5', price: 200, fixed_guests: 5, per_person: 40, includes: 'Includes 3 Human Catapult launches' },
     ],
     hr: [
-      { id: 'whole-park-group-3', group: 'small_group', name: 'Cijeli park za 3 osobe — uklj. katapultu', price: 180, fixed_guests: 3, per_person: 60, saving: 10 },
-      { id: 'whole-park-group-4', group: 'small_group', name: 'Cijeli park za 4 osobe — uklj. katapultu', price: 230, fixed_guests: 4, per_person: 57.5, saving: 12.5 },
-      { id: 'whole-park-group-5', group: 'small_group', name: 'Cijeli park za 5 osoba — uklj. katapultu', price: 270, fixed_guests: 5, per_person: 54, saving: 16 },
-      { id: 'whole-park-group-6', group: 'small_group', name: 'Cijeli park za 6 osoba — uklj. katapultu', price: 300, fixed_guests: 6, per_person: 50, saving: 20 },
+      { id: 'whole-park-family-4', group: 'family', name: 'Obiteljski paket cijelog parka za 4', price: 150, fixed_guests: 4, per_person: 37.5, includes: 'Uključuje 2 katapulte' },
+      { id: 'whole-park-family-5', group: 'family', name: 'Obiteljski paket cijelog parka za 5', price: 200, fixed_guests: 5, per_person: 40, includes: 'Uključuje 3 katapulte' },
     ],
   };
 
@@ -66,10 +53,10 @@
       steps: ['Package', 'Date', 'Details', 'Confirm'],
       activities: [
         ...PACKAGE_ACTIVITIES.en,
-        ...SMALL_GROUP_ACTIVITIES.en,
+        ...FAMILY_ACTIVITIES.en,
         { id: 'human-catapult', group: 'single', name: 'Human Catapult', price: 40 },
       ],
-      groupSmallGroup: 'Small group — whole park incl. catapult',
+      groupFamily: 'Family packages — whole park incl. catapult',
       groupPackages: 'Activity packages',
       groupSingle: 'Single activities',
       months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
@@ -78,23 +65,23 @@
       calNext: 'Next month',
       calChoose: 'Choose {date}',
       pickActivity: 'Choose your package or activity',
-      pickActivityLead: 'Activity packages · small group deals for 3–6 · children under 10 on family rates · max 6 people online',
-      bookCallNotice: 'For parties of more than 6, or if you\'re looking to visit in the next couple of days, please <a href="tel:+__PHONE__">call to book</a>.',
+      pickActivityLead: 'Activity packages · family packages for 4 or 5 · children under 10 on family rates · max 5 people online',
+      bookCallNotice: 'For parties of more than 5, or if you\'re looking to visit in the next couple of days, please <a href="tel:+__PHONE__">call to book</a>.',
       selectPackage: 'Select a package or activity…',
       selectGuests: 'Number of people',
       selectAdults: 'Adults',
       selectChildren: 'Children (under 10)',
       guestsOption: '{n} person',
       guestsOptionPlural: '{n} people',
-      guestsOptionCallPlus: 'More than 6 people — please call',
-      callInsteadTitle: 'Groups of more than 6',
-      callInsteadLead: 'Please call us for group discounts — we can check availability and accommodate your party.',
+      guestsOptionCallPlus: 'More than 5 people — please call',
+      callInsteadTitle: 'Groups of more than 5',
+      callInsteadLead: 'Please call us — we can check availability and accommodate your party.',
       callToBook: 'Call to book your group',
       priceEach: '€{price} per person',
       priceAdultsChildren: '€{adult} adults · €{child} children',
-      smallGroupEach: '€{price} per person · €{total} group total',
-      smallGroupSaving: 'Save €{save} per person vs €{single} single rate',
-      groupSizeFixed: '{n} people (fixed group size)',
+      familyEach: '€{price} per person · €{total} package total',
+      familyIncludes: '{includes}',
+      groupSizeFixed: '{n} people (fixed package size)',
       total: 'Total',
       pickDate: 'Pick your visit date',
       pickDateLead: 'Open daily 9 AM–5 PM · last entry 3 PM',
@@ -107,7 +94,7 @@
       name: 'Your name',
       email: 'Your email address',
       phone: 'Your phone number',
-      guestsHint: 'Groups of more than 6 must call to book.',
+      guestsHint: 'Groups of more than 5 must call to book.',
       arrival: 'Preferred start time',
       arrivalLead: '15-minute slots · your preferred start time · park open 9 AM–5 PM · last entry 3 PM',
       notes: 'Notes (optional)',
@@ -134,19 +121,19 @@
       selectDate: 'Please select a visit date.',
       fillRequired: 'Please enter your name, email address, and phone number.',
       emailInvalid: 'Please enter a valid email address.',
-      tooManyGuests: 'Online booking is for up to 6 people only. Please call to book larger groups:',
+      tooManyGuests: 'Online booking is for up to 5 people only. Please call to book larger groups:',
       parkHours: 'Confirm on arrival · park open 9 AM – 5 PM',
       msgHeader: 'Glavani Park booking request',
-      callGroups: 'Call for groups of 7+',
+      callGroups: 'Call for groups of 6+',
     },
     hr: {
       steps: ['Paket', 'Datum', 'Podaci', 'Potvrda'],
       activities: [
         ...PACKAGE_ACTIVITIES.hr,
-        ...SMALL_GROUP_ACTIVITIES.hr,
+        ...FAMILY_ACTIVITIES.hr,
         { id: 'human-catapult', group: 'single', name: 'Ljudska katapulta', price: 40 },
       ],
-      groupSmallGroup: 'Mali paket — cijeli park uklj. katapultu',
+      groupFamily: 'Obiteljski paketi — cijeli park uklj. katapultu',
       groupPackages: 'Paketi aktivnosti',
       groupSingle: 'Pojedinačne aktivnosti',
       months: ['Siječanj','Veljača','Ožujak','Travanj','Svibanj','Lipanj','Srpanj','Kolovoz','Rujan','Listopad','Studeni','Prosinac'],
@@ -155,23 +142,23 @@
       calNext: 'Sljedeći mjesec',
       calChoose: 'Odaberite {date}',
       pickActivity: 'Odaberite paket ili aktivnost',
-      pickActivityLead: 'Paketi aktivnosti · mali paketi za 3–6 · djeca mlađa od 10 na obiteljskim cijenama · max 6 osoba online',
-      bookCallNotice: 'Za grupe s više od 6 osoba ili ako planirate posjet u sljedećih par dana, molimo <a href="tel:+__PHONE__">nazovite za rezervaciju</a>.',
+      pickActivityLead: 'Paketi aktivnosti · obiteljski paketi za 4 ili 5 · djeca mlađa od 10 na obiteljskim cijenama · max 5 osoba online',
+      bookCallNotice: 'Za grupe s više od 5 osoba ili ako planirate posjet u sljedećih par dana, molimo <a href="tel:+__PHONE__">nazovite za rezervaciju</a>.',
       selectPackage: 'Odaberite paket ili aktivnost…',
       selectGuests: 'Broj osoba',
       selectAdults: 'Odrasli',
       selectChildren: 'Djeca (mlađa od 10)',
       guestsOption: '{n} osoba',
       guestsOptionPlural: '{n} osobe',
-      guestsOptionCallPlus: 'Više od 6 osoba — nazovite',
-      callInsteadTitle: 'Grupe s više od 6 osoba',
-      callInsteadLead: 'Nazovite nas za grupne popuste — provjerit ćemo dostupnost i ugostiti vašu grupu.',
+      guestsOptionCallPlus: 'Više od 5 osoba — nazovite',
+      callInsteadTitle: 'Grupe s više od 5 osoba',
+      callInsteadLead: 'Nazovite nas — provjerit ćemo dostupnost i ugostiti vašu grupu.',
       callToBook: 'Pozovite za rezervaciju grupe',
       priceEach: '€{price} po osobi',
       priceAdultsChildren: '€{adult} odrasli · €{child} djeca',
-      smallGroupEach: '€{price} po osobi · €{total} ukupno za grupu',
-      smallGroupSaving: 'Ušteda €{save} po osobi vs €{single} pojedinačno',
-      groupSizeFixed: '{n} osoba (fiksna veličina grupe)',
+      familyEach: '€{price} po osobi · €{total} ukupno za paket',
+      familyIncludes: '{includes}',
+      groupSizeFixed: '{n} osoba (fiksna veličina paketa)',
       total: 'Ukupno',
       pickDate: 'Odaberite datum posjeta',
       pickDateLead: 'Otvoreno 9–17 h · zadnji ulaz 15 h',
@@ -184,7 +171,7 @@
       name: 'Ime i prezime',
       email: 'Vaša e-mail adresa',
       phone: 'Broj telefona',
-      guestsHint: 'Grupe s više od 6 osoba moraju rezervirati telefonom.',
+      guestsHint: 'Grupe s više od 5 osoba moraju rezervirati telefonom.',
       arrival: 'Preferirano vrijeme početka',
       arrivalLead: 'Termini od 15 min · željeno vrijeme početka · park 9–17 h · zadnji ulaz 15 h',
       notes: 'Napomena (opcionalno)',
@@ -211,10 +198,10 @@
       selectDate: 'Odaberite datum posjeta.',
       fillRequired: 'Unesite ime, e-mail adresu i telefon.',
       emailInvalid: 'Unesite ispravnu e-mail adresu.',
-      tooManyGuests: 'Online rezervacija je za najviše 6 osoba. Za veće grupe nazovite:',
+      tooManyGuests: 'Online rezervacija je za najviše 5 osoba. Za veće grupe nazovite:',
       parkHours: 'Potvrda na ulazu · park 9–17 h',
       msgHeader: 'Zahtjev za rezervaciju Glavani Park',
-      callGroups: 'Pozovite za grupe 7+',
+      callGroups: 'Pozovite za grupe 6+',
     },
   };
   const t = i18n[lang];
@@ -322,9 +309,6 @@
         state.children = Math.max(0, children);
         state.largeGroup = false;
       }
-      if (pkg === WHOLE_PARK_CATAPULT_ID && SMALL_GROUP_BY_SIZE[total]) {
-        selectedActivityId = SMALL_GROUP_BY_SIZE[total];
-      }
     } else if (guestsRaw) {
       const n = parseInt(guestsRaw, 10);
       if (n > MAX_GUESTS) {
@@ -337,9 +321,6 @@
           state.children = 0;
         }
         state.largeGroup = false;
-      }
-      if (pkg === WHOLE_PARK_CATAPULT_ID && SMALL_GROUP_BY_SIZE[n]) {
-        selectedActivityId = SMALL_GROUP_BY_SIZE[n];
       }
     }
   }
@@ -369,7 +350,7 @@
     return !!(a && typeof a.child_price === 'number');
   }
 
-  function activityIsSmallGroup(a) {
+  function activityIsFamilyPackage(a) {
     return !!(a && typeof a.fixed_guests === 'number');
   }
 
@@ -381,7 +362,7 @@
   function guestCount() {
     if (state.largeGroup) return 0;
     const a = selectedActivity();
-    if (activityIsSmallGroup(a)) return a.fixed_guests;
+    if (activityIsFamilyPackage(a)) return a.fixed_guests;
     if (activityHasChildPrice(a)) {
       return Math.min(MAX_GUESTS, Math.max(0, parseInt(state.adults, 10) || 0) + Math.max(0, parseInt(state.children, 10) || 0));
     }
@@ -391,7 +372,7 @@
   function bookingTotal() {
     const a = selectedActivity();
     if (!a) return 0;
-    if (activityIsSmallGroup(a)) return a.price;
+    if (activityIsFamilyPackage(a)) return a.price;
     if (activityHasChildPrice(a)) {
       const adults = Math.max(0, parseInt(state.adults, 10) || 0);
       const children = Math.max(0, parseInt(state.children, 10) || 0);
@@ -401,8 +382,8 @@
   }
 
   function packageOptionLabel(a) {
-    if (activityIsSmallGroup(a)) {
-      return `${a.name} — €${a.price} (${t.smallGroupSaving.replace('{save}', formatMoney(a.saving)).replace('{single}', SINGLE_WHOLE_PARK)})`;
+    if (activityIsFamilyPackage(a)) {
+      return `${a.name} — €${a.price} (${a.includes})`;
     }
     if (activityHasChildPrice(a)) {
       return `${a.name} — €${a.price} / €${a.child_price}`;
@@ -412,11 +393,11 @@
 
   function priceSummaryLines(a) {
     if (!a) return [];
-    if (activityIsSmallGroup(a)) {
+    if (activityIsFamilyPackage(a)) {
       return [
         t.groupSizeFixed.replace('{n}', a.fixed_guests),
-        t.smallGroupEach.replace('{price}', formatMoney(a.per_person)).replace('{total}', a.price),
-        t.smallGroupSaving.replace('{save}', formatMoney(a.saving)).replace('{single}', SINGLE_WHOLE_PARK),
+        t.familyEach.replace('{price}', formatMoney(a.per_person)).replace('{total}', a.price),
+        t.familyIncludes.replace('{includes}', a.includes),
       ];
     }
     if (activityHasChildPrice(a)) {
@@ -457,7 +438,7 @@
 
   function renderGuestFields() {
     const a = selectedActivity();
-    if (activityIsSmallGroup(a)) {
+    if (activityIsFamilyPackage(a)) {
       return `<p class="booking-form__fixed-group">${t.groupSizeFixed.replace('{n}', a.fixed_guests)}</p>`;
     }
     if (activityHasChildPrice(a)) {
@@ -485,13 +466,13 @@
   function renderPackageOptions() {
     const groups = [
       { key: 'packages', label: t.groupPackages },
-      { key: 'small_group', label: t.groupSmallGroup },
+      { key: 'family', label: t.groupFamily },
       { key: 'single', label: t.groupSingle },
     ];
     return groups.map(g => {
       const items = t.activities
         .filter(a => a.group === g.key)
-        .sort((a, b) => (g.key === 'small_group' ? a.fixed_guests - b.fixed_guests : b.price - a.price));
+        .sort((a, b) => (g.key === 'family' ? a.fixed_guests - b.fixed_guests : b.price - a.price));
       if (!items.length) return '';
       return `<optgroup label="${g.label}">${items.map(a =>
         `<option value="${a.id}"${selectedActivityId === a.id ? ' selected' : ''}>${packageOptionLabel(a)}</option>`
@@ -501,7 +482,7 @@
 
   function renderCallPanel() {
     return `<div class="book-call-panel" id="book-price-box" aria-live="polite">
-      <p class="book-call-panel__badge">${lang === 'hr' ? '7+ osoba' : '7+ guests'}</p>
+      <p class="book-call-panel__badge">${lang === 'hr' ? '6+ osoba' : '6+ guests'}</p>
       <h3>${t.callInsteadTitle}</h3>
       <p class="book-call-panel__lead">${t.callInsteadLead}</p>
       <a class="btn-call-book btn-call-book--panel" href="tel:+${phone}">${t.callToBook}</a>
@@ -519,12 +500,12 @@
       </div>`;
     }
     return `<div class="book-price-box" id="book-price-box" aria-live="polite">
-      <p class="book-price-box__each">${activityIsSmallGroup(a)
-        ? t.smallGroupEach.replace('{price}', formatMoney(a.per_person)).replace('{total}', a.price)
+      <p class="book-price-box__each">${activityIsFamilyPackage(a)
+        ? t.familyEach.replace('{price}', formatMoney(a.per_person)).replace('{total}', a.price)
         : activityHasChildPrice(a)
         ? t.priceAdultsChildren.replace('{adult}', a.price).replace('{child}', a.child_price)
         : t.priceEach.replace('{price}', a.price)}</p>
-      ${activityIsSmallGroup(a) ? `<p class="book-price-box__saving">${t.smallGroupSaving.replace('{save}', formatMoney(a.saving)).replace('{single}', SINGLE_WHOLE_PARK)}</p>` : ''}
+      ${activityIsFamilyPackage(a) ? `<p class="book-price-box__saving">${a.includes}</p>` : ''}
       <p class="book-price-box__total"><span>${t.total}</span> <strong>€${total}</strong></p>
       <p class="book-price-box__meta">${priceSummaryLines(a).join(' · ')}</p>
     </div>`;
@@ -568,10 +549,10 @@
       t.msgHeader,
       '---',
       `${t.package}: ${a ? a.name : '—'}`,
-      ...(activityIsSmallGroup(a)
+      ...(activityIsFamilyPackage(a)
         ? [
             `${t.guests}: ${a.fixed_guests}`,
-            t.smallGroupSaving.replace('{save}', formatMoney(a.saving)).replace('{single}', SINGLE_WHOLE_PARK),
+            a.includes,
           ]
         : activityHasChildPrice(a)
         ? [
@@ -607,8 +588,8 @@
       email: state.email,
       phone: state.phone,
       package: a ? a.name : '—',
-      price_per_person: a ? (activityIsSmallGroup(a)
-        ? `€${formatMoney(a.per_person)} per person (€${a.price} group)`
+      price_per_person: a ? (activityIsFamilyPackage(a)
+        ? `€${formatMoney(a.per_person)} per person (€${a.price} package)`
         : activityHasChildPrice(a) ? `€${a.price} adults / €${a.child_price} children` : `€${a.price}`) : '—',
       adults: activityHasChildPrice(a) ? String(state.adults) : '—',
       children: activityHasChildPrice(a) ? String(state.children) : '—',
@@ -759,7 +740,7 @@
         <h3>${t.summary}</h3>
         <dl>
           <dt>${t.package}</dt><dd>${a ? a.name : '—'}</dd>
-          ${activityIsSmallGroup(a)
+          ${activityIsFamilyPackage(a)
             ? `<dt>${t.guests}</dt><dd>${a.fixed_guests} (${t.groupSizeFixed.replace('{n}', a.fixed_guests)})</dd>`
             : activityHasChildPrice(a)
             ? `<dt>${t.adults}</dt><dd>${state.adults} × €${a.price}</dd>
@@ -824,7 +805,7 @@
       selectedActivityId = e.target.value;
       const a = selectedActivity();
       state.largeGroup = false;
-      if (activityIsSmallGroup(a)) {
+      if (activityIsFamilyPackage(a)) {
         state.guests = a.fixed_guests;
       } else if (activityHasChildPrice(a)) {
         state.adults = Math.max(0, parseInt(state.adults, 10) || 0);
@@ -894,7 +875,7 @@
       if (step === 0) {
         selectedActivityId = document.getElementById('app-package')?.value || '';
         const a = selectedActivity();
-        if (activityIsSmallGroup(a)) {
+        if (activityIsFamilyPackage(a)) {
           state.largeGroup = false;
         } else if (activityHasChildPrice(a)) {
           state.largeGroup = false;
