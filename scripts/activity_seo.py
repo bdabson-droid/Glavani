@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from activities import ACTIVITIES
+from brand_voice import ONLINE_BOOKING_MAX
 from faqs import FAQ_SLUGS
 from packages import BOOKING_SLUGS, PRICES_SLUGS, pricing_visit_footer_line
 
@@ -39,17 +40,18 @@ def _links(lang: str) -> dict[str, str]:
 
 def _shared_footer(lang: str, h1: str) -> str:
     links = _links(lang)
+    online_max = ONLINE_BOOKING_MAX
     if lang == "hr":
         return f"""
 <h2>Planiranje posjeta</h2>
 <p>Glavani Park se nalazi u Glavanima 10, Barban — otprilike <strong>30 minuta vožnje od Pule</strong>, 45 minuta od Rovinja i Rabca te 50 minuta od Poreča. Besplatno parkiranje je na licu mjesta. Park radi <strong>svaki dan 9–17 h</strong>; posljednji ulaz u <strong>15 h</strong>, stoga planirajte tri do četiri sata za cijeli park.</p>
-<p>Za {h1.lower()} i ostale atrakcije možete <a href="{links['book']}">rezervirati ulaznice online</a> za grupe do 6 osoba ili nazvati za veće grupe s popustom. Pogledajte <a href="{links['prices']}">pakete i cijene</a> — {pricing_visit_footer_line("hr")}.</p>
+<p>Za {h1.lower()} i ostale atrakcije možete <a href="{links['book']}">rezervirati ulaznice online</a> za grupe do {online_max} osoba ili nazvati za veće grupe. Pogledajte <a href="{links['prices']}">pakete i cijene</a> — {pricing_visit_footer_line("hr")}.</p>
 <h2>Sigurnost i oprema</h2>
 <p>Svaka aktivnost u Glavani Parku vodi se pod nadzorom kvalificiranih instruktora. Oprema je CE certificirana i provjerava se dnevno. Prije početka dobivate harnes, kacigu i jasnu obuku. Više o standardima pročitajte na našoj <a href="{links['safety']}">stranici o sigurnosti</a>.</p>"""
     return f"""
 <h2>Planning your visit</h2>
 <p>Glavani Park is at Glavani 10, Barban — about <strong>30 minutes from Pula</strong>, 45 minutes from Rovinj and Rabac, and 50 minutes from Poreč. Free parking is on site. The park is open <strong>daily 9 AM–5 PM</strong> with <strong>last entry at 3 PM</strong>, so allow three to four hours for the whole park.</p>
-<p>For {h1} and our other attractions you can <a href="{links['book']}">book tickets online</a> for groups up to 6 or call ahead for larger parties with group discounts. See <a href="{links['prices']}">packages and prices</a> — {pricing_visit_footer_line("en")}.</p>
+<p>For {h1} and our other attractions you can <a href="{links['book']}">book tickets online</a> for groups up to {online_max} or call ahead for larger parties. See <a href="{links['prices']}">packages and prices</a> — {pricing_visit_footer_line("en")}.</p>
 <h2>Safety and equipment</h2>
 <p>Every activity at Glavani Park is instructor-led. Equipment is CE-certified and checked daily. You receive a harness, helmet, and clear briefing before you start. Read more on our <a href="{links['safety']}">safety page</a>.</p>"""
 
@@ -83,9 +85,9 @@ def _human_catapult_snippets(lang: str) -> list[str]:
             "<h2>Mogu li gledatelji promatrati?</h2>",
             "<p>Da — i to je dio zabave. Prijatelji i obitelj mogu gledati s vidikovca uz osvježenja i sladoled dok čekaju vaš red. Često je jednako zabavno slušati reakciju nakon lansiranja kao i samo iskustvo. Savršeno za obiteljske grupe u kojima samo neki žele katapultu.</p>",
             "<h2>Cijene i paketi koji uključuju katapultu</h2>",
-            "<p>Ljudska katapulta košta <strong>€40 po osobi</strong> kao pojedinačna aktivnost. Uključena je i u pakete cijelog parka s katapultom (€60 djeca / €70 odrasli), paket <strong>katapulta + ljuljačka</strong>, te fiksne male pakete za 3–6 osoba. Pogledajte <a href=\"{prices}\">pakete i cijene</a> za cijeli pregled — {pricing_footer}.</p>",
+            "<p>Ljudska katapulta košta <strong>€40 po osobi</strong> kao pojedinačna aktivnost. Uključena je i u pakete cijelog parka s katapultom (€60 djeca / €70 odrasli), paket <strong>katapulta + ljuljačka</strong>, te obiteljske pakete za 4 ili 5 osoba. Pogledajte <a href=\"{prices}\">pakete i cijene</a> za cijeli pregled — {pricing_footer}.</p>",
             "<h2>Mogu li rezervirati samo katapultu?</h2>",
-            "<p>Da. Odaberite ljudsku katapultu kao pojedinačnu aktivnost (€40) na <a href=\"{book}\">stranici za rezervaciju</a> ili na blagajni u parku. Online rezervacija pokriva do 6 osoba; za veće grupe nazovite unaprijed.</p>",
+            "<p>Da. Odaberite ljudsku katapultu kao pojedinačnu aktivnost (€40) na <a href=\"{book}\">stranici za rezervaciju</a> ili na blagajni u parku. Online rezervacija pokriva do 5 osoba; za veće grupe nazovite unaprijed.</p>",
             "<h2>Mogu li snimati vožnju?</h2>",
             "<p>Da — i mnogi gosti to rade. Trebat će vam prijatelj koji snima ili sigurno pričvršćena action kamera. Ne možemo preuzeti odgovornost za oštećenje vaše osobne opreme, stoga koristite pouzdano pričvršćenje. Lansiranje je spektakularno na videozapisu.</p>",
             "<h2>Kada je najbolje vrijeme?</h2>",
@@ -112,9 +114,9 @@ def _human_catapult_snippets(lang: str) -> list[str]:
         "<h2>Can spectators watch?</h2>",
         "<p>Yes — and it is part of the fun. Friends and family can watch from the viewing area with drinks and ice cream while they wait for your turn. It is often as entertaining to hear the reaction after launch as it is to ride. Perfect for family groups where only some want the catapult.</p>",
         "<h2>Prices and packages that include the catapult</h2>",
-        "<p>The Human Catapult is <strong>€40 per person</strong> as a single activity. It is also included in whole-park packages with catapult (€60 children / €70 adults), the <strong>Human Catapult + High Swing</strong> combo, and fixed small-group deals for 3–6 people. See <a href=\"{prices}\">packages and prices</a> for the full overview — {pricing_footer}.</p>",
+        "<p>The Human Catapult is <strong>€40 per person</strong> as a single activity. It is also included in whole-park packages with catapult (€60 children / €70 adults), the <strong>Human Catapult + High Swing</strong> combo, and family packages for 4 or 5 people. See <a href=\"{prices}\">packages and prices</a> for the full overview — {pricing_footer}.</p>",
         "<h2>Can I book the catapult on its own?</h2>",
-        "<p>Yes. Choose the Human Catapult as a single activity (€40) on the <a href=\"{book}\">booking page</a> or at the park ticket desk. Online booking covers up to 6 people; call ahead for larger groups.</p>",
+        "<p>Yes. Choose the Human Catapult as a single activity (€40) on the <a href=\"{book}\">booking page</a> or at the park ticket desk. Online booking covers up to 5 people; call ahead for larger groups.</p>",
         "<h2>Can I film my ride?</h2>",
         "<p>Yes — and many guests do. You will need a friend to film or a securely attached action camera. We cannot be held responsible for damage to your personal equipment, so use reliable mounting. The launch looks spectacular on video.</p>",
         "<h2>When is the best time to go?</h2>",

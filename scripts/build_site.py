@@ -1811,7 +1811,7 @@ def render_booking_app(lang: str) -> str:
         desc = (
             f"Rezervirajte Glavani Park online za do {ONLINE_BOOKING_MAX} osoba. Ispunite obrazac — "
             f"za unaprijedne rezervacije potvrdu šaljemo e-računom na {BOOKING_EMAIL}. "
-            "Za grupe s više od 6 osoba ili posjet u sljedećih par dana, nazovite."
+            f"Za grupe s više od {ONLINE_BOOKING_MAX} osoba ili posjet u sljedećih par dana, nazovite."
         )
         h1 = "Rezerviraj"
         lead = (
@@ -1829,7 +1829,7 @@ def render_booking_app(lang: str) -> str:
         desc = (
             f"Book Glavani Park online for up to {ONLINE_BOOKING_MAX} people. Fill in the form — "
             f"for advance bookings we email an invoice to confirm to {BOOKING_EMAIL} ASAP. "
-            "For parties of more than 6 or visits in the next couple of days, please call."
+            f"For parties of more than {ONLINE_BOOKING_MAX} or visits in the next couple of days, please call."
         )
         h1 = "Book"
         lead = (

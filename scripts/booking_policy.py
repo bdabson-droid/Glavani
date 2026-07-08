@@ -1,5 +1,7 @@
 """Shared visitor booking policy copy — off-season visits are pre-book only."""
 
+from brand_voice import ONLINE_BOOKING_MAX
+
 BOOKING_POLICY = {
     "en": {
         "faq_question": "Can I visit without a booking?",
@@ -27,7 +29,7 @@ BOOKING_POLICY = {
             "From July through September, walk-ins are welcome during opening hours, subject to availability — "
             "call ahead to avoid disappointment, especially when we have large group bookings. "
             "From late September to early July, advance booking is required — no walk-ins. "
-            "Book online for up to 6 people, or call for larger groups — discounts available for parties of more than 6."
+            f"Book online for up to {ONLINE_BOOKING_MAX} people, or call for larger groups."
         ),
         "book_page": (
             "<strong>Booking policy:</strong> From July through the end of September, walk-ins are welcome during "
@@ -37,7 +39,7 @@ BOOKING_POLICY = {
             "walk-ins are not accepted."
         ),
         "book_call_notice": (
-            "For parties of more than 6, or if you're looking to visit in the next couple of days, "
+            f"For parties of more than {ONLINE_BOOKING_MAX}, or if you're looking to visit in the next couple of days, "
             'please <a href="tel:+385918964525">call to book</a>.'
         ),
         "summary_paragraph": (
@@ -82,7 +84,7 @@ BOOKING_POLICY = {
             "Od srpnja do rujna dolazak bez rezervacije dobrodošao je tijekom radnog vremena, ovisno o dostupnosti — "
             "nazovite unaprijed kako ne biste ostali razočarani, posebno kad imamo velike grupe. "
             "Od kraja rujna do početka srpnja potrebna je unaprijedna rezervacija — bez dolaska bez najave. "
-            "Rezervirajte online do 6 osoba ili nazovite za veće grupe — popusti za grupe s više od 6 osoba."
+            f"Rezervirajte online do {ONLINE_BOOKING_MAX} osoba ili nazovite za veće grupe."
         ),
         "book_page": (
             "<strong>Pravila rezervacije:</strong> od srpnja do kraja rujna dolazak bez rezervacije moguć je tijekom "
@@ -92,7 +94,7 @@ BOOKING_POLICY = {
             "dolazak bez rezervacije nije moguć."
         ),
         "book_call_notice": (
-            "Za grupe s više od 6 osoba ili ako planirate posjet u sljedećih par dana, "
+            f"Za grupe s više od {ONLINE_BOOKING_MAX} osoba ili ako planirate posjet u sljedećih par dana, "
             'molimo <a href="tel:+38598224314">nazovite za rezervaciju</a>.'
         ),
         "summary_paragraph": (

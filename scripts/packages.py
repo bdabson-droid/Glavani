@@ -14,26 +14,23 @@ CHILD_MAX_AGE = 10
 
 GROUP_LABELS = {
     "en": {
-        "small_group": "Small group — whole park incl. catapult",
+        "family": "Family packages — whole park incl. catapult",
         "packages": "Activity packages",
         "single": "Single activities",
     },
     "hr": {
-        "small_group": "Mali paket — cijeli park uklj. katapultu",
+        "family": "Obiteljski paketi — cijeli park uklj. katapultu",
         "packages": "Paketi aktivnosti",
         "single": "Pojedinačne aktivnosti",
     },
 }
 
-SMALL_GROUP_PACKAGES = [
-    {"id": "whole-park-group-3", "size": 3, "price": 180},
-    {"id": "whole-park-group-4", "size": 4, "price": 230},
-    {"id": "whole-park-group-5", "size": 5, "price": 270},
-    {"id": "whole-park-group-6", "size": 6, "price": 300},
+FAMILY_PACKAGES = [
+    {"id": "whole-park-family-4", "size": 4, "price": 150, "catapults": 2},
+    {"id": "whole-park-family-5", "size": 5, "price": 200, "catapults": 3},
 ]
 
 WHOLE_PARK_CATAPULT_PACKAGE = "all-incl-catapult"
-SMALL_GROUP_BY_SIZE = {opt["size"]: opt["id"] for opt in SMALL_GROUP_PACKAGES}
 
 BOOKING_OPTIONS = [
     {
@@ -45,14 +42,14 @@ BOOKING_OPTIONS = [
             "name": "Whole park — all games incl. human catapult",
             "desc": (
                 "Full day access to every attraction including the Human Catapult. "
-                "Book 3–6 people and the small-group discount is applied automatically when you continue to book."
+                "€70 adults · €60 children (under 10)."
             ),
         },
         "hr": {
             "name": "Cijeli park — sve igre uklj. katapultu",
             "desc": (
                 "Cjelodnevni pristup svim atrakcijama uključujući ljudsku katapultu. "
-                "Rezervirajte 3–6 osoba i mali paket se automatski primjenjuje kad nastavite na rezervaciju."
+                "€70 odrasli · €60 djeca (do 10 godina)."
             ),
         },
     },
@@ -129,7 +126,7 @@ PRICES_COPY = {
         "title": "Activity Packages & Prices | Glavani Park Istria",
         "meta_description": (
             "Glavani Park packages from €20 for children and €30 for adults — all games except catapult. "
-            "Whole park with catapult from €70. "
+            "Whole park with catapult from €70. Family packages for 4 or 5 from €150. "
             f"Book online for up to {ONLINE_BOOKING_MAX} people or call for larger groups."
         ),
         "keywords": "Glavani Park prices, adventure park packages Istria, zipline park Croatia prices",
@@ -139,7 +136,7 @@ PRICES_COPY = {
             f"call to book for {CALL_FOR_GROUPS_ABOVE + 1}+"
         ),
         "per_person": "per person",
-        "group_total": "group total",
+        "group_total": "package total",
         "adults": "adults",
         "children": "children",
         "book": "Book",
@@ -148,18 +145,16 @@ PRICES_COPY = {
         "guests_plus": "More people",
         "book_note": BOOKING_POLICY["en"]["book_note"],
         "more_single": "More single activities coming soon.",
-        "small_group_intro": (
-            f"Fixed-price whole-park packages for exactly 3–6 people (all games incl. Human Catapult). "
-            f"Each price works out below the €{WHOLE_PARK_SINGLE_ADULT} single-person rate — savings shown per person. "
-            "You can also select 3–6 people on the whole-park package above — the matching discount applies automatically when you book."
+        "family_intro": (
+            "Fixed-price whole-park family packages for exactly 4 or 5 people — all games included, "
+            "with extra Human Catapult launches for the group."
         ),
-        "auto_small_group_hint": "Small-group price €{total} for {n} people — applied automatically when you book.",
     },
     "hr": {
         "title": "Paketi aktivnosti i cijene | Glavani Park Istria",
         "meta_description": (
             "Paketi Glavani Parka od €20 za djecu i €30 za odrasle — sve igre osim katapulata. "
-            "Cijeli park s katapultom od €70. "
+            "Cijeli park s katapultom od €70. Obiteljski paketi za 4 ili 5 osoba od €150. "
             f"Rezervirajte online do {ONLINE_BOOKING_MAX} osoba ili nazovite za veće grupe."
         ),
         "keywords": "Glavani Park cijene, paketi avanturistički park Istria, zipline park Hrvatska cijene",
@@ -169,7 +164,7 @@ PRICES_COPY = {
             f"nazovite za rezervaciju za {CALL_FOR_GROUPS_ABOVE + 1}+"
         ),
         "per_person": "po osobi",
-        "group_total": "ukupno za grupu",
+        "group_total": "ukupno za paket",
         "adults": "odrasli",
         "children": "djeca",
         "book": "Rezerviraj",
@@ -178,12 +173,10 @@ PRICES_COPY = {
         "guests_plus": "Više osoba",
         "book_note": BOOKING_POLICY["hr"]["book_note"],
         "more_single": "Više pojedinačnih aktivnosti uskoro.",
-        "small_group_intro": (
-            f"Fiksne cijene cijelog parka za točno 3–6 osoba (sve igre uklj. ljudsku katapultu). "
-            f"Svaka cijena je niža od €{WHOLE_PARK_SINGLE_ADULT} po osobi — ušteda je prikazana po osobi. "
-            "Možete i odabrati 3–6 osoba na paketu cijelog parka iznad — odgovarajući popust se automatski primjenjuje pri rezervaciji."
+        "family_intro": (
+            "Fiksne cijene obiteljskog paketa cijelog parka za točno 4 ili 5 osoba — sve igre uključene, "
+            "s dodatnim lansiranjima na ljudskoj katapulti za grupu."
         ),
-        "auto_small_group_hint": "Mali paket €{total} za {n} osoba — primjenjuje se automatski pri rezervaciji.",
     },
 }
 
@@ -194,58 +187,55 @@ def _format_euro(amount: float) -> str:
     return f"€{amount:.2f}"
 
 
-def small_group_rates(size: int, total: int, single: int = WHOLE_PARK_SINGLE_ADULT) -> tuple[float, float]:
-    per_person = total / size
-    saving = single - per_person
-    return per_person, saving
+def _catapult_word(lang: str, count: int) -> str:
+    if lang == "hr":
+        return "katapult" if count == 1 else "katapulte"
+    return "launch" if count == 1 else "launches"
 
 
-def small_group_copy(opt: dict, lang: str, single: int = WHOLE_PARK_SINGLE_ADULT) -> dict:
+def family_copy(opt: dict, lang: str) -> dict:
     size = opt["size"]
     price = opt["price"]
-    per_person, saving = small_group_rates(size, price, single)
+    catapults = opt["catapults"]
+    per_person = price / size
     per_fmt = _format_euro(per_person)
-    save_fmt = _format_euro(saving)
+    catapult_label = _catapult_word(lang, catapults)
     if lang == "hr":
         return {
-            "name": f"Cijeli park za {size} osoba — uklj. katapultu",
+            "name": f"Obiteljski paket cijelog parka za {size}",
             "desc": (
-                f"Sve igre za točno {size} osoba — {per_fmt} po osobi, "
-                f"ušteda {save_fmt} po osobi u odnosu na €{single} pojedinačno."
+                f"Sve igre za {size} osoba — {per_fmt} po osobi. "
+                f"Uključuje {catapults} {catapult_label}."
             ),
-            "saving": f"Ušteda {save_fmt} po osobi (vs €{single})",
+            "includes": f"Uključuje {catapults} {catapult_label}",
         }
     return {
-        "name": f"Whole park for {size} — incl. human catapult",
+        "name": f"Whole park family package for {size}",
         "desc": (
-            f"All games for exactly {size} people — {per_fmt} per person, "
-            f"save {save_fmt} each vs the €{single} single rate."
+            f"All games for {size} people — {per_fmt} per person. "
+            f"Includes {catapults} Human Catapult {catapult_label}."
         ),
-        "saving": f"Save {save_fmt} per person (vs €{single})",
+        "includes": f"Includes {catapults} Human Catapult {catapult_label}",
     }
 
 
-def small_group_options() -> list[dict]:
+def family_options() -> list[dict]:
     return [
         {
             "id": opt["id"],
-            "group": "small_group",
+            "group": "family",
             "size": opt["size"],
             "price": opt["price"],
-            "en": small_group_copy(opt, "en"),
-            "hr": small_group_copy(opt, "hr"),
+            "catapults": opt["catapults"],
+            "en": family_copy(opt, "en"),
+            "hr": family_copy(opt, "hr"),
         }
-        for opt in SMALL_GROUP_PACKAGES
+        for opt in FAMILY_PACKAGES
     ]
 
 
 def all_booking_options() -> list[dict]:
-    return BOOKING_OPTIONS + small_group_options()
-
-
-def small_group_package_id(party_size: int) -> str | None:
-    """Map 3–6 guests on whole-park incl. catapult to the discounted small-group package."""
-    return SMALL_GROUP_BY_SIZE.get(party_size)
+    return BOOKING_OPTIONS + family_options()
 
 
 def render_children_pricing_ticker(lang: str) -> str:
@@ -258,12 +248,12 @@ def large_group_booking_notice(lang: str) -> str:
         return (
             f"<strong>Više od {ONLINE_BOOKING_MAX} osoba?</strong> "
             f"Online rezervacija vrijedi do {ONLINE_BOOKING_MAX} osoba. Za veće grupe "
-            f'<a href="tel:{phone["tel"]}">nazovite za rezervaciju</a> — popusti dostupni.'
+            f'<a href="tel:{phone["tel"]}">nazovite za rezervaciju</a>.'
         )
     return (
         f"<strong>More than {ONLINE_BOOKING_MAX} people?</strong> "
         f"Book online for up to {ONLINE_BOOKING_MAX}. For larger groups, "
-        f'<a href="tel:{phone["tel"]}">call to book</a> — group discounts available.'
+        f'<a href="tel:{phone["tel"]}">call to book</a>.'
     )
 
 
@@ -322,11 +312,11 @@ def pricing_visit_footer_line(lang: str) -> str:
     if lang == "hr":
         return (
             "cijeli park s katapultom €60–70 (djeca/odrasli), cijeli park bez katapulata €40–50, "
-            "trening ruta + 2 igre €20–30"
+            "trening ruta + 2 igre €20–30, obiteljski paketi od €150"
         )
     return (
         "whole park incl. catapult €60–70 (children/adults), whole park without catapult €40–50, "
-        "training route + 2 games €20–30"
+        "training route + 2 games €20–30, family packages from €150"
     )
 
 
@@ -380,11 +370,11 @@ def price_summary(lang: str) -> dict:
 
 
 def options_for_group(lang: str, group: str) -> list[dict]:
-    if group == "small_group":
-        items = small_group_options()
+    if group == "family":
+        items = family_options()
     else:
         items = [opt for opt in BOOKING_OPTIONS if opt["group"] == group]
-    if group == "small_group":
+    if group == "family":
         return sorted(items, key=lambda opt: opt["size"])
     return sorted(items, key=lambda opt: opt["price"], reverse=True)
 
@@ -414,14 +404,14 @@ def render_price_qty(opt: dict, copy: dict) -> str:
 
 
 def render_price_amount(opt: dict, copy: dict, lang: str) -> str:
-    if opt.get("group") == "small_group":
-        per_person, _ = small_group_rates(opt["size"], opt["price"])
+    if opt.get("group") == "family":
+        per_person = opt["price"] / opt["size"]
         data = opt[lang]
         return (
             f"""              <div class="price-list__amounts price-list__amounts--inline">
                 <p class="price-list__amount price-list__amount--group-total">€{opt['price']}<span>{copy['group_total']}</span></p>
                 <p class="price-list__amount price-list__amount--group-each">{_format_euro(per_person)}<span>{copy['per_person']}</span></p>
-                <p class="price-list__saving">{data['saving']}</p>
+                <p class="price-list__saving">{data['includes']}</p>
               </div>"""
         )
     if opt.get("child_price"):
@@ -439,28 +429,21 @@ def render_price_sections(lang: str) -> str:
     book_base = f"/{lang}/{BOOKING_SLUGS[lang]}/"
     default_guests = 1
     sections = []
-    for group in ("packages", "small_group", "single"):
+    for group in ("packages", "family", "single"):
         items = options_for_group(lang, group)
         if not items:
             continue
         rows = []
         for opt in items:
             data = opt[lang]
-            if opt.get("group") == "small_group":
+            if opt.get("group") == "family":
                 data_attrs = f'data-fixed-guests="{opt["size"]}" data-flat-price'
             elif opt.get("child_price"):
                 data_attrs = 'data-adults="1" data-children="0" data-has-child-price'
             else:
                 data_attrs = f'data-guests="{default_guests}"'
-            auto_note = ""
-            if opt["id"] == WHOLE_PARK_CATAPULT_PACKAGE:
-                data_attrs += f' data-auto-small-group data-auto-small-group-hint="{copy["auto_small_group_hint"]}"'
-                auto_note = (
-                    '\n            <p class="price-list__auto-discount" data-auto-small-group-note '
-                    'hidden aria-live="polite"></p>'
-                )
             rows.append(
-                f"""        <li class="price-list__item{' price-list__item--group' if opt.get('group') == 'small_group' else ''}" {data_attrs}>
+                f"""        <li class="price-list__item{' price-list__item--group' if opt.get('group') == 'family' else ''}" {data_attrs}>
           <div class="price-list__info">
             <h3>{data['name']}</h3>
             <p>{data['desc']}</p>
@@ -468,15 +451,15 @@ def render_price_sections(lang: str) -> str:
           <div class="price-list__aside">
             <div class="price-list__meta">
 {render_price_amount(opt, copy, lang)}
-{'' if opt.get('group') == 'small_group' else render_price_qty(opt, copy)}
-            </div>{auto_note}
+{'' if opt.get('group') == 'family' else render_price_qty(opt, copy)}
+            </div>
             <a class="btn-primary price-list__book-btn" data-book-package="{opt['id']}" href="{book_base}">{copy['book']}</a>
           </div>
         </li>"""
             )
         intro = ""
-        if group == "small_group":
-            intro = f'        <p class="price-section__intro">{copy["small_group_intro"]}</p>\n'
+        if group == "family":
+            intro = f'        <p class="price-section__intro">{copy["family_intro"]}</p>\n'
         sections.append(
             f"""      <section class="price-section" aria-labelledby="price-{group}-heading">
         <h2 id="price-{group}-heading">{GROUP_LABELS[lang][group]}</h2>
