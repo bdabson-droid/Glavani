@@ -282,11 +282,11 @@ def build_faq_schema(
         "url": url,
         "name": name,
         "inLanguage": "hr-HR" if lang == "hr" else "en-GB",
-        "isPartOf": {"@id": f"{BASE}/en/#glavani-park"},
+        "isPartOf": {"@id": f"{BASE}/{lang}/#glavani-park"},
         "about": {
             "@type": ["AmusementPark", "TouristAttraction"],
             "name": "Glavani Park",
-            "url": f"{BASE}/en/",
+            "url": f"{BASE}/{lang}/",
         },
         "mainEntity": [
             {

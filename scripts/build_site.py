@@ -55,6 +55,7 @@ from activity_reviews import render_activity_reviews  # noqa: E402
 from activity_seo import render_activity_seo_footer  # noqa: E402
 from trust_signals import book_cta_labels, render_trust_strip  # noqa: E402
 from visitor_gallery import ACTIVITY_GALLERY_MAP, GALLERY_BY_IMAGE, HOME_GALLERY_IMAGES, VISITOR_GALLERY  # noqa: E402
+from migration_redirects import render_redirect_script, render_redirects_file  # noqa: E402
 
 BASE = "https://www.glavanipark.com"
 TODAY = date.today().isoformat()
@@ -322,9 +323,9 @@ def relativize_site() -> None:
         rel = html_file.relative_to(ROOT)
         if rel == Path("index.html"):
             text = html_file.read_text(encoding="utf-8")
-            text = text.replace('url=/en/', 'url=en/')
-            text = text.replace("location.replace('/en/", "location.replace('en/")
-            text = text.replace('href="/en/"', 'href="en/"')
+            text = text.replace('url=/en/', 'url=hr/')
+            text = text.replace("location.replace('/en/", "location.replace('hr/")
+            text = text.replace('href="/en/"', 'href="hr/"')
             html_file.write_text(text, encoding="utf-8")
             continue
         if rel == Path("404.html"):
@@ -592,6 +593,7 @@ def head_meta(
     og_image: str = "glavani-park-adventure-istria-croatia.jpg",
     og_image_alt: str | None = None,
     extra_head: str = "",
+    early_head: str = "",
     robots: str = "index, follow",
     body_class: str = "theme-page",
 ) -> str:
@@ -609,6 +611,7 @@ def head_meta(
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{early_head}
   <title>{safe_title}</title>
   <meta name="description" content="{safe_desc}">
   <meta name="keywords" content="{safe_keywords}">
@@ -685,7 +688,12 @@ def json_ld_script(data: dict | list) -> str:
     return f'<script type="application/ld+json">\n{json.dumps(data, indent=2, ensure_ascii=False)}\n</script>'
 
 
+def site_org_id(lang: str) -> str:
+    return f"{BASE}/{lang}/#glavani-park"
+
+
 def webpage_schema(url: str, name: str, description: str, lang: str) -> dict:
+    org = site_org_id(lang)
     return {
         "@context": "https://schema.org",
         "@type": "WebPage",
@@ -694,13 +702,14 @@ def webpage_schema(url: str, name: str, description: str, lang: str) -> dict:
         "name": name,
         "description": description,
         "inLanguage": "hr-HR" if lang == "hr" else "en-GB",
-        "isPartOf": {"@id": f"{BASE}/en/#glavani-park"},
-        "about": {"@id": f"{BASE}/en/#glavani-park"},
+        "isPartOf": {"@id": org},
+        "about": {"@id": org},
     }
 
 
 def activity_page_schema(activity: dict, lang: str, url: str) -> list[dict]:
     data = activity[lang]
+    org = site_org_id(lang)
     schemas: list[dict] = [
         {
             "@context": "https://schema.org",
@@ -710,7 +719,7 @@ def activity_page_schema(activity: dict, lang: str, url: str) -> list[dict]:
             "description": data["meta_description"],
             "url": url,
             "image": f"{BASE}/images/{activity['image']}",
-            "isPartOf": {"@id": f"{BASE}/en/#glavani-park"},
+            "isPartOf": {"@id": org},
             "touristType": "Adventure traveler",
         }
     ]
@@ -726,7 +735,7 @@ def activity_page_schema(activity: dict, lang: str, url: str) -> list[dict]:
                 "priceCurrency": "EUR",
                 "availability": "https://schema.org/InStock",
                 "url": f"{BASE}/{lang}/{book_slug}/",
-                "seller": {"@id": f"{BASE}/en/#glavani-park"},
+                "seller": {"@id": org},
             }
         )
     video_id = activity.get("youtube_id")
@@ -1864,7 +1873,7 @@ def render_404_page() -> str:
     phone_en = PHONES[0]
     phone_hr = PHONES[1]
 
-    return f"""{head_meta("en", en["title"], en["description"], en["keywords"], canonical, is_home=True, robots="noindex, follow", body_class="theme-page page-404")}
+    return f"""{head_meta("en", en["title"], en["description"], en["keywords"], canonical, is_home=True, robots="noindex, follow", body_class="theme-page page-404", early_head=render_redirect_script())}
 {quick_actions("en")}
   <div class="visit-cta-bar" aria-label="Book tickets and today's status">
     <div class="visit-cta-bar__inner">
@@ -2229,27 +2238,32 @@ def build_sitemap(urls: list[tuple[str, str]]) -> None:
 def build_robots() -> None:
     content = f"""User-agent: *
 Allow: /
+Disallow: /upload/
 
 Sitemap: {BASE}/sitemap.xml
 """
     write_file(ROOT / "robots.txt", content)
 
 
+def build_redirects() -> None:
+    write_file(ROOT / "_redirects", render_redirects_file())
+
+
 def build_root_redirect() -> None:
     content = """<!DOCTYPE html>
-<html lang="en">
+<html lang="hr">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=en/">
-  <meta name="description" content="Glavani Park — adventure and zipline park in Istria, Croatia near Pula.">
-  <link rel="canonical" href="https://www.glavanipark.com/en/">
+  <meta http-equiv="refresh" content="0; url=hr/">
+  <meta name="description" content="Glavani Park — avanturistički i zipline park u Istri, Hrvatska kod Pule.">
+  <link rel="canonical" href="https://www.glavanipark.com/hr/">
   <link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/">
   <link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/">
   <link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/">
-  <title>Glavani Park | Adventure Park Istria, Croatia</title>
-  <script>location.replace('en/');</script>
+  <title>Glavani Park | Avanturistički park Istria, Hrvatska</title>
+  <script>location.replace('hr/');</script>
 </head>
-<body><p><a href="en/">Glavani Park – Adventure Park Istria</a></p></body>
+<body><p><a href="hr/">Glavani Park – Avanturistički park Istria</a></p></body>
 </html>"""
     write_file(ROOT / "index.html", content)
 
@@ -2324,9 +2338,10 @@ def main() -> None:
         write_file(ROOT / "hr" / event["hr_slug"] / "index.html", render_event_page(event, "hr"))
         sitemap_urls.append((f"{BASE}/hr/{event['hr_slug']}/", "monthly"))
 
-    print("Writing robots.txt and sitemap.xml...")
+    print("Writing robots.txt, sitemap.xml, and migration redirects...")
     build_robots()
     build_sitemap(sitemap_urls)
+    build_redirects()
     build_root_redirect()
     build_404()
     relativize_site()

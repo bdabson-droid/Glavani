@@ -3,6 +3,117 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+(function () {
+  var exact = {
+    "/": "/hr/",
+    "/de": "/en/",
+    "/en": "/en/",
+    "/en/about_us/6": "/en/",
+    "/en/activities/3": "/en/adventure-park-croatia/",
+    "/en/adventure/2": "/en/adventure-park-croatia/",
+    "/en/birthdays_in_glavani_park/44/3": "/en/birthday-parties-istria/",
+    "/en/birthdays_in_glavani_park/47/2": "/en/birthday-parties-istria/",
+    "/en/blog/7": "/en/",
+    "/en/galerija": "/en/adventure-park-croatia/",
+    "/en/gift_card/4": "/en/prices/",
+    "/en/gift_voucher/4": "/en/prices/",
+    "/en/izjava_o_privatnosti/5/8": "/en/",
+    "/en/izvaja_o_privatnosti/5/8": "/en/",
+    "/en/location/5": "/en/things-to-do-near-pula/#location-map",
+    "/en/naslovna/10": "/en/",
+    "/en/opci_uvjeti_koristenja/6/8": "/en/",
+    "/en/partners/64/12": "/en/partners/",
+    "/en/prices/13": "/en/prices/",
+    "/en/ready_to_feel_some_adrenaline/11/10": "/en/adventure-park-croatia/",
+    "/en/reklamacije_i_povrati/7/8": "/en/faq/",
+    "/en/routes_for_all_ages/1/3": "/en/training-route/",
+    "/en/staff/9/10": "/en/partners/",
+    "/en/team_building_program/57/3": "/en/team-building-istria/",
+    "/en/the_glavani_crew/9": "/en/partners/",
+    "/en/upit": "/en/book/",
+    "/hr": "/hr/",
+    "/hr/adventure/2": "/hr/avanturisticki-park-hrvatska/",
+    "/hr/aktivnosti/3": "/hr/avanturisticki-park-hrvatska/",
+    "/hr/avantura/2": "/hr/avanturisticki-park-hrvatska/",
+    "/hr/blog/7": "/hr/",
+    "/hr/cjenik/13": "/hr/cijene/",
+    "/hr/galerija": "/hr/avanturisticki-park-hrvatska/",
+    "/hr/gift_card/4": "/hr/cijene/",
+    "/hr/glavani_park_tim/9": "/hr/partneri/",
+    "/hr/izjava_o_privatnosti/5/8": "/hr/",
+    "/hr/izvaja_o_privatnosti/5/8": "/hr/",
+    "/hr/jedinstveno_okruzenje_u_centru_istre/11/10": "/hr/avanturisticki-park-hrvatska/",
+    "/hr/lokacija/5": "/hr/sto-raditi-kod-pule/#location-map",
+    "/hr/naslovna/10": "/hr/",
+    "/hr/o_nama/6": "/hr/",
+    "/hr/opci_uvjeti_koristenja/6/8": "/hr/",
+    "/hr/osoblje/9/10": "/hr/partneri/",
+    "/hr/partneri/64/12": "/hr/partneri/",
+    "/hr/poklon_bon/4": "/hr/cijene/",
+    "/hr/reklamacije_i_povrati/7/8": "/hr/cesta-pitanja/",
+    "/hr/rodendani_u_glavani_parku/44/3": "/hr/rodjendanske-zabave-istri/",
+    "/hr/rodendani_u_glavani_parku/47/2": "/hr/rodjendanske-zabave-istri/",
+    "/hr/staze_za_sve_uzraste/1/3": "/hr/trening-ruta/",
+    "/hr/team_building_program/57/3": "/hr/team-building-istri/",
+    "/hr/upit": "/hr/rezervacija/",
+    "/it": "/en/",
+    "/nl": "/en/",
+    "/ru": "/en/"
+  };
+  var prefixes = [
+    ["/hr/ljudski_katapult", "/hr/ljudska-katapulta/"],
+    ["/en/human_catapult", "/en/human-catapult/"],
+    ["/hr/12_", "/hr/visoka-ljuljacka/"],
+    ["/en/giant_swing", "/en/high-swing/"],
+    ["/hr/zuta_staza", "/hr/trening-ruta/"],
+    ["/en/yellow_route", "/en/training-route/"],
+    ["/hr/quick_jump", "/hr/pad-s-20m/"],
+    ["/en/quick_jump", "/en/20m-drop/"],
+    ["/hr/stijena_za_penjanje", "/hr/penjacki-zid/"],
+    ["/en/climbing_wall", "/en/climbing-wall/"],
+    ["/hr/most_s_monociklom", "/hr/most-s-monociklom/"],
+    ["/en/devils_causeway", "/en/devils-causeway/"],
+    ["/hr/nevenko_bulic", "/hr/partneri/"],
+    ["/hr/nigel_simpson", "/hr/partneri/"],
+    ["/en/nevenko_bulic", "/en/partners/"],
+    ["/en/nigel_simpson", "/en/partners/"],
+    ["/hr/g/nevenko_bulic", "/hr/partneri/"],
+    ["/en/g/nevenko_bulic", "/en/partners/"],
+    ["/hr/rodendani", "/hr/rodjendanske-zabave-istri/"],
+    ["/en/birthdays_in_glavani", "/en/birthday-parties-istria/"],
+    ["/hr/team_building", "/hr/team-building-istri/"],
+    ["/en/team_building", "/en/team-building-istria/"],
+    ["/hr/cjenik", "/hr/cijene/"],
+    ["/hr/lokacija", "/hr/sto-raditi-kod-pule/#location-map"],
+    ["/en/location", "/en/things-to-do-near-pula/#location-map"],
+    ["/hr/o_nama", "/hr/"],
+    ["/en/about_us", "/en/"],
+    ["/hr/poklon_bon", "/hr/cijene/"],
+    ["/hr/gift_card", "/hr/cijene/"],
+    ["/en/gift_card", "/en/prices/"],
+    ["/en/gift_voucher", "/en/prices/"],
+    ["/de/", "/en/"],
+    ["/it/", "/en/"],
+    ["/ru/", "/en/"],
+    ["/nl/", "/en/"],
+  ];
+  var path = location.pathname.replace(/\/+$/,'') || '/';
+  path = path.toLowerCase();
+  var target = exact[path];
+  if (!target) {
+    for (var i = 0; i < prefixes.length; i++) {
+      if (path === prefixes[i][0] || path.indexOf(prefixes[i][0]) === 0) {
+        target = prefixes[i][1];
+        break;
+      }
+    }
+  }
+  if (target) {
+    location.replace(target);
+  }
+})();
+</script>
   <title>Page Not Found | Glavani Park Istria</title>
   <meta name="description" content="This page could not be found. Browse Glavani Park prices, book tickets online, see our attractions, or check opening hours — Croatia's number 1 adventure park in Istria.">
   <meta name="keywords" content="Glavani Park, page not found, adventure park Istria, book tickets">

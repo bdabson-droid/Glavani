@@ -37,7 +37,7 @@ jobs:
         run: |
           mkdir -p _site
           cp -r assets en hr images _site/
-          cp index.html robots.txt sitemap.xml manifest.webmanifest _site/
+          cp index.html 404.html robots.txt sitemap.xml _redirects manifest.webmanifest _site/
           touch _site/.nojekyll
 
       - name: Upload Pages artifact
