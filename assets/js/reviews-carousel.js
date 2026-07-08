@@ -2,6 +2,12 @@
  * Reviews carousel — show all TripAdvisor reviews, newest first, horizontal scroll.
  */
 (function () {
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function scrollBehavior() {
+    return prefersReducedMotion ? 'auto' : 'smooth';
+  }
+
   function scrollToCard(track, card) {
     if (!card) return;
     const trackRect = track.getBoundingClientRect();
@@ -28,7 +34,7 @@
     }
 
     function scrollBy(direction) {
-      track.scrollBy({ left: direction * scrollStep(), behavior: 'smooth' });
+      track.scrollBy({ left: direction * scrollStep(), behavior: scrollBehavior() });
     }
 
     prev.addEventListener('click', () => scrollBy(-1));

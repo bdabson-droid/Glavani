@@ -2,6 +2,12 @@
  * Photo gallery carousel — horizontal scroll for event page galleries.
  */
 (function () {
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function scrollBehavior() {
+    return prefersReducedMotion ? 'auto' : 'smooth';
+  }
+
   function scrollToSlide(track, slide) {
     if (!slide) return;
     const trackRect = track.getBoundingClientRect();
@@ -26,7 +32,7 @@
     }
 
     function scrollBy(direction) {
-      track.scrollBy({ left: direction * scrollStep(), behavior: 'smooth' });
+      track.scrollBy({ left: direction * scrollStep(), behavior: scrollBehavior() });
     }
 
     prev.addEventListener('click', () => scrollBy(-1));
