@@ -36,8 +36,8 @@ ACTIVITIES = [
             "hero_badge": "0–100 km/h in one second",
             "image_alt": "Human Catapult launch at Glavani Park adrenaline park, Istria Croatia",
             "paragraphs": [
-                "Strap in and feel the rush as powerful elastic cables launch you from standstill to motorway speed in a single second. The Human Catapult at Glavani Park is one of the park's signature adrenaline rides — a controlled, instructor-led experience in the oak forest between Barban and Vodnjan.",
-                "Staff fit your harness, run a full safety briefing, and supervise every launch. Minimum age and height requirements apply; ask at the ticket desk or call ahead if you are unsure. Allow time in your visit for briefing and queueing — the catapult is a highlight visitors often repeat.",
+                "Feel motorway-speed acceleration in a single second on Croatia's only Human Catapult — one of only a handful of horizontal catapult rides in Europe. Strap in, hold the release, and go from 0 to around 100 km/h quicker than an F1 car off the line.",
+                "Staff fit your harness, run a full safety briefing, and supervise every launch. More than 9,000 catapults have been completed at Glavani Park and almost every guest loves it. Minimum age, height and weight limits apply — ask at the ticket desk or call ahead if you are unsure.",
             ],
             "video_heading": "Human Catapult video",
             "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
@@ -53,11 +53,86 @@ ACTIVITIES = [
             "hero_badge": "0–100 km/h u jednoj sekundi",
             "image_alt": "Lansiranje ljudske katapulata u Glavani Parku, Istria Hrvatska",
             "paragraphs": [
-                "Zavežite se i osjetite naboj dok vas elastična užad lansiraju od mirovanja do brzine autoceste u jednoj sekundi. Ljudska katapulta u Glavani Parku jedna je od glavnih adrenalinskih atrakcija — kontrolirano iskustvo pod nadzorom instruktora u hrastovoj šumi između Barbana i Vodnjanja.",
-                "Osoblje prilagođava harnes, provodi sigurnosnu obuku i nadzire svako lansiranje. Primjenjuju se minimalna dob i visina; pitajte na blagajni ili nazovite unaprijed. Ostavite dovoljno vremena za obuku i čekanje — katapulta je atrakcija koju posjetitelji često ponavljaju.",
+                "Osjetite ubrzanje do brzine autoceste u jednoj sekundi na jedinoj ljudskoj katapulti u Hrvatskoj — jedna od rijetkih horizontalnih katapulti u Europi. Zavežite se, povucite za puštanje i krenite s 0 na oko 100 km/h brže nego Formula 1 s mjesta.",
+                "Osoblje prilagođava harnes, provodi sigurnosnu obuku i nadzire svako lansiranje. U Glavani Parku je obavljeno više od 9.000 lansiranja i gotovo svi gosti odlaze oduševljeni. Primjenjuju se minimalna dob, visina i težina — pitajte na blagajni ili nazovite unaprijed.",
             ],
             "video_heading": "Video ljudske katapulata",
             "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
+        },
+        "extra_faqs": {
+            "en": [
+                {
+                    "q": "Is the Human Catapult scary?",
+                    "a": (
+                        "For most people, no. The sensation is intense but brief — many visitors arrive "
+                        "nervous and leave thrilled. You can watch others go first, and staff explain every step."
+                    ),
+                },
+                {
+                    "q": "How fast is the Human Catapult?",
+                    "a": (
+                        "You accelerate from 0 to around 100 km/h in roughly one second — quicker than "
+                        "a Formula 1 car from a standing start."
+                    ),
+                },
+                {
+                    "q": "Can I book just the Human Catapult?",
+                    "a": (
+                        "Yes. The Human Catapult is €40 as a single activity. "
+                        '<a href="/en/book/">Book online</a> for up to 6 people or call for larger groups.'
+                    ),
+                },
+                {
+                    "q": "Can spectators watch the Human Catapult?",
+                    "a": (
+                        "Yes. Friends and family can watch from the viewing area — many grab a drink or "
+                        "ice cream while they wait. It is often as fun to watch as to ride."
+                    ),
+                },
+                {
+                    "q": "Can I film my Human Catapult ride?",
+                    "a": (
+                        "Yes. Use a friend to film or a securely attached action camera. "
+                        "We cannot be held responsible for damage to personal equipment."
+                    ),
+                },
+            ],
+            "hr": [
+                {
+                    "q": "Je li ljudska katapulta zastrašujuća?",
+                    "a": (
+                        "Za većinu ljudi ne. Osjećaj je intenzivan ali kratak — mnogi dolaze nervozni "
+                        "i odlaze oduševljeni. Možete gledati druge prije nego odlučite, a osoblje objašnjava svaki korak."
+                    ),
+                },
+                {
+                    "q": "Koliko je brza ljudska katapulta?",
+                    "a": (
+                        "Ubrzanje ide s 0 na oko 100 km/h u otprilike jednoj sekundi — brže nego Formula 1 s mjesta."
+                    ),
+                },
+                {
+                    "q": "Mogu li rezervirati samo ljudsku katapultu?",
+                    "a": (
+                        "Da. Ljudska katapulta košta €40 kao pojedinačna aktivnost. "
+                        '<a href="/hr/rezervacija/">Rezervirajte online</a> za do 6 osoba ili nazovite za veće grupe.'
+                    ),
+                },
+                {
+                    "q": "Mogu li gledatelji promatrati katapultu?",
+                    "a": (
+                        "Da. Prijatelji i obitelj mogu gledati s vidikovca — mnogi uzmu piće ili sladoled dok čekaju. "
+                        "Često je jednako zabavno gledati kao voziti."
+                    ),
+                },
+                {
+                    "q": "Mogu li snimati vožnju na katapulti?",
+                    "a": (
+                        "Da. Koristite prijatelja za snimanje ili sigurno pričvršćenu action kameru. "
+                        "Ne možemo preuzeti odgovornost za oštećenje osobne opreme."
+                    ),
+                },
+            ],
         },
     },
     {
@@ -78,8 +153,8 @@ ACTIVITIES = [
             "hero_badge": "12.5 m above the forest",
             "image_alt": "12.5 metre high swing at Glavani Park adventure park, Istria",
             "paragraphs": [
-                "Step off the platform and arc through the treetops on Glavani Park's 12.5-metre high swing. The ride combines height, speed, and a long pendulum swing that gives you time to take in the forest canopy before the gentle return.",
-                "Instructors secure your harness, explain body position and signals, and control each release. The high swing suits teenagers and adults who meet height requirements and is a favourite alongside the ziplines and catapult for a mixed-adrenaline day out.",
+                "Climb 12.5 metres, pull the release cord yourself, and experience one of the biggest swings in Croatia. Arc through the oak treetops on a long pendulum that mixes weightlessness at the top with speed at the bottom.",
+                "Instructors secure your harness, explain body position and signals, and guide each release. The high swing suits confident teenagers and adults who meet height requirements — a favourite alongside the ziplines and Human Catapult for a mixed-adrenaline day out.",
             ],
             "video_heading": "High Swing video",
             "video_notice": (
@@ -99,8 +174,8 @@ ACTIVITIES = [
             "hero_badge": "12,5 m iznad šume",
             "image_alt": "Visoka ljuljačka 12,5 m u Glavani Parku, Istria",
             "paragraphs": [
-                "Korak s platforme i let kroz krošnje na ljuljački visokoj 12,5 metara u Glavani Parku. Vožnja spaja visinu, brzinu i dugi zamašaj koji vam daje trenutak pogleda na šumski krov prije nježnog povratka.",
-                "Instruktori pričvršćuju harnes, objašnjavaju položaj tijela i signale te kontroliraju svako puštanje. Ljuljačka pogoduje tinejdžerima i odraslima koji zadovoljavaju uvjete visine i omiljena je uz zipline i katapultu.",
+                "Penjite se 12,5 metara, povucite užad za puštanje sami i osjetite jednu od najvećih ljuljački u Hrvatskoj. Letite kroz hrastove krošnje u dugom zamašaju koji spaja nježnost na vrhu s brzinom na dnu.",
+                "Instruktori pričvršćuju harnes, objašnjavaju položaj tijela i signale te vode svako puštanje. Ljuljačka pogoduje samouvjerenim tinejdžerima i odraslima koji zadovoljavaju uvjete visine — omiljena uz zipline i ljudsku katapultu.",
             ],
             "video_heading": "Video visoke ljuljačke",
             "video_notice": (
@@ -429,7 +504,7 @@ def activity_faqs(activity: dict, lang: str) -> list[dict]:
 
     if lang == "en":
         price_a = package_price_faq_answer("en", prefix, single_price=single_price)
-        return [
+        faqs = [
             {
                 "q": f"How much does {h1} cost at Glavani Park?",
                 "a": price_a,
@@ -447,9 +522,11 @@ def activity_faqs(activity: dict, lang: str) -> list[dict]:
                 ),
             },
         ]
+        faqs.extend(activity.get("extra_faqs", {}).get("en", []))
+        return faqs
 
     price_a = package_price_faq_answer("hr", prefix, single_price=single_price)
-    return [
+    faqs = [
         {
             "q": f"Koliko košta {h1} u Glavani Parku?",
             "a": price_a,
@@ -467,3 +544,5 @@ def activity_faqs(activity: dict, lang: str) -> list[dict]:
             ),
         },
     ]
+    faqs.extend(activity.get("extra_faqs", {}).get("hr", []))
+    return faqs

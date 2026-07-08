@@ -74,6 +74,28 @@ LOCATION_MAP_HEAD = """
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>"""
 
+PAGE_SCRIPTS = {
+    "open-status": "/assets/js/open-status.js",
+    "photo-gallery": "/assets/js/photo-gallery-carousel.js",
+    "prices-book": "/assets/js/prices-book.js",
+    "booking-app": "/assets/js/booking-app.js",
+    "location-map": "/assets/js/location-map.js",
+}
+
+
+def render_page_scripts(*needs: str) -> str:
+    """Emit script tags only for the bundles a page actually uses."""
+    seen: set[str] = set()
+    lines: list[str] = []
+    for key in needs:
+        if key in seen:
+            continue
+        path = PAGE_SCRIPTS.get(key)
+        if path:
+            seen.add(key)
+            lines.append(f'<script src="{path}" defer></script>')
+    return "\n".join(lines)
+
 # Reverse map EN slug -> HR slug
 EN_TO_HR = {v: k for k, v in SLUG_MAP.items()}
 EN_TO_HR.update({v: k for k, v in ACTIVITY_SLUG_MAP.items()})
@@ -439,8 +461,7 @@ def visitor_bar(lang: str) -> str:
         <strong>{copy['hours_label']}</strong> {copy['hours']}
       </p>
     </div>
-  </div>
-  <script src="/assets/js/open-status.js" defer></script>"""
+  </div>"""
 
 
 def site_header(lang: str) -> str:
@@ -824,8 +845,7 @@ def render_location_map(lang: str) -> str:
           </div>
         </div>
       </div>
-    </section>
-<script src="/assets/js/location-map.js" defer></script>"""
+    </section>"""
 
 
 def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
@@ -859,6 +879,10 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
     img = page.get("image", "glavani-park-adventure-istria-croatia.jpg")
     location_map = render_location_map(lang) if page.get("location_map") else ""
     map_head = LOCATION_MAP_HEAD if page.get("location_map") else ""
+    page_scripts = render_page_scripts(
+        "open-status",
+        *("location-map",) if page.get("location_map") else (),
+    )
     page_faqs = page.get("faqs") or []
     faq_block = ""
     faq_schema = ""
@@ -922,6 +946,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
 {breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (page['h1'], None)])}
 {faq_schema}
 {json_ld_script(webpage_schema(canonical, page['h1'], page['meta_description'], lang))}
+{page_scripts}
 </body>
 </html>"""
     return body
@@ -1167,7 +1192,7 @@ def render_activities_hub_page(lang: str) -> str:
 {breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (copy['h1'], None)])}
 {json_ld_script(webpage_schema(canonical, copy['h1'], copy['meta_description'], lang))}
 {json_ld_script(activities_hub_itemlist_schema(lang, canonical))}
-<script src="/assets/js/prices-book.js" defer></script>
+{render_page_scripts("open-status", "prices-book")}
 </body>
 </html>"""
 
@@ -1325,10 +1350,9 @@ def render_activity_page(activity: dict, lang: str) -> str:
     inline_cta = render_conversion_cta(lang, compact=True)
     review_teaser = render_activity_reviews(activity, lang)
     visitor_photos = render_activity_visitor_photos(activity, lang)
-    gallery_script = (
-        '<script src="/assets/js/photo-gallery-carousel.js" defer></script>'
-        if visitor_photos
-        else ""
+    page_scripts = render_page_scripts(
+        "open-status",
+        *("photo-gallery",) if visitor_photos else (),
     )
 
     return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=img, og_image_alt=data['image_alt'])}
@@ -1369,7 +1393,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
 {faq_schema}
 {activity_schema_scripts}
 {json_ld_script(webpage_schema(canonical, data['h1'], data['meta_description'], lang))}
-{gallery_script}
+{page_scripts}
 </body>
 </html>"""
 
@@ -1440,6 +1464,11 @@ def render_event_page(event: dict, lang: str) -> str:
         )
 
     gallery_block = render_photo_gallery(event, lang)
+    has_gallery = bool(event.get("gallery"))
+    page_scripts = render_page_scripts(
+        "open-status",
+        *("photo-gallery",) if has_gallery else (),
+    )
 
     return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=img, og_image_alt=data['image_alt'])}
 {page_chrome(lang)}
@@ -1482,7 +1511,7 @@ def render_event_page(event: dict, lang: str) -> str:
 {breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (data['h1'], None)])}
 {faq_schema}
 {json_ld_script(webpage_schema(canonical, data['h1'], data['meta_description'], lang))}
-<script src="/assets/js/photo-gallery-carousel.js" defer></script>
+{page_scripts}
 </body>
 </html>"""
 
@@ -1720,6 +1749,7 @@ def render_faq_page(lang: str) -> str:
 {breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (copy['h1'], None)])}
 {json_ld_script(faq_page_schema(VISITOR_FAQS[lang], lang))}
 {json_ld_script(webpage_schema(canonical, copy['h1'], copy['meta_description'], lang))}
+{render_page_scripts("open-status")}
 </body>
 </html>"""
 
@@ -1769,7 +1799,7 @@ def render_prices_page(lang: str) -> str:
 {breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (copy['h1'], None)])}
 {json_ld_script(prices_offer_schema(lang, canonical, copy['h1']))}
 {json_ld_script(webpage_schema(canonical, copy['h1'], copy['meta_description'], lang))}
-<script src="/assets/js/prices-book.js" defer></script>
+{render_page_scripts("open-status", "prices-book")}
 </body>
 </html>"""
 
@@ -1839,7 +1869,7 @@ def render_booking_app(lang: str) -> str:
   <p class="book-app-notice book-app-notice--policy">{policy}</p>
 </div>
 {footer(lang)}
-<script src="/assets/js/booking-app.js" defer></script>
+{render_page_scripts("open-status", "booking-app")}
 </body>
 </html>"""
 
@@ -1934,6 +1964,7 @@ def render_home(lang: str) -> str:
 {body_content}
 {footer(lang)}
 {json_ld_script(org_schema)}
+{render_page_scripts("open-status")}
 </body>
 </html>"""
 
