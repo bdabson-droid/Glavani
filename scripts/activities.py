@@ -36,7 +36,7 @@ ACTIVITIES = [
             "hero_badge": "0–100 km/h in one second",
             "image_alt": "Human Catapult launch at Glavani Park adrenaline park, Istria Croatia",
             "paragraphs": [
-                "Feel motorway-speed acceleration in a single second on Croatia's only Human Catapult — one of only a handful of horizontal catapult rides in Europe. Strap in, hold the release, and go from 0 to around 100 km/h quicker than an F1 car off the line.",
+                "Feel race-car acceleration in a single second on Croatia's only Human Catapult — one of only a handful of horizontal catapult rides in Europe. Strap in, hold the release, and go from 0 to around 100 km/h quicker than an F1 car off the line.",
                 "Staff fit your harness, run a full safety briefing, and supervise every launch. More than 9,000 catapults have been completed at Glavani Park and almost every guest loves it. Minimum age, height and weight limits apply — ask at the ticket desk or call ahead if you are unsure.",
             ],
             "video_heading": "Human Catapult video",
@@ -53,7 +53,7 @@ ACTIVITIES = [
             "hero_badge": "0–100 km/h u jednoj sekundi",
             "image_alt": "Lansiranje ljudske katapulata u Glavani Parku, Istria Hrvatska",
             "paragraphs": [
-                "Osjetite ubrzanje do brzine autoceste u jednoj sekundi na jedinoj ljudskoj katapulti u Hrvatskoj — jedna od rijetkih horizontalnih katapulti u Europi. Zavežite se, povucite za puštanje i krenite s 0 na oko 100 km/h brže nego Formula 1 s mjesta.",
+                "Osjetite ubrzanje trkaćeg automobila u jednoj sekundi na jedinoj ljudskoj katapulti u Hrvatskoj — jedna od rijetkih horizontalnih katapulti u Europi. Zavežite se, povucite za puštanje i krenite s 0 na oko 100 km/h brže nego Formula 1 s mjesta.",
                 "Osoblje prilagođava harnes, provodi sigurnosnu obuku i nadzire svako lansiranje. U Glavani Parku je obavljeno više od 9.000 lansiranja i gotovo svi gosti odlaze oduševljeni. Primjenjuju se minimalna dob, visina i težina — pitajte na blagajni ili nazovite unaprijed.",
             ],
             "video_heading": "Video ljudske katapulata",
