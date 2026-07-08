@@ -111,8 +111,8 @@ VISITOR_FAQS = {
             "a": (
                 "Choose a package on the <a href=\"{book}\">Book page</a> or see "
                 "<a href=\"{prices}\">packages and prices</a>, pick a date, and submit your booking online. "
-                "For all advance bookings we email you to confirm your booking. "
-                "Check your spam or junk folder if you do not see our email within a few minutes. "
+                "For all advance bookings we email you to confirm your booking, usually within 24 hours. "
+                "Check your spam or junk folder if you do not see our email. "
                 "If your visit is within 48 hours, please call to book instead."
             ),
         },
@@ -186,8 +186,8 @@ VISITOR_FAQS = {
             "a": (
                 "Odaberite paket na stranici <a href=\"{book}\">Rezerviraj</a> ili pogledajte "
                 "<a href=\"{prices}\">pakete i cijene</a>, odaberite datum i pošaljite rezervaciju online. "
-                "Za sve unaprijedne rezervacije šaljemo e-mail za potvrdu rezervacije. "
-                "Provjerite i spam/junk mapu ako poruku ne vidite u nekoliko minuta. "
+                "Za sve unaprijedne rezervacije šaljemo e-mail za potvrdu rezervacije, obično u roku od 24 sata. "
+                "Provjerite i spam/junk mapu ako poruku ne vidite. "
                 "Ako je posjet unutar 48 sati, molimo nazovite umjesto online obrasca."
             ),
         },

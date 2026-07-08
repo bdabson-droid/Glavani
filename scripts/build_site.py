@@ -2058,8 +2058,8 @@ def render_booking_app(lang: str) -> str:
         )
         h1 = "Rezerviraj"
         lead = (
-            "Ispunite obrazac i pošaljite rezervaciju — za potvrdu poslat ćemo vam e-mail. "
-            "Provjerite i spam/junk mapu ako poruku ne vidite u nekoliko minuta."
+            "Ispunite obrazac i pošaljite rezervaciju — potvrdu nastojimo poslati e-mailom u roku od 24 sata. "
+            "Provjerite i spam/junk mapu ako poruku ne vidite."
         )
         amenities = (
             "<strong>Plaćanje:</strong> kartice i gotovina u parku. "
@@ -2076,8 +2076,8 @@ def render_booking_app(lang: str) -> str:
         )
         h1 = "Book"
         lead = (
-            "Fill in the form and submit your booking — we will email you to confirm. "
-            "Check your spam or junk folder if you do not see our email within a few minutes."
+            "Fill in the form and submit your booking — we aim to email you to confirm within 24 hours. "
+            "Check your spam or junk folder if you do not see our email."
         )
         amenities = (
             "<strong>Payment:</strong> card and cash accepted at the park. "
