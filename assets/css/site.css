@@ -1331,6 +1331,20 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background: rgba(141, 198, 63, 0.1);
   border-color: rgba(141, 198, 63, 0.35);
 }
+.book-app-call-notice {
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(245, 130, 32, 0.08);
+  border: 1px solid rgba(245, 130, 32, 0.35);
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  color: var(--rock-mid);
+  line-height: 1.45;
+}
+.book-app-call-notice a {
+  color: var(--orange-link);
+  font-weight: 700;
+}
 .book-within48 {
   margin: 1rem 0 0;
   padding: 1rem 1.1rem;

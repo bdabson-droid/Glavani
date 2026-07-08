@@ -79,6 +79,7 @@
       calChoose: 'Choose {date}',
       pickActivity: 'Choose your package or activity',
       pickActivityLead: 'Activity packages · small group deals for 3–6 · children under 10 on family rates · max 6 people online',
+      bookCallNotice: 'For parties of more than 6, or if you\'re looking to visit in the next couple of days, please <a href="tel:+__PHONE__">call to book</a>.',
       selectPackage: 'Select a package or activity…',
       selectGuests: 'Number of people',
       selectAdults: 'Adults',
@@ -155,6 +156,7 @@
       calChoose: 'Odaberite {date}',
       pickActivity: 'Odaberite paket ili aktivnost',
       pickActivityLead: 'Paketi aktivnosti · mali paketi za 3–6 · djeca mlađa od 10 na obiteljskim cijenama · max 6 osoba online',
+      bookCallNotice: 'Za grupe s više od 6 osoba ili ako planirate posjet u sljedećih par dana, molimo <a href="tel:+__PHONE__">nazovite za rezervaciju</a>.',
       selectPackage: 'Odaberite paket ili aktivnost…',
       selectGuests: 'Broj osoba',
       selectAdults: 'Odrasli',
@@ -647,6 +649,11 @@
     }
   }
 
+  function renderTopCallNotice() {
+    const phone = lang === 'hr' ? PHONE_HR : PHONE_EN;
+    return `<p class="book-app-call-notice">${t.bookCallNotice.replace('__PHONE__', phone)}</p>`;
+  }
+
   function renderProgress() {
     return `<ol class="book-steps" aria-label="Booking steps">
       ${t.steps.map((label, i) =>
@@ -800,6 +807,7 @@
     const panels = [renderPackageStep(), renderCalendar(), renderDetails(), renderConfirm()];
     const within48Block = step === 1 && selectedDate && isWithin48Hours(selectedDate);
     root.innerHTML = `
+      ${renderTopCallNotice()}
       ${renderProgress()}
       ${panels[step]}
       <div class="book-nav">
