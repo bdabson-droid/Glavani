@@ -4,6 +4,7 @@ Each page targets 800–1200 words of substantive Istria tourism and park conten
 """
 
 from booking_policy import BOOKING_POLICY
+from brand_voice import ONLINE_BOOKING_MAX
 
 _EN_BOOKING = BOOKING_POLICY["en"]
 
@@ -12,7 +13,7 @@ HOME = {
     "meta_description": (
         "Glavani Park is Croatia's number 1 adventure park in Istria — ziplines, high ropes, human catapult "
         "and outdoor activities near Pula, Barban & Vodnjan. Open daily 9 AM–5 PM, last entry 3 PM. "
-        "Call +385 91 896 4525 or book online for up to 5 people."
+        f"Call +385 91 896 4525 or book online for up to {ONLINE_BOOKING_MAX} people."
     ),
     "keywords": (
         "Croatia number 1 adventure park, adventure park Istria, adventure park Croatia, zipline park Istria, "

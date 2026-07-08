@@ -2,8 +2,8 @@
 
 BOOKING_EMAIL = "office@glavanipark.com"
 BOOKING_SUBMIT_URL = f"https://formsubmit.co/ajax/{BOOKING_EMAIL}"
-ONLINE_BOOKING_MAX = 5
-CALL_FOR_GROUPS_ABOVE = 5
+ONLINE_BOOKING_MAX = 10
+CALL_FOR_GROUPS_ABOVE = 10
 
 PHONES = (
     {

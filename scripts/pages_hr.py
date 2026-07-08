@@ -4,6 +4,7 @@ Svaka stranica sadrži 800–1200 riječi kvalitetnog turističkog i park sadrž
 """
 
 from booking_policy import BOOKING_POLICY
+from brand_voice import ONLINE_BOOKING_MAX
 
 _HR_BOOKING = BOOKING_POLICY["hr"]
 
@@ -27,7 +28,7 @@ HOME = {
     "meta_description": (
         'Glavani Park je broj 1 avanturistički park u Istri, Hrvatska — zipline, visoke staze, ljudska katapulta '
         'i aktivnosti na otvorenom kod Pule, Barbana i Vodnjanja. Otvoreno svaki dan 9–17 h, zadnji ulaz u 15 h. '
-        'Pozovite +385 98 224 314 ili rezervirajte online do 5 osoba.'
+        f'Pozovite +385 98 224 314 ili rezervirajte online do {ONLINE_BOOKING_MAX} osoba.'
     ),
     "keywords": (
         'broj 1 avanturistički park Hrvatska, avanturistički park Istria, avanturistički park Hrvatska, '

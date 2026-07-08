@@ -1798,7 +1798,7 @@ NOT_FOUND_COPY = {
         "prices_title": "Looking for Prices?",
         "prices_desc": "Packages from €20 children / €30 adults · family deals from €150",
         "book_title": "Book Now",
-        "book_desc": "Reserve online for up to 5 people — or call for larger groups",
+        "book_desc": f"Reserve online for up to {ONLINE_BOOKING_MAX} people — or call for larger groups",
         "activities_title": "Attractions",
         "activities_desc": "Human catapult, ziplines, high swing, climbing wall & more",
         "hours_title": "Opening Hours",
@@ -1825,7 +1825,7 @@ NOT_FOUND_COPY = {
         "prices_title": "Tražite cijene?",
         "prices_desc": "Paketi od €20 djeca / €30 odrasli · obiteljski paketi od €150",
         "book_title": "Rezervirajte sada",
-        "book_desc": "Online do 5 osoba — ili nazovite za veće grupe",
+        "book_desc": f"Online do {ONLINE_BOOKING_MAX} osoba — ili nazovite za veće grupe",
         "activities_title": "Atrakcije",
         "activities_desc": "Ljudska katapulta, zipline, visoka ljuljačka, penjački zid i više",
         "hours_title": "Radno vrijeme",
@@ -2103,7 +2103,7 @@ def render_booking_app(lang: str) -> str:
   <p class="book-app-notice">{amenities}</p>
 </div>
 <div class="book-app-wrap">
-  <script type="application/json" id="booking-app-config">{json.dumps({"lang": lang, "submitUrl": BOOKING_SUBMIT_URL, "recipientEmail": BOOKING_EMAIL})}</script>
+  <script type="application/json" id="booking-app-config">{json.dumps({"lang": lang, "submitUrl": BOOKING_SUBMIT_URL, "recipientEmail": BOOKING_EMAIL, "maxGuests": ONLINE_BOOKING_MAX, "callAbove": CALL_FOR_GROUPS_ABOVE})}</script>
   <div id="booking-app" aria-live="polite"></div>
   <p class="book-app-notice book-app-notice--children">{children_pricing_notice(lang, for_booking=True)}</p>
   <p class="book-app-notice book-app-notice--policy">{policy}</p>

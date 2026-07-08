@@ -3,6 +3,7 @@ Individual activity pages — brief copy and video placeholder per attraction.
 """
 
 from booking_policy import activity_booking_answer
+from brand_voice import ONLINE_BOOKING_MAX
 from packages import package_price_faq_answer
 
 ACTIVITY_SLUG_MAP = {
@@ -79,7 +80,7 @@ ACTIVITIES = [
                     "q": "Can I book just the Human Catapult?",
                     "a": (
                         "Yes. The Human Catapult is €40 as a single activity. "
-                        '<a href="/en/book/">Book online</a> for up to 5 people or call for larger groups.'
+                        f'<a href="/en/book/">Book online</a> for up to {ONLINE_BOOKING_MAX} people or call for larger groups.'
                     ),
                 },
                 {
@@ -115,7 +116,7 @@ ACTIVITIES = [
                     "q": "Mogu li rezervirati samo ljudsku katapultu?",
                     "a": (
                         "Da. Ljudska katapulta košta €40 kao pojedinačna aktivnost. "
-                        '<a href="/hr/rezervacija/">Rezervirajte online</a> za do 5 osoba ili nazovite za veće grupe.'
+                        f'<a href="/hr/rezervacija/">Rezervirajte online</a> za do {ONLINE_BOOKING_MAX} osoba ili nazovite za veće grupe.'
                     ),
                 },
                 {

@@ -1,6 +1,6 @@
 /**
  * Glavani Park booking — package & guest dropdowns, live pricing.
- * Groups of more than 5 must call. Bookings submit directly to the park inbox.
+ * Groups of more than 10 must call. Bookings submit directly to the park inbox.
  * Keep activity names/prices in sync with scripts/packages.py.
  */
 (function () {
@@ -17,7 +17,9 @@
     return;
   }
 
-  const MAX_GUESTS = 5;
+  const MAX_GUESTS = Number(config.maxGuests) || 10;
+  const CALL_ABOVE = Number(config.callAbove) || MAX_GUESTS;
+  const CALL_MIN = CALL_ABOVE + 1;
   const lang = config.lang === 'hr' ? 'hr' : 'en';
   const PHONE_EN = '385918964525';
   const PHONE_HR = '38598224314';
@@ -65,16 +67,16 @@
       calNext: 'Next month',
       calChoose: 'Choose {date}',
       pickActivity: 'Choose your package or activity',
-      pickActivityLead: 'Activity packages · family packages for 4 or 5 · children under 10 on family rates · max 5 people online',
-      bookCallNotice: 'For parties of more than 5, or if you\'re looking to visit in the next couple of days, please <a href="tel:+__PHONE__">call to book</a>.',
+      pickActivityLead: `Activity packages · family packages for 4 or 5 · children under 10 on family rates · max ${MAX_GUESTS} people online`,
+      bookCallNotice: `For parties of more than ${CALL_ABOVE}, or if you're looking to visit in the next couple of days, please <a href="tel:+__PHONE__">call to book</a>.`,
       selectPackage: 'Select a package or activity…',
       selectGuests: 'Number of people',
       selectAdults: 'Adults',
       selectChildren: 'Children (under 10)',
       guestsOption: '{n} person',
       guestsOptionPlural: '{n} people',
-      guestsOptionCallPlus: 'More than 5 people — please call',
-      callInsteadTitle: 'Groups of more than 5',
+      guestsOptionCallPlus: `More than ${MAX_GUESTS} people — please call`,
+      callInsteadTitle: `Groups of more than ${CALL_ABOVE}`,
       callInsteadLead: 'Please call us — we can check availability and accommodate your party.',
       callToBook: 'Call to book your group',
       priceEach: '€{price} per person',
@@ -94,7 +96,7 @@
       name: 'Your name',
       email: 'Your email address',
       phone: 'Your phone number',
-      guestsHint: 'Groups of more than 5 must call to book.',
+      guestsHint: `Groups of more than ${CALL_ABOVE} must call to book.`,
       arrival: 'Preferred start time',
       arrivalLead: '15-minute slots · your preferred start time · park open 9 AM–5 PM · last entry 3 PM',
       notes: 'Notes (optional)',
@@ -123,10 +125,10 @@
       selectDate: 'Please select a visit date.',
       fillRequired: 'Please enter your name, email address, and phone number.',
       emailInvalid: 'Please enter a valid email address.',
-      tooManyGuests: 'Online booking is for up to 5 people only. Please call to book larger groups:',
+      tooManyGuests: `Online booking is for up to ${MAX_GUESTS} people only. Please call to book larger groups:`,
       parkHours: 'Confirm on arrival · park open 9 AM – 5 PM',
       msgHeader: 'Glavani Park booking request',
-      callGroups: 'Call for groups of 6+',
+      callGroups: `Call for groups of ${CALL_MIN}+`,
     },
     hr: {
       steps: ['Paket', 'Datum', 'Podaci', 'Potvrda'],
@@ -144,16 +146,16 @@
       calNext: 'Sljedeći mjesec',
       calChoose: 'Odaberite {date}',
       pickActivity: 'Odaberite paket ili aktivnost',
-      pickActivityLead: 'Paketi aktivnosti · obiteljski paketi za 4 ili 5 · djeca mlađa od 10 na obiteljskim cijenama · max 5 osoba online',
-      bookCallNotice: 'Za grupe s više od 5 osoba ili ako planirate posjet u sljedećih par dana, molimo <a href="tel:+__PHONE__">nazovite za rezervaciju</a>.',
+      pickActivityLead: `Paketi aktivnosti · obiteljski paketi za 4 ili 5 · djeca mlađa od 10 na obiteljskim cijenama · max ${MAX_GUESTS} osoba online`,
+      bookCallNotice: `Za grupe s više od ${CALL_ABOVE} osoba ili ako planirate posjet u sljedećih par dana, molimo <a href="tel:+__PHONE__">nazovite za rezervaciju</a>.`,
       selectPackage: 'Odaberite paket ili aktivnost…',
       selectGuests: 'Broj osoba',
       selectAdults: 'Odrasli',
       selectChildren: 'Djeca (mlađa od 10)',
       guestsOption: '{n} osoba',
       guestsOptionPlural: '{n} osobe',
-      guestsOptionCallPlus: 'Više od 5 osoba — nazovite',
-      callInsteadTitle: 'Grupe s više od 5 osoba',
+      guestsOptionCallPlus: `Više od ${MAX_GUESTS} osoba — nazovite`,
+      callInsteadTitle: `Grupe s više od ${CALL_ABOVE} osoba`,
       callInsteadLead: 'Nazovite nas — provjerit ćemo dostupnost i ugostiti vašu grupu.',
       callToBook: 'Pozovite za rezervaciju grupe',
       priceEach: '€{price} po osobi',
@@ -173,7 +175,7 @@
       name: 'Ime i prezime',
       email: 'Vaša e-mail adresa',
       phone: 'Broj telefona',
-      guestsHint: 'Grupe s više od 5 osoba moraju rezervirati telefonom.',
+      guestsHint: `Grupe s više od ${CALL_ABOVE} osoba moraju rezervirati telefonom.`,
       arrival: 'Preferirano vrijeme početka',
       arrivalLead: 'Termini od 15 min · željeno vrijeme početka · park 9–17 h · zadnji ulaz 15 h',
       notes: 'Napomena (opcionalno)',
@@ -202,10 +204,10 @@
       selectDate: 'Odaberite datum posjeta.',
       fillRequired: 'Unesite ime, e-mail adresu i telefon.',
       emailInvalid: 'Unesite ispravnu e-mail adresu.',
-      tooManyGuests: 'Online rezervacija je za najviše 5 osoba. Za veće grupe nazovite:',
+      tooManyGuests: `Online rezervacija je za najviše ${MAX_GUESTS} osoba. Za veće grupe nazovite:`,
       parkHours: 'Potvrda na ulazu · park 9–17 h',
       msgHeader: 'Zahtjev za rezervaciju Glavani Park',
-      callGroups: 'Pozovite za grupe 6+',
+      callGroups: `Pozovite za grupe ${CALL_MIN}+`,
     },
   };
   const t = i18n[lang];
@@ -486,7 +488,7 @@
 
   function renderCallPanel() {
     return `<div class="book-call-panel" id="book-price-box" aria-live="polite">
-      <p class="book-call-panel__badge">${lang === 'hr' ? '6+ osoba' : '6+ guests'}</p>
+      <p class="book-call-panel__badge">${lang === 'hr' ? CALL_MIN + '+ osoba' : CALL_MIN + '+ guests'}</p>
       <h3>${t.callInsteadTitle}</h3>
       <p class="book-call-panel__lead">${t.callInsteadLead}</p>
       <a class="btn-call-book btn-call-book--panel" href="tel:+${phone}">${t.callToBook}</a>

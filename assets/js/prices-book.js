@@ -3,7 +3,7 @@
  */
 (function () {
   const STORAGE_KEY = 'glavani-book-prefill';
-  const MAX_GUESTS = 5;
+  const MAX_GUESTS = 10;
   const DEFAULT_GUESTS = 1;
 
   function getItem(el) {
