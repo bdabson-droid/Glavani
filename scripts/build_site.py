@@ -39,9 +39,6 @@ from group_events import EVENT_EXTERNAL_IMAGES, EVENT_PAGES, EVENT_SLUGS_EN, EVE
 from booking_policy import BOOKING_POLICY  # noqa: E402
 from brand_voice import (  # noqa: E402
     BOOKING_EMAIL,
-    BOOKING_FORMSUBMIT_CC,
-    BOOKING_SUBMIT_ACTION,
-    BOOKING_SUBMIT_URL,
     CALL_FOR_GROUPS_ABOVE,
     ONLINE_BOOKING_MAX,
     PHONES,
@@ -2061,14 +2058,14 @@ def render_booking_app(lang: str) -> str:
         slug, en_slug, hr_slug = "rezervacija", "book", "rezervacija"
         title = "Rezerviraj | Glavani Park – odaberite paket i datum"
         desc = (
-            f"Rezervirajte Glavani Park online za do {ONLINE_BOOKING_MAX} osoba. Ispunite obrazac — "
-            f"za potvrdu rezervacije poslat ćemo vam e-mail na {BOOKING_EMAIL}. "
+            f"Rezervirajte Glavani Park online za do {ONLINE_BOOKING_MAX} osoba. "
+            f"Odaberite paket i datum, zatim pošaljite rezervaciju e-mailom na {BOOKING_EMAIL}. "
             f"Za grupe s više od {ONLINE_BOOKING_MAX} osoba ili posjet u sljedećih par dana, nazovite."
         )
         h1 = "Rezerviraj"
         lead = (
-            "Ispunite obrazac i pošaljite rezervaciju — potvrdu nastojimo poslati e-mailom u roku od 24 sata. "
-            "Provjerite i spam/junk mapu ako poruku ne vidite."
+            f"Odaberite paket i datum, zatim otvorite e-mail s popunjenim detaljima i pošaljite na {BOOKING_EMAIL}. "
+            "Potvrdu nastojimo poslati u roku od 24 sata."
         )
         amenities = (
             "<strong>Plaćanje:</strong> kartice i gotovina u parku. "
@@ -2079,14 +2076,14 @@ def render_booking_app(lang: str) -> str:
         slug, en_slug, hr_slug = "book", "book", "rezervacija"
         title = "Book | Glavani Park – Pick Package & Date"
         desc = (
-            f"Book Glavani Park online for up to {ONLINE_BOOKING_MAX} people. Fill in the form — "
-            f"we will email you to confirm your booking at {BOOKING_EMAIL}. "
+            f"Book Glavani Park online for up to {ONLINE_BOOKING_MAX} people. "
+            f"Pick your package and date, then email your booking to {BOOKING_EMAIL}. "
             f"For parties of more than {ONLINE_BOOKING_MAX} or visits in the next couple of days, please call."
         )
         h1 = "Book"
         lead = (
-            "Fill in the form and submit your booking — we aim to email you to confirm within 24 hours. "
-            "Check your spam or junk folder if you do not see our email."
+            f"Pick your package and date, then open your email app with the details filled in and send to {BOOKING_EMAIL}. "
+            "We aim to reply with confirmation within 24 hours."
         )
         amenities = (
             "<strong>Payment:</strong> card and cash accepted at the park. "
@@ -2112,7 +2109,7 @@ def render_booking_app(lang: str) -> str:
   <p class="book-app-notice">{amenities}</p>
 </div>
 <div class="book-app-wrap">
-  <script type="application/json" id="booking-app-config">{json.dumps({"lang": lang, "submitUrl": BOOKING_SUBMIT_URL, "submitAction": BOOKING_SUBMIT_ACTION, "recipientEmail": BOOKING_EMAIL, "submitCc": BOOKING_FORMSUBMIT_CC, "maxGuests": ONLINE_BOOKING_MAX, "callAbove": CALL_FOR_GROUPS_ABOVE})}</script>
+  <script type="application/json" id="booking-app-config">{json.dumps({"lang": lang, "recipientEmail": BOOKING_EMAIL, "maxGuests": ONLINE_BOOKING_MAX, "callAbove": CALL_FOR_GROUPS_ABOVE})}</script>
   <div id="booking-app" aria-live="polite"></div>
   <p class="book-app-notice book-app-notice--children">{children_pricing_notice(lang, for_booking=True)}</p>
   <p class="book-app-notice book-app-notice--policy">{policy}</p>
