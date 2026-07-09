@@ -74,9 +74,9 @@ GLAVANI_MAPS_DIRECTIONS = (
     f"https://www.google.com/maps/dir/?api=1&destination={GLAVANI_LAT}%2C{GLAVANI_LNG}"
 )
 GLAVANI_MAPS_LINK = f"https://www.google.com/maps?q={GLAVANI_LAT},{GLAVANI_LNG}"
-HOME_VIDEO_ID = "Xn5-Jin_1-c"
-HOME_VIDEO_URL = "https://youtu.be/Xn5-Jin_1-c?is=YpNtv2goPpMCCGh-"
-HOME_VIDEO_TITLE = "GLAVANI PARK 2019 - ADVENTURE PARK CROATIA"
+HOME_VIDEO_ID = "X2bRA2Bur-M"
+HOME_VIDEO_URL = "https://youtu.be/X2bRA2Bur-M"
+HOME_VIDEO_TITLE = "Human Catapult video"
 LOCATION_MAP_HEAD = """
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>"""
