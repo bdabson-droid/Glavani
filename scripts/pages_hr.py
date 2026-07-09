@@ -176,7 +176,7 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                'Drugi — stari grad Rovinj i večera na rivi. Treći — '
                                'tartufi ili degustacija vina u unutrašnjosti, zatim '
                                'Glavani Park za <a '
-                               'href="/hr/avanturisticki-park-hrvatska/">obiteljske '
+                               'href="/hr/obiteljske-aktivnosti-istri/">obiteljske '
                                'aktivnosti</a> i zipline. Četvrti — izlet brodom na '
                                'Brijune ili opušten dan na plaži prije odlaska.</p>',
                                '<p>Glavani Park radi svaki dan od 9 do 17 sati, '
@@ -546,7 +546,7 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                'najjači doživljaj odmora. Pogledajte <a '
                                'href="/hr/avanturisticki-park-hrvatska/">avanturističke '
                                'parkove u Hrvatskoj</a>, <a '
-                               'href="/hr/avanturisticki-park-hrvatska/">obiteljske '
+                               'href="/hr/obiteljske-aktivnosti-istri/">obiteljske '
                                'aktivnosti</a> i <a href="/hr/sigurnost/">sigurnosne '
                                'postupke</a> prije dolaska.</p>',
                                '<p>Planiranje zipline dana u Istri uključuje provjeru '
@@ -893,7 +893,7 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                'taksi transfera navedite adresu Glavani 10, Barban. '
                                'Detalje atrakcija potražite na <a '
                                'href="/hr/zipline-hrvatska/">zipline Hrvatska</a>, <a '
-                               'href="/hr/avanturisticki-park-hrvatska/">obiteljske '
+                               'href="/hr/obiteljske-aktivnosti-istri/">obiteljske '
                                'aktivnosti</a> i <a '
                                'href="/hr/avanturisticki-park-hrvatska/">avanturistički '
                                'park</a> prije putovanja.</p>',
@@ -1230,7 +1230,7 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                'Rezervacije: +385 91 896 4525 (engleski), +385 98 224 '
                                '314 (hrvatski).</p>',
                                '<p>Usmjerite goste na stranice: <a '
-                               'href="/hr/avanturisticki-park-hrvatska/">obiteljske '
+                               'href="/hr/obiteljske-aktivnosti-istri/">obiteljske '
                                'aktivnosti</a>, <a href="/hr/zipline-hrvatska/">vodič '
                                'zipline</a>, <a href="/hr/team-building-istri/">team '
                                'building</a> i <a '

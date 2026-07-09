@@ -1726,14 +1726,16 @@ def home_body_en() -> str:
     body = open(ROOT / "scripts" / "home_en.html").read()
     body = body.replace("<!-- HOME_BOOKING_POLICY -->", render_home_booking_policy("en"))
     body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("en"))
-    return inject_home_extras(body, "en")
+    body = inject_home_extras(body, "en")
+    return inject_home_video_section(body, "en")
 
 
 def home_body_hr() -> str:
     body = open(ROOT / "scripts" / "home_hr.html").read()
     body = body.replace("<!-- HOME_BOOKING_POLICY -->", render_home_booking_policy("hr"))
     body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("hr"))
-    return inject_home_extras(body, "hr")
+    body = inject_home_extras(body, "hr")
+    return inject_home_video_section(body, "hr")
 
 
 def render_faq_page(lang: str) -> str:
