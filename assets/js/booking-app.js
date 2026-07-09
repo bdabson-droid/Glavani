@@ -117,6 +117,7 @@
       submitSuccessSpam: 'Please check your inbox — and your spam or junk folder if you do not see our email within 24 hours.',
       submitSuccessOk: 'Got it',
       submitError: 'Sorry, we could not send your booking right now. Please call us instead.',
+      submitActivationError: 'We could not send your booking yet. Please call us to book, or try again later.',
       newBooking: 'Make another booking',
       call: 'Call to confirm',
       copy: 'Copy details',
@@ -196,6 +197,7 @@
       submitSuccessSpam: 'Provjerite pristiglu poštu — i spam/junk mapu ako poruku ne vidite u roku od 24 sata.',
       submitSuccessOk: 'U redu',
       submitError: 'Nažalost, rezervaciju trenutno nismo mogli poslati. Molimo nazovite nas.',
+      submitActivationError: 'Rezervaciju još nismo mogli poslati. Molimo nazovite za rezervaciju ili pokušajte kasnije.',
       newBooking: 'Nova rezervacija',
       call: 'Pozovi za potvrdu',
       copy: 'Kopiraj detalje',
@@ -583,13 +585,26 @@
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
   }
 
+  function isFormSubmitSuccess(data) {
+    if (!data || typeof data !== 'object') return false;
+    const success = data.success;
+    return success === true || success === 'true';
+  }
+
+  function formSubmitErrorMessage(data) {
+    const message = data && typeof data.message === 'string' ? data.message.trim() : '';
+    if (/activation/i.test(message)) return t.submitActivationError;
+    return message || t.submitError;
+  }
+
   function buildSubmitPayload() {
     const a = selectedActivity();
-    return {
+    const payload = {
       _subject: `${t.msgHeader} – ${selectedDate}`,
       _template: 'table',
       _captcha: 'false',
       _replyto: state.email,
+      _url: window.location.href,
       name: state.name,
       email: state.email,
       phone: state.phone,
@@ -606,6 +621,8 @@
       notes: state.notes || '—',
       message: buildMessage(),
     };
+    if (config.submitCc) payload._cc = config.submitCc;
+    return payload;
   }
 
   function showSuccessDialog() {
@@ -656,12 +673,14 @@
         body: JSON.stringify(buildSubmitPayload()),
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok || !data.success) throw new Error('submit failed');
+      if (!res.ok || !isFormSubmitSuccess(data)) {
+        throw new Error(formSubmitErrorMessage(data));
+      }
       submitted = true;
       render();
       showSuccessDialog();
     } catch (err) {
-      alert(t.submitError);
+      alert(err && err.message ? err.message : t.submitError);
       if (btn) {
         btn.disabled = false;
         btn.textContent = t.sendEmail;

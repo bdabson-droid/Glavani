@@ -37,7 +37,15 @@ from faqs import (  # noqa: E402
 )
 from group_events import EVENT_EXTERNAL_IMAGES, EVENT_PAGES, EVENT_SLUGS_EN, EVENT_SLUGS_HR  # noqa: E402
 from booking_policy import BOOKING_POLICY  # noqa: E402
-from brand_voice import BOOKING_EMAIL, BOOKING_SUBMIT_URL, CALL_FOR_GROUPS_ABOVE, ONLINE_BOOKING_MAX, PHONES, VISITOR  # noqa: E402
+from brand_voice import (  # noqa: E402
+    BOOKING_EMAIL,
+    BOOKING_FORMSUBMIT_CC,
+    BOOKING_SUBMIT_URL,
+    CALL_FOR_GROUPS_ABOVE,
+    ONLINE_BOOKING_MAX,
+    PHONES,
+    VISITOR,
+)
 from packages import (  # noqa: E402
     PRICES_COPY,
     PRICES_SLUGS,
@@ -2103,7 +2111,7 @@ def render_booking_app(lang: str) -> str:
   <p class="book-app-notice">{amenities}</p>
 </div>
 <div class="book-app-wrap">
-  <script type="application/json" id="booking-app-config">{json.dumps({"lang": lang, "submitUrl": BOOKING_SUBMIT_URL, "recipientEmail": BOOKING_EMAIL, "maxGuests": ONLINE_BOOKING_MAX, "callAbove": CALL_FOR_GROUPS_ABOVE})}</script>
+  <script type="application/json" id="booking-app-config">{json.dumps({"lang": lang, "submitUrl": BOOKING_SUBMIT_URL, "recipientEmail": BOOKING_EMAIL, "submitCc": BOOKING_FORMSUBMIT_CC, "maxGuests": ONLINE_BOOKING_MAX, "callAbove": CALL_FOR_GROUPS_ABOVE})}</script>
   <div id="booking-app" aria-live="polite"></div>
   <p class="book-app-notice book-app-notice--children">{children_pricing_notice(lang, for_booking=True)}</p>
   <p class="book-app-notice book-app-notice--policy">{policy}</p>
