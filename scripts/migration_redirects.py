@@ -108,24 +108,6 @@ PREFIX_REDIRECTS: list[tuple[str, str]] = [
 ]
 
 
-def normalize_path(pathname: str) -> str:
-    """Lowercase path without trailing slash (except root)."""
-    path = pathname.split("?", 1)[0].split("#", 1)[0]
-    path = path.rstrip("/") or "/"
-    return path.lower()
-
-
-def resolve_redirect(pathname: str) -> str | None:
-    """Return redirect target for a pathname, or None if no rule matches."""
-    path = normalize_path(pathname)
-    if path in EXACT_REDIRECTS:
-        return EXACT_REDIRECTS[path]
-    for prefix, target in PREFIX_REDIRECTS:
-        if path == prefix or path.startswith(prefix):
-            return target
-    return None
-
-
 def render_redirect_script() -> str:
     """Inline script for 404.html — runs before paint to redirect legacy URLs."""
     exact_items = ",\n    ".join(f'"{k}": "{v}"' for k, v in sorted(EXACT_REDIRECTS.items()))

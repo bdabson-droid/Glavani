@@ -14,7 +14,6 @@ def booking_page_href(lang: str) -> str:
     """Booking page path (relativized at build time for GitHub Pages)."""
     return f"/{lang}/{BOOKING_SLUGS[lang]}/"
 
-WHOLE_PARK_SINGLE_ADULT = 70
 CHILD_MAX_AGE = 10
 
 GROUP_LABELS = {
@@ -34,8 +33,6 @@ FAMILY_PACKAGES = [
     {"id": "whole-park-family-4", "size": 4, "price": 150, "catapults": 2},
     {"id": "whole-park-family-5", "size": 5, "price": 200, "catapults": 3},
 ]
-
-WHOLE_PARK_CATAPULT_PACKAGE = "all-incl-catapult"
 
 BOOKING_OPTIONS = [
     {

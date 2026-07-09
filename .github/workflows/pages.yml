@@ -35,6 +35,15 @@ jobs:
           SITE_BASE: https://bdabson-droid.github.io/Glavani
         run: python3 scripts/build_site.py
 
+      - name: Verify build output
+        run: |
+          test -f en/reservation/index.html
+          test ! -d en/book
+          ! grep -r 'preview-banner' en hr index.html 404.html || (echo 'Preview banners still in build' && exit 1)
+          ! grep -r 'preview-booking-guard' en hr || (echo 'Preview guard still referenced' && exit 1)
+          grep -q 'href="reservation/"' en/index.html
+          grep -q 'booking-app' en/reservation/index.html
+
       - name: Prepare Pages artifact
         run: |
           mkdir -p _site

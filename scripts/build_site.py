@@ -22,8 +22,6 @@ from reviews import (  # noqa: E402
     TRIPADVISOR_URL,
     aggregate_rating,
     render_review_badge,
-    render_reviews_section,
-    render_review_teaser,
     review_list,
     reset_cache,
 )
@@ -49,6 +47,7 @@ from packages import (  # noqa: E402
     PRICES_COPY,
     PRICES_SLUGS,
     BOOKING_SLUGS,
+    booking_page_href as booking_href,
     children_pricing_notice,
     conversion_cta_note,
     price_summary,
@@ -61,7 +60,7 @@ from open_status import park_status  # noqa: E402
 from activity_reviews import render_activity_reviews  # noqa: E402
 from activity_seo import render_activity_seo_footer  # noqa: E402
 from trust_signals import book_cta_labels, render_trust_strip  # noqa: E402
-from visitor_gallery import ACTIVITY_GALLERY_MAP, GALLERY_BY_IMAGE, HOME_GALLERY_IMAGES, VISITOR_GALLERY  # noqa: E402
+from visitor_gallery import ACTIVITY_GALLERY_MAP, GALLERY_BY_IMAGE, VISITOR_GALLERY  # noqa: E402
 from migration_redirects import render_redirect_script, render_redirects_file  # noqa: E402
 
 PRODUCTION_BASE = "https://www.glavanipark.com"
@@ -74,11 +73,6 @@ def site_path_from_base() -> str:
     from urllib.parse import urlparse
 
     return urlparse(BASE).path.rstrip("/")
-
-
-def booking_href(lang: str) -> str:
-    """Booking page path (relativized at build time for GitHub Pages)."""
-    return f"/{lang}/{BOOKING_SLUGS[lang]}/"
 
 
 def footer_site_link() -> tuple[str, str]:
@@ -104,9 +98,6 @@ GLAVANI_MAPS_DIRECTIONS = (
     f"https://www.google.com/maps/dir/?api=1&destination={GLAVANI_LAT}%2C{GLAVANI_LNG}"
 )
 GLAVANI_MAPS_LINK = f"https://www.google.com/maps?q={GLAVANI_LAT},{GLAVANI_LNG}"
-HOME_VIDEO_ID = "Xn5-Jin_1-c"
-HOME_VIDEO_URL = "https://youtu.be/Xn5-Jin_1-c?is=YpNtv2goPpMCCGh-"
-HOME_VIDEO_TITLE = "GLAVANI PARK 2019 - ADVENTURE PARK CROATIA"
 LOCATION_MAP_HEAD = """
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>"""
@@ -1575,89 +1566,6 @@ def render_event_page(event: dict, lang: str) -> str:
 {page_scripts}
 </body>
 </html>"""
-
-
-def inject_reviews_section(body: str, lang: str) -> str:
-    marker = "<!-- REVIEWS_SECTION -->"
-    if marker not in body:
-        return body
-    return body.replace(marker, render_reviews_section(lang))
-
-
-def render_home_video_section(lang: str) -> str:
-    if lang == "hr":
-        heading = "Glavani Park u akciji"
-        watch_label = "Pogledajte na YouTubeu"
-    else:
-        heading = "Glavani Park in action"
-        watch_label = "Watch on YouTube"
-    return f"""<section class="section section--wide home-video" id="park-video" aria-labelledby="park-video-heading">
-      <div class="section__inner">
-        <div class="section__heading">
-          <h2 id="park-video-heading">{heading}</h2>
-        </div>
-        <div class="activity-video">
-          <div class="activity-video__slot">
-            <iframe
-              src="https://www.youtube.com/embed/{HOME_VIDEO_ID}"
-              title="{esc(HOME_VIDEO_TITLE)}"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-              loading="lazy"
-              referrerpolicy="strict-origin-when-cross-origin"></iframe>
-          </div>
-          <p class="activity-video__youtube-link">
-            <a href="{HOME_VIDEO_URL}" target="_blank" rel="noopener noreferrer">{watch_label}</a>
-          </p>
-        </div>
-      </div>
-    </section>"""
-
-
-def inject_home_video_section(body: str, lang: str) -> str:
-    marker = "<!-- HOME_VIDEO_SECTION -->"
-    if marker not in body:
-        return body
-    return body.replace(marker, render_home_video_section(lang))
-
-
-def render_visitor_gallery(lang: str) -> str:
-    alt_key = "hr_alt" if lang == "hr" else "en_alt"
-    if lang == "hr":
-        heading = "Posjetitelji u parku"
-        lead = "Prave fotografije gostiju i grupa iz Glavani Parka — avantura u hrastovoj šumi Istre"
-        prev_label = "Prethodna fotografija"
-        next_label = "Sljedeća fotografija"
-    else:
-        heading = "Visitors at the park"
-        lead = "Real guest and group photos from Glavani Park — adventure in the Istrian oak forest"
-        prev_label = "Previous photo"
-        next_label = "Next photo"
-    slides = []
-    for image_name in HOME_GALLERY_IMAGES:
-        item = GALLERY_BY_IMAGE[image_name]
-        alt = esc(item["hr_alt" if lang == "hr" else "en_alt"])
-        slides.append(
-            f"""        <figure class="photo-gallery__slide">
-          <img src="/images/{item['image']}" alt="{alt}" width="800" height="560" loading="lazy">
-        </figure>"""
-        )
-    return f"""
-    <section class="section section--theme-reviews visitor-gallery-section" aria-labelledby="visitor-gallery-heading">
-      <div class="section__inner">
-        <div class="section__heading">
-          <h2 id="visitor-gallery-heading">{heading}</h2>
-          <p>{lead}</p>
-        </div>
-        <div class="photo-gallery" data-photo-gallery>
-          <button type="button" class="photo-gallery__nav photo-gallery__nav--prev" aria-label="{prev_label}" data-gallery-prev>‹</button>
-          <div class="photo-gallery__track" tabindex="0" data-gallery-track>
-{chr(10).join(slides)}
-          </div>
-          <button type="button" class="photo-gallery__nav photo-gallery__nav--next" aria-label="{next_label}" data-gallery-next>›</button>
-        </div>
-      </div>
-    </section>"""
 
 
 def render_activity_visitor_photos(activity: dict, lang: str) -> str:
