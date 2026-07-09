@@ -1,6 +1,6 @@
 /**
  * Glavani Park booking — package & guest dropdowns, live pricing.
- * Groups of more than 10 must call. Bookings submit directly to the park inbox.
+ * Groups of more than 10 must call. Bookings open a prefilled email to the park inbox.
  * Keep activity names/prices in sync with scripts/packages.py.
  */
 (function () {
@@ -89,7 +89,7 @@
       pickDateLead: 'Open daily 9 AM–5 PM · last entry 3 PM',
       yourDetails: 'Your details',
       confirmTitle: 'Confirm booking',
-      confirmLead: 'Check your package and total below, then submit your booking. We aim to email you a confirmation within 24 hours.',
+      confirmLead: 'Check your package and total below, then open your email app to send your booking. We aim to reply with confirmation within 24 hours.',
       within48Title: 'Within 48 hours of your visit?',
       within48Lead: 'Please call to book so we can confirm availability in time.',
       within48Alert: 'Your selected date is within 48 hours. Please call to book instead of using the form.',
@@ -110,19 +110,11 @@
       adults: 'Adults',
       children: 'Children',
       pricePerPerson: 'Price per person',
-      sendEmail: 'Submit booking',
-      submitting: 'Sending…',
-      submitSuccessTitle: 'Booking submitted',
-      submitSuccess: 'Thank you — your booking request has been sent. We aim to email you to confirm your booking within 24 hours.',
-      submitSuccessSpam: 'Please check your inbox — and your spam or junk folder if you do not see our email within 24 hours.',
-      submitSuccessOk: 'Got it',
-      submitError: 'Sorry, we could not send your booking right now. Please call us instead.',
-      submitActivationError: 'We could not send your booking yet. Please call us to book, or try again later.',
+      sendEmail: 'Open email to book',
       submitMailtoTitle: 'Send your booking by email',
-      submitMailtoLead: 'We could not send the form online. Tap below to open your email app with your booking details — send it to info@glavanipark.com to complete your request.',
+      submitMailtoLead: 'Tap below to open your email app with your booking details filled in. Send the email to {email} to complete your request — we aim to reply within 24 hours.',
       submitMailtoButton: 'Open email with booking details',
       submitMailtoCall: 'Or call to book',
-      newBooking: 'Make another booking',
       call: 'Call to confirm',
       copy: 'Copy details',
       copied: 'Copied to clipboard!',
@@ -173,7 +165,7 @@
       pickDateLead: 'Otvoreno 9–17 h · zadnji ulaz 15 h',
       yourDetails: 'Vaši podaci',
       confirmTitle: 'Potvrdite rezervaciju',
-      confirmLead: 'Provjerite paket i ukupnu cijenu u nastavku, zatim pošaljite rezervaciju. Potvrdu nastojimo poslati e-mailom u roku od 24 sata.',
+      confirmLead: 'Provjerite paket i ukupnu cijenu u nastavku, zatim otvorite e-mail aplikaciju i pošaljite rezervaciju. Potvrdu nastojimo poslati u roku od 24 sata.',
       within48Title: 'Unutar 48 sati od posjeta?',
       within48Lead: 'Molimo nazovite kako bismo na vrijeme potvrdili dostupnost.',
       within48Alert: 'Odabrani datum je unutar 48 sati. Molimo nazovite umjesto online obrasca.',
@@ -194,19 +186,11 @@
       adults: 'Odrasli',
       children: 'Djeca',
       pricePerPerson: 'Cijena po osobi',
-      sendEmail: 'Pošalji rezervaciju',
-      submitting: 'Slanje…',
-      submitSuccessTitle: 'Rezervacija poslana',
-      submitSuccess: 'Hvala — vaš zahtjev za rezervaciju je poslan. Potvrdu rezervacije nastojimo poslati e-mailom u roku od 24 sata.',
-      submitSuccessSpam: 'Provjerite pristiglu poštu — i spam/junk mapu ako poruku ne vidite u roku od 24 sata.',
-      submitSuccessOk: 'U redu',
-      submitError: 'Nažalost, rezervaciju trenutno nismo mogli poslati. Molimo nazovite nas.',
-      submitActivationError: 'Rezervaciju još nismo mogli poslati. Molimo nazovite za rezervaciju ili pokušajte kasnije.',
+      sendEmail: 'Otvori e-mail za rezervaciju',
       submitMailtoTitle: 'Pošaljite rezervaciju e-mailom',
-      submitMailtoLead: 'Obrazac nismo mogli poslati online. Dodirnite ispod da otvorite e-mail aplikaciju s detaljima rezervacije — pošaljite na info@glavanipark.com.',
+      submitMailtoLead: 'Dodirnite ispod da otvorite e-mail aplikaciju s popunjenim detaljima rezervacije. Pošaljite e-mail na {email} kako biste dovršili zahtjev — potvrdu nastojimo poslati u roku od 24 sata.',
       submitMailtoButton: 'Otvori e-mail s detaljima rezervacije',
       submitMailtoCall: 'Ili nazovite za rezervaciju',
-      newBooking: 'Nova rezervacija',
       call: 'Pozovi za potvrdu',
       copy: 'Kopiraj detalje',
       copied: 'Kopirano!',
@@ -277,7 +261,6 @@
   today.setHours(0, 0, 0, 0);
 
   const state = { name: '', email: '', phone: '', guests: 1, adults: 1, children: 0, largeGroup: false, arrival: 0, notes: '' };
-  let submitted = false;
 
   const PREFILL_KEY = 'glavani-book-prefill';
 
@@ -593,89 +576,14 @@
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
   }
 
-  function isFormSubmitSuccess(data) {
-    if (!data || typeof data !== 'object') return false;
-    const success = data.success;
-    return success === true || success === 'true';
-  }
-
-  function formSubmitErrorMessage(data) {
-    const message = data && typeof data.message === 'string' ? data.message.trim() : '';
-    if (/activation/i.test(message)) return t.submitActivationError;
-    return message || t.submitError;
-  }
-
-  function buildSubmitPayload() {
-    const a = selectedActivity();
-    const payload = {
-      _subject: `${t.msgHeader} – ${selectedDate}`,
-      _template: 'table',
-      _captcha: 'false',
-      _honey: '',
-      _replyto: state.email,
-      _url: window.location.href,
-      name: state.name,
-      email: state.email,
-      phone: state.phone,
-      booking_package: a ? a.name : '—',
-      price_per_person: a ? (activityIsFamilyPackage(a)
-        ? `€${a.price} package total`
-        : activityHasChildPrice(a) ? `€${a.price} adults / €${a.child_price} children` : `€${a.price}`) : '—',
-      adults: activityHasChildPrice(a) ? String(state.adults) : '—',
-      children: activityHasChildPrice(a) ? String(state.children) : '—',
-      guests: String(guestCount()),
-      total: `€${bookingTotal()}`,
-      date: selectedDate,
-      arrival: arrivalLabel(),
-      notes: state.notes || '—',
-      message: buildMessage(),
-    };
-    if (config.submitCc) payload._cc = config.submitCc;
-    return payload;
-  }
-
-  function encodeFormBody(payload) {
-    const body = new URLSearchParams();
-    Object.entries(payload).forEach(([key, value]) => {
-      body.append(key, value == null ? '' : String(value));
-    });
-    return body;
-  }
-
   function buildMailtoLink() {
     const recipient = config.recipientEmail || 'info@glavanipark.com';
     const subject = `${t.msgHeader} – ${selectedDate}`;
     return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildMessage())}`;
   }
 
-  async function parseFormSubmitResponse(res) {
-    const text = await res.text();
-    if (!text) return {};
-    try {
-      return JSON.parse(text);
-    } catch (err) {
-      if (/success|thank you|submitted/i.test(text)) return { success: 'true' };
-      return { success: 'false', message: text.slice(0, 240) };
-    }
-  }
-
-  async function postToFormSubmit(payload) {
-    const res = await fetch(config.submitUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-        Accept: 'application/json, text/plain, */*',
-      },
-      body: encodeFormBody(payload),
-    });
-    const data = await parseFormSubmitResponse(res);
-    if (!res.ok || !isFormSubmitSuccess(data)) {
-      throw new Error(formSubmitErrorMessage(data));
-    }
-    return data;
-  }
-
-  function showMailtoFallback() {
+  function showMailtoDialog() {
+    const recipient = config.recipientEmail || 'info@glavanipark.com';
     let dialog = document.getElementById('book-mailto-dialog');
     if (!dialog) {
       dialog = document.createElement('dialog');
@@ -696,7 +604,7 @@
       document.body.appendChild(dialog);
     }
     dialog.querySelector('#book-mailto-dialog-title').textContent = t.submitMailtoTitle;
-    dialog.querySelector('.book-mailto-dialog__lead').textContent = t.submitMailtoLead;
+    dialog.querySelector('.book-mailto-dialog__lead').textContent = t.submitMailtoLead.replace('{email}', recipient);
     const emailBtn = dialog.querySelector('.book-mailto-dialog__email');
     emailBtn.textContent = t.submitMailtoButton;
     emailBtn.href = buildMailtoLink();
@@ -707,57 +615,8 @@
     else window.location.href = buildMailtoLink();
   }
 
-  function showSuccessDialog() {
-    let dialog = document.getElementById('book-success-dialog');
-    if (!dialog) {
-      dialog = document.createElement('dialog');
-      dialog.id = 'book-success-dialog';
-      dialog.className = 'book-success-dialog';
-      dialog.setAttribute('aria-labelledby', 'book-success-dialog-title');
-      dialog.innerHTML = `<div class="book-success-dialog__inner">
-        <p class="book-success-dialog__badge" aria-hidden="true">✓</p>
-        <h2 id="book-success-dialog-title"></h2>
-        <p class="book-success-dialog__lead"></p>
-        <p class="book-success-dialog__spam"></p>
-        <form method="dialog">
-          <button type="submit" class="btn-primary book-success-dialog__ok"></button>
-        </form>
-      </div>`;
-      document.body.appendChild(dialog);
-      dialog.addEventListener('close', () => {
-        document.getElementById('btn-new-booking')?.focus();
-      });
-    }
-    dialog.querySelector('#book-success-dialog-title').textContent = t.submitSuccessTitle;
-    dialog.querySelector('.book-success-dialog__lead').textContent = t.submitSuccess;
-    dialog.querySelector('.book-success-dialog__spam').textContent = t.submitSuccessSpam;
-    dialog.querySelector('.book-success-dialog__ok').textContent = t.submitSuccessOk;
-    if (typeof dialog.showModal === 'function') {
-      dialog.showModal();
-    } else {
-      alert(`${t.submitSuccess}\n\n${t.submitSuccessSpam}`);
-    }
-  }
-
-  async function submitBooking() {
-    const btn = document.getElementById('btn-submit');
-    if (btn) {
-      btn.disabled = true;
-      btn.textContent = t.submitting;
-    }
-    const payload = buildSubmitPayload();
-    try {
-      await postToFormSubmit(payload);
-      submitted = true;
-      render();
-      showSuccessDialog();
-    } catch (err) {
-      showMailtoFallback();
-      if (btn) {
-        btn.disabled = false;
-        btn.textContent = t.sendEmail;
-      }
-    }
+  function submitBooking() {
+    showMailtoDialog();
   }
 
   function renderTopCallNotice() {
@@ -852,15 +711,6 @@
     </section>`;
   }
 
-  function renderSuccess() {
-    return `<section class="book-panel book-panel--success">
-      <h2>${t.submitSuccessTitle}</h2>
-      <p class="book-panel__lead">${t.submitSuccess}</p>
-      <p class="book-panel__lead book-panel__lead--spam">${t.submitSuccessSpam}</p>
-      <button type="button" class="btn-primary" id="btn-new-booking">${t.newBooking}</button>
-    </section>`;
-  }
-
   function renderConfirm() {
     const a = selectedActivity();
     const total = bookingTotal();
@@ -896,26 +746,6 @@
   }
 
   function render() {
-    if (submitted) {
-      root.innerHTML = renderSuccess();
-      document.getElementById('btn-new-booking')?.addEventListener('click', () => {
-        submitted = false;
-        step = 0;
-        selectedActivityId = '';
-        selectedDate = null;
-        state.name = '';
-        state.email = '';
-        state.phone = '';
-        state.notes = '';
-        state.guests = 1;
-        state.adults = 1;
-        state.children = 0;
-        state.largeGroup = false;
-        render();
-      });
-      return;
-    }
-
     const panels = [renderPackageStep(), renderCalendar(), renderDetails(), renderConfirm()];
     const within48Block = step === 1 && selectedDate && isWithin48Hours(selectedDate);
     root.innerHTML = `
