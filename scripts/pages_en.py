@@ -170,7 +170,7 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'at Kamenjak. Day two — Rovinj old town and a sunset '
                                'dinner on the harbour. Day three — truffle experience '
                                'or wine tasting inland, then Glavani Park for <a '
-                               'href="/en/adventure-park-croatia/">family '
+                               'href="/en/family-activities-istria/">family '
                                'activities</a> and ziplines. Day four — Brijuni boat '
                                'trip or a lazy beach day before departure.</p>',
                                '<p>Glavani Park is open daily from 9 AM to 5 PM with '
@@ -531,7 +531,7 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'related pages on <a '
                                'href="/en/adventure-park-croatia/">adventure parks in '
                                'Croatia</a>, <a '
-                               'href="/en/adventure-park-croatia/">family activities '
+                               'href="/en/family-activities-istria/">family activities '
                                'in Istria</a>, and <a href="/en/safety/">safety '
                                'procedures</a> to plan your visit with '
                                'confidence.</p>']}],
@@ -839,7 +839,7 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'when booking. For detailed attraction information, '
                                'visit <a href="/en/zipline-croatia/">zipline '
                                'Croatia</a>, <a '
-                               'href="/en/adventure-park-croatia/">family '
+                               'href="/en/family-activities-istria/">family '
                                'activities</a>, and <a '
                                'href="/en/adventure-park-croatia/">adventure park</a> '
                                'pages before you travel.</p>',
@@ -1138,7 +1138,7 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'daily 9–5, last entry 3 PM. Booking phone: +385 91 896 '
                                '4525 (English).</p>',
                                '<p>Direct guests to our activity pages for depth: <a '
-                               'href="/en/adventure-park-croatia/">family '
+                               'href="/en/family-activities-istria/">family '
                                'activities</a>, <a href="/en/zipline-croatia/">zipline '
                                'guide</a>, <a href="/en/team-building-istria/">team '
                                'building</a>, and <a '

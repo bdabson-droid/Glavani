@@ -233,7 +233,7 @@ ACTIVITIES = [
         "hr_slug": "niski-zipline",
         "tile_mod": "zipline-low",
         "hide_video": True,
-        "image": "gift-voucher-50-whole-park.webp",
+        "image": "zipline-120m-glavani-park-istria-croatia.webp",
         "en": {
             "title": "Treetop Course | Glavani Park Istria",
             "h1": "Treetop Course",
