@@ -511,7 +511,7 @@ def site_header(lang: str) -> str:
     return f"""
   <header class="site-header">
     <a class="site-header__brand" href="{home}">
-      <img class="site-header__logo-img" src="/images/glavani-park-logo.png" alt="{copy['logo_alt']}" width="200" height="115" loading="eager">
+      <img class="site-header__logo-img" src="/images/glavani-park-logo.png" alt="{copy['logo_alt']}" width="380" height="219" loading="eager">
     </a>
     <p class="site-header__tagline">{copy['tagline']}</p>
   </header>"""

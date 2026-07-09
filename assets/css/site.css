@@ -391,16 +391,18 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   border-bottom: 3px solid var(--brand-orange);
 }
 .site-header__brand {
-  display: inline-block;
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
   text-decoration: none;
   line-height: 0;
 }
 .site-header__logo-img {
   display: block;
-  width: auto;
-  max-width: min(220px, 78vw);
+  width: min(380px, 92vw);
+  max-width: 100%;
   height: auto;
-  max-height: 88px;
   margin: 0 auto;
 }
 .site-header__tagline {
@@ -2389,7 +2391,7 @@ body.page-404.is-hr .lang-en.block { display: none; }
   .hero { padding: 1.25rem 1.25rem 1.5rem; }
   .hero--home { padding: 1.25rem 1.25rem 1.5rem; }
   .hero--home .hero__inner { gap: 1.25rem; }
-  .site-header__logo-img { max-height: 72px; }
+  .site-header__logo-img { width: min(380px, 94vw); }
   .site-header__tagline { font-size: 0.75rem; }
   .hero__subtitle { margin-bottom: 1rem; }
   .landing-layout { padding: 1.25rem 1.25rem; }
