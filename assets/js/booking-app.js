@@ -118,6 +118,10 @@
       submitSuccessOk: 'Got it',
       submitError: 'Sorry, we could not send your booking right now. Please call us instead.',
       submitActivationError: 'We could not send your booking yet. Please call us to book, or try again later.',
+      submitMailtoTitle: 'Send your booking by email',
+      submitMailtoLead: 'We could not send the form online. Tap below to open your email app with your booking details — send it to info@glavanipark.com to complete your request.',
+      submitMailtoButton: 'Open email with booking details',
+      submitMailtoCall: 'Or call to book',
       newBooking: 'Make another booking',
       call: 'Call to confirm',
       copy: 'Copy details',
@@ -198,6 +202,10 @@
       submitSuccessOk: 'U redu',
       submitError: 'Nažalost, rezervaciju trenutno nismo mogli poslati. Molimo nazovite nas.',
       submitActivationError: 'Rezervaciju još nismo mogli poslati. Molimo nazovite za rezervaciju ili pokušajte kasnije.',
+      submitMailtoTitle: 'Pošaljite rezervaciju e-mailom',
+      submitMailtoLead: 'Obrazac nismo mogli poslati online. Dodirnite ispod da otvorite e-mail aplikaciju s detaljima rezervacije — pošaljite na info@glavanipark.com.',
+      submitMailtoButton: 'Otvori e-mail s detaljima rezervacije',
+      submitMailtoCall: 'Ili nazovite za rezervaciju',
       newBooking: 'Nova rezervacija',
       call: 'Pozovi za potvrdu',
       copy: 'Kopiraj detalje',
@@ -603,12 +611,13 @@
       _subject: `${t.msgHeader} – ${selectedDate}`,
       _template: 'table',
       _captcha: 'false',
+      _honey: '',
       _replyto: state.email,
       _url: window.location.href,
       name: state.name,
       email: state.email,
       phone: state.phone,
-      package: a ? a.name : '—',
+      booking_package: a ? a.name : '—',
       price_per_person: a ? (activityIsFamilyPackage(a)
         ? `€${a.price} package total`
         : activityHasChildPrice(a) ? `€${a.price} adults / €${a.child_price} children` : `€${a.price}`) : '—',
@@ -623,6 +632,79 @@
     };
     if (config.submitCc) payload._cc = config.submitCc;
     return payload;
+  }
+
+  function encodeFormBody(payload) {
+    const body = new URLSearchParams();
+    Object.entries(payload).forEach(([key, value]) => {
+      body.append(key, value == null ? '' : String(value));
+    });
+    return body;
+  }
+
+  function buildMailtoLink() {
+    const recipient = config.recipientEmail || 'info@glavanipark.com';
+    const subject = `${t.msgHeader} – ${selectedDate}`;
+    return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildMessage())}`;
+  }
+
+  async function parseFormSubmitResponse(res) {
+    const text = await res.text();
+    if (!text) return {};
+    try {
+      return JSON.parse(text);
+    } catch (err) {
+      if (/success|thank you|submitted/i.test(text)) return { success: 'true' };
+      return { success: 'false', message: text.slice(0, 240) };
+    }
+  }
+
+  async function postToFormSubmit(payload) {
+    const res = await fetch(config.submitUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        Accept: 'application/json, text/plain, */*',
+      },
+      body: encodeFormBody(payload),
+    });
+    const data = await parseFormSubmitResponse(res);
+    if (!res.ok || !isFormSubmitSuccess(data)) {
+      throw new Error(formSubmitErrorMessage(data));
+    }
+    return data;
+  }
+
+  function showMailtoFallback() {
+    let dialog = document.getElementById('book-mailto-dialog');
+    if (!dialog) {
+      dialog = document.createElement('dialog');
+      dialog.id = 'book-mailto-dialog';
+      dialog.className = 'book-success-dialog book-mailto-dialog';
+      dialog.innerHTML = `<div class="book-success-dialog__inner">
+        <p class="book-success-dialog__badge" aria-hidden="true">✉️</p>
+        <h2 id="book-mailto-dialog-title"></h2>
+        <p class="book-success-dialog__lead book-mailto-dialog__lead"></p>
+        <div class="book-mailto-dialog__actions">
+          <a class="btn-primary book-mailto-dialog__email" href="#"></a>
+          <a class="btn-secondary book-mailto-dialog__call" href="#"></a>
+        </div>
+        <form method="dialog">
+          <button type="submit" class="btn-secondary book-mailto-dialog__close">Close</button>
+        </form>
+      </div>`;
+      document.body.appendChild(dialog);
+    }
+    dialog.querySelector('#book-mailto-dialog-title').textContent = t.submitMailtoTitle;
+    dialog.querySelector('.book-mailto-dialog__lead').textContent = t.submitMailtoLead;
+    const emailBtn = dialog.querySelector('.book-mailto-dialog__email');
+    emailBtn.textContent = t.submitMailtoButton;
+    emailBtn.href = buildMailtoLink();
+    const callBtn = dialog.querySelector('.book-mailto-dialog__call');
+    callBtn.textContent = `${t.submitMailtoCall} · ${lang === 'hr' ? '+385 98 224 314' : '+385 91 896 4525'}`;
+    callBtn.href = `tel:+${phone}`;
+    if (typeof dialog.showModal === 'function') dialog.showModal();
+    else window.location.href = buildMailtoLink();
   }
 
   function showSuccessDialog() {
@@ -663,24 +745,14 @@
       btn.disabled = true;
       btn.textContent = t.submitting;
     }
+    const payload = buildSubmitPayload();
     try {
-      const res = await fetch(config.submitUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify(buildSubmitPayload()),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || !isFormSubmitSuccess(data)) {
-        throw new Error(formSubmitErrorMessage(data));
-      }
+      await postToFormSubmit(payload);
       submitted = true;
       render();
       showSuccessDialog();
     } catch (err) {
-      alert(err && err.message ? err.message : t.submitError);
+      showMailtoFallback();
       if (btn) {
         btn.disabled = false;
         btn.textContent = t.sendEmail;
