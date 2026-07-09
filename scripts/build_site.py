@@ -368,10 +368,31 @@ def apply_preview_fixes() -> None:
             continue
         text = html_file.read_text(encoding="utf-8")
         text = href_re.sub(lambda m: f'href={m.group(1)}{BASE}{m.group(2)}{m.group(1)}', text)
+        text = _absolutize_booking_links(html_file, text)
         if "preview-banner" not in text and "<body" in text:
             text = re.sub(r"(<body[^>]*>)", rf"\1{render_preview_banner()}", text, count=1)
         html_file.write_text(text, encoding="utf-8")
     print("  applied preview URL fixes")
+
+
+def _absolutize_booking_links(html_file: Path, text: str) -> str:
+    """Upgrade leftover relative booking links after relativize_site (e.g. home hero CTA)."""
+    rel = html_file.relative_to(ROOT)
+    if rel == Path("404.html"):
+        text = text.replace(f'href="en/{BOOKING_SLUGS["en"]}/"', f'href="{booking_href("en")}"')
+        text = text.replace(f'href="hr/{BOOKING_SLUGS["hr"]}/"', f'href="{booking_href("hr")}"')
+        return text
+    if rel.parts[:1] == ("en",):
+        lang = "en"
+    elif rel.parts[:1] == ("hr",):
+        lang = "hr"
+    else:
+        return text
+    book_url = booking_href(lang)
+    slug = BOOKING_SLUGS[lang]
+    for rel_href in (f'href="{slug}/"', f'href="../{slug}/"', f'href="./{slug}/"'):
+        text = text.replace(rel_href, f'href="{book_url}"')
+    return text
 
 
 def relativize_root_paths(html: str) -> str:
@@ -1788,6 +1809,7 @@ def inject_home_extras(body: str, lang: str) -> str:
 def home_body_en() -> str:
     """English homepage main content (abbreviated structure with full SEO sections)."""
     body = open(ROOT / "scripts" / "home_en.html").read()
+    body = body.replace('href="/en/book/"', f'href="{booking_href("en")}"')
     body = body.replace("<!-- HOME_BOOKING_POLICY -->", render_home_booking_policy("en"))
     body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("en"))
     return inject_home_extras(body, "en")
@@ -1795,6 +1817,7 @@ def home_body_en() -> str:
 
 def home_body_hr() -> str:
     body = open(ROOT / "scripts" / "home_hr.html").read()
+    body = body.replace('href="/hr/rezervacija/"', f'href="{booking_href("hr")}"')
     body = body.replace("<!-- HOME_BOOKING_POLICY -->", render_home_booking_policy("hr"))
     body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("hr"))
     return inject_home_extras(body, "hr")
