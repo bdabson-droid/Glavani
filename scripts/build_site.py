@@ -2058,14 +2058,14 @@ def render_booking_app(lang: str) -> str:
         slug, en_slug, hr_slug = "rezervacija", "book", "rezervacija"
         title = "Rezerviraj | Glavani Park – odaberite paket i datum"
         desc = (
-            f"Rezervirajte Glavani Park online za do {ONLINE_BOOKING_MAX} osoba. Ispunite obrazac — "
-            f"za potvrdu rezervacije poslat ćemo vam e-mail na {BOOKING_EMAIL}. "
+            f"Rezervirajte Glavani Park online za do {ONLINE_BOOKING_MAX} osoba. "
+            f"Odaberite paket i datum, zatim otvorite e-mail s popunjenim detaljima i pošaljite na {BOOKING_EMAIL}. "
             f"Za grupe s više od {ONLINE_BOOKING_MAX} osoba ili posjet u sljedećih par dana, nazovite."
         )
         h1 = "Rezerviraj"
         lead = (
-            "Ispunite obrazac i pošaljite rezervaciju — potvrdu nastojimo poslati e-mailom u roku od 24 sata. "
-            "Provjerite i spam/junk mapu ako poruku ne vidite."
+            "Odaberite paket, datum i svoje podatke — zatim otvorite e-mail aplikaciju s popunjenom rezervacijom "
+            "i pošaljite je na info@glavanipark.com. Potvrdu nastojimo poslati u roku od 24 sata."
         )
         amenities = (
             "<strong>Plaćanje:</strong> kartice i gotovina u parku. "
@@ -2076,14 +2076,14 @@ def render_booking_app(lang: str) -> str:
         slug, en_slug, hr_slug = "book", "book", "rezervacija"
         title = "Book | Glavani Park – Pick Package & Date"
         desc = (
-            f"Book Glavani Park online for up to {ONLINE_BOOKING_MAX} people. Fill in the form — "
-            f"we will email you to confirm your booking at {BOOKING_EMAIL}. "
+            f"Book Glavani Park online for up to {ONLINE_BOOKING_MAX} people. "
+            f"Pick your package and date, then open a prefilled email to {BOOKING_EMAIL} to send your booking. "
             f"For parties of more than {ONLINE_BOOKING_MAX} or visits in the next couple of days, please call."
         )
         h1 = "Book"
         lead = (
-            "Fill in the form and submit your booking — we aim to email you to confirm within 24 hours. "
-            "Check your spam or junk folder if you do not see our email."
+            "Choose your package, date, and details — then open your email app with your booking filled in "
+            "and send it to info@glavanipark.com. We aim to reply with confirmation within 24 hours."
         )
         amenities = (
             "<strong>Payment:</strong> card and cash accepted at the park. "
