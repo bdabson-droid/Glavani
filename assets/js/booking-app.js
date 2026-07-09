@@ -593,18 +593,6 @@
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
   }
 
-  function isFormSubmitSuccess(data) {
-    if (!data || typeof data !== 'object') return false;
-    const success = data.success;
-    return success === true || success === 'true';
-  }
-
-  function formSubmitErrorMessage(data) {
-    const message = data && typeof data.message === 'string' ? data.message.trim() : '';
-    if (/activation/i.test(message)) return t.submitActivationError;
-    return message || t.submitError;
-  }
-
   function buildSubmitPayload() {
     const a = selectedActivity();
     const payload = {
@@ -634,45 +622,50 @@
     return payload;
   }
 
-  function encodeFormBody(payload) {
-    const body = new URLSearchParams();
-    Object.entries(payload).forEach(([key, value]) => {
-      body.append(key, value == null ? '' : String(value));
-    });
-    return body;
-  }
-
   function buildMailtoLink() {
     const recipient = config.recipientEmail || 'info@glavanipark.com';
     const subject = `${t.msgHeader} – ${selectedDate}`;
     return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildMessage())}`;
   }
 
-  async function parseFormSubmitResponse(res) {
-    const text = await res.text();
-    if (!text) return {};
-    try {
-      return JSON.parse(text);
-    } catch (err) {
-      if (/success|thank you|submitted/i.test(text)) return { success: 'true' };
-      return { success: 'false', message: text.slice(0, 240) };
-    }
+  function submitActionUrl() {
+    if (config.submitAction) return config.submitAction;
+    if (config.submitUrl) return String(config.submitUrl).replace('/ajax/', '/');
+    return '';
   }
 
-  async function postToFormSubmit(payload) {
-    const res = await fetch(config.submitUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-        Accept: 'application/json, text/plain, */*',
-      },
-      body: encodeFormBody(payload),
+  function bookingReturnUrl() {
+    const path = window.location.pathname.replace(/\/$/, '') + '/';
+    return `${window.location.origin}${path}?booking=sent`;
+  }
+
+  function submitViaNativeForm(payload) {
+    const action = submitActionUrl();
+    if (!action) throw new Error('missing submit action');
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = action;
+    form.acceptCharset = 'UTF-8';
+    form.style.display = 'none';
+    const fullPayload = { ...payload, _next: bookingReturnUrl() };
+    Object.entries(fullPayload).forEach(([key, value]) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = value == null ? '' : String(value);
+      form.appendChild(input);
     });
-    const data = await parseFormSubmitResponse(res);
-    if (!res.ok || !isFormSubmitSuccess(data)) {
-      throw new Error(formSubmitErrorMessage(data));
-    }
-    return data;
+    document.body.appendChild(form);
+    form.submit();
+  }
+
+  function checkBookingSentReturn() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('booking') !== 'sent') return false;
+    submitted = true;
+    const clean = window.location.pathname + window.location.hash;
+    history.replaceState(null, '', clean);
+    return true;
   }
 
   function showMailtoFallback() {
@@ -739,7 +732,7 @@
     }
   }
 
-  async function submitBooking() {
+  function submitBooking() {
     const btn = document.getElementById('btn-submit');
     if (btn) {
       btn.disabled = true;
@@ -747,10 +740,7 @@
     }
     const payload = buildSubmitPayload();
     try {
-      await postToFormSubmit(payload);
-      submitted = true;
-      render();
-      showSuccessDialog();
+      submitViaNativeForm(payload);
     } catch (err) {
       showMailtoFallback();
       if (btn) {
@@ -1066,5 +1056,7 @@
   viewYear = today.getFullYear();
   viewMonth = today.getMonth();
   applyQueryPrefill();
+  const returnedFromSubmit = checkBookingSentReturn();
   render();
+  if (returnedFromSubmit) showSuccessDialog();
 })();
