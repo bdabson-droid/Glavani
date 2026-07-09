@@ -11,13 +11,13 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://bdabson-droid.github.io/Glavani/en/"/>
   </url>
   <url>
-    <loc>https://bdabson-droid.github.io/Glavani/en/book/</loc>
+    <loc>https://bdabson-droid.github.io/Glavani/en/reservation/</loc>
     <lastmod>2026-07-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://bdabson-droid.github.io/Glavani/en/book/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdabson-droid.github.io/Glavani/en/reservation/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://bdabson-droid.github.io/Glavani/hr/rezervacija/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdabson-droid.github.io/Glavani/en/book/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdabson-droid.github.io/Glavani/en/reservation/"/>
   </url>
   <url>
     <loc>https://bdabson-droid.github.io/Glavani/en/prices/</loc>
@@ -231,9 +231,9 @@
     <lastmod>2026-07-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://bdabson-droid.github.io/Glavani/en/book/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdabson-droid.github.io/Glavani/en/reservation/"/>
     <xhtml:link rel="alternate" hreflang="hr" href="https://bdabson-droid.github.io/Glavani/hr/rezervacija/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdabson-droid.github.io/Glavani/en/book/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdabson-droid.github.io/Glavani/en/reservation/"/>
   </url>
   <url>
     <loc>https://bdabson-droid.github.io/Glavani/hr/cijene/</loc>

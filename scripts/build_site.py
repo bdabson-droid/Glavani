@@ -66,7 +66,6 @@ from migration_redirects import render_redirect_script, render_redirects_file  #
 
 PRODUCTION_BASE = "https://www.glavanipark.com"
 BASE = os.environ.get("SITE_BASE", PRODUCTION_BASE).rstrip("/")
-IS_PREVIEW = BASE != PRODUCTION_BASE
 TODAY = date.today().isoformat()
 
 
@@ -78,48 +77,22 @@ def site_path_from_base() -> str:
 
 
 def booking_href(lang: str) -> str:
-    """Booking page URL — absolute on preview so links never leave the test host."""
-    path = f"/{lang}/{BOOKING_SLUGS[lang]}/"
-    if IS_PREVIEW:
-        return f"{BASE}{path}"
-    return path
+    """Booking page path (relativized at build time for GitHub Pages)."""
+    return f"/{lang}/{BOOKING_SLUGS[lang]}/"
 
 
 def footer_site_link() -> tuple[str, str]:
     """Footer home link (href, label)."""
-    if IS_PREVIEW:
-        host = BASE.replace("https://", "").replace("http://", "")
-        return f"{BASE}/", host
-    return PRODUCTION_BASE, "www.glavanipark.com"
-
-
-def render_preview_banner() -> str:
-    if not IS_PREVIEW:
-        return ""
+    if BASE == PRODUCTION_BASE:
+        return f"{PRODUCTION_BASE}/", "www.glavanipark.com"
     host = BASE.replace("https://", "").replace("http://", "")
-    en_book = booking_href("en")
-    return f"""
-  <div class="preview-banner" role="status">
-    <strong>Preview site only</strong> — you are testing at <code>{host}</code>.
-  </div>
-  <div class="preview-banner preview-banner--warn" role="alert">
-    <strong>English booking:</strong> use <a href="{en_book}">{en_book}</a>.
-    <code>www.glavanipark.com/en/book/</code> still runs the old site and shows a <code>poruka.asp</code> error.
-  </div>"""
-
-
-def preview_head_extras() -> str:
-    if not IS_PREVIEW:
-        return ""
-    return f"""  <meta name="glavani-preview-base" content="{BASE}">
-  <script src="/assets/js/preview-booking-guard.js" defer></script>
-"""
+    return f"{BASE}/", host
 
 
 def render_site_redirect_script() -> str:
     script = render_redirect_script()
     prefix = site_path_from_base()
-    if not IS_PREVIEW or not prefix:
+    if not prefix:
         return script
     return script.replace("location.replace(target);", f"location.replace('{prefix}' + target);")
 
@@ -163,13 +136,13 @@ def render_page_scripts(*needs: str) -> str:
 # Reverse map EN slug -> HR slug
 EN_TO_HR = {v: k for k, v in SLUG_MAP.items()}
 EN_TO_HR.update({v: k for k, v in ACTIVITY_SLUG_MAP.items()})
-EN_TO_HR["book"] = "rezervacija"
+EN_TO_HR["reservation"] = "rezervacija"
 EN_TO_HR["faq"] = "cesta-pitanja"
 EN_TO_HR["prices"] = "cijene"
 
 HR_TO_EN = dict(SLUG_MAP)
 HR_TO_EN.update(ACTIVITY_SLUG_MAP)
-HR_TO_EN["rezervacija"] = "book"
+HR_TO_EN["rezervacija"] = "reservation"
 HR_TO_EN["cesta-pitanja"] = "faq"
 HR_TO_EN["cijene"] = "prices"
 
@@ -366,47 +339,6 @@ def relativize_paths(html: str, depth: int, lang: str) -> str:
     return html
 
 
-def apply_preview_fixes() -> None:
-    """Keep preview builds on the github.io host — rewrite stray production URLs in links."""
-    if not IS_PREVIEW:
-        return
-    import re
-
-    production = re.escape(PRODUCTION_BASE)
-    href_re = re.compile(rf'href=(["\']){production}([^"\']*)\1')
-
-    for html_file in ROOT.rglob("*.html"):
-        if "scripts" in html_file.parts:
-            continue
-        text = html_file.read_text(encoding="utf-8")
-        text = href_re.sub(lambda m: f'href={m.group(1)}{BASE}{m.group(2)}{m.group(1)}', text)
-        text = _absolutize_booking_links(html_file, text)
-        if "preview-banner" not in text and "<body" in text:
-            text = re.sub(r"(<body[^>]*>)", rf"\1{render_preview_banner()}", text, count=1)
-        html_file.write_text(text, encoding="utf-8")
-    print("  applied preview URL fixes")
-
-
-def _absolutize_booking_links(html_file: Path, text: str) -> str:
-    """Upgrade leftover relative booking links after relativize_site (e.g. home hero CTA)."""
-    rel = html_file.relative_to(ROOT)
-    if rel == Path("404.html"):
-        text = text.replace(f'href="en/{BOOKING_SLUGS["en"]}/"', f'href="{booking_href("en")}"')
-        text = text.replace(f'href="hr/{BOOKING_SLUGS["hr"]}/"', f'href="{booking_href("hr")}"')
-        return text
-    if rel.parts[:1] == ("en",):
-        lang = "en"
-    elif rel.parts[:1] == ("hr",):
-        lang = "hr"
-    else:
-        return text
-    book_url = booking_href(lang)
-    slug = BOOKING_SLUGS[lang]
-    for rel_href in (f'href="{slug}/"', f'href="../{slug}/"', f'href="./{slug}/"'):
-        text = text.replace(rel_href, f'href="{book_url}"')
-    return text
-
-
 def relativize_root_paths(html: str) -> str:
     """Root-level pages (404.html) — assets and language folders without a leading slash."""
     import re
@@ -557,7 +489,7 @@ def render_visit_cta_bar(lang: str) -> str:
 
 
 def page_chrome(lang: str, *, is_home: bool = False) -> str:
-    return f"""{render_preview_banner()}{quick_actions(lang)}
+    return f"""{quick_actions(lang)}
 {render_visit_cta_bar(lang)}
 {site_header(lang)}
 {visitor_bar(lang)}
@@ -741,7 +673,7 @@ def head_meta(
   <link rel="apple-touch-icon" href="/images/glavani-park-logo.png">
   <meta name="theme-color" content="#0a0a0a">
   <link rel="stylesheet" href="/assets/css/site.css">
-{preview_head_extras()}{extra_head}
+{extra_head}
 </head>
 <body class="{body_class}">"""
 
@@ -828,7 +760,7 @@ def activity_page_schema(activity: dict, lang: str, url: str) -> list[dict]:
     ]
     single_price = activity.get("single_price")
     if single_price:
-        book_slug = "book" if lang == "en" else "rezervacija"
+        book_slug = BOOKING_SLUGS[lang]
         schemas.append(
             {
                 "@context": "https://schema.org",
@@ -896,8 +828,8 @@ def sitemap_alternates(loc: str) -> tuple[str, str]:
         hr_url = loc
         if path == "/hr/":
             en_url = f"{BASE}/en/"
-        elif path == "/hr/rezervacija/":
-            en_url = f"{BASE}/en/book/"
+        elif path == f"/hr/{BOOKING_SLUGS['hr']}/":
+            en_url = f"{BASE}/en/{BOOKING_SLUGS['en']}/"
         else:
             hr_slug = path.replace("/hr/", "").strip("/")
             en_url = f"{BASE}/en/{HR_TO_EN.get(hr_slug, hr_slug)}/"
@@ -905,8 +837,8 @@ def sitemap_alternates(loc: str) -> tuple[str, str]:
     en_url = loc
     if path == "/en/":
         hr_url = f"{BASE}/hr/"
-    elif path == "/en/book/":
-        hr_url = f"{BASE}/hr/rezervacija/"
+    elif path == f"/en/{BOOKING_SLUGS['en']}/":
+        hr_url = f"{BASE}/hr/{BOOKING_SLUGS['hr']}/"
     else:
         en_slug = path.replace("/en/", "").strip("/")
         hr_url = f"{BASE}/hr/{EN_TO_HR.get(en_slug, en_slug)}/"
@@ -1821,7 +1753,6 @@ def inject_home_extras(body: str, lang: str) -> str:
 def home_body_en() -> str:
     """English homepage main content (abbreviated structure with full SEO sections)."""
     body = open(ROOT / "scripts" / "home_en.html").read()
-    body = body.replace('href="/en/book/"', f'href="{booking_href("en")}"')
     body = body.replace("<!-- HOME_BOOKING_POLICY -->", render_home_booking_policy("en"))
     body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("en"))
     return inject_home_extras(body, "en")
@@ -1829,7 +1760,6 @@ def home_body_en() -> str:
 
 def home_body_hr() -> str:
     body = open(ROOT / "scripts" / "home_hr.html").read()
-    body = body.replace('href="/hr/rezervacija/"', f'href="{booking_href("hr")}"')
     body = body.replace("<!-- HOME_BOOKING_POLICY -->", render_home_booking_policy("hr"))
     body = body.replace("<!-- INFO_STRIP_CONTACTS -->", render_info_strip_contacts("hr"))
     return inject_home_extras(body, "hr")
@@ -1979,7 +1909,7 @@ def render_404_page() -> str:
     phone_hr = PHONES[1]
 
     return f"""{head_meta("en", en["title"], en["description"], en["keywords"], canonical, is_home=True, robots="noindex, follow", body_class="theme-page page-404", early_head=render_site_redirect_script())}
-{render_preview_banner()}{quick_actions("en")}
+{quick_actions("en")}
   <div class="visit-cta-bar" aria-label="Book tickets and today's status">
     <div class="visit-cta-bar__inner">
       <p class="visit-cta-bar__status visitor-bar__status visitor-bar__status--{status['state']}">
@@ -2153,8 +2083,10 @@ def render_prices_page(lang: str) -> str:
 
 
 def render_booking_app(lang: str) -> str:
+    slug = BOOKING_SLUGS[lang]
+    en_slug = BOOKING_SLUGS["en"]
+    hr_slug = BOOKING_SLUGS["hr"]
     if lang == "hr":
-        slug, en_slug, hr_slug = "rezervacija", "book", "rezervacija"
         title = "Rezerviraj | Glavani Park – odaberite paket i datum"
         desc = (
             f"Rezervirajte Glavani Park online za do {ONLINE_BOOKING_MAX} osoba. "
@@ -2172,7 +2104,6 @@ def render_booking_app(lang: str) -> str:
         )
         policy = BOOKING_POLICY["hr"]["book_page"]
     else:
-        slug, en_slug, hr_slug = "book", "book", "rezervacija"
         title = "Book | Glavani Park – Pick Package & Date"
         desc = (
             f"Book Glavani Park online for up to {ONLINE_BOOKING_MAX} people. "
@@ -2386,11 +2317,19 @@ def main() -> None:
     fetch_external_images()
 
     print("Building English pages...")
+    import shutil
+
+    en_booking = BOOKING_SLUGS["en"]
+    hr_booking = BOOKING_SLUGS["hr"]
+    old_en_book = ROOT / "en" / "book"
+    if old_en_book.exists():
+        shutil.rmtree(old_en_book)
+
     write_file(ROOT / "en" / "index.html", render_home("en"))
-    write_file(ROOT / "en" / "book" / "index.html", render_booking_app("en"))
+    write_file(ROOT / "en" / en_booking / "index.html", render_booking_app("en"))
     write_file(ROOT / "en" / PRICES_SLUGS["en"] / "index.html", render_prices_page("en"))
     write_file(ROOT / "en" / FAQ_SLUGS["en"] / "index.html", render_faq_page("en"))
-    sitemap_urls = [(f"{BASE}/en/", "weekly"), (f"{BASE}/en/book/", "weekly")]
+    sitemap_urls = [(f"{BASE}/en/", "weekly"), (f"{BASE}/en/{en_booking}/", "weekly")]
     sitemap_urls.append((f"{BASE}/en/{PRICES_SLUGS['en']}/", "monthly"))
     sitemap_urls.append((f"{BASE}/en/{FAQ_SLUGS['en']}/", "monthly"))
     for page in PAGES_EN:
@@ -2416,11 +2355,11 @@ def main() -> None:
 
     print("Building Croatian pages...")
     write_file(ROOT / "hr" / "index.html", render_home("hr"))
-    write_file(ROOT / "hr" / "rezervacija" / "index.html", render_booking_app("hr"))
+    write_file(ROOT / "hr" / hr_booking / "index.html", render_booking_app("hr"))
     write_file(ROOT / "hr" / PRICES_SLUGS["hr"] / "index.html", render_prices_page("hr"))
     write_file(ROOT / "hr" / FAQ_SLUGS["hr"] / "index.html", render_faq_page("hr"))
     sitemap_urls.append((f"{BASE}/hr/", "weekly"))
-    sitemap_urls.append((f"{BASE}/hr/rezervacija/", "weekly"))
+    sitemap_urls.append((f"{BASE}/hr/{hr_booking}/", "weekly"))
     sitemap_urls.append((f"{BASE}/hr/{PRICES_SLUGS['hr']}/", "monthly"))
     sitemap_urls.append((f"{BASE}/hr/{FAQ_SLUGS['hr']}/", "monthly"))
     for page in PAGES_HR:
@@ -2450,7 +2389,6 @@ def main() -> None:
     build_root_redirect()
     build_404()
     relativize_site()
-    apply_preview_fixes()
     print("Done.")
 
 

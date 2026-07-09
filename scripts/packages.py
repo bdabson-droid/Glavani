@@ -3,24 +3,16 @@ Activity packages and single-activity prices for the prices page and booking app
 Keep assets/js/booking-app.js in sync when prices or options change.
 """
 
-import os
-
 from booking_policy import BOOKING_POLICY
 from brand_voice import CALL_FOR_GROUPS_ABOVE, ONLINE_BOOKING_MAX, PHONES
 
-PRODUCTION_BASE = "https://www.glavanipark.com"
-SITE_BASE = os.environ.get("SITE_BASE", PRODUCTION_BASE).rstrip("/")
-
 PRICES_SLUGS = {"en": "prices", "hr": "cijene"}
-BOOKING_SLUGS = {"en": "book", "hr": "rezervacija"}
+BOOKING_SLUGS = {"en": "reservation", "hr": "rezervacija"}
 
 
 def booking_page_href(lang: str) -> str:
-    """Booking page URL — absolute on preview so links never leave the test host."""
-    path = f"/{lang}/{BOOKING_SLUGS[lang]}/"
-    if SITE_BASE != PRODUCTION_BASE:
-        return f"{SITE_BASE}{path}"
-    return path
+    """Booking page path (relativized at build time for GitHub Pages)."""
+    return f"/{lang}/{BOOKING_SLUGS[lang]}/"
 
 WHOLE_PARK_SINGLE_ADULT = 70
 CHILD_MAX_AGE = 10
