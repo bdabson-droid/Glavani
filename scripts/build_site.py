@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from datetime import date
 from pathlib import Path
@@ -63,7 +64,7 @@ from trust_signals import book_cta_labels, render_trust_strip  # noqa: E402
 from visitor_gallery import ACTIVITY_GALLERY_MAP, GALLERY_BY_IMAGE, HOME_GALLERY_IMAGES, VISITOR_GALLERY  # noqa: E402
 from migration_redirects import render_redirect_script, render_redirects_file  # noqa: E402
 
-BASE = "https://www.glavanipark.com"
+BASE = os.environ.get("SITE_BASE", "https://www.glavanipark.com").rstrip("/")
 TODAY = date.today().isoformat()
 
 GLAVANI_LAT = 45.021389
@@ -2256,16 +2257,16 @@ def build_redirects() -> None:
 
 
 def build_root_redirect() -> None:
-    content = """<!DOCTYPE html>
+    content = f"""<!DOCTYPE html>
 <html lang="hr">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="refresh" content="0; url=hr/">
   <meta name="description" content="Glavani Park — avanturistički i zipline park u Istri, Hrvatska kod Pule.">
-  <link rel="canonical" href="https://www.glavanipark.com/hr/">
-  <link rel="alternate" hreflang="en" href="https://www.glavanipark.com/en/">
-  <link rel="alternate" hreflang="hr" href="https://www.glavanipark.com/hr/">
-  <link rel="alternate" hreflang="x-default" href="https://www.glavanipark.com/en/">
+  <link rel="canonical" href="{BASE}/hr/">
+  <link rel="alternate" hreflang="en" href="{BASE}/en/">
+  <link rel="alternate" hreflang="hr" href="{BASE}/hr/">
+  <link rel="alternate" hreflang="x-default" href="{BASE}/en/">
   <title>Glavani Park | Avanturistički park Istria, Hrvatska</title>
   <script>location.replace('hr/');</script>
 </head>
