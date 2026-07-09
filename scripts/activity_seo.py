@@ -5,7 +5,7 @@ from __future__ import annotations
 from activities import ACTIVITIES
 from brand_voice import ONLINE_BOOKING_MAX
 from faqs import FAQ_SLUGS
-from packages import BOOKING_SLUGS, PRICES_SLUGS, pricing_visit_footer_line
+from packages import BOOKING_SLUGS, PRICES_SLUGS, booking_page_href, pricing_visit_footer_line
 
 
 def _activity_href(lang: str, en_slug: str) -> str:
@@ -19,7 +19,7 @@ def _activity_href(lang: str, en_slug: str) -> str:
 def _links(lang: str) -> dict[str, str]:
     prefix = f"/{lang}/"
     return {
-        "book": f"{prefix}{BOOKING_SLUGS[lang]}/",
+        "book": booking_page_href(lang),
         "prices": f"{prefix}{PRICES_SLUGS[lang]}/",
         "safety": f"{prefix}{'sigurnost' if lang == 'hr' else 'safety'}/",
         "faq": f"{prefix}{FAQ_SLUGS[lang]}/",

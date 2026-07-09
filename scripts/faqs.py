@@ -4,28 +4,22 @@ import re
 
 from booking_policy import BOOKING_POLICY
 from brand_voice import ONLINE_BOOKING_MAX
-from packages import pricing_hub_blurb
+from packages import PRICES_SLUGS, booking_page_href, pricing_hub_blurb
 
 BASE = "https://www.glavanipark.com"
 
 FAQ_SLUGS = {"en": "faq", "hr": "cesta-pitanja"}
 
-FAQ_LINKS = {
-    "en": {
-        "book": "/en/book/",
-        "prices": "/en/prices/",
-        "safety": "/en/safety/",
-        "location": "/en/things-to-do-near-pula/#location-map",
-        "groups": "/en/team-building-istria/",
-    },
-    "hr": {
-        "book": "/hr/rezervacija/",
-        "prices": "/hr/cijene/",
-        "safety": "/hr/sigurnost/",
-        "location": "/hr/sto-raditi-kod-pule/#location-map",
-        "groups": "/hr/team-building-istri/",
-    },
-}
+
+def faq_links(lang: str) -> dict[str, str]:
+    prefix = f"/{lang}/"
+    return {
+        "book": booking_page_href(lang),
+        "prices": f"{prefix}{PRICES_SLUGS[lang]}/",
+        "safety": f"{prefix}{'sigurnost' if lang == 'hr' else 'safety'}/",
+        "location": f"{prefix}{'sto-raditi-kod-pule' if lang == 'hr' else 'things-to-do-near-pula'}/#location-map",
+        "groups": f"{prefix}{'team-building-istri' if lang == 'hr' else 'team-building-istria'}/",
+    }
 
 FAQ_COPY = {
     "en": {
@@ -247,7 +241,7 @@ VISITOR_FAQS = {
 
 
 def _faq_answer_html(lang: str, answer: str) -> str:
-    links = FAQ_LINKS[lang]
+    links = faq_links(lang)
     return answer.format(**links)
 
 
@@ -348,7 +342,7 @@ def render_faq_list(lang: str) -> str:
 
 
 def render_faq_related(lang: str) -> str:
-    links = FAQ_LINKS[lang]
+    links = faq_links(lang)
     heading = FAQ_COPY[lang]["related_heading"]
     cards = "".join(
         f'<a class="topic-link" href="{links[item["href"]]}">'

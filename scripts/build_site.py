@@ -64,8 +64,52 @@ from trust_signals import book_cta_labels, render_trust_strip  # noqa: E402
 from visitor_gallery import ACTIVITY_GALLERY_MAP, GALLERY_BY_IMAGE, HOME_GALLERY_IMAGES, VISITOR_GALLERY  # noqa: E402
 from migration_redirects import render_redirect_script, render_redirects_file  # noqa: E402
 
-BASE = os.environ.get("SITE_BASE", "https://www.glavanipark.com").rstrip("/")
+PRODUCTION_BASE = "https://www.glavanipark.com"
+BASE = os.environ.get("SITE_BASE", PRODUCTION_BASE).rstrip("/")
+IS_PREVIEW = BASE != PRODUCTION_BASE
 TODAY = date.today().isoformat()
+
+
+def site_path_from_base() -> str:
+    """Path prefix when the site is hosted below a domain root (e.g. /Glavani on GitHub Pages)."""
+    from urllib.parse import urlparse
+
+    return urlparse(BASE).path.rstrip("/")
+
+
+def booking_href(lang: str) -> str:
+    """Booking page URL — absolute on preview so links never leave the test host."""
+    path = f"/{lang}/{BOOKING_SLUGS[lang]}/"
+    if IS_PREVIEW:
+        return f"{BASE}{path}"
+    return path
+
+
+def footer_site_link() -> tuple[str, str]:
+    """Footer home link (href, label)."""
+    if IS_PREVIEW:
+        host = BASE.replace("https://", "").replace("http://", "")
+        return f"{BASE}/", host
+    return PRODUCTION_BASE, "www.glavanipark.com"
+
+
+def render_preview_banner() -> str:
+    if not IS_PREVIEW:
+        return ""
+    host = BASE.replace("https://", "").replace("http://", "")
+    return f"""
+  <div class="preview-banner" role="status">
+    <strong>Preview site</strong> — you are testing at <code>{host}</code>.
+    The live site at <code>www.glavanipark.com</code> still runs the old system until DNS is switched.
+  </div>"""
+
+
+def render_site_redirect_script() -> str:
+    script = render_redirect_script()
+    prefix = site_path_from_base()
+    if not IS_PREVIEW or not prefix:
+        return script
+    return script.replace("location.replace(target);", f"location.replace('{prefix}' + target);")
 
 GLAVANI_LAT = 45.021389
 GLAVANI_LNG = 13.951111
@@ -310,6 +354,26 @@ def relativize_paths(html: str, depth: int, lang: str) -> str:
     return html
 
 
+def apply_preview_fixes() -> None:
+    """Keep preview builds on the github.io host — rewrite stray production URLs in links."""
+    if not IS_PREVIEW:
+        return
+    import re
+
+    production = re.escape(PRODUCTION_BASE)
+    href_re = re.compile(rf'href=(["\']){production}([^"\']*)\1')
+
+    for html_file in ROOT.rglob("*.html"):
+        if "scripts" in html_file.parts:
+            continue
+        text = html_file.read_text(encoding="utf-8")
+        text = href_re.sub(lambda m: f'href={m.group(1)}{BASE}{m.group(2)}{m.group(1)}', text)
+        if "preview-banner" not in text and "<body" in text:
+            text = re.sub(r"(<body[^>]*>)", rf"\1{render_preview_banner()}", text, count=1)
+        html_file.write_text(text, encoding="utf-8")
+    print("  applied preview URL fixes")
+
+
 def relativize_root_paths(html: str) -> str:
     """Root-level pages (404.html) — assets and language folders without a leading slash."""
     import re
@@ -410,8 +474,7 @@ def render_home_booking_policy(lang: str) -> str:
 
 
 def quick_actions(lang: str) -> str:
-    prefix = f"/{lang}/"
-    book_href = f"{prefix}{BOOKING_SLUGS[lang]}/"
+    book_href = booking_href(lang)
     labels = book_cta_labels(lang)
     if lang == "hr":
         call = "Pozovite"
@@ -437,8 +500,7 @@ def quick_actions(lang: str) -> str:
 def render_visit_cta_bar(lang: str) -> str:
     labels = book_cta_labels(lang)
     status = park_status(lang)
-    prefix = f"/{lang}/"
-    book_href = f"{prefix}{BOOKING_SLUGS[lang]}/"
+    book_href = booking_href(lang)
     primary = PHONES[1] if lang == "hr" else PHONES[0]
     visit_aria = (
         "Posjetite danas — nazovite za dostupnost"
@@ -462,7 +524,7 @@ def render_visit_cta_bar(lang: str) -> str:
 
 
 def page_chrome(lang: str, *, is_home: bool = False) -> str:
-    return f"""{quick_actions(lang)}
+    return f"""{render_preview_banner()}{quick_actions(lang)}
 {render_visit_cta_bar(lang)}
 {site_header(lang)}
 {visitor_bar(lang)}
@@ -513,7 +575,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Sigurnost", f"{prefix}sigurnost/"),
         ]
         book_label = book_cta_labels("hr")["book_tickets"]
-        book_href = f"{prefix}{BOOKING_SLUGS['hr']}/"
+        book_href = booking_href("hr")
     else:
         links = [
             ("Activities", f"{prefix}#activities" if is_home else activities_hub_path(lang)),
@@ -524,7 +586,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Safety", f"{prefix}safety/"),
         ]
         book_label = book_cta_labels("en")["book_tickets"]
-        book_href = f"{prefix}{BOOKING_SLUGS['en']}/"
+        book_href = booking_href("en")
     items = "".join(f'<a href="{href}">{label}</a>' for label, href in links)
     return f"""
   <nav class="site-nav" aria-label="{'Glavna navigacija' if lang == 'hr' else 'Main navigation'}">
@@ -564,12 +626,13 @@ def footer(lang: str) -> str:
             ("Safety", f"{prefix}safety/"),
         ]
     link_html = "".join(f"<li><a href=\"{h}\">{t}</a></li>" for t, h in links)
+    footer_href, footer_label = footer_site_link()
     return f"""
 {render_trust_strip(lang, in_footer=True)}
   <footer class="site-footer">
     <p>&copy; <time datetime="2026">2026</time> {copy}</p>
     <ul class="site-footer__links">
-      <li><a href="{BASE}">www.glavanipark.com</a></li>
+      <li><a href="{footer_href}">{footer_label}</a></li>
       {link_html}
     </ul>
   </footer>"""
@@ -945,7 +1008,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
       <h1>{page['h1']}</h1>
       <p class="hero__subtitle">{page['hero_subtitle']}</p>
       <div class="activity-banner__actions">
-        <a class="btn-primary" href="{prefix}{BOOKING_SLUGS[lang]}/">{book_cta_labels(lang)['book_tickets']}</a>
+        <a class="btn-primary" href="{booking_href(lang)}">{book_cta_labels(lang)['book_tickets']}</a>
         <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
       </div>
     </div>
@@ -969,7 +1032,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
       <h2>{'Rezervirajte avanturu' if lang == 'hr' else 'Book Your Adventure'}</h2>
       <p>{'Pozovite unaprijed za cijene i dostupnost termina.' if lang == 'hr' else 'Call ahead for pricing and availability — especially for groups.'}</p>
       <div class="pricing-teaser__actions">
-        <a class="btn-primary" href="{prefix}{BOOKING_SLUGS[lang]}/">{book_cta_labels(lang)['book_tickets']}</a>
+        <a class="btn-primary" href="{booking_href(lang)}">{book_cta_labels(lang)['book_tickets']}</a>
         <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
       </div>
     </div>
@@ -1055,7 +1118,7 @@ def activity_price_hint(activity: dict, lang: str) -> str:
 
 def render_conversion_cta(lang: str, *, compact: bool = False) -> str:
     prefix = f"/{lang}/"
-    book_href = f"{prefix}{BOOKING_SLUGS[lang]}/"
+    book_href = booking_href(lang)
     prices_href = f"{prefix}{PRICES_SLUGS[lang]}/"
     labels = book_cta_labels(lang)
     if lang == "hr":
@@ -1298,7 +1361,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
     home_label = "Početna" if lang == "hr" else "Home"
     activities_label = "Aktivnosti" if lang == "hr" else "Activities"
     book_label = book_cta_labels(lang)["book_tickets"]
-    book_href = f"{prefix}{BOOKING_SLUGS[lang]}/"
+    book_href = booking_href(lang)
     cta = "Pozovite za rezervaciju" if lang == "hr" else "Call to Book"
     img = activity["image"]
     mod = activity["tile_mod"]
@@ -1470,7 +1533,7 @@ def render_event_page(event: dict, lang: str) -> str:
     canonical = f"{BASE}{prefix}{slug}/"
     home_label = "Početna" if lang == "hr" else "Home"
     book_label = "Rezervirajte" if lang == "hr" else "Book Your Visit"
-    book_href = f"{prefix}rezervacija/" if lang == "hr" else f"{prefix}book/"
+    book_href = booking_href(lang)
     cta = "Pozovite za rezervaciju" if lang == "hr" else "Call to Book"
     img = event["image"]
 
@@ -1745,7 +1808,7 @@ def render_faq_page(lang: str) -> str:
     prefix = f"/{lang}/"
     canonical = f"{BASE}{prefix}{slug}/"
     home_label = "Početna" if lang == "hr" else "Home"
-    book_href = f"{prefix}rezervacija/" if lang == "hr" else f"{prefix}book/"
+    book_href = booking_href(lang)
     book_label = "Rezervirajte posjet" if lang == "hr" else "Book Your Visit"
     cta = "Pozovite za rezervaciju" if lang == "hr" else "Call to Book"
 
@@ -1869,8 +1932,8 @@ def render_404_page() -> str:
     status_hr = park_status("hr")
     en_prices = f"/en/{PRICES_SLUGS['en']}/"
     hr_prices = f"/hr/{PRICES_SLUGS['hr']}/"
-    en_book = f"/en/{BOOKING_SLUGS['en']}/"
-    hr_book = f"/hr/{BOOKING_SLUGS['hr']}/"
+    en_book = booking_href("en")
+    hr_book = booking_href("hr")
     en_activities = activities_hub_path("en")
     hr_activities = activities_hub_path("hr")
     en_faq = f"/en/{FAQ_SLUGS['en']}/"
@@ -1880,8 +1943,8 @@ def render_404_page() -> str:
     phone_en = PHONES[0]
     phone_hr = PHONES[1]
 
-    return f"""{head_meta("en", en["title"], en["description"], en["keywords"], canonical, is_home=True, robots="noindex, follow", body_class="theme-page page-404", early_head=render_redirect_script())}
-{quick_actions("en")}
+    return f"""{head_meta("en", en["title"], en["description"], en["keywords"], canonical, is_home=True, robots="noindex, follow", body_class="theme-page page-404", early_head=render_site_redirect_script())}
+{render_preview_banner()}{quick_actions("en")}
   <div class="visit-cta-bar" aria-label="Book tickets and today's status">
     <div class="visit-cta-bar__inner">
       <p class="visit-cta-bar__status visitor-bar__status visitor-bar__status--{status['state']}">
@@ -2012,7 +2075,7 @@ def render_prices_page(lang: str) -> str:
     prefix = f"/{lang}/"
     canonical = f"{BASE}{prefix}{slug}/"
     home_label = "Početna" if lang == "hr" else "Home"
-    book_href = f"{prefix}rezervacija/" if lang == "hr" else f"{prefix}book/"
+    book_href = booking_href(lang)
     book_label = "Rezervirajte posjet" if lang == "hr" else "Book Your Visit"
     cta = "Pozovite za rezervaciju" if lang == "hr" else "Call to Book"
 
@@ -2352,6 +2415,7 @@ def main() -> None:
     build_root_redirect()
     build_404()
     relativize_site()
+    apply_preview_fixes()
     print("Done.")
 
 

@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /upload/
 
-Sitemap: https://www.glavanipark.com/sitemap.xml
+Sitemap: https://bdabson-droid.github.io/Glavani/sitemap.xml

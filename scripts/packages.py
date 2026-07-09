@@ -3,11 +3,24 @@ Activity packages and single-activity prices for the prices page and booking app
 Keep assets/js/booking-app.js in sync when prices or options change.
 """
 
+import os
+
 from booking_policy import BOOKING_POLICY
 from brand_voice import CALL_FOR_GROUPS_ABOVE, ONLINE_BOOKING_MAX, PHONES
 
+PRODUCTION_BASE = "https://www.glavanipark.com"
+SITE_BASE = os.environ.get("SITE_BASE", PRODUCTION_BASE).rstrip("/")
+
 PRICES_SLUGS = {"en": "prices", "hr": "cijene"}
 BOOKING_SLUGS = {"en": "book", "hr": "rezervacija"}
+
+
+def booking_page_href(lang: str) -> str:
+    """Booking page URL — absolute on preview so links never leave the test host."""
+    path = f"/{lang}/{BOOKING_SLUGS[lang]}/"
+    if SITE_BASE != PRODUCTION_BASE:
+        return f"{SITE_BASE}{path}"
+    return path
 
 WHOLE_PARK_SINGLE_ADULT = 70
 CHILD_MAX_AGE = 10
@@ -319,7 +332,7 @@ def pricing_visit_footer_line(lang: str) -> str:
 
 def package_price_faq_answer(lang: str, prefix: str, *, single_price: int | None = None) -> str:
     prices_href = f"{prefix}{PRICES_SLUGS[lang]}/"
-    book_href = f"{prefix}{BOOKING_SLUGS[lang]}/"
+    book_href = booking_page_href(lang)
     if lang == "hr":
         if single_price:
             return (
@@ -421,7 +434,7 @@ def render_price_amount(opt: dict, copy: dict, lang: str) -> str:
 
 def render_price_sections(lang: str) -> str:
     copy = PRICES_COPY[lang]
-    book_base = f"/{lang}/{BOOKING_SLUGS[lang]}/"
+    book_base = booking_page_href(lang)
     default_guests = 1
     sections = []
     for group in ("packages", "family", "single"):
