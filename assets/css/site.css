@@ -2391,7 +2391,7 @@ body.page-404.is-hr .lang-en.block { display: none; }
   .hero { padding: 1.25rem 1.25rem 1.5rem; }
   .hero--home { padding: 1.25rem 1.25rem 1.5rem; }
   .hero--home .hero__inner { gap: 1.25rem; }
-  .site-header__logo-img { width: min(380px, 80vw); }
+  .site-header__logo-img { width: min(380px, 65vw); }
   .site-header__tagline { font-size: 0.75rem; }
   .hero__subtitle { margin-bottom: 1rem; }
   .landing-layout { padding: 1.25rem 1.25rem; }
