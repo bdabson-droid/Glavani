@@ -399,6 +399,18 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   padding: 0.1rem 0.35rem;
   border-radius: 4px;
 }
+.preview-banner--warn {
+  background: #4a2800;
+  border-bottom-color: #e67e22;
+  color: #fff4e6;
+}
+.preview-banner--warn a {
+  color: #ffd28a;
+  font-weight: 700;
+}
+.preview-banner--warn code {
+  background: rgba(0, 0, 0, 0.2);
+}
 
 .site-header {
   background: var(--brand-black);

@@ -97,11 +97,23 @@ def render_preview_banner() -> str:
     if not IS_PREVIEW:
         return ""
     host = BASE.replace("https://", "").replace("http://", "")
+    en_book = booking_href("en")
     return f"""
   <div class="preview-banner" role="status">
-    <strong>Preview site</strong> — you are testing at <code>{host}</code>.
-    The live site at <code>www.glavanipark.com</code> still runs the old system until DNS is switched.
+    <strong>Preview site only</strong> — you are testing at <code>{host}</code>.
+  </div>
+  <div class="preview-banner preview-banner--warn" role="alert">
+    <strong>English booking:</strong> use <a href="{en_book}">{en_book}</a>.
+    <code>www.glavanipark.com/en/book/</code> still runs the old site and shows a <code>poruka.asp</code> error.
   </div>"""
+
+
+def preview_head_extras() -> str:
+    if not IS_PREVIEW:
+        return ""
+    return f"""  <meta name="glavani-preview-base" content="{BASE}">
+  <script src="/assets/js/preview-booking-guard.js" defer></script>
+"""
 
 
 def render_site_redirect_script() -> str:
@@ -729,7 +741,7 @@ def head_meta(
   <link rel="apple-touch-icon" href="/images/glavani-park-logo.png">
   <meta name="theme-color" content="#0a0a0a">
   <link rel="stylesheet" href="/assets/css/site.css">
-{extra_head}
+{preview_head_extras()}{extra_head}
 </head>
 <body class="{body_class}">"""
 
