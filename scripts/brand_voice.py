@@ -1,12 +1,6 @@
 """Shared brand messaging — hours, phones, and voice for Glavani Park."""
 
 BOOKING_EMAIL = "info@glavanipark.com"
-# FormSubmit requires activation per recipient. office@ was activated when the form launched;
-# route via that endpoint and CC info@ until info@ is activated on FormSubmit (then switch endpoint).
-BOOKING_FORMSUBMIT_ENDPOINT = "office@glavanipark.com"
-BOOKING_FORMSUBMIT_CC = BOOKING_EMAIL
-BOOKING_SUBMIT_URL = f"https://formsubmit.co/ajax/{BOOKING_FORMSUBMIT_ENDPOINT}"
-BOOKING_SUBMIT_ACTION = f"https://formsubmit.co/{BOOKING_FORMSUBMIT_ENDPOINT}"
 ONLINE_BOOKING_MAX = 10
 CALL_FOR_GROUPS_ABOVE = 10
 
