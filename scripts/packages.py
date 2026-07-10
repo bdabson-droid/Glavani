@@ -16,6 +16,11 @@ def booking_page_href(lang: str) -> str:
 
 CHILD_MAX_AGE = 10
 
+LEGACY_GIFT_VOUCHER_URLS = {
+    "en": "https://www.glavanipark.com/en/gift_card/4",
+    "hr": "https://www.glavanipark.com/hr/gift_card/4",
+}
+
 GROUP_LABELS = {
     "en": {
         "family": "Family packages — whole park incl. catapult",
@@ -262,6 +267,23 @@ def large_group_booking_notice(lang: str) -> str:
 
 def render_large_group_booking_notice(lang: str) -> str:
     return f'<p class="packages-notice packages-notice--groups">{large_group_booking_notice(lang)}</p>'
+
+
+def legacy_gift_voucher_notice(lang: str) -> str:
+    url = LEGACY_GIFT_VOUCHER_URLS[lang]
+    if lang == "hr":
+        return (
+            f"Poklon bonove i dalje možete kupiti na našoj prethodnoj web stranici "
+            f'i iskoristiti u parku. <a href="{url}">Kupite poklon bon online</a>.'
+        )
+    return (
+        f"Gift vouchers can still be purchased on our previous website "
+        f'and redeemed at the park. <a href="{url}">Buy a gift voucher online</a>.'
+    )
+
+
+def render_legacy_gift_voucher_notice(lang: str) -> str:
+    return f'<p class="legacy-gift-note">{legacy_gift_voucher_notice(lang)}</p>'
 
 
 def min_package_prices() -> tuple[int, int]:
