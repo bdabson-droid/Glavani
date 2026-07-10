@@ -299,8 +299,8 @@ ACTIVITIES = [
             "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
         },
         "hr": {
-            "title": "Dolinski zipline (veliki zipline) | Glavani Park Istria",
-            "h1": "Dolinski zipline (veliki zipline)",
+            "title": "Dolinski zipline | Glavani Park Istria",
+            "h1": "Dolinski zipline",
             "meta_description": (
                 "Let 120 metara kroz dolinu na samostalnom ziplineu Glavani Parka, do 20 m visine. "
                 "Polasci pod nadzorom instruktora u Istri kod Pule. Otvoreno 9–17 h."
@@ -358,8 +358,8 @@ ACTIVITIES = [
             "hero_badge": "Vražji put · monocikl · limit 85 kg",
             "image_alt": "Gost na Stazi Vražjeg puta u Glavani Parku, Istria Hrvatska",
             "paragraphs": [
-                "Kada ste prošli žutu, plavu i crnu stazu, vrijeme je da nastavite na najduži zipline i Stazu Vražjeg puta. Zipline može svatko proći jer je do njega vrlo jednostavno doći; za most s monociklom vrijede ograničenja — osobe teže od 85 kg ne bi trebale ići na most, a mala djeca moraju dohvatiti pedale monocikla.",
-                "Prije monocikla čeka vas skateboard, malo veći i brži, te mostić kojeg je najlakše pretrčati — kroz cijelo razdoblje slušajte upute osoblja. Monocikl je najzahtjevniji dio u Glavani Parku: namjestite visinu sjedala, jednom rukom držite horizontalnu špagu, drugom se čvrsto držite ispod sjedala. Nakon toga slijede slackline i most; vratite se najdužim ziplineom ili kraćim, bržim do 11 m visoke ljuljačke.",
+                "Kada ste prošli žutu, plavu i crnu stazu, vrijeme je da nastavite na najdužu zip liniju i Stazu Vražjeg puta. Zip liniju može svatko proći jer je do nje vrlo jednostavno doći; za most s monociklom vrijede ograničenja — osobe teže od 85 kg ne bi trebale ići na most, a mala djeca moraju dohvatiti pedale monocikla.",
+                "Prije monocikla čeka vas skateboard, malo veći i brži, te mostić kojeg je najlakše pretrčati — kroz cijelo razdoblje slušajte upute osoblja. Monocikl je najzahtjevniji dio u Glavani Parku: namjestite visinu sjedala, jednom rukom držite horizontalnu špagu, drugom se čvrsto držite ispod sjedala. Nakon toga slijede slackline i most; vratite se najdužom zip linijom ili kraćom, bržom do 11 m visoke ljuljačke.",
             ],
         },
     },
