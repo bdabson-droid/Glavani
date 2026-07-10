@@ -55,6 +55,7 @@ from packages import (  # noqa: E402
     render_price_sections,
     render_children_pricing_ticker,
     render_large_group_booking_notice,
+    render_legacy_gift_voucher_notice,
 )
 from open_status import park_status  # noqa: E402
 from activity_reviews import render_activity_reviews  # noqa: E402
@@ -1978,6 +1979,7 @@ def render_prices_page(lang: str) -> str:
         <a class="btn-primary" href="{book_href}">{book_label}</a>
         <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
       </p>
+      {render_legacy_gift_voucher_notice(lang)}
     </div>
   </section>
 </main>
@@ -2051,6 +2053,7 @@ def render_booking_app(lang: str) -> str:
   <div id="booking-app" aria-live="polite"></div>
   <p class="book-app-notice book-app-notice--children">{children_pricing_notice(lang, for_booking=True)}</p>
   <p class="book-app-notice book-app-notice--policy">{policy}</p>
+  {render_legacy_gift_voucher_notice(lang)}
 </div>
 {footer(lang)}
 {render_page_scripts("open-status", "booking-app")}

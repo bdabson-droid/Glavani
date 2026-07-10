@@ -2022,6 +2022,19 @@ body.page-404.is-hr .lang-en.block { display: none; }
 .packages-notice--groups a:hover {
   text-decoration-thickness: 2px;
 }
+.legacy-gift-note {
+  margin: 1.5rem auto 0;
+  max-width: 640px;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--rock-mid);
+  text-align: center;
+}
+.legacy-gift-note a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
 .price-section h2 {
   font-size: clamp(1.125rem, 2.5vw, 1.375rem);
   color: var(--green-deep);
