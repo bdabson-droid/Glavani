@@ -60,7 +60,7 @@ from packages import (  # noqa: E402
 from open_status import park_status  # noqa: E402
 from activity_reviews import render_activity_reviews  # noqa: E402
 from activity_seo import render_activity_seo_footer  # noqa: E402
-from trust_signals import book_cta_labels, render_trust_strip  # noqa: E402
+from trust_signals import book_cta_labels, render_stay_safe_badge, render_trust_strip  # noqa: E402
 from visitor_gallery import ACTIVITY_GALLERY_MAP, GALLERY_BY_IMAGE, VISITOR_GALLERY  # noqa: E402
 from migration_redirects import render_redirect_script, render_redirects_file  # noqa: E402
 
@@ -221,6 +221,10 @@ EXTERNAL_IMAGES.extend(
             "https://www.glavanipark.com/images/pitchup_logo.jpg",
             "pitchup-partner.webp",
         ),
+        (
+            "https://www.glavanipark.com/images/stay_safe.png",
+            "stay-safe.png",
+        ),
     ]
 )
 
@@ -237,6 +241,10 @@ def fetch_external_images() -> None:
         try:
             with urllib.request.urlopen(url, timeout=30) as response:
                 data = response.read()
+            if filename.endswith(".png"):
+                path.write_bytes(data)
+                print(f"  image: {path.name} (external)")
+                continue
             img = Image.open(io.BytesIO(data)).convert("RGB")
             img.save(path, "WEBP", quality=86, method=6)
             print(f"  image: {path.name} (external)")
@@ -585,6 +593,7 @@ def footer(lang: str) -> str:
     link_html = "".join(f"<li><a href=\"{h}\">{t}</a></li>" for t, h in links)
     footer_href, footer_label = footer_site_link()
     return f"""
+{render_stay_safe_badge(lang)}
 {render_trust_strip(lang, in_footer=True)}
   <footer class="site-footer">
     <p>&copy; <time datetime="2026">2026</time> {copy}</p>

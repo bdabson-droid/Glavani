@@ -232,8 +232,19 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 }
 .trust-strip--footer {
   border-bottom: none;
-  border-top: 1px solid #e2e8f0;
+  border-top: none;
   padding: 1rem 1rem 0.85rem;
+}
+.footer-stay-safe {
+  text-align: center;
+  padding: 1.25rem 1rem 0.5rem;
+  border-top: 1px solid #e2e8f0;
+  background: var(--white);
+}
+.footer-stay-safe img {
+  max-width: min(350px, 88vw);
+  height: auto;
+  display: inline-block;
 }
 .trust-strip__list {
   max-width: 1100px;
