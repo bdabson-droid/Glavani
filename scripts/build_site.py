@@ -476,7 +476,7 @@ def render_visit_cta_bar(lang: str) -> str:
         if lang == "hr"
         else "Visit today — call for availability"
     )
-    aria = "Rezervacija i današnji status" if lang == "hr" else "Book tickets and today's status"
+    aria = "Rezervacija i današnji status" if lang == "hr" else "Book online and today's status"
     return f"""
   <div class="visit-cta-bar" aria-label="{aria}">
     <div class="visit-cta-bar__inner">
