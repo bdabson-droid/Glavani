@@ -2112,6 +2112,13 @@ body.page-404.is-hr .lang-en.block { display: none; }
   font-weight: 700;
   color: var(--green-deep);
 }
+.book-summary__includes {
+  display: inline-block;
+  margin-top: 0.2rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--green-deep);
+}
 .booking-form__fixed-group {
   margin: 0;
   padding: 0.65rem 0.85rem;

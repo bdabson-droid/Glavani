@@ -353,6 +353,10 @@
     return !!(a && typeof a.fixed_guests === 'number');
   }
 
+  function activityHasIncludes(a) {
+    return !!(a && a.includes);
+  }
+
   function formatMoney(amount) {
     const n = Number(amount);
     return n % 1 === 0 ? String(n) : n.toFixed(2).replace(/\.?0+$/, '');
@@ -385,7 +389,8 @@
       return `${a.name} — €${a.price} (${a.includes})`;
     }
     if (activityHasChildPrice(a)) {
-      return `${a.name} — €${a.price} / €${a.child_price}`;
+      const label = `${a.name} — €${a.price} / €${a.child_price}`;
+      return activityHasIncludes(a) ? `${label} (${a.includes})` : label;
     }
     return `${a.name} — €${a.price}/pp`;
   }
@@ -405,6 +410,7 @@
       const lines = [];
       if (adults) lines.push(`${adults} × €${a.price} (${t.adults})`);
       if (children) lines.push(`${children} × €${a.child_price} (${t.children})`);
+      if (activityHasIncludes(a)) lines.push(a.includes);
       return lines;
     }
     return [`${guestCount()} × €${a.price}`];
@@ -557,6 +563,7 @@
         ? [
             `${t.adults}: ${state.adults} × €${a.price}`,
             `${t.children}: ${state.children} × €${a.child_price}`,
+            ...(activityHasIncludes(a) ? [a.includes] : []),
           ]
         : [`${t.pricePerPerson}: €${a ? a.price : 0}`, `${t.guests}: ${guestCount()}`]),
       `${t.total}: €${total}`,
@@ -666,7 +673,7 @@
       dayCells += `<button type="button" class="${cls}" data-date="${iso}" ${isPast ? 'disabled' : ''}${aria}>${day}</button>`;
     }
     const a = selectedActivity();
-    const summary = a ? `<p class="book-package-preview">${a.name} · ${guestCount()} ${lang === 'hr' ? 'osoba' : 'guests'} · <strong>€${bookingTotal()}</strong></p>` : '';
+    const summary = a ? `<p class="book-package-preview">${a.name}${activityHasIncludes(a) ? ` · ${a.includes}` : ''} · ${guestCount()} ${lang === 'hr' ? 'osoba' : 'guests'} · <strong>€${bookingTotal()}</strong></p>` : '';
     const within48 = selectedDate && isWithin48Hours(selectedDate) ? renderWithin48Warning() : '';
     return `<section class="book-panel">
       <h2>${t.pickDate}</h2>
@@ -685,7 +692,7 @@
 
   function renderDetails() {
     const a = selectedActivity();
-    const preview = a ? `<p class="book-package-preview">${a.name} · ${t.total}: <strong>€${bookingTotal()}</strong></p>` : '';
+    const preview = a ? `<p class="book-package-preview">${a.name}${activityHasIncludes(a) ? ` · ${a.includes}` : ''} · ${t.total}: <strong>€${bookingTotal()}</strong></p>` : '';
     return `<section class="book-panel">
       <h2>${t.yourDetails}</h2>
       ${preview}
@@ -720,7 +727,7 @@
       <div class="book-summary">
         <h3>${t.summary}</h3>
         <dl>
-          <dt>${t.package}</dt><dd>${a ? a.name : '—'}</dd>
+          <dt>${t.package}</dt><dd>${a ? a.name : '—'}${a && activityHasIncludes(a) ? `<br><span class="book-summary__includes">${a.includes}</span>` : ''}</dd>
           ${activityIsFamilyPackage(a)
             ? `<dt>${t.guests}</dt><dd>${a.fixed_guests} (${t.groupSizeFixed.replace('{n}', a.fixed_guests)})</dd>`
             : activityHasChildPrice(a)
