@@ -8,6 +8,8 @@ from pathlib import Path
 GOOGLE_REVIEWS_URL = "https://www.google.com/maps/search/?api=1&query=Glavani+Park+Barban"
 TRIPADVISOR_URL = "https://www.tripadvisor.com/Attraction_Review-g1157701-d1973802-Reviews-Glavani_Park-Barban_Istria.html"
 FACEBOOK_URL = "https://www.facebook.com/glavanipark"
+GOOGLE_RATING_VALUE = 4.8
+GOOGLE_REVIEW_COUNT = {"en": "900+ reviews", "hr": "900+ recenzija"}
 SNAPSHOT_PATH = Path(__file__).resolve().parent / "reviews_snapshot.json"
 
 
@@ -58,4 +60,29 @@ def render_review_badge(lang: str) -> str:
         f'<span class="review-badge__stars" aria-hidden="true">★★★★★</span> '
         f'<a href="{TRIPADVISOR_URL}" target="_blank" rel="noopener noreferrer" '
         f'aria-label="{label}"><strong>{text}</strong></a></p>'
+    )
+
+
+def render_google_review_badge(lang: str) -> str:
+    """Compact Google rating for hero areas."""
+    if lang == "hr":
+        text = f"{GOOGLE_RATING_VALUE} na Googleu · {GOOGLE_REVIEW_COUNT['hr']}"
+        label = "Ocjena na Googleu"
+    else:
+        text = f"{GOOGLE_RATING_VALUE} on Google · {GOOGLE_REVIEW_COUNT['en']}"
+        label = "Google rating"
+    return (
+        f'<p class="review-badge review-badge--google">'
+        f'<span class="review-badge__stars" aria-hidden="true">★★★★★</span> '
+        f'<a href="{GOOGLE_REVIEWS_URL}" target="_blank" rel="noopener noreferrer" '
+        f'aria-label="{label}"><strong>{text}</strong></a></p>'
+    )
+
+
+def render_hero_review_badges(lang: str) -> str:
+    return (
+        f'<div class="hero__review-badges">'
+        f"{render_google_review_badge(lang)}"
+        f"{render_review_badge(lang)}"
+        f"</div>"
     )

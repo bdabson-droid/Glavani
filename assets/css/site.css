@@ -639,6 +639,15 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   margin: 0.75rem 0 0;
   font-size: 0.9375rem;
 }
+.hero__review-badges {
+  margin-top: 0.75rem;
+}
+.hero__review-badges .review-badge {
+  margin: 0;
+}
+.hero__review-badges .review-badge + .review-badge {
+  margin-top: 0.35rem;
+}
 .review-badge__stars { color: var(--yellow-accent); letter-spacing: 0.05em; }
 .review-badge a { color: var(--text-on-dark); text-decoration: none; }
 .review-badge a:hover { color: var(--accent-on-dark); text-decoration: underline; }

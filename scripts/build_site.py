@@ -21,7 +21,7 @@ from reviews import (  # noqa: E402
     FACEBOOK_URL,
     TRIPADVISOR_URL,
     aggregate_rating,
-    render_review_badge,
+    render_hero_review_badges,
     review_list,
     reset_cache,
 )
@@ -1644,7 +1644,7 @@ def inject_home_extras(body: str, lang: str) -> str:
             f'data-open-status data-lang="{lang}">{status["message"]}</span>'
             f"</span>"
         ),
-        "<!-- HERO_REVIEW_BADGE -->": render_review_badge(lang),
+        "<!-- HERO_REVIEW_BADGE -->": render_hero_review_badges(lang),
         "<!-- HERO_PRICE_TEASER -->": (
             f'<p class="hero__price-teaser">{summary["hero_line"]} · '
             f'<a href="/{lang}/{PRICES_SLUGS[lang]}/">'
