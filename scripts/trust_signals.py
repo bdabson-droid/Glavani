@@ -20,6 +20,7 @@ LABELS = {
         "media": "As featured in",
         "kroatide": "Kroatide travel guide",
         "pitchup": "Pitchup.com partner",
+        "stay_safe": "Stay safe",
     },
     "hr": {
         "tripadvisor": "TripAdvisor",
@@ -36,6 +37,7 @@ LABELS = {
         "media": "Preporučeno u",
         "kroatide": "Kroatide vodič",
         "pitchup": "Pitchup.com partner",
+        "stay_safe": "Budite sigurni",
     },
 }
 
@@ -54,6 +56,13 @@ def book_cta_labels(lang: str) -> dict[str, str]:
         "book_now": "Book Now",
         "book": "Book",
     }
+
+
+def render_stay_safe_badge(lang: str) -> str:
+    labels = LABELS[lang]
+    return f"""<div class="footer-stay-safe">
+      <img src="/images/stay-safe.png" alt="{labels['stay_safe']}" width="350" height="135" loading="lazy">
+    </div>"""
 
 
 def render_trust_strip(lang: str, *, in_footer: bool = False) -> str:
