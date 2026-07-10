@@ -225,6 +225,10 @@ EXTERNAL_IMAGES.extend(
             "https://www.glavanipark.com/images/stay_safe.png",
             "stay-safe.png",
         ),
+        (
+            "https://www.glavanipark.com/images/favicon.ico",
+            "favicon.ico",
+        ),
     ]
 )
 
@@ -241,7 +245,7 @@ def fetch_external_images() -> None:
         try:
             with urllib.request.urlopen(url, timeout=30) as response:
                 data = response.read()
-            if filename.endswith(".png"):
+            if filename.endswith(".png") or filename.endswith(".ico"):
                 path.write_bytes(data)
                 print(f"  image: {path.name} (external)")
                 continue
@@ -670,7 +674,8 @@ def head_meta(
   <meta name="twitter:description" content="{safe_desc}">
   <meta name="twitter:image" content="{og_image_url}">
   <meta name="twitter:image:alt" content="{safe_image_alt}">
-  <link rel="icon" href="/images/glavani-park-logo-small.png" type="image/png">
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="/images/glavani-park-logo.png">
   <meta name="theme-color" content="#0a0a0a">
   <link rel="stylesheet" href="/assets/css/site.css">
