@@ -45,13 +45,13 @@ def _shared_footer(lang: str, h1: str) -> str:
         return f"""
 <h2>Planiranje posjeta</h2>
 <p>Glavani Park se nalazi u Glavanima 10, Barban — otprilike <strong>30 minuta vožnje od Pule</strong>, 45 minuta od Rovinja i Rabca te 50 minuta od Poreča. Besplatno parkiranje je na licu mjesta. Park radi <strong>svaki dan 9–17 h</strong>; posljednji ulaz u <strong>15 h</strong>, stoga planirajte tri do četiri sata za cijeli park.</p>
-<p>Za {h1.lower()} i ostale atrakcije možete <a href="{links['book']}">rezervirati ulaznice online</a> za grupe do {online_max} osoba ili nazvati za veće grupe. Pogledajte <a href="{links['prices']}">pakete i cijene</a> — {pricing_visit_footer_line("hr")}.</p>
+<p>Za {h1.lower()} i ostale atrakcije možete <a href="{links['book']}">rezervirati online</a> za grupe do {online_max} osoba ili nazvati za veće grupe. Pogledajte <a href="{links['prices']}">pakete i cijene</a> — {pricing_visit_footer_line("hr")}.</p>
 <h2>Sigurnost i oprema</h2>
 <p>Svaka aktivnost u Glavani Parku vodi se pod nadzorom kvalificiranih instruktora. Oprema je CE certificirana i provjerava se dnevno. Prije početka dobivate harnes, kacigu i jasnu obuku. Više o standardima pročitajte na našoj <a href="{links['safety']}">stranici o sigurnosti</a>.</p>"""
     return f"""
 <h2>Planning your visit</h2>
 <p>Glavani Park is at Glavani 10, Barban — about <strong>30 minutes from Pula</strong>, 45 minutes from Rovinj and Rabac, and 50 minutes from Poreč. Free parking is on site. The park is open <strong>daily 9 AM–5 PM</strong> with <strong>last entry at 3 PM</strong>, so allow three to four hours for the whole park.</p>
-<p>For {h1} and our other attractions you can <a href="{links['book']}">book tickets online</a> for groups up to {online_max} or call ahead for larger parties. See <a href="{links['prices']}">packages and prices</a> — {pricing_visit_footer_line("en")}.</p>
+<p>For {h1} and our other attractions you can <a href="{links['book']}">book online</a> for groups up to {online_max} or call ahead for larger parties. See <a href="{links['prices']}">packages and prices</a> — {pricing_visit_footer_line("en")}.</p>
 <h2>Safety and equipment</h2>
 <p>Every activity at Glavani Park is instructor-led. Equipment is CE-certified and checked daily. You receive a harness, helmet, and clear briefing before you start. Read more on our <a href="{links['safety']}">safety page</a>.</p>"""
 
