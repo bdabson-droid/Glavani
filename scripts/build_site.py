@@ -476,7 +476,7 @@ def render_visit_cta_bar(lang: str) -> str:
         if lang == "hr"
         else "Visit today — call for availability"
     )
-    aria = "Rezervacija i današnji status" if lang == "hr" else "Book tickets and today's status"
+    aria = "Rezervacija i današnji status" if lang == "hr" else "Book online and today's status"
     return f"""
   <div class="visit-cta-bar" aria-label="{aria}">
     <div class="visit-cta-bar__inner">
@@ -1742,10 +1742,10 @@ NOT_FOUND_COPY = {
     "en": {
         "title": "Page Not Found | Glavani Park Istria",
         "description": (
-            "This page could not be found. Browse Glavani Park prices, book tickets online, "
+            "This page could not be found. Browse Glavani Park prices, book online, "
             "see our attractions, or check opening hours — Croatia's number 1 adventure park in Istria."
         ),
-        "keywords": "Glavani Park, page not found, adventure park Istria, book tickets",
+        "keywords": "Glavani Park, page not found, adventure park Istria, book online",
         "badge": "404",
         "h1": "We couldn't find that page",
         "lead": (
@@ -1769,7 +1769,7 @@ NOT_FOUND_COPY = {
     "hr": {
         "title": "Stranica nije pronađena | Glavani Park Istria",
         "description": (
-            "Ova stranica nije pronađena. Pogledajte cijene Glavani Parka, rezervirajte ulaznice online, "
+            "Ova stranica nije pronađena. Pogledajte cijene Glavani Parka, rezervirajte online, "
             "pogledajte atrakcije ili radno vrijeme — broj 1 avanturistički park u Istri."
         ),
         "keywords": "Glavani Park, stranica nije pronađena, avanturistički park Istria, rezervacija",
@@ -1833,7 +1833,7 @@ def render_404_page() -> str:
 
     return f"""{head_meta("en", en["title"], en["description"], en["keywords"], canonical, is_home=True, robots="noindex, follow", body_class="theme-page page-404", early_head=render_site_redirect_script())}
 {quick_actions("en")}
-  <div class="visit-cta-bar" aria-label="Book tickets and today's status">
+  <div class="visit-cta-bar" aria-label="Book online and today's status">
     <div class="visit-cta-bar__inner">
       <p class="visit-cta-bar__status visitor-bar__status visitor-bar__status--{status['state']}">
         <span class="visitor-bar__icon" aria-hidden="true">●</span>
