@@ -131,7 +131,7 @@ VISITOR_GALLERY = [
     },
     {
         "image": "visitor-gallery-valley-zipline-17.webp",
-        "en_alt": "Guests riding the Valley Zip Line Course through the oak forest valley at Glavani Park, Istria",
+        "en_alt": "Guests riding the Valley Zipline (Big Zipline) through the oak forest valley at Glavani Park, Istria",
         "hr_alt": "Gosti na dolinskoj zipline stazi kroz hrastovu dolinu u Glavani Parku, Istria",
         "activities": ["valley-zipline"],
         "home": False,
@@ -139,7 +139,7 @@ VISITOR_GALLERY = [
     },
     {
         "image": "visitor-gallery-valley-zipline-18.webp",
-        "en_alt": "Guest on the Valley Zip Line Course at Glavani Park, Istria",
+        "en_alt": "Guest on the Valley Zipline (Big Zipline) at Glavani Park, Istria",
         "hr_alt": "Gost na dolinskoj zipline stazi u Glavani Parku, Istria",
         "activities": ["valley-zipline"],
         "home": False,

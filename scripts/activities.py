@@ -278,23 +278,23 @@ ACTIVITIES = [
         "youtube_url": "https://youtu.be/cQpPtOe481I",
         "image": "visitor-gallery-valley-zipline-18.webp",
         "en": {
-            "title": "Valley Zip Line Course | Glavani Park Istria",
-            "h1": "Valley Zip Line Course",
+            "title": "Valley Zipline (Big Zipline) | Glavani Park Istria",
+            "h1": "Valley Zipline (Big Zipline)",
             "meta_description": (
                 "Fly 120 metres through the valley on Glavani Park's standalone zipline, up to 20 m high. "
                 "Instructor-led launches in Istria near Pula. Open daily 9 AM–5 PM."
             ),
             "keywords": "zipline Istria, 120m zipline Croatia, valley zipline Glavani Park, zipline near Pula",
             "hero_badge": "120 m · up to 20 m high",
-            "image_alt": "Guest on the Valley Zip Line Course at Glavani Park, Istria",
+            "image_alt": "Guest on the Valley Zipline (Big Zipline) at Glavani Park, Istria",
             "paragraphs": [
-                "Glavani Park's Valley Zip Line Course sends you on two zip line runs back and forth over the valley through the oak forest, reaching heights of up to 20 metres. You clip in with park staff, receive a launch briefing, and glide between platforms with views across the valley.",
+                "Glavani Park's Valley Zipline (Big Zipline) sends you on two zipline runs back and forth over the valley through the oak forest, reaching heights of up to 20 metres. You clip in with park staff, receive a launch briefing, and glide between platforms with views across the valley.",
                 "The course is popular with first-time zipliners and returning visitors alike. Harness and helmet are provided; wear closed shoes and comfortable clothing. Combine with the Treetop Course on the high-ropes routes for a full zipline experience in one visit.",
             ],
-            "video_heading": "Valley Zip Line video",
+            "video_heading": "Valley Zipline video",
             "video_notice": (
-                "The course shown in this video is an earlier version. The Valley Zip Line has since been upgraded — "
-                "today's experience includes <strong>two zip lines</strong> back and forth over the valley."
+                "The course shown in this video is an earlier version. The Valley Zipline has since been upgraded — "
+                "today's experience includes <strong>two ziplines</strong> back and forth over the valley."
             ),
             "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
         },
