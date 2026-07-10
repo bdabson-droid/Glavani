@@ -122,7 +122,7 @@ def _human_catapult_snippets(lang: str) -> list[str]:
         "<h2>When is the best time to go?</h2>",
         "<p>Any time during park opening hours (9 AM–5 PM, last entry 3 PM). The catapult runs all day and queues vary — morning and afternoon are both good. With more than 9,000 launches completed, almost every guest leaves happy.</p>",
         "<h2>What to combine with the catapult</h2>",
-        "<p>Most visitors pair the catapult with the <a href=\"{high_swing}\">12.5 m High Swing</a>, <a href=\"{valley_zipline}\">Valley Zip Line</a>, or <a href=\"{drop_20m}\">20 m Drop</a> for a full adrenaline day. Browse all <a href=\"{activities}\">park activities</a>, read our <a href=\"{faq}\">FAQ</a>, or see <a href=\"{istria}\">things to do in Istria</a> to plan your trip.</p>",
+        "<p>Most visitors pair the catapult with the <a href=\"{high_swing}\">12.5 m High Swing</a>, <a href=\"{valley_zipline}\">Valley Zipline (Big Zipline)</a>, or <a href=\"{drop_20m}\">20 m Drop</a> for a full adrenaline day. Browse all <a href=\"{activities}\">park activities</a>, read our <a href=\"{faq}\">FAQ</a>, or see <a href=\"{istria}\">things to do in Istria</a> to plan your trip.</p>",
     ]
 
 
@@ -150,7 +150,7 @@ def _high_swing_snippets(lang: str) -> list[str]:
         "<h2>Safety and who can ride</h2>",
         "<p>Every release is instructor-led with CE-certified equipment. Minimum age and height apply — ask at the ticket desk. Read more on our <a href=\"{safety}\">safety page</a>.</p>",
         "<h2>Prices and combinations</h2>",
-        "<p>The swing is included in whole-park packages or available in a combo with the <a href=\"{human_catapult}\">Human Catapult</a>. See <a href=\"{prices}\">packages and prices</a> or <a href=\"{book}\">book online</a>. Pair with the <a href=\"{valley_zipline}\">Valley Zip Line</a> and <a href=\"{drop_20m}\">20 m Drop</a> for a full adrenaline day.</p>",
+        "<p>The swing is included in whole-park packages or available in a combo with the <a href=\"{human_catapult}\">Human Catapult</a>. See <a href=\"{prices}\">packages and prices</a> or <a href=\"{book}\">book online</a>. Pair with the <a href=\"{valley_zipline}\">Valley Zipline (Big Zipline)</a> and <a href=\"{drop_20m}\">20 m Drop</a> for a full adrenaline day.</p>",
     ]
 
 
@@ -190,7 +190,7 @@ def _low_zipline_snippets(lang: str) -> list[str]:
         "<h2>What to expect</h2>",
         "<p>Allow 45–90 minutes on the course depending on queue and confidence. Instructors are positioned at key points. You stay on continuous belay from climb to landing.</p>",
         "<h2>Combine with other attractions</h2>",
-        "<p>After the blue course many move on to the <a href=\"{valley_zipline}\">Valley Zip Line</a> or <a href=\"{devils_causeway}\">Devil's Causeway Course</a>. Browse all <a href=\"{activities}\">activities</a> and <a href=\"{prices}\">packages</a>.</p>",
+        "<p>After the blue course many move on to the <a href=\"{valley_zipline}\">Valley Zipline (Big Zipline)</a> or <a href=\"{devils_causeway}\">Devil's Causeway Course</a>. Browse all <a href=\"{activities}\">activities</a> and <a href=\"{prices}\">packages</a>.</p>",
     ]
 
 
@@ -206,7 +206,7 @@ def _valley_zipline_snippets(lang: str) -> list[str]:
         ]
     return [
         "<h2>120 metres through the valley — up to 20 metres high</h2>",
-        "<p>The Valley Zip Line is a standalone experience — two runs back and forth across the oak valley, reaching up to 20 metres high. You get forest and park views that photos rarely capture. First-timers receive extra guidance at the launch platform.</p>",
+        "<p>The Valley Zipline (Big Zipline) is a standalone experience — two runs back and forth across the oak valley, reaching up to 20 metres high. You get forest and park views that photos rarely capture. First-timers receive extra guidance at the launch platform.</p>",
         "<h2>What to wear and how long it takes</h2>",
         "<p>Closed shoes and comfortable clothing are essential. Allow 30–60 minutes including briefing and queue. Returning visitors often cite the valley zipline as their favourite ride.</p>",
         "<h2>Plan a full day</h2>",
@@ -230,7 +230,7 @@ def _devils_causeway_snippets(lang: str) -> list[str]:
         "<h2>The unicycle and restrictions</h2>",
         "<p>The unicycle section is unique in Croatia. Weight limit 85 kg applies to the unicycle bridge; younger children must reach the pedals. Staff can advise alternatives. Allow extra time — many guests pause to watch others.</p>",
         "<h2>What to do next</h2>",
-        "<p>After the black route many head to the <a href=\"{valley_zipline}\">Valley Zip Line</a> or the <a href=\"{human_catapult}\">Human Catapult</a>. Read more about <a href=\"{safety}\">safety</a>.</p>",
+        "<p>After the black route many head to the <a href=\"{valley_zipline}\">Valley Zipline (Big Zipline)</a> or the <a href=\"{human_catapult}\">Human Catapult</a>. Read more about <a href=\"{safety}\">safety</a>.</p>",
     ]
 
 
