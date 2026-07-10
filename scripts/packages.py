@@ -43,16 +43,20 @@ BOOKING_OPTIONS = [
         "en": {
             "name": "Whole park — all games incl. human catapult",
             "desc": (
-                "Full day access to every attraction including the Human Catapult. "
+                "Full day access to every attraction. "
+                "Includes 1 Human Catapult launch. "
                 "€70 adults · €60 children (under 10)."
             ),
+            "includes": "Includes 1 Human Catapult launch",
         },
         "hr": {
             "name": "Cijeli park — sve igre uklj. katapultu",
             "desc": (
-                "Cjelodnevni pristup svim atrakcijama uključujući ljudsku katapultu. "
+                "Cjelodnevni pristup svim atrakcijama. "
+                "Uključuje 1 katapult. "
                 "€70 odrasli · €60 djeca (do 10 godina)."
             ),
+            "includes": "Uključuje 1 katapult",
         },
     },
     {
@@ -412,10 +416,14 @@ def render_price_amount(opt: dict, copy: dict, lang: str) -> str:
               </div>"""
         )
     if opt.get("child_price"):
+        data = opt[lang]
+        includes_line = ""
+        if data.get("includes"):
+            includes_line = f'\n                <p class="price-list__saving">{data["includes"]}</p>'
         return (
             f"""              <div class="price-list__amounts price-list__amounts--inline">
                 <p class="price-list__amount">€{opt['price']}<span>{copy['adults']}</span></p>
-                <p class="price-list__amount price-list__amount--child">€{opt['child_price']}<span>{copy['children']}</span></p>
+                <p class="price-list__amount price-list__amount--child">€{opt['child_price']}<span>{copy['children']}</span></p>{includes_line}
               </div>"""
         )
     return f"""              <p class="price-list__amount">€{opt['price']}<span>{copy['per_person']}</span></p>"""

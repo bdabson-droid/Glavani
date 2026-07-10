@@ -26,13 +26,13 @@
 
   const PACKAGE_ACTIVITIES = {
     en: [
-      { id: 'all-incl-catapult', group: 'packages', name: 'Whole park — all games incl. human catapult', price: 70, child_price: 60 },
+      { id: 'all-incl-catapult', group: 'packages', name: 'Whole park — all games incl. human catapult', price: 70, child_price: 60, includes: 'Includes 1 Human Catapult launch' },
       { id: 'catapult-swing', group: 'packages', name: 'Human catapult + 12.5 m swing', price: 50 },
       { id: 'all-no-catapult', group: 'packages', name: 'Whole park — all games (without catapult)', price: 50, child_price: 40 },
       { id: 'training-2', group: 'packages', name: 'Training route + 2 games', price: 30, child_price: 20 },
     ],
     hr: [
-      { id: 'all-incl-catapult', group: 'packages', name: 'Cijeli park — sve igre uklj. katapultu', price: 70, child_price: 60 },
+      { id: 'all-incl-catapult', group: 'packages', name: 'Cijeli park — sve igre uklj. katapultu', price: 70, child_price: 60, includes: 'Uključuje 1 katapult' },
       { id: 'catapult-swing', group: 'packages', name: 'Ljudska katapulta + ljuljačka 12,5 m', price: 50 },
       { id: 'all-no-catapult', group: 'packages', name: 'Cijeli park — sve igre (bez katapulata)', price: 50, child_price: 40 },
       { id: 'training-2', group: 'packages', name: 'Trening ruta + 2 igre', price: 30, child_price: 20 },
@@ -504,7 +504,7 @@
         : activityHasChildPrice(a)
         ? t.priceAdultsChildren.replace('{adult}', a.price).replace('{child}', a.child_price)
         : t.priceEach.replace('{price}', a.price)}</p>
-      ${activityIsFamilyPackage(a) ? `<p class="book-price-box__saving">${a.includes}</p>` : ''}
+      ${a.includes ? `<p class="book-price-box__saving">${a.includes}</p>` : ''}
       <p class="book-price-box__total"><span>${t.total}</span> <strong>€${total}</strong></p>
       <p class="book-price-box__meta">${priceSummaryLines(a).join(' · ')}</p>
     </div>`;
