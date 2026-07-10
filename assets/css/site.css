@@ -2109,15 +2109,8 @@ body.page-404.is-hr .lang-en.block { display: none; }
 .book-price-box__saving {
   margin: 0.15rem 0 0.35rem;
   font-size: 0.875rem;
-  font-weight: 700;
-  color: var(--green-deep);
-}
-.book-summary__includes {
-  display: inline-block;
-  margin-top: 0.2rem;
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: var(--green-deep);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
 }
 .booking-form__fixed-group {
   margin: 0;
