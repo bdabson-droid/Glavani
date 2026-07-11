@@ -15,6 +15,19 @@ from reviews import (
 HOME_CAROUSEL_REVIEWS: list[dict] = [
     {
         "source": "google",
+        "author": "Carsten Stauer",
+        "date": "2026",
+        "en": (
+            "A must for every adventurer and adrenaline junkie! Worth every penny! Better than any commercial "
+            "theme park. And the staff/owners are incredibly welcoming."
+        ),
+        "hr": (
+            "Obavezno za svakog avanturistu i ljubitelja adrenalina! Vrijedi svake kune — bolje od bilo "
+            "kakvog komercijalnog tematskog parka. Osoblje i vlasnici nevjerojatno su gostoljubivi."
+        ),
+    },
+    {
+        "source": "google",
         "author": "Charlotte",
         "date": "2026",
         "en": (
@@ -53,19 +66,6 @@ HOME_CAROUSEL_REVIEWS: list[dict] = [
         "hr": (
             "Zipline (vjerojatno najbolji kod Pule) i katapult bili su nevjerojatni! Ljubaznost i humor "
             "osoblja daju parku šarm koji nećete naći drugdje. 100% preporučujem Glavani Park!"
-        ),
-    },
-    {
-        "source": "google",
-        "author": "Carsten Stauer",
-        "date": "2026",
-        "en": (
-            "A must for every adventurer and adrenaline junkie! Worth every penny! Better than any commercial "
-            "theme park. And the staff/owners are incredibly welcoming."
-        ),
-        "hr": (
-            "Obavezno za svakog avanturistu i ljubitelja adrenalina! Vrijedi svake kune — bolje od bilo "
-            "kakvog komercijalnog tematskog parka. Osoblje i vlasnici nevjerojatno su gostoljubivi."
         ),
     },
     {
