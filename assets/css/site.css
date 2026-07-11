@@ -1990,6 +1990,13 @@ body.page-404.is-hr .lang-en.block { display: none; }
   padding-top: 1rem;
   border-top: 1px solid #e2e8f0;
 }
+.review-teaser--google {
+  border-left-color: #4285f4;
+}
+.review-teaser--google + .review-teaser--google,
+.review-teaser--activity + .review-teaser--google {
+  margin-top: 1.25rem;
+}
 
 .price-section { margin-bottom: 2rem; }
 .price-section:last-of-type { margin-bottom: 0; }
