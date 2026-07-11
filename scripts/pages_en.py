@@ -1215,7 +1215,7 @@ PAGES = [{'slug': 'things-to-do-in-istria',
   'hero_subtitle': "Help your readers discover Istria's leading adventure park with "
                    'approved links, embed snippets, and anchor-text suggestions — all '
                    'pointing to Glavani Park near Barban and Pula.',
-  'banner_mod': 'catapult',
+  'banner_mod': 'link',
   'image': 'human-catapult-youtube-still.webp',
   'image_alt': 'Human Catapult launch at Glavani Park — embed and backlink resources '
                'for travel websites',

@@ -945,6 +945,24 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background-image: var(--hub-fade), var(--hub-photo);
   background-position: 0 0, 50% center;
 }
+.activity-banner--link {
+  --hub-color-strong: rgba(45, 106, 79, 0.96);
+  --hub-color-mid: rgba(45, 106, 79, 0.88);
+  --hub-color-soft: rgba(26, 61, 46, 0.45);
+  --hub-color-faint: rgba(26, 61, 46, 0.16);
+  --hub-photo: url("../../images/human-catapult-youtube-still.webp");
+  --hub-fade: linear-gradient(
+    to right,
+    var(--hub-color-strong) 0%,
+    var(--hub-color-mid) 22%,
+    var(--hub-color-soft) 36%,
+    var(--hub-color-faint) 50%,
+    transparent 66%
+  );
+  background-color: #1a3d2e;
+  background-image: var(--hub-fade), var(--hub-photo);
+  background-position: 0 0, 62% center;
+}
 .hub-card--zipline-low {
   --hub-color-strong: rgba(3, 105, 161, 0.96);
   --hub-color-mid: rgba(3, 105, 161, 0.88);
@@ -1163,6 +1181,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   font-size: 1.125rem;
 }
 .activity-banner--catapult {
+  background-position: 0 0, 62% center;
+}
+.activity-banner--link {
   background-position: 0 0, 62% center;
 }
 .activity-banner--drop {

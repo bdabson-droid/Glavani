@@ -932,6 +932,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
   </nav>"""
 
     cta = "Pozovite za rezervaciju" if lang == "hr" else "Call to Book"
+    call_us = "Nazovite nas" if lang == "hr" else "Call us"
     sidebar_title = "Brzo" if lang == "hr" else "Quick Info"
     sidebar = f"""
         <aside class="landing-sidebar">
@@ -978,8 +979,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
         <p class="activity-banner__badge">{page['hero_badge']}</p>
         <h1 id="page-heading">{page['h1']}</h1>
         <div class="activity-banner__actions">
-          <a class="btn-primary" href="{booking_href(lang)}">{book_cta_labels(lang)['book_tickets']}</a>
-          <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
+          <a class="btn-primary" href="tel:+385918964525">{call_us}</a>
         </div>
       </header>
       <p class="landing-lead">{page['hero_subtitle']}</p>"""

@@ -1318,7 +1318,7 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
   'hero_subtitle': 'Pomozite čitateljima otkriti vodeći istarski avanturistički park s '
                    'odobrenim linkovima, embed snippetima i prijedlozima anchor texta '
                    '— sve prema Glavani Parku kod Barbana i Pule.',
-  'banner_mod': 'catapult',
+  'banner_mod': 'link',
   'image': 'human-catapult-youtube-still.webp',
   'image_alt': 'Lansiranje ljudske katapulata u Glavani Parku — resursi za embed i '
                'backlink travel web stranicama',
