@@ -141,7 +141,6 @@ HR_TO_EN["cesta-pitanja"] = "faq"
 HR_TO_EN["cijene"] = "prices"
 
 IMAGES = [
-    ("glavani-park-adventure-istria-croatia.jpg", "Glavani Park", (26, 61, 46), (45, 106, 79)),
     ("12-5m-high-swing-glavani-park-istria.webp", "12.5m High Swing", (234, 88, 12), (180, 83, 9)),
     ("zipline-120m-glavani-park-istria-croatia.webp", "Zipline 120m", (74, 85, 104), (45, 55, 72)),
     ("climbing-wall-outdoor-activities-istria.webp", "Climbing Wall", (64, 145, 108), (26, 61, 46)),
@@ -299,6 +298,80 @@ def fetch_youtube_stills() -> None:
                 break
             except OSError:
                 continue
+
+
+SOCIAL_SHARE_IMAGE = "glavani-park-adventure-istria-croatia.jpg"
+SOCIAL_SHARE_CATAPULT = "human-catapult-youtube-still.webp"
+
+
+def _catapult_banner_blend(photo: Image.Image) -> Image.Image:
+    """Match activity-banner--catapult: orange fade from left into the photo."""
+    width, height = photo.size
+    result = photo.copy()
+    pixels = result.load()
+    orange = (234, 88, 12)
+    deep_orange = (154, 52, 18)
+
+    def blend_at(x: int) -> float:
+        t = x / width
+        if t <= 0.22:
+            return 0.90
+        if t <= 0.36:
+            return 0.72
+        if t <= 0.50:
+            return 0.42
+        if t <= 0.66:
+            return 0.16
+        return 0.0
+
+    for x in range(width):
+        blend = blend_at(x)
+        if blend <= 0:
+            continue
+        base = deep_orange if x < width * 0.15 else orange
+        for y in range(height):
+            r, g, b = pixels[x, y]
+            pixels[x, y] = (
+                int(r * (1 - blend) + base[0] * blend),
+                int(g * (1 - blend) + base[1] * blend),
+                int(b * (1 - blend) + base[2] * blend),
+            )
+    return result
+
+
+def generate_social_share_image() -> None:
+    """Build the default OG/WhatsApp image — catapult photo with orange banner text."""
+    img_dir = ROOT / "images"
+    source = img_dir / SOCIAL_SHARE_CATAPULT
+    out = img_dir / SOCIAL_SHARE_IMAGE
+    if not source.exists():
+        print("  warn: skip social share image (catapult still missing)")
+        return
+
+    width, height = 800, 560
+    photo = Image.open(source).convert("RGB")
+    photo = center_crop_to_aspect(photo, width / height)
+    photo = photo.resize((width, height), Image.Resampling.LANCZOS)
+    img = _catapult_banner_blend(photo)
+    draw = ImageDraw.Draw(img)
+    try:
+        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 42)
+        small = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 22)
+    except OSError:
+        font = ImageFont.load_default()
+        small = font
+
+    title = "Glavani Park"
+    subtitle = "Glavani Park · Istria, Croatia"
+    x = 40
+    y = height // 2 - 42
+    for dx, dy in ((2, 2), (1, 1)):
+        draw.text((x + dx, y + dy), title, fill=(0, 0, 0), font=font)
+        draw.text((x + dx, y + 36 + dy), subtitle, fill=(0, 0, 0), font=small)
+    draw.text((x, y), title, fill=(255, 255, 255), font=font)
+    draw.text((x, y + 36), subtitle, fill=(240, 253, 244), font=small)
+    img.save(out, "JPEG", quality=88, optimize=True)
+    print(f"  image: {out.name} (social share)")
 
 
 def esc(text: str) -> str:
@@ -2257,6 +2330,7 @@ def main() -> None:
     print("Generating WebP/JPEG images...")
     generate_images()
     fetch_youtube_stills()
+    generate_social_share_image()
     fetch_external_images()
 
     print("Building English pages...")
