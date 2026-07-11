@@ -1139,8 +1139,9 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
   'hero_subtitle': 'Preporučite jednu od najbolje ocijenjenih vanjskih atrakcija u '
                    'Istri gostima i čitateljima — uz strukturirano partnerstvo s '
                    'Glavani Parkom kod Pule, Barbana i Vodnjanja.',
-  'image': 'glavani-park-adventure-istria-croatia.jpg',
-  'image_alt': 'Partnerski program Glavani Park za smještaj i medije u Istri',
+  'image': '12-5m-high-swing-glavani-park-istria.webp',
+  'image_alt': 'Visoka ljuljačka 12,5 m u Glavani Parku — partnerski program za '
+               'smještaj i medije u Istri',
   'sections': [{'h2': 'Zašto partnerstvo s Glavani Parkom?',
                 'paragraphs': ['<p>Pružatelji smještaja i turistički mediji u Istri '
                                'često čuju pitanje: što raditi osim plaže? '
@@ -1316,9 +1317,9 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
   'hero_subtitle': 'Pomozite čitateljima otkriti vodeći istarski avanturistički park s '
                    'odobrenim linkovima, embed snippetima i prijedlozima anchor texta '
                    '— sve prema Glavani Parku kod Barbana i Pule.',
-  'image': 'glavani-park-adventure-istria-croatia.jpg',
-  'image_alt': 'Link na Glavani Park — resursi za embed i backlink travel web '
-               'stranicama',
+  'image': 'human-catapult-youtube-still.webp',
+  'image_alt': 'Lansiranje ljudske katapulata u Glavani Parku — resursi za embed i '
+               'backlink travel web stranicama',
   'sections': [{'h2': 'Zašto linkati Glavani Park?',
                 'paragraphs': ['<p>Travel blogovi, web stranice smještaja u Istri, '
                                'turistički direktoriji i lokalni vodiči povećavaju '

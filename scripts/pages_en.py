@@ -1052,9 +1052,9 @@ PAGES = [{'slug': 'things-to-do-in-istria',
   'hero_subtitle': "Recommend one of Istria's top-rated outdoor attractions to your "
                    'guests and readers — and benefit from a structured partnership '
                    'with Glavani Park near Pula, Barban, and Vodnjan.',
-  'image': 'glavani-park-adventure-istria-croatia.jpg',
-  'image_alt': 'Glavani Park partnership programme for Istria accommodation and travel '
-               'media',
+  'image': '12-5m-high-swing-glavani-park-istria.webp',
+  'image_alt': '12.5 metre high swing at Glavani Park — partnership programme for '
+               'Istria accommodation and travel media',
   'sections': [{'h2': 'Why Partner With Glavani Park?',
                 'paragraphs': ['<p>Istria accommodation providers and travel '
                                'publishers face a recurring guest question: what '
@@ -1214,9 +1214,9 @@ PAGES = [{'slug': 'things-to-do-in-istria',
   'hero_subtitle': "Help your readers discover Istria's leading adventure park with "
                    'approved links, embed snippets, and anchor-text suggestions — all '
                    'pointing to Glavani Park near Barban and Pula.',
-  'image': 'glavani-park-adventure-istria-croatia.jpg',
-  'image_alt': 'Link to Glavani Park — embed and backlink resources for travel '
-               'websites',
+  'image': 'human-catapult-youtube-still.webp',
+  'image_alt': 'Human Catapult launch at Glavani Park — embed and backlink resources '
+               'for travel websites',
   'sections': [{'h2': 'Why Link to Glavani Park?',
                 'paragraphs': ['<p>Travel blogs, Istria accommodation websites, '
                                'tourism directories, and local business guides improve '
