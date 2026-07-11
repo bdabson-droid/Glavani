@@ -59,6 +59,7 @@ from packages import (  # noqa: E402
 )
 from open_status import park_status  # noqa: E402
 from activity_reviews import render_activity_reviews  # noqa: E402
+from home_reviews import render_home_reviews_carousel  # noqa: E402
 from activity_seo import render_activity_seo_footer  # noqa: E402
 from trust_signals import book_cta_labels, render_stay_safe_badge, render_trust_strip  # noqa: E402
 from visitor_gallery import ACTIVITY_GALLERY_MAP, GALLERY_BY_IMAGE, VISITOR_GALLERY  # noqa: E402
@@ -106,6 +107,7 @@ LOCATION_MAP_HEAD = """
 PAGE_SCRIPTS = {
     "open-status": "/assets/js/open-status.js",
     "photo-gallery": "/assets/js/photo-gallery-carousel.js",
+    "review-carousel": "/assets/js/review-carousel.js",
     "prices-book": "/assets/js/prices-book.js",
     "booking-app": "/assets/js/booking-app.js",
     "location-map": "/assets/js/location-map.js",
@@ -1667,6 +1669,7 @@ def inject_home_extras(body: str, lang: str) -> str:
         ),
         "<!-- ACTIVITY_HUB_GRID -->": render_activity_hub_cards(lang),
         "<!-- ACTIVITIES_CTA -->": render_conversion_cta(lang),
+        "<!-- HOME_REVIEWS_CAROUSEL -->": render_home_reviews_carousel(lang),
     }
     for marker, html in replacements.items():
         body = body.replace(marker, html)
@@ -2165,7 +2168,7 @@ def render_home(lang: str) -> str:
 {body_content}
 {footer(lang)}
 {json_ld_script(org_schema)}
-{render_page_scripts("open-status")}
+{render_page_scripts("open-status", "review-carousel")}
 </body>
 </html>"""
 

@@ -139,15 +139,11 @@ GOOGLE_REVIEWS: list[dict] = [
         "featured_for": ["devils-causeway"],
         "en": (
             "A must for every adventurer and adrenaline junkie! Worth every penny! Better than any commercial "
-            "theme park. And the staff/owners are incredibly welcoming. Thank you so much for helping me find "
-            "my phone!!! That made my visit a truly special adventure (losing my phone was my own fault). "
-            "My vacation tip: definitely go, let the day unfold, and enjoy yourself."
+            "theme park. And the staff/owners are incredibly welcoming."
         ),
         "hr": (
             "Obavezno za svakog avanturistu i ljubitelja adrenalina! Vrijedi svake kune — bolje od bilo "
-            "kakvog komercijalnog tematskog parka. Osoblje i vlasnici nevjerojatno su gostoljubivi. Hvala "
-            "što ste mi pomogli pronaći mobitel — posjet je bio posebna avantura (gubitak mobitela je bila "
-            "moja greška). Savjet za odmor: definitivno dođite i uživajte u danu."
+            "kakvog komercijalnog tematskog parka. Osoblje i vlasnici nevjerojatno su gostoljubivi."
         ),
     },
 ]
