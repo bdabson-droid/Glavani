@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import html
+
 from google_reviews_data import google_review_list
 from reviews import (
     GOOGLE_RATING_VALUE,
@@ -228,15 +230,19 @@ def _render_review_teaser(
     lang: str,
     read_all_label: str,
     read_all_url: str,
+    truncate_quotes: bool = True,
 ) -> str:
     blocks = []
     for review in reviews:
-        quote = _truncate_quote(review[quote_key])
+        quote = review[quote_key]
+        if truncate_quotes:
+            quote = _truncate_quote(quote)
+        quote = html.escape(quote)
         when = _format_review_date(review["date"], lang)
         blocks.append(
             f"""<blockquote class="review-teaser__quote">
         <p>“{quote}”</p>
-        <cite class="review-teaser__author">{review['author']} · {when}</cite>
+        <cite class="review-teaser__author">{html.escape(review['author'])} · {when}</cite>
       </blockquote>"""
         )
 
@@ -278,6 +284,7 @@ def render_google_activity_reviews(activity: dict, lang: str) -> str:
         lang=lang,
         read_all_label=read_all,
         read_all_url=GOOGLE_REVIEWS_URL,
+        truncate_quotes=False,
     )
 
 
