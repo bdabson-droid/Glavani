@@ -1183,9 +1183,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 .activity-banner--catapult {
   background-position: 0 0, 62% center;
 }
-.activity-banner--link {
-  background-position: 0 0, 62% center;
-}
 .activity-banner--drop {
   background-position: 0 0, 68% center;
 }
