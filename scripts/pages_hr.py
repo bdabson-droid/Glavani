@@ -1319,9 +1319,8 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                    'odobrenim linkovima, embed snippetima i prijedlozima anchor texta '
                    '— sve prema Glavani Parku kod Barbana i Pule.',
   'banner_mod': 'link',
-  'image': 'human-catapult-youtube-still.webp',
-  'image_alt': 'Lansiranje ljudske katapulata u Glavani Parku — resursi za embed i '
-               'backlink travel web stranicama',
+  'image': 'glavani-park-adventure-istria-croatia.jpg',
+  'image_alt': 'Glavani Park · Istria, Hrvatska',
   'sections': [{'h2': 'Zašto linkati Glavani Park?',
                 'paragraphs': ['<p>Travel blogovi, web stranice smještaja u Istri, '
                                'turistički direktoriji i lokalni vodiči povećavaju '

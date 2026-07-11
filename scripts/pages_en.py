@@ -1216,9 +1216,8 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                    'approved links, embed snippets, and anchor-text suggestions — all '
                    'pointing to Glavani Park near Barban and Pula.',
   'banner_mod': 'link',
-  'image': 'human-catapult-youtube-still.webp',
-  'image_alt': 'Human Catapult launch at Glavani Park — embed and backlink resources '
-               'for travel websites',
+  'image': 'glavani-park-adventure-istria-croatia.jpg',
+  'image_alt': 'Glavani Park · Istria, Croatia',
   'sections': [{'h2': 'Why Link to Glavani Park?',
                 'paragraphs': ['<p>Travel blogs, Istria accommodation websites, '
                                'tourism directories, and local business guides improve '
