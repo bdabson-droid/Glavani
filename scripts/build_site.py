@@ -19,6 +19,7 @@ from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
 from activities import ACTIVITIES, ACTIVITY_SLUG_MAP, activity_faqs  # noqa: E402
 from reviews import (  # noqa: E402
     FACEBOOK_URL,
+    GLAVANI_GOOGLE_MAPS_URL,
     TRIPADVISOR_URL,
     aggregate_rating,
     render_hero_review_badges,
@@ -95,11 +96,8 @@ def render_site_redirect_script() -> str:
 GLAVANI_LAT = 45.021389
 GLAVANI_LNG = 13.951111
 GLAVANI_ADDRESS = "Glavani 10, 52207 Barban, Istria, Croatia"
-GLAVANI_MAPS_QUERY = "Glavani+Park,+Glavani+10,+52207+Barban,+Croatia"
-GLAVANI_MAPS_DIRECTIONS = (
-    f"https://www.google.com/maps/dir/?api=1&destination={GLAVANI_LAT}%2C{GLAVANI_LNG}"
-)
-GLAVANI_MAPS_LINK = f"https://www.google.com/maps?q={GLAVANI_LAT},{GLAVANI_LNG}"
+GLAVANI_MAPS_LINK = GLAVANI_GOOGLE_MAPS_URL
+GLAVANI_MAPS_DIRECTIONS = GLAVANI_GOOGLE_MAPS_URL
 LOCATION_MAP_HEAD = """
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>"""
@@ -535,7 +533,7 @@ def quick_actions(lang: str) -> str:
     <a class="btn-call" href="tel:{primary['tel']}" aria-label="{'Pozovite Glavani Park' if lang == 'hr' else 'Call Glavani Park now'}">
       <span aria-hidden="true">📞</span> {call}
     </a>
-    <a class="btn-find" href="https://www.google.com/maps?q=45.021389,13.951111" target="_blank" rel="noopener noreferrer">
+    <a class="btn-find" href="{GLAVANI_MAPS_LINK}" target="_blank" rel="noopener noreferrer">
       <span aria-hidden="true">📍</span> {find}
     </a>
   </nav>"""
@@ -1014,7 +1012,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
             <li><strong>{'Otvoreno' if lang == 'hr' else 'Open'}:</strong> 9–17 h</li>
             <li><strong>{'Zadnji ulaz' if lang == 'hr' else 'Last entry'}:</strong> 15 h</li>
             <li><a href="tel:+385918964525">+385 91 896 4525</a></li>
-            <li><a href="https://www.google.com/maps?q=45.021389,13.951111">Google Maps</a></li>
+            <li><a href="{GLAVANI_MAPS_LINK}">Google Maps</a></li>
           </ul>
           <p style="margin-top:1rem;"><a class="btn-primary" href="tel:+385918964525" style="width:100%;font-size:0.875rem;">{cta}</a></p>
         </aside>"""
