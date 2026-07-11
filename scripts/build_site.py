@@ -971,11 +971,20 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
                 description=page["meta_description"],
             )
         )
-    body = f"""{head_meta(lang, page['title'], page['meta_description'], page['keywords'], canonical, en_slug, hr_slug, og_image=img, og_image_alt=page.get('image_alt'), extra_head=map_head)}
-{page_chrome(lang)}
-{crumbs}
-<main>
-  <section class="hero hero--landing">
+    banner_mod = page.get("banner_mod")
+    if banner_mod:
+        hero_block = ""
+        article_open = f"""      <header class="activity-banner activity-banner--{banner_mod} activity-banner--landing" aria-labelledby="page-heading">
+        <p class="activity-banner__badge">{page['hero_badge']}</p>
+        <h1 id="page-heading">{page['h1']}</h1>
+        <div class="activity-banner__actions">
+          <a class="btn-primary" href="{booking_href(lang)}">{book_cta_labels(lang)['book_tickets']}</a>
+          <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
+        </div>
+      </header>
+      <p class="landing-lead">{page['hero_subtitle']}</p>"""
+    else:
+        hero_block = f"""  <section class="hero hero--landing">
     <div class="hero__inner">
       <p class="hero__badge">{page['hero_badge']}</p>
       <h1>{page['h1']}</h1>
@@ -986,13 +995,19 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
       </div>
     </div>
   </section>
-  {location_map}
+  """
+        article_open = f"""      <figure class="feature-img">
+        <img src="/images/{img}" alt="{page['image_alt']}" width="800" height="560" loading="eager">
+      </figure>"""
+    body = f"""{head_meta(lang, page['title'], page['meta_description'], page['keywords'], canonical, en_slug, hr_slug, og_image=img, og_image_alt=page.get('image_alt'), extra_head=map_head)}
+{page_chrome(lang)}
+{crumbs}
+<main>
+{hero_block}{location_map}
   <div class="landing-layout section--theme-forest">
     <div class="landing-layout__inner">
     <article>
-      <figure class="feature-img">
-        <img src="/images/{img}" alt="{page['image_alt']}" width="800" height="560" loading="eager">
-      </figure>
+{article_open}
       {render_sections(page['sections'])}
     </article>
     {sidebar}

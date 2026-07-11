@@ -1139,7 +1139,8 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
   'hero_subtitle': 'Preporučite jednu od najbolje ocijenjenih vanjskih atrakcija u '
                    'Istri gostima i čitateljima — uz strukturirano partnerstvo s '
                    'Glavani Parkom kod Pule, Barbana i Vodnjanja.',
-  'image': '12-5m-high-swing-glavani-park-istria.webp',
+  'banner_mod': 'swing',
+  'image': 'high-swing-youtube-still.webp',
   'image_alt': 'Visoka ljuljačka 12,5 m u Glavani Parku — partnerski program za '
                'smještaj i medije u Istri',
   'sections': [{'h2': 'Zašto partnerstvo s Glavani Parkom?',
@@ -1317,6 +1318,7 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
   'hero_subtitle': 'Pomozite čitateljima otkriti vodeći istarski avanturistički park s '
                    'odobrenim linkovima, embed snippetima i prijedlozima anchor texta '
                    '— sve prema Glavani Parku kod Barbana i Pule.',
+  'banner_mod': 'catapult',
   'image': 'human-catapult-youtube-still.webp',
   'image_alt': 'Lansiranje ljudske katapulata u Glavani Parku — resursi za embed i '
                'backlink travel web stranicama',

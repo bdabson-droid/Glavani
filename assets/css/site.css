@@ -1178,6 +1178,25 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background-position: 0 0, 65% center;
 }
 
+.activity-banner--landing {
+  min-height: 168px;
+  padding: 1.2rem 1.25rem;
+  margin-bottom: 0.85rem;
+}
+.activity-banner--landing h1 {
+  font-size: clamp(1.5rem, 4.2vw, 2.15rem);
+  max-width: 18ch;
+}
+.activity-banner--landing .activity-banner__actions {
+  margin-top: 0.85rem;
+}
+.landing-lead {
+  margin: 0 0 1.35rem;
+  font-size: 1.02rem;
+  line-height: 1.55;
+  color: var(--rock-dark);
+}
+
 /* Activity detail pages */
 .hero--activity .hero__inner { max-width: 720px; }
 .activity-detail-wrap {
