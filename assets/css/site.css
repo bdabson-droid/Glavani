@@ -2050,19 +2050,29 @@ body.page-404.is-hr .lang-en.block { display: none; }
 .review-carousel__viewport {
   overflow: hidden;
   min-width: 0;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  background: var(--white);
+  touch-action: pan-y;
+  cursor: grab;
+  isolation: isolate;
+}
+.review-carousel__viewport.is-dragging {
+  cursor: grabbing;
 }
 .review-carousel__track {
   display: flex;
   transition: transform 0.35s ease;
+}
+.review-carousel__viewport.is-dragging .review-carousel__track {
+  transition: none;
 }
 .review-carousel__slide {
   flex: 0 0 100%;
   margin: 0;
   padding: 1.5rem 1.35rem;
   background: var(--white);
-  border-radius: var(--radius-lg);
   border-left: 4px solid var(--brand-green);
-  box-shadow: var(--shadow);
 }
 .review-carousel__slide--google {
   border-left-color: #4285f4;
