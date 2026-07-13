@@ -195,6 +195,13 @@ YOUTUBE_STILLS = [
         "focus_output_x": 0.78,
         "zoom": 1.45,
     }),
+    ("DWMl2hZGARU", "valley-zipline-banner-still.webp", {
+        "aspect": 16 / 9,
+        "focus_x": 0.34,
+        "focus_y": 0.48,
+        "focus_output_x": 0.9,
+        "zoom": 1.12,
+    }),
 ]
 
 EXTERNAL_IMAGES = [
