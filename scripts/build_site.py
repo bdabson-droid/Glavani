@@ -188,7 +188,13 @@ YOUTUBE_STILLS = [
     ("Uhbf2TF8PYE", "climbing-wall-youtube-still.webp"),
     ("ybePV3n9uks", "high-swing-youtube-still.webp"),
     ("TDl0ffqPj3U", "training-route-youtube-still.webp"),
-    ("DWMl2hZGARU", "valley-zipline-youtube-still.webp", 16 / 9),
+    ("DWMl2hZGARU", "valley-zipline-youtube-still.webp", {
+        "aspect": 16 / 9,
+        "focus_x": 0.34,
+        "focus_y": 0.48,
+        "focus_output_x": 0.78,
+        "zoom": 1.45,
+    }),
 ]
 
 EXTERNAL_IMAGES = [
@@ -275,6 +281,53 @@ def center_crop_to_aspect(img: Image.Image, aspect: float) -> Image.Image:
     return img
 
 
+def focal_crop_to_aspect(
+    img: Image.Image,
+    aspect: float,
+    *,
+    focus_x: float = 0.5,
+    focus_y: float = 0.5,
+    focus_output_x: float = 0.5,
+    focus_output_y: float = 0.5,
+    zoom: float = 1.0,
+) -> Image.Image:
+    """Crop to aspect with optional zoom, placing the focal point in the output frame."""
+    width, height = img.size
+    focus_x = min(1.0, max(0.0, focus_x))
+    focus_y = min(1.0, max(0.0, focus_y))
+    focus_output_x = min(1.0, max(0.0, focus_output_x))
+    focus_output_y = min(1.0, max(0.0, focus_output_y))
+
+    if zoom > 1.0:
+        crop_width = max(1, int(width / zoom))
+        crop_height = max(1, int(height / zoom))
+        focal_px = int(focus_x * width)
+        focal_py = int(focus_y * height)
+        left = focal_px - crop_width // 2
+        top = focal_py - crop_height // 2
+        left = max(0, min(left, width - crop_width))
+        top = max(0, min(top, height - crop_height))
+        img = img.crop((left, top, left + crop_width, top + crop_height))
+        width, height = img.size
+        focus_x = (focal_px - left) / width
+        focus_y = (focal_py - top) / height
+
+    current_aspect = width / height
+    if current_aspect > aspect:
+        new_width = int(height * aspect)
+        focal_px = int(focus_x * width)
+        left = focal_px - int(new_width * focus_output_x)
+        left = max(0, min(left, width - new_width))
+        return img.crop((left, 0, left + new_width, height))
+    if current_aspect < aspect:
+        new_height = int(width / aspect)
+        focal_py = int(focus_y * height)
+        top = focal_py - int(new_height * focus_output_y)
+        top = max(0, min(top, height - new_height))
+        return img.crop((0, top, width, top + new_height))
+    return img
+
+
 def fetch_youtube_stills() -> None:
     """Download high-quality YouTube thumbnails for activity tiles."""
     import io
@@ -284,7 +337,7 @@ def fetch_youtube_stills() -> None:
     img_dir.mkdir(parents=True, exist_ok=True)
     for entry in YOUTUBE_STILLS:
         video_id, filename = entry[0], entry[1]
-        crop_aspect = entry[2] if len(entry) > 2 else None
+        crop_opts = entry[2] if len(entry) > 2 else None
         path = img_dir / filename
         for quality in ("maxresdefault", "hqdefault"):
             url = f"https://i.ytimg.com/vi/{video_id}/{quality}.jpg"
@@ -294,8 +347,19 @@ def fetch_youtube_stills() -> None:
                 if len(data) < 1000:
                     continue
                 img = Image.open(io.BytesIO(data)).convert("RGB")
-                if crop_aspect:
-                    img = center_crop_to_aspect(img, crop_aspect)
+                if crop_opts:
+                    if isinstance(crop_opts, dict):
+                        img = focal_crop_to_aspect(
+                            img,
+                            crop_opts["aspect"],
+                            focus_x=crop_opts.get("focus_x", 0.5),
+                            focus_y=crop_opts.get("focus_y", 0.5),
+                            focus_output_x=crop_opts.get("focus_output_x", 0.5),
+                            focus_output_y=crop_opts.get("focus_output_y", 0.5),
+                            zoom=crop_opts.get("zoom", 1.0),
+                        )
+                    else:
+                        img = center_crop_to_aspect(img, crop_opts)
                 img.save(path, "WEBP", quality=86, method=6)
                 print(f"  image: {path.name} (YouTube {video_id})")
                 break

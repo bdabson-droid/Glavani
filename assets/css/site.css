@@ -939,7 +939,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   );
   background-color: #1a3d2e;
   background-image: var(--hub-fade), var(--hub-photo);
-  background-position: 0 0, 50% center;
+  background-position: 0 0, 72% center;
 }
 .activity-banner--link {
   --hub-color-strong: rgba(45, 106, 79, 0.96);
