@@ -276,7 +276,7 @@ ACTIVITIES = [
         "tile_mod": "zipline-valley",
         "youtube_id": "cQpPtOe481I",
         "youtube_url": "https://youtu.be/cQpPtOe481I",
-        "image": "visitor-gallery-valley-zipline-18.webp",
+        "image": "visitor-gallery-valley-zipline-staff-22.webp",
         "en": {
             "title": "Valley Zipline (Big Zipline) | Glavani Park Istria",
             "h1": "Valley Zipline (Big Zipline)",
