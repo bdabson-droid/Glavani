@@ -54,20 +54,28 @@
     });
   }
 
-  function measureSlideHeight(slide, slideWidth) {
+  function galleryMaxHeight(viewport) {
+    var maxHeight = parseFloat(getComputedStyle(viewport).maxHeight);
+    if (isNaN(maxHeight) || maxHeight <= 0) return Infinity;
+    return maxHeight;
+  }
+
+  function measureSlideHeight(slide, slideWidth, maxHeight) {
+    maxHeight = maxHeight || Infinity;
     var width = slideWidth || slide.offsetWidth || slide.getBoundingClientRect().width;
     var video = slide.querySelector('.photo-gallery__video');
     if (video) {
       var orientation = video.getAttribute('data-orientation') || 'portrait';
-      return orientation === 'landscape' ? (width * 9) / 16 : (width * 16) / 9;
+      var height = orientation === 'landscape' ? (width * 9) / 16 : (width * 16) / 9;
+      return Math.min(Math.round(height), maxHeight);
     }
 
     var img = slide.querySelector('img');
     if (img && img.naturalWidth > 0 && img.naturalHeight > 0) {
-      return Math.round((width * img.naturalHeight) / img.naturalWidth);
+      return Math.min(Math.round((width * img.naturalHeight) / img.naturalWidth), maxHeight);
     }
 
-    return slide.offsetHeight;
+    return Math.min(slide.offsetHeight, maxHeight);
   }
 
   function slideWidthForGallery(viewport, slides) {
@@ -77,8 +85,9 @@
 
   function cacheSlideHeights(viewport, slides) {
     var width = slideWidthForGallery(viewport, slides);
+    var maxHeight = galleryMaxHeight(viewport);
     return slides.map(function (slide) {
-      return measureSlideHeight(slide, width);
+      return measureSlideHeight(slide, width, maxHeight);
     });
   }
 
@@ -154,7 +163,7 @@
       }
     }
 
-    viewport.style.height = Math.round(height) + 'px';
+    viewport.style.height = Math.round(Math.min(height, galleryMaxHeight(viewport))) + 'px';
   }
 
   function setupInfiniteLoop(track, realSlides) {
