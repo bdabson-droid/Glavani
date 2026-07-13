@@ -1429,7 +1429,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
     cta = "Pozovite za rezervaciju" if lang == "hr" else "Call to Book"
     img = activity["image"]
     mod = activity["tile_mod"]
-    use_banner_header = bool(activity.get("youtube_id"))
+    use_banner_header = bool(activity.get("youtube_id") or activity.get("banner_header"))
 
     activities_href = activities_hub_path(lang)
     activities_url = f"{BASE}{activities_href}"

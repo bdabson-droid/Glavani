@@ -234,7 +234,8 @@ ACTIVITIES = [
         "hr_slug": "niski-zipline",
         "tile_mod": "zipline-low",
         "hide_video": True,
-        "image": "gift-voucher-50-whole-park.webp",
+        "banner_header": True,
+        "image": "visitor-gallery-treetop-course-guest-27.webp",
         "en": {
             "title": "Treetop Course | Glavani Park Istria",
             "h1": "Treetop Course",
@@ -326,6 +327,7 @@ ACTIVITIES = [
         "tile_mod": "causeway",
         "image": "devils-causeway-unicycle-glavani-park.webp",
         "hide_video": True,
+        "banner_header": True,
         "en": {
             "title": "Devil's Causeway Course | Glavani Park Istria",
             "h1": "Devil's Causeway Course",
@@ -410,7 +412,8 @@ ACTIVITIES = [
         "hr_slug": "aerotrim",
         "tile_mod": "aerotrim",
         "hide_video": True,
-        "image": "aerotrim-human-gyroscope-glavani-park.webp",
+        "banner_header": True,
+        "image": "visitor-gallery-aerotrim-guest-19.webp",
         "en": {
             "title": "Aerotrim | Glavani Park Istria",
             "h1": "Aerotrim",

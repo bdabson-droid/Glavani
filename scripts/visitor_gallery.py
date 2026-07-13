@@ -191,7 +191,6 @@ ACTIVITY_GALLERY_ITEMS: dict[str, list[dict[str, str]]] = {
     "human-catapult": [
         {"type": "image", "ref": "visitor-gallery-human-catapult-launch-14.webp"},
         {"type": "video", "ref": "0ZHvelhfYFU"},
-        {"type": "image", "ref": "visitor-gallery-group-event-10.webp"},
         {"type": "video", "ref": "gptE-l0kJ8E"},
         {"type": "image", "ref": "visitor-gallery-school-group-7.webp"},
         {"type": "video", "ref": "sN78QtB-nI0"},
@@ -200,9 +199,7 @@ ACTIVITY_GALLERY_ITEMS: dict[str, list[dict[str, str]]] = {
     "high-swing": [
         {"type": "image", "ref": "visitor-gallery-park-grounds-5.webp"},
         {"type": "video", "ref": "3OFULwzXtmU"},
-        {"type": "image", "ref": "visitor-gallery-adventure-park-3.webp"},
         {"type": "video", "ref": "HvBqYKEk9TM"},
-        {"type": "image", "ref": "visitor-gallery-group-event-10.webp"},
         {"type": "video", "ref": "8C07_QgmaPo"},
     ],
     "training-route": [
@@ -227,7 +224,6 @@ ACTIVITY_GALLERY_ITEMS: dict[str, list[dict[str, str]]] = {
         {"type": "video", "ref": "-MG0CxMpNww"},
         {"type": "image", "ref": "visitor-gallery-valley-zipline-staff-23.webp"},
         {"type": "video", "ref": "HxDrfD2vtbo"},
-        {"type": "image", "ref": "visitor-gallery-valley-zipline-amphitheatre-26.webp"},
         {"type": "video", "ref": "j_5MqCAGnCg"},
         {"type": "image", "ref": "visitor-gallery-valley-zipline-guest-24.webp"},
         {"type": "video", "ref": "uUT4xGBRa8Y"},
@@ -245,9 +241,7 @@ ACTIVITY_GALLERY_ITEMS: dict[str, list[dict[str, str]]] = {
         {"type": "video", "ref": "HdOXPwBiqq8"},
     ],
     "20m-drop": [
-        {"type": "image", "ref": "visitor-gallery-adventure-park-3.webp"},
         {"type": "video", "ref": "NAhsPEJW4ig"},
-        {"type": "image", "ref": "visitor-gallery-high-ropes-platform-13.webp"},
         {"type": "video", "ref": "UiZ6ZsU2hZY"},
     ],
 }

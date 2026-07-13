@@ -963,12 +963,13 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background-image: var(--hub-fade), var(--hub-photo);
   background-position: 0 0, 62% center;
 }
-.hub-card--zipline-low {
+.hub-card--zipline-low,
+.activity-banner--zipline-low {
   --hub-color-strong: rgba(3, 105, 161, 0.96);
   --hub-color-mid: rgba(3, 105, 161, 0.88);
   --hub-color-soft: rgba(12, 74, 110, 0.45);
   --hub-color-faint: rgba(12, 74, 110, 0.16);
-  --hub-photo: url("../../images/gift-voucher-50-whole-park.webp");
+  --hub-photo: url("../../images/visitor-gallery-treetop-course-guest-27.webp");
   --hub-fade: linear-gradient(
     to right,
     var(--hub-color-strong) 0%,
@@ -1004,7 +1005,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   --hub-color-mid: rgba(8, 145, 178, 0.88);
   --hub-color-soft: rgba(14, 116, 144, 0.45);
   --hub-color-faint: rgba(8, 51, 68, 0.16);
-  --hub-photo: url("../../images/aerotrim-human-gyroscope-glavani-park.webp");
+  --hub-photo: url("../../images/visitor-gallery-aerotrim-guest-19.webp");
   --hub-fade: linear-gradient(
     to right,
     var(--hub-color-strong) 0%,
@@ -1034,7 +1035,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background-color: #92400e;
   background-image: var(--hub-fade), var(--hub-photo);
 }
-.hub-card--causeway {
+.hub-card--causeway,
+.activity-banner--causeway {
   --hub-color-strong: rgba(185, 28, 28, 0.96);
   --hub-color-mid: rgba(185, 28, 28, 0.88);
   --hub-color-soft: rgba(127, 29, 29, 0.45);
@@ -1101,6 +1103,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 .activity-showcase--compact .hub-card--climbing,
 .activity-showcase--compact .hub-card--training,
 .activity-showcase--compact .hub-card--causeway,
+.activity-showcase--compact .hub-card--aerotrim,
 .activity-showcase--compact .hub-card--groups,
 .activity-showcase--compact .hub-card--birthday {
   min-height: 140px;
@@ -1194,6 +1197,15 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 }
 .activity-banner--training {
   background-position: 0 0, 65% center;
+}
+.activity-banner--causeway {
+  background-position: 0 0, 68% center;
+}
+.activity-banner--zipline-low {
+  background-position: 0 0, 70% center;
+}
+.activity-banner--aerotrim {
+  background-position: 0 0, 72% center;
 }
 
 .activity-banner--landing {
