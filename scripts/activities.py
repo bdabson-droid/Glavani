@@ -410,7 +410,7 @@ ACTIVITIES = [
         "hr_slug": "aerotrim",
         "tile_mod": "aerotrim",
         "hide_video": True,
-        "image": "aerotrim-human-gyroscope-glavani-park.webp",
+        "image": "visitor-gallery-aerotrim-guest-19.webp",
         "en": {
             "title": "Aerotrim | Glavani Park Istria",
             "h1": "Aerotrim",
@@ -421,8 +421,7 @@ ACTIVITIES = [
             "keywords": "Aerotrim Croatia, human gyroscope Istria, Glavani Park Aerotrim, adventure park near Pula",
             "hero_badge": "Human gyroscope · multi-axis spins",
             "image_alt": (
-                "Participant spinning in the Aerotrim human gyroscope at Glavani Park, Istria — "
-                "red and yellow rings with instructor at an outdoor adventure park near Pula"
+                "Guest in the Aerotrim human gyroscope with instructor at Glavani Park, Istria"
             ),
             "paragraphs": [
                 "Strap into Glavani Park's Aerotrim — a human gyroscope that spins you through multiple axes while you stay secured in the frame. Staff set the pace, explain how to hold your body, and supervise every session in the forest clearing.",
@@ -441,8 +440,7 @@ ACTIVITIES = [
             "keywords": "Aerotrim Hrvatska, ljudski žiroskop Istria, Glavani Park Aerotrim, avanturistički park kod Pule",
             "hero_badge": "Ljudski žiroskop · više osi",
             "image_alt": (
-                "Sudionik u Aerotrima ljudskom žiroskopu u Glavani Parku, Istria — "
-                "crveni i žuti prstenovi s instruktorom u avanturističkom parku na otvorenom kod Pule"
+                "Gost u Aerotrima ljudskom žiroskopu uz instruktora u Glavani Parku, Istria"
             ),
             "paragraphs": [
                 "Zavežite se u Aerotrim Glavani Parka — ljudski žiroskop koji vas okreće u više osi dok ste sigurno pričvršćeni u okviru. Osoblje određuje tempo, objašnjava položaj tijela i nadzire svaku vožnju u šumskoj čistini.",
