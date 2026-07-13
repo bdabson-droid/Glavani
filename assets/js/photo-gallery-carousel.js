@@ -33,10 +33,17 @@
       dots.className = 'photo-gallery__dots';
       dots.setAttribute('data-gallery-dots', '');
       dots.setAttribute('role', 'tablist');
-      root.appendChild(dots);
+      viewport.appendChild(dots);
+    } else if (dots.parentElement !== viewport) {
+      viewport.appendChild(dots);
     }
 
     return { viewport: viewport, dots: dots };
+  }
+
+  function scrollToSlideInstant(track, slide) {
+    if (!slide) return;
+    track.scrollLeft = slide.offsetLeft;
   }
 
   function scrollToSlide(track, slide, behavior) {
@@ -166,8 +173,13 @@
     track.appendChild(firstClone);
 
     var allSlides = Array.from(track.querySelectorAll('.photo-gallery__slide'));
-    scrollToSlide(track, allSlides[1], 'auto');
     return { allSlides: allSlides, looping: true };
+  }
+
+  function goToStart(track, allSlides, looping) {
+    var startSlide = looping ? allSlides[1] : allSlides[0];
+    void track.offsetWidth;
+    scrollToSlideInstant(track, startSlide);
   }
 
   function wrapIfNeeded(track, allSlides, looping) {
@@ -248,26 +260,31 @@
       });
     }
 
-    function refreshState() {
-      wrapIfNeeded(track, allSlides, looping);
+    function refreshState(wrap) {
+      if (wrap) wrapIfNeeded(track, allSlides, looping);
       activeRealIndex = realIndexFromAll(allSlides, activeSlideIndex(track, allSlides), looping);
       syncGalleryHeight(viewport, track, allSlides, realSlides, heights, looping);
       updateDots();
     }
 
-    function remeasure() {
+    function remeasure(wrap) {
       heights = cacheSlideHeights(viewport, realSlides);
-      refreshState();
+      refreshState(wrap);
     }
 
     function bindGalleryHeight() {
       var ticking = false;
-      remeasure();
+      goToStart(track, allSlides, looping);
+      activeRealIndex = 0;
+      updateDots();
+      syncGalleryHeight(viewport, track, allSlides, realSlides, heights, looping);
 
       realSlides.forEach(function (slide) {
         slide.querySelectorAll('img').forEach(function (img) {
           if (img.complete) return;
-          img.addEventListener('load', remeasure, { once: true });
+          img.addEventListener('load', function () {
+            remeasure(false);
+          }, { once: true });
         });
       });
 
@@ -295,7 +312,7 @@
         clearTimeout(settleTimer);
         settleTimer = setTimeout(function () {
           stopVideosExceptSlide(root, allSlides[activeSlideIndex(track, allSlides)]);
-          refreshState();
+          refreshState(true);
         }, 80);
       }
 
@@ -305,7 +322,21 @@
         track.addEventListener('scroll', onScrollSettled, { passive: true });
       }
 
-      window.addEventListener('resize', remeasure, { passive: true });
+      window.addEventListener('resize', function () {
+        var index = activeSlideIndex(track, allSlides);
+        heights = cacheSlideHeights(viewport, realSlides);
+        scrollToSlideInstant(track, allSlides[index]);
+        activeRealIndex = realIndexFromAll(allSlides, index, looping);
+        syncGalleryHeight(viewport, track, allSlides, realSlides, heights, looping);
+        updateDots();
+      }, { passive: true });
+
+      requestAnimationFrame(function () {
+        goToStart(track, allSlides, looping);
+        activeRealIndex = 0;
+        updateDots();
+        syncGalleryHeight(viewport, track, allSlides, realSlides, heights, looping);
+      });
     }
 
     dotsRoot.replaceChildren();
@@ -348,7 +379,7 @@
       iframe.setAttribute('loading', 'lazy');
       iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
       wrap.replaceChildren(iframe);
-      remeasure();
+      remeasure(false);
     });
 
     function goBy(direction) {
