@@ -1829,6 +1829,14 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   aspect-ratio: 16 / 9;
   background: #0f172a;
 }
+.photo-gallery__video[data-orientation="portrait"] {
+  aspect-ratio: 9 / 16;
+  max-width: min(100%, 22rem);
+  margin-inline: auto;
+}
+.photo-gallery__video[data-orientation="portrait"] .photo-gallery__video-play img {
+  aspect-ratio: 9 / 16;
+}
 .photo-gallery__video iframe {
   display: block;
   width: 100%;

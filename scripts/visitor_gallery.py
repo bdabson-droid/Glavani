@@ -190,6 +190,7 @@ VISITOR_GALLERY = [
 ACTIVITY_GALLERY_ITEMS: dict[str, list[dict[str, str]]] = {
     "human-catapult": [
         {"type": "image", "ref": "visitor-gallery-human-catapult-launch-14.webp"},
+        {"type": "video", "ref": "X2bRA2Bur-M"},
         {"type": "video", "ref": "0ZHvelhfYFU"},
         {"type": "video", "ref": "gptE-l0kJ8E"},
         {"type": "video", "ref": "sN78QtB-nI0"},
@@ -197,12 +198,14 @@ ACTIVITY_GALLERY_ITEMS: dict[str, list[dict[str, str]]] = {
     ],
     "high-swing": [
         {"type": "image", "ref": "visitor-gallery-park-grounds-5.webp"},
+        {"type": "video", "ref": "ybePV3n9uks"},
         {"type": "video", "ref": "3OFULwzXtmU"},
         {"type": "video", "ref": "HvBqYKEk9TM"},
         {"type": "video", "ref": "8C07_QgmaPo"},
     ],
     "training-route": [
         {"type": "image", "ref": "visitor-gallery-treetop-course-family-33.webp"},
+        {"type": "video", "ref": "TDl0ffqPj3U"},
         {"type": "video", "ref": "QVz5eBaj02o"},
         {"type": "image", "ref": "visitor-gallery-treetop-course-staff-29.webp"},
         {"type": "video", "ref": "7URtyBlOHIQ"},
@@ -220,6 +223,7 @@ ACTIVITY_GALLERY_ITEMS: dict[str, list[dict[str, str]]] = {
     ],
     "valley-zipline": [
         {"type": "image", "ref": "visitor-gallery-valley-zipline-staff-22.webp"},
+        {"type": "video", "ref": "cQpPtOe481I"},
         {"type": "video", "ref": "-MG0CxMpNww"},
         {"type": "image", "ref": "visitor-gallery-valley-zipline-staff-23.webp"},
         {"type": "video", "ref": "HxDrfD2vtbo"},
@@ -234,18 +238,56 @@ ACTIVITY_GALLERY_ITEMS: dict[str, list[dict[str, str]]] = {
     ],
     "climbing-wall": [
         {"type": "image", "ref": "visitor-gallery-climbing-wall-guest-20.webp"},
+        {"type": "video", "ref": "Uhbf2TF8PYE"},
     ],
     "aerotrim": [
         {"type": "image", "ref": "visitor-gallery-aerotrim-guest-19.webp"},
         {"type": "video", "ref": "HdOXPwBiqq8"},
     ],
     "20m-drop": [
+        {"type": "video", "ref": "W5CWJfZlW2o"},
         {"type": "video", "ref": "NAhsPEJW4ig"},
         {"type": "video", "ref": "UiZ6ZsU2hZY"},
     ],
 }
 
 VISITOR_VIDEOS: dict[str, dict[str, str | list[str]]] = {
+    "X2bRA2Bur-M": {
+        "en_title": "Fly 100 km/h in one second — Human Catapult at Glavani Park",
+        "hr_title": "0–100 km/h u jednoj sekundi — ljudska katapulta u Glavani Parku",
+        "activities": ["human-catapult"],
+        "orientation": "landscape",
+    },
+    "ybePV3n9uks": {
+        "en_title": "Giant Swing — 11 metre high swing at Glavani Park",
+        "hr_title": "Visoka ljuljačka — 11 metara u Glavani Parku",
+        "activities": ["high-swing"],
+        "orientation": "landscape",
+    },
+    "TDl0ffqPj3U": {
+        "en_title": "Yellow training route at Glavani Park",
+        "hr_title": "Žuta trening ruta u Glavani Parku",
+        "activities": ["training-route"],
+        "orientation": "landscape",
+    },
+    "cQpPtOe481I": {
+        "en_title": "120 m Valley Zipline at Glavani Park",
+        "hr_title": "120 m dolinski zipline u Glavani Parku",
+        "activities": ["valley-zipline"],
+        "orientation": "landscape",
+    },
+    "Uhbf2TF8PYE": {
+        "en_title": "Professional climbing wall at Glavani Park",
+        "hr_title": "Profesionalni penjački zid u Glavani Parku",
+        "activities": ["climbing-wall"],
+        "orientation": "landscape",
+    },
+    "W5CWJfZlW2o": {
+        "en_title": "Free fall jump from 20 metres at Glavani Park",
+        "hr_title": "Slobodni pad s 20 metara u Glavani Parku",
+        "activities": ["20m-drop"],
+        "orientation": "landscape",
+    },
     "0ZHvelhfYFU": {
         "en_title": "Human Catapult at Glavani Park",
         "hr_title": "Ljudska katapulta u Glavani Parku",
