@@ -928,7 +928,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   --hub-color-mid: rgba(45, 106, 79, 0.88);
   --hub-color-soft: rgba(26, 61, 46, 0.45);
   --hub-color-faint: rgba(26, 61, 46, 0.16);
-  --hub-photo: url("../../images/visitor-gallery-valley-zipline-staff-22.webp");
+  --hub-photo: url("../../images/valley-zipline-youtube-still.webp");
   --hub-fade: linear-gradient(
     to right,
     var(--hub-color-strong) 0%,

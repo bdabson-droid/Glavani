@@ -275,9 +275,9 @@ ACTIVITIES = [
         "en_slug": "valley-zipline",
         "hr_slug": "dolinski-zipline",
         "tile_mod": "zipline-valley",
-        "youtube_id": "cQpPtOe481I",
-        "youtube_url": "https://youtu.be/cQpPtOe481I",
-        "image": "visitor-gallery-valley-zipline-staff-22.webp",
+        "youtube_id": "DWMl2hZGARU",
+        "youtube_url": "https://youtu.be/DWMl2hZGARU",
+        "image": "valley-zipline-youtube-still.webp",
         "en": {
             "title": "Valley Zipline (Big Zipline) | Glavani Park Istria",
             "h1": "Valley Zipline (Big Zipline)",
@@ -293,10 +293,6 @@ ACTIVITIES = [
                 "The course is popular with first-time zipliners and returning visitors alike. Harness and helmet are provided; wear closed shoes and comfortable clothing. Combine with the Treetop Course on the high-ropes routes for a full zipline experience in one visit.",
             ],
             "video_heading": "Valley Zipline video",
-            "video_notice": (
-                "The course shown in this video is an earlier version. The Valley Zipline has since been upgraded — "
-                "today's experience includes <strong>two ziplines</strong> back and forth over the valley."
-            ),
             "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
         },
         "hr": {
@@ -314,10 +310,6 @@ ACTIVITIES = [
                 "Staza je popularna i među početnicima i među onima koji se vraćaju. Harnes i kaciga su osigurani; nosite zatvorenu obuću i udobnu odjeću. Kombinirajte sa Stazom u krošnjama na visokim stazama za puno zipline iskustvo u jednom posjetu.",
             ],
             "video_heading": "Video dolinskog ziplinea",
-            "video_notice": (
-                "Staza u ovom videu ranija je verzija. Dolinski zipline je nakon toga nadograđen — "
-                "današnje iskustvo uključuje <strong>dva ziplinea</strong> naprijed-natrag preko doline."
-            ),
             "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
         },
     },

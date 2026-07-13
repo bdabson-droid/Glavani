@@ -188,7 +188,7 @@ YOUTUBE_STILLS = [
     ("Uhbf2TF8PYE", "climbing-wall-youtube-still.webp"),
     ("ybePV3n9uks", "high-swing-youtube-still.webp"),
     ("TDl0ffqPj3U", "training-route-youtube-still.webp"),
-    ("cQpPtOe481I", "valley-zipline-youtube-still.webp", 10 / 7),
+    ("DWMl2hZGARU", "valley-zipline-youtube-still.webp", 16 / 9),
 ]
 
 EXTERNAL_IMAGES = [
