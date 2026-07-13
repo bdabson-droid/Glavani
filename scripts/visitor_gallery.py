@@ -190,7 +190,6 @@ VISITOR_GALLERY = [
 ACTIVITY_GALLERY_ITEMS: dict[str, list[dict[str, str]]] = {
     "human-catapult": [
         {"type": "image", "ref": "visitor-gallery-human-catapult-launch-14.webp"},
-        {"type": "video", "ref": "X2bRA2Bur-M"},
         {"type": "video", "ref": "0ZHvelhfYFU"},
         {"type": "video", "ref": "gptE-l0kJ8E"},
         {"type": "video", "ref": "sN78QtB-nI0"},
@@ -198,14 +197,12 @@ ACTIVITY_GALLERY_ITEMS: dict[str, list[dict[str, str]]] = {
     ],
     "high-swing": [
         {"type": "image", "ref": "visitor-gallery-park-grounds-5.webp"},
-        {"type": "video", "ref": "ybePV3n9uks"},
         {"type": "video", "ref": "3OFULwzXtmU"},
         {"type": "video", "ref": "HvBqYKEk9TM"},
         {"type": "video", "ref": "8C07_QgmaPo"},
     ],
     "training-route": [
         {"type": "image", "ref": "visitor-gallery-treetop-course-family-33.webp"},
-        {"type": "video", "ref": "TDl0ffqPj3U"},
         {"type": "video", "ref": "QVz5eBaj02o"},
         {"type": "image", "ref": "visitor-gallery-treetop-course-staff-29.webp"},
         {"type": "video", "ref": "7URtyBlOHIQ"},
@@ -223,9 +220,13 @@ ACTIVITY_GALLERY_ITEMS: dict[str, list[dict[str, str]]] = {
     ],
     "valley-zipline": [
         {"type": "image", "ref": "visitor-gallery-valley-zipline-staff-22.webp"},
-        {"type": "video", "ref": "cQpPtOe481I"},
-        {"type": "video", "ref": "-MG0CxMpNww"},
+        {"type": "video", "ref": "aHBpvX1zeio"},
+        {"type": "video", "ref": "DWMl2hZGARU"},
+        {"type": "video", "ref": "CrRIcIfXt2w"},
+        {"type": "video", "ref": "sW0xolt5cRw"},
+        {"type": "video", "ref": "w7GOLClznl4"},
         {"type": "image", "ref": "visitor-gallery-valley-zipline-staff-23.webp"},
+        {"type": "video", "ref": "-MG0CxMpNww"},
         {"type": "video", "ref": "HxDrfD2vtbo"},
         {"type": "video", "ref": "j_5MqCAGnCg"},
         {"type": "image", "ref": "visitor-gallery-valley-zipline-guest-24.webp"},
@@ -238,56 +239,18 @@ ACTIVITY_GALLERY_ITEMS: dict[str, list[dict[str, str]]] = {
     ],
     "climbing-wall": [
         {"type": "image", "ref": "visitor-gallery-climbing-wall-guest-20.webp"},
-        {"type": "video", "ref": "Uhbf2TF8PYE"},
     ],
     "aerotrim": [
         {"type": "image", "ref": "visitor-gallery-aerotrim-guest-19.webp"},
         {"type": "video", "ref": "HdOXPwBiqq8"},
     ],
     "20m-drop": [
-        {"type": "video", "ref": "W5CWJfZlW2o"},
         {"type": "video", "ref": "NAhsPEJW4ig"},
         {"type": "video", "ref": "UiZ6ZsU2hZY"},
     ],
 }
 
 VISITOR_VIDEOS: dict[str, dict[str, str | list[str]]] = {
-    "X2bRA2Bur-M": {
-        "en_title": "Fly 100 km/h in one second — Human Catapult at Glavani Park",
-        "hr_title": "0–100 km/h u jednoj sekundi — ljudska katapulta u Glavani Parku",
-        "activities": ["human-catapult"],
-        "orientation": "landscape",
-    },
-    "ybePV3n9uks": {
-        "en_title": "Giant Swing — 11 metre high swing at Glavani Park",
-        "hr_title": "Visoka ljuljačka — 11 metara u Glavani Parku",
-        "activities": ["high-swing"],
-        "orientation": "landscape",
-    },
-    "TDl0ffqPj3U": {
-        "en_title": "Yellow training route at Glavani Park",
-        "hr_title": "Žuta trening ruta u Glavani Parku",
-        "activities": ["training-route"],
-        "orientation": "landscape",
-    },
-    "cQpPtOe481I": {
-        "en_title": "120 m Valley Zipline at Glavani Park",
-        "hr_title": "120 m dolinski zipline u Glavani Parku",
-        "activities": ["valley-zipline"],
-        "orientation": "landscape",
-    },
-    "Uhbf2TF8PYE": {
-        "en_title": "Professional climbing wall at Glavani Park",
-        "hr_title": "Profesionalni penjački zid u Glavani Parku",
-        "activities": ["climbing-wall"],
-        "orientation": "landscape",
-    },
-    "W5CWJfZlW2o": {
-        "en_title": "Free fall jump from 20 metres at Glavani Park",
-        "hr_title": "Slobodni pad s 20 metara u Glavani Parku",
-        "activities": ["20m-drop"],
-        "orientation": "landscape",
-    },
     "0ZHvelhfYFU": {
         "en_title": "Human Catapult at Glavani Park",
         "hr_title": "Ljudska katapulta u Glavani Parku",
@@ -312,11 +275,13 @@ VISITOR_VIDEOS: dict[str, dict[str, str | list[str]]] = {
         "en_title": "High Swing at Glavani Park",
         "hr_title": "Visoka ljuljačka u Glavani Parku",
         "activities": ["high-swing"],
+        "orientation": "landscape",
     },
     "HvBqYKEk9TM": {
         "en_title": "High Swing ride at Glavani Park",
         "hr_title": "Vožnja visokom ljuljačkom u Glavani Parku",
         "activities": ["high-swing"],
+        "orientation": "landscape",
     },
     "8C07_QgmaPo": {
         "en_title": "High Swing in the oak forest at Glavani Park",
@@ -342,6 +307,37 @@ VISITOR_VIDEOS: dict[str, dict[str, str | list[str]]] = {
         "en_title": "Treetop Course zipline at Glavani Park",
         "hr_title": "Zipline na stazi u krošnjama u Glavani Parku",
         "activities": ["low-zipline"],
+        "orientation": "landscape",
+    },
+    "aHBpvX1zeio": {
+        "en_title": "Valley Zipline at Glavani Park",
+        "hr_title": "Dolinski zipline u Glavani Parku",
+        "activities": ["valley-zipline"],
+        "orientation": "landscape",
+    },
+    "DWMl2hZGARU": {
+        "en_title": "Valley Zipline ride at Glavani Park",
+        "hr_title": "Vožnja dolinskom ziplinom u Glavani Parku",
+        "activities": ["valley-zipline"],
+        "orientation": "landscape",
+    },
+    "CrRIcIfXt2w": {
+        "en_title": "Valley Zipline through the forest at Glavani Park",
+        "hr_title": "Dolinski zipline kroz šumu u Glavani Parku",
+        "activities": ["valley-zipline"],
+        "orientation": "landscape",
+    },
+    "sW0xolt5cRw": {
+        "en_title": "Valley Zipline launch at Glavani Park",
+        "hr_title": "Polazak dolinske zipline u Glavani Parku",
+        "activities": ["valley-zipline"],
+        "orientation": "landscape",
+    },
+    "w7GOLClznl4": {
+        "en_title": "Valley Zipline amphitheatre at Glavani Park",
+        "hr_title": "Amfiteatar dolinske zipline u Glavani Parku",
+        "activities": ["valley-zipline"],
+        "orientation": "landscape",
     },
     "-MG0CxMpNww": {
         "en_title": "Valley Zipline at Glavani Park",
@@ -367,6 +363,7 @@ VISITOR_VIDEOS: dict[str, dict[str, str | list[str]]] = {
         "en_title": "Devil's Causeway Course at Glavani Park",
         "hr_title": "Staza Vražjeg puta u Glavani Parku",
         "activities": ["devils-causeway"],
+        "orientation": "landscape",
     },
     "6p-7QWy3z30": {
         "en_title": "Starting the Devil's Causeway Course at Glavani Park",
