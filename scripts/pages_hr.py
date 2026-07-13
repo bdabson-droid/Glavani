@@ -796,8 +796,6 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
   'hero_subtitle': 'Izvan amfiteatra i jadranskih plaža unutrašnja Istra nudi zipline, '
                    'visoke staze i adrenalinske vožnje u Glavani Parku — lak '
                    'poludnevni bijeg kod Barbana i Vodnjanja.',
-  'image': 'visitor-gallery-zipline-trio-16.webp',
-  'image_alt': 'Tri posjetitelja na visećoj gredi visoko iznad šume na zipline stazi u Glavani Parku, Istria',
   'location_map': True,
   'sections': [{'h2': 'Pula kao baza za istraživanje Istre',
                 'paragraphs': ['<p><strong>Pula</strong> sidri južni vrh Istre s '

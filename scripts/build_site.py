@@ -1169,9 +1169,12 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
     </div>
   </section>
   """
-        article_open = f"""      <figure class="feature-img">
+        if page.get("image"):
+            article_open = f"""      <figure class="feature-img">
         <img src="/images/{img}" alt="{page['image_alt']}" width="800" height="560" loading="eager">
       </figure>"""
+        else:
+            article_open = ""
     body = f"""{head_meta(lang, page['title'], page['meta_description'], page['keywords'], canonical, en_slug, hr_slug, og_image=img, og_image_alt=page.get('image_alt'), extra_head=map_head)}
 {page_chrome(lang)}
 {crumbs}
