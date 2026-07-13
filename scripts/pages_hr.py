@@ -614,6 +614,14 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
   'image': 'climbing-wall-outdoor-activities-istria.webp',
   'image_alt': 'Školska grupa na edukativnom posjetu Glavani Park avanturističkom '
                'parku, Istria',
+  'gallery_heading': 'Galerija školskih izleta',
+  'gallery': [
+      {
+          'image': 'visitor-gallery-school-group-7.webp',
+          'en_alt': 'School group in helmets and harnesses ready for the high-ropes course at Glavani Park',
+          'hr_alt': 'Školska grupa u kacigama i harnesima prije visokih staza u Glavani Parku',
+      },
+  ],
   'sections': [{'h2': 'Vrijednost obrazovanja na otvorenom u Istri',
                 'paragraphs': ['<p>Nastava u učionici temelj je obrazovanja, ali neke '
                                'lekcije najdublje zauzimaju mjesto na otvorenom — gdje '

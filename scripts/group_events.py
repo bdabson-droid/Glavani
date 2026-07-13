@@ -17,6 +17,7 @@ EVENT_PAGES = [
             {"image": "team-building-gallery-6.webp", "en_alt": "Corporate team building group at Glavani Park adventure park", "hr_alt": "Korporativna team building grupa u avanturističkom parku Glavani"},
             {"image": "visitor-gallery-group-event-10.webp", "en_alt": "Group of visitors in harnesses at Glavani Park between activities", "hr_alt": "Grupa posjetitelja u harnesima u Glavani Parku između aktivnosti"},
             {"image": "visitor-gallery-valley-zipline-amphitheatre-26.webp", "en_alt": "Valley Zipline amphitheatre and oak forest at Glavani Park, Istria", "hr_alt": "Amfiteatar dolinske zipline i hrastova šuma u Glavani Parku, Istria"},
+            {"image": "visitor-gallery-school-group-7.webp", "en_alt": "School group in helmets and harnesses ready for the high-ropes course at Glavani Park", "hr_alt": "Školska grupa u kacigama i harnesima prije visokih staza u Glavani Parku"},
         ],
         "en": {
             "title": "Team Building Program | Glavani Park Istria",
