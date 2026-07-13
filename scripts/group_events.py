@@ -13,6 +13,8 @@ EVENT_PAGES = [
             {"image": "team-building-gallery-2.webp", "en_alt": "Corporate team on the climbing wall at Glavani Park", "hr_alt": "Korporativni tim na penjačkom zidu u Glavani Parku"},
             {"image": "team-building-gallery-3.webp", "en_alt": "Team building activities in the oak forest", "hr_alt": "Team building aktivnosti u hrastovoj šumi"},
             {"image": "team-building-gallery-4.webp", "en_alt": "Group celebration after team building at Glavani Park", "hr_alt": "Proslava grupe nakon team buildinga u Glavani Parku"},
+            {"image": "team-building-gallery-5.webp", "en_alt": "Large team building group setup at Glavani Park, Istria", "hr_alt": "Velika team building grupa na postavci u Glavani Parku, Istria"},
+            {"image": "team-building-gallery-6.webp", "en_alt": "Corporate team building group at Glavani Park adventure park", "hr_alt": "Korporativna team building grupa u avanturističkom parku Glavani"},
         ],
         "en": {
             "title": "Team Building Program | Glavani Park Istria",
