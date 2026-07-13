@@ -1028,6 +1028,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
     page_scripts = render_page_scripts(
         "open-status",
         *("location-map",) if page.get("location_map") else (),
+        *("photo-gallery",) if page.get("gallery") else (),
     )
     page_faqs = page.get("faqs") or []
     faq_block = ""
@@ -1089,6 +1090,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
     {sidebar}
     </div>
   </div>
+  {render_landing_gallery(page, lang)}
   {faq_block}
   {render_related(page.get('related', []), lang)}
   <section class="section section--alt">
@@ -1558,13 +1560,20 @@ def render_activity_page(activity: dict, lang: str) -> str:
 </html>"""
 
 
-def render_photo_gallery(event: dict, lang: str) -> str:
-    data = event["hr" if lang == "hr" else "en"]
+def render_landing_gallery(page: dict, lang: str) -> str:
+    gallery = page.get("gallery")
+    if not gallery:
+        return ""
+    heading = page.get("gallery_heading", "Gallery" if lang == "en" else "Galerija")
+    return render_photo_gallery_items(gallery, heading, lang)
+
+
+def render_photo_gallery_items(gallery: list, heading: str, lang: str) -> str:
     alt_key = "hr_alt" if lang == "hr" else "en_alt"
     prev_label = "Prethodna fotografija" if lang == "hr" else "Previous photo"
     next_label = "Sljedeća fotografija" if lang == "hr" else "Next photo"
     slides = []
-    for item in event["gallery"]:
+    for item in gallery:
         alt = esc(item[alt_key])
         slides.append(
             f"""        <figure class="photo-gallery__slide">
@@ -1575,7 +1584,7 @@ def render_photo_gallery(event: dict, lang: str) -> str:
   <section class="section section--alt photo-gallery-section" aria-labelledby="photo-gallery-heading">
     <div class="section__inner">
       <div class="section__heading">
-        <h2 id="photo-gallery-heading">{data['gallery_heading']}</h2>
+        <h2 id="photo-gallery-heading">{heading}</h2>
       </div>
       <div class="photo-gallery" data-photo-gallery>
         <button type="button" class="photo-gallery__nav photo-gallery__nav--prev" aria-label="{prev_label}" data-gallery-prev>‹</button>
@@ -1586,6 +1595,11 @@ def render_photo_gallery(event: dict, lang: str) -> str:
       </div>
     </div>
   </section>"""
+
+
+def render_photo_gallery(event: dict, lang: str) -> str:
+    data = event["hr" if lang == "hr" else "en"]
+    return render_photo_gallery_items(event["gallery"], data["gallery_heading"], lang)
 
 
 def render_event_page(event: dict, lang: str) -> str:

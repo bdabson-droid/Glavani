@@ -192,7 +192,6 @@ ACTIVITY_GALLERY_ITEMS: dict[str, list[dict[str, str]]] = {
         {"type": "image", "ref": "visitor-gallery-human-catapult-launch-14.webp"},
         {"type": "video", "ref": "0ZHvelhfYFU"},
         {"type": "video", "ref": "gptE-l0kJ8E"},
-        {"type": "image", "ref": "visitor-gallery-school-group-7.webp"},
         {"type": "video", "ref": "sN78QtB-nI0"},
         {"type": "video", "ref": "hJPwH_bxnWQ"},
     ],

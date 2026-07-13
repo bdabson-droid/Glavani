@@ -594,6 +594,14 @@ PAGES = [{'slug': 'things-to-do-in-istria',
   'image': 'climbing-wall-outdoor-activities-istria.webp',
   'image_alt': 'School group on an educational visit to Glavani Park outdoor adventure '
                'park, Istria',
+  'gallery_heading': 'School trips gallery',
+  'gallery': [
+      {
+          'image': 'visitor-gallery-school-group-7.webp',
+          'en_alt': 'School group in helmets and harnesses ready for the high-ropes course at Glavani Park',
+          'hr_alt': 'Školska grupa u kacigama i harnesima prije visokih staza u Glavani Parku',
+      },
+  ],
   'sections': [{'h2': 'The Value of Outdoor Education in Istria',
                 'paragraphs': ['<p>Classroom learning forms the foundation of '
                                'education, but some lessons land most powerfully '
