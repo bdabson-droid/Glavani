@@ -1725,9 +1725,10 @@ def render_activity_visitor_photos(activity: dict, lang: str) -> str:
             title = esc(video[title_key])
             video_id = esc(item["ref"])
             label = esc(f"{play_label}: {title}")
+            orientation = esc(video.get("orientation", "portrait"))
             slides.append(
                 f"""        <figure class="photo-gallery__slide photo-gallery__slide--video">
-          <div class="photo-gallery__video" data-youtube-id="{video_id}">
+          <div class="photo-gallery__video" data-youtube-id="{video_id}" data-video-title="{title}" data-play-label="{label}" data-orientation="{orientation}">
             <button type="button" class="photo-gallery__video-play" aria-label="{label}">
               <img src="https://i.ytimg.com/vi/{video_id}/hqdefault.jpg" alt="{title}" width="800" height="450" loading="lazy">
               <span class="photo-gallery__video-icon" aria-hidden="true">▶</span>
