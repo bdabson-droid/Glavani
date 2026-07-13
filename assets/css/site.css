@@ -922,8 +922,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background-color: #312e81;
   background-image: var(--hub-fade), var(--hub-photo);
 }
-.hub-card--zipline-valley,
-.activity-banner--zipline-valley {
+.hub-card--zipline-valley {
   --hub-color-strong: rgba(45, 106, 79, 0.96);
   --hub-color-mid: rgba(45, 106, 79, 0.88);
   --hub-color-soft: rgba(26, 61, 46, 0.45);
@@ -940,6 +939,24 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background-color: #1a3d2e;
   background-image: var(--hub-fade), var(--hub-photo);
   background-position: 0 0, 72% center;
+}
+.activity-banner--zipline-valley {
+  --hub-color-strong: rgba(45, 106, 79, 0.96);
+  --hub-color-mid: rgba(45, 106, 79, 0.88);
+  --hub-color-soft: rgba(26, 61, 46, 0.45);
+  --hub-color-faint: rgba(26, 61, 46, 0.16);
+  --hub-photo: url("../../images/valley-zipline-banner-still.webp");
+  --hub-fade: linear-gradient(
+    to right,
+    var(--hub-color-strong) 0%,
+    var(--hub-color-mid) 22%,
+    var(--hub-color-soft) 36%,
+    var(--hub-color-faint) 50%,
+    transparent 66%
+  );
+  background-color: #1a3d2e;
+  background-image: var(--hub-fade), var(--hub-photo);
+  background-position: 0 0, 86% center;
 }
 .activity-banner--link {
   --hub-color-strong: rgba(45, 106, 79, 0.96);
