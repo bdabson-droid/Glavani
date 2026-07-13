@@ -1,5 +1,5 @@
 /**
- * Photo gallery carousel — horizontal scroll with optional YouTube video slides.
+ * Photo gallery carousel — horizontal scroll, YouTube slides, dots, and loop.
  */
 (function () {
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -8,15 +8,43 @@
     return prefersReducedMotion ? 'auto' : 'smooth';
   }
 
-  function scrollToSlide(track, slide) {
-    if (!slide) return;
-    var trackRect = track.getBoundingClientRect();
-    var slideRect = slide.getBoundingClientRect();
-    track.scrollLeft += slideRect.left - trackRect.left;
+  function dotLabelPrefix() {
+    var lang = (document.documentElement.lang || 'en').toLowerCase();
+    return lang.indexOf('hr') === 0 ? 'Fotografija' : 'Photo';
   }
 
-  function trackPadding() {
-    return 0;
+  function prepareGallery(root) {
+    var viewport = root.querySelector('.photo-gallery__viewport');
+    if (!viewport) {
+      viewport = document.createElement('div');
+      viewport.className = 'photo-gallery__viewport';
+      var track = root.querySelector('[data-gallery-track]');
+      var prev = root.querySelector('[data-gallery-prev]');
+      var next = root.querySelector('[data-gallery-next]');
+      root.insertBefore(viewport, track);
+      if (prev) viewport.appendChild(prev);
+      viewport.appendChild(track);
+      if (next) viewport.appendChild(next);
+    }
+
+    var dots = root.querySelector('[data-gallery-dots]');
+    if (!dots) {
+      dots = document.createElement('div');
+      dots.className = 'photo-gallery__dots';
+      dots.setAttribute('data-gallery-dots', '');
+      dots.setAttribute('role', 'tablist');
+      root.appendChild(dots);
+    }
+
+    return { viewport: viewport, dots: dots };
+  }
+
+  function scrollToSlide(track, slide, behavior) {
+    if (!slide) return;
+    track.scrollTo({
+      left: slide.offsetLeft,
+      behavior: behavior || scrollBehavior(),
+    });
   }
 
   function measureSlideHeight(slide, slideWidth) {
@@ -35,25 +63,31 @@
     return slide.offsetHeight;
   }
 
-  function slideWidthForGallery(root, slides) {
+  function slideWidthForGallery(viewport, slides) {
     if (slides.length && slides[0].offsetWidth) return slides[0].offsetWidth;
-    return root.clientWidth || root.getBoundingClientRect().width;
+    return viewport.clientWidth || viewport.getBoundingClientRect().width;
   }
 
-  function cacheSlideHeights(root, slides) {
-    var width = slideWidthForGallery(root, slides);
+  function cacheSlideHeights(viewport, slides) {
+    var width = slideWidthForGallery(viewport, slides);
     return slides.map(function (slide) {
       return measureSlideHeight(slide, width);
     });
   }
 
-  function syncGalleryHeight(root, track, slides, heights) {
-    if (!slides.length) return;
-    heights = heights || cacheSlideHeights(root, slides);
-    var padding = trackPadding(track);
+  function heightForSlide(slide, realSlides, heights) {
+    var clone = slide.getAttribute('data-clone');
+    if (clone === 'first') return heights[0];
+    if (clone === 'last') return heights[heights.length - 1];
+    var realIndex = realSlides.indexOf(slide);
+    if (realIndex >= 0) return heights[realIndex];
+    return heights[0];
+  }
+
+  function activeSlideIndex(track, slides) {
+    if (!slides.length) return 0;
     var trackRect = track.getBoundingClientRect();
     var center = trackRect.left + trackRect.width / 2;
-
     var activeIndex = 0;
     var activeDistance = Infinity;
     slides.forEach(function (slide, index) {
@@ -65,62 +99,87 @@
         activeIndex = index;
       }
     });
+    return activeIndex;
+  }
 
-    var height = heights[activeIndex];
-    var activeSlide = slides[activeIndex];
+  function realIndexFromAll(allSlides, index, looping) {
+    if (!looping) return index;
+    var slide = allSlides[index];
+    var clone = slide.getAttribute('data-clone');
+    if (clone === 'first') return 0;
+    if (clone === 'last') return allSlides.length - 3;
+    return index - 1;
+  }
+
+  function syncGalleryHeight(viewport, track, allSlides, realSlides, heights, looping) {
+    if (!allSlides.length) return;
+    heights = heights || cacheSlideHeights(viewport, realSlides);
+    var trackRect = track.getBoundingClientRect();
+    var center = trackRect.left + trackRect.width / 2;
+
+    var activeIndex = 0;
+    var activeDistance = Infinity;
+    allSlides.forEach(function (slide, index) {
+      var rect = slide.getBoundingClientRect();
+      var slideCenter = rect.left + rect.width / 2;
+      var distance = Math.abs(slideCenter - center);
+      if (distance < activeDistance) {
+        activeDistance = distance;
+        activeIndex = index;
+      }
+    });
+
+    var height = heightForSlide(allSlides[activeIndex], realSlides, heights);
+    var activeSlide = allSlides[activeIndex];
     var activeRect = activeSlide.getBoundingClientRect();
     var activeCenter = activeRect.left + activeRect.width / 2;
     var neighborIndex = center < activeCenter ? activeIndex - 1 : activeIndex + 1;
 
-    if (neighborIndex >= 0 && neighborIndex < slides.length) {
-      var neighbor = slides[neighborIndex];
+    if (neighborIndex >= 0 && neighborIndex < allSlides.length) {
+      var neighbor = allSlides[neighborIndex];
       var neighborRect = neighbor.getBoundingClientRect();
       var neighborCenter = neighborRect.left + neighborRect.width / 2;
       var span = Math.abs(neighborCenter - activeCenter);
       if (span > 0) {
         var progress = Math.min(1, Math.max(0, Math.abs(center - activeCenter) / span));
-        height = heights[activeIndex] + (heights[neighborIndex] - heights[activeIndex]) * progress;
+        var neighborHeight = heightForSlide(neighbor, realSlides, heights);
+        height = height + (neighborHeight - height) * progress;
       }
     }
 
-    root.style.height = Math.round(height + padding) + 'px';
+    viewport.style.height = Math.round(height) + 'px';
   }
 
-  function bindGalleryHeight(root, track, slides) {
-    var heights = cacheSlideHeights(root, slides);
-    var sync = function () {
-      syncGalleryHeight(root, track, slides, heights);
-    };
-    var ticking = false;
-
-    function remeasure() {
-      heights = cacheSlideHeights(root, slides);
-      sync();
+  function setupInfiniteLoop(track, realSlides) {
+    if (realSlides.length < 2) {
+      return { allSlides: realSlides, looping: false };
     }
 
-    sync();
-    slides.forEach(function (slide) {
-      slide.querySelectorAll('img').forEach(function (img) {
-        if (img.complete) return;
-        img.addEventListener('load', remeasure, { once: true });
-      });
-    });
+    var firstClone = realSlides[0].cloneNode(true);
+    var lastClone = realSlides[realSlides.length - 1].cloneNode(true);
+    firstClone.setAttribute('data-clone', 'first');
+    lastClone.setAttribute('data-clone', 'last');
+    firstClone.setAttribute('aria-hidden', 'true');
+    lastClone.setAttribute('aria-hidden', 'true');
 
-    track.addEventListener(
-      'scroll',
-      function () {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(function () {
-          syncGalleryHeight(root, track, slides, heights);
-          ticking = false;
-        });
-      },
-      { passive: true }
-    );
+    track.insertBefore(lastClone, realSlides[0]);
+    track.appendChild(firstClone);
 
-    window.addEventListener('resize', remeasure, { passive: true });
-    return sync;
+    var allSlides = Array.from(track.querySelectorAll('.photo-gallery__slide'));
+    scrollToSlide(track, allSlides[1], 'auto');
+    return { allSlides: allSlides, looping: true };
+  }
+
+  function wrapIfNeeded(track, allSlides, looping) {
+    if (!looping) return;
+    var index = activeSlideIndex(track, allSlides);
+    var slide = allSlides[index];
+    var clone = slide.getAttribute('data-clone');
+    if (clone === 'first') {
+      scrollToSlide(track, allSlides[1], 'auto');
+    } else if (clone === 'last') {
+      scrollToSlide(track, allSlides[allSlides.length - 2], 'auto');
+    }
   }
 
   function buildPlayButton(wrap) {
@@ -154,80 +213,174 @@
   function stopVideosExceptSlide(root, activeSlide) {
     root.querySelectorAll('.photo-gallery__slide--video').forEach(function (slide) {
       if (slide === activeSlide) return;
+      if (slide.getAttribute('aria-hidden') === 'true') return;
       var wrap = slide.querySelector('[data-youtube-id]');
       if (wrap) deactivateVideo(wrap);
     });
   }
 
-  function activateVideo(playButton) {
-    var wrap = playButton.closest('[data-youtube-id]');
-    if (!wrap || wrap.querySelector('iframe')) return;
-
-    var root = wrap.closest('[data-photo-gallery]');
-    var slide = wrap.closest('.photo-gallery__slide');
-    if (root) stopVideosExceptSlide(root, slide);
-
-    var videoId = wrap.getAttribute('data-youtube-id');
-    var label = playButton.getAttribute('aria-label') || 'YouTube video';
-    var iframe = document.createElement('iframe');
-    iframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0&enablejsapi=1';
-    iframe.title = label;
-    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-    iframe.setAttribute('allowfullscreen', '');
-    iframe.setAttribute('loading', 'lazy');
-    iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-    wrap.replaceChildren(iframe);
-    var track = wrap.closest('[data-gallery-track]');
-    if (track && root) {
-      var slides = Array.from(track.querySelectorAll('.photo-gallery__slide'));
-      syncGalleryHeight(root, track, slides, cacheSlideHeights(root, slides));
-    }
-  }
-
   document.querySelectorAll('[data-photo-gallery]').forEach(function (root) {
+    var parts = prepareGallery(root);
+    var viewport = parts.viewport;
+    var dotsRoot = parts.dots;
     var track = root.querySelector('[data-gallery-track]');
     var prev = root.querySelector('[data-gallery-prev]');
     var next = root.querySelector('[data-gallery-next]');
     if (!track || !prev || !next) return;
 
-    var slides = Array.from(track.querySelectorAll('.photo-gallery__slide'));
-    var syncHeight = bindGalleryHeight(root, track, slides);
-    if (slides.length) {
-      scrollToSlide(track, slides[0]);
-      syncHeight();
+    var realSlides = Array.from(track.querySelectorAll('.photo-gallery__slide'));
+    if (!realSlides.length) return;
+
+    var loopState = setupInfiniteLoop(track, realSlides);
+    var allSlides = loopState.allSlides;
+    var looping = loopState.looping;
+    var heights = cacheSlideHeights(viewport, realSlides);
+    var labelPrefix = dotLabelPrefix();
+    var activeRealIndex = 0;
+
+    function updateDots() {
+      var dots = dotsRoot.querySelectorAll('.photo-gallery__dot');
+      dots.forEach(function (dot, i) {
+        var active = i === activeRealIndex;
+        dot.classList.toggle('is-active', active);
+        dot.setAttribute('aria-selected', active ? 'true' : 'false');
+        dot.setAttribute('tabindex', active ? '0' : '-1');
+      });
     }
+
+    function refreshState() {
+      wrapIfNeeded(track, allSlides, looping);
+      activeRealIndex = realIndexFromAll(allSlides, activeSlideIndex(track, allSlides), looping);
+      syncGalleryHeight(viewport, track, allSlides, realSlides, heights, looping);
+      updateDots();
+    }
+
+    function remeasure() {
+      heights = cacheSlideHeights(viewport, realSlides);
+      refreshState();
+    }
+
+    function bindGalleryHeight() {
+      var ticking = false;
+      remeasure();
+
+      realSlides.forEach(function (slide) {
+        slide.querySelectorAll('img').forEach(function (img) {
+          if (img.complete) return;
+          img.addEventListener('load', remeasure, { once: true });
+        });
+      });
+
+      track.addEventListener(
+        'scroll',
+        function () {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(function () {
+            activeRealIndex = realIndexFromAll(
+              allSlides,
+              activeSlideIndex(track, allSlides),
+              looping
+            );
+            syncGalleryHeight(viewport, track, allSlides, realSlides, heights, looping);
+            updateDots();
+            ticking = false;
+          });
+        },
+        { passive: true }
+      );
+
+      var settleTimer;
+      function onScrollSettled() {
+        clearTimeout(settleTimer);
+        settleTimer = setTimeout(function () {
+          stopVideosExceptSlide(root, allSlides[activeSlideIndex(track, allSlides)]);
+          refreshState();
+        }, 80);
+      }
+
+      if ('onscrollend' in window) {
+        track.addEventListener('scrollend', onScrollSettled);
+      } else {
+        track.addEventListener('scroll', onScrollSettled, { passive: true });
+      }
+
+      window.addEventListener('resize', remeasure, { passive: true });
+    }
+
+    dotsRoot.replaceChildren();
+    if (realSlides.length > 1) {
+      realSlides.forEach(function (_, i) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'photo-gallery__dot';
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-label', labelPrefix + ' ' + (i + 1));
+        dot.addEventListener('click', function () {
+          stopVideosExceptSlide(root, null);
+          var target = looping ? allSlides[i + 1] : allSlides[i];
+          scrollToSlide(track, target, scrollBehavior());
+        });
+        dotsRoot.appendChild(dot);
+      });
+    }
+
+    bindGalleryHeight();
 
     root.addEventListener('click', function (event) {
       var button = event.target.closest('.photo-gallery__video-play');
-      if (button && root.contains(button)) activateVideo(button);
+      if (!button || !root.contains(button)) return;
+      var slide = button.closest('.photo-gallery__slide');
+      if (slide && slide.getAttribute('aria-hidden') === 'true') return;
+
+      var wrap = button.closest('[data-youtube-id]');
+      if (!wrap || wrap.querySelector('iframe')) return;
+
+      stopVideosExceptSlide(root, slide);
+
+      var videoId = wrap.getAttribute('data-youtube-id');
+      var label = button.getAttribute('aria-label') || 'YouTube video';
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0&enablejsapi=1';
+      iframe.title = label;
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'lazy');
+      iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      wrap.replaceChildren(iframe);
+      remeasure();
     });
 
-    function scrollStep() {
-      var slide = track.querySelector('.photo-gallery__slide');
-      if (!slide) return track.clientWidth * 0.9;
-      var gap = parseFloat(getComputedStyle(track).gap) || 16;
-      return slide.offsetWidth + gap;
-    }
-
-    function scrollBy(direction) {
+    function goBy(direction) {
       stopVideosExceptSlide(root, null);
-      track.scrollBy({ left: direction * scrollStep(), behavior: scrollBehavior() });
+      var index = activeSlideIndex(track, allSlides);
+      var target = allSlides[index + direction];
+      if (target) {
+        scrollToSlide(track, target, scrollBehavior());
+        return;
+      }
+      if (!looping) return;
+      if (direction > 0) {
+        scrollToSlide(track, allSlides[allSlides.length - 1], scrollBehavior());
+      } else {
+        scrollToSlide(track, allSlides[0], scrollBehavior());
+      }
     }
 
     prev.addEventListener('click', function () {
-      scrollBy(-1);
+      goBy(-1);
     });
     next.addEventListener('click', function () {
-      scrollBy(1);
+      goBy(1);
     });
 
     track.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
-        scrollBy(-1);
+        goBy(-1);
       } else if (e.key === 'ArrowRight') {
         e.preventDefault();
-        scrollBy(1);
+        goBy(1);
       }
     });
 
@@ -235,6 +388,7 @@
       var observer = new IntersectionObserver(
         function (entries) {
           entries.forEach(function (entry) {
+            if (entry.target.getAttribute('aria-hidden') === 'true') return;
             if (entry.isIntersecting && entry.intersectionRatio >= 0.55) return;
             var wrap = entry.target.querySelector('[data-youtube-id]');
             if (wrap) deactivateVideo(wrap);
@@ -242,21 +396,9 @@
         },
         { root: track, threshold: [0, 0.25, 0.55, 0.75, 1] }
       );
-      slides.forEach(function (slide) {
+      allSlides.forEach(function (slide) {
         observer.observe(slide);
       });
-    } else {
-      var scrollTimer;
-      track.addEventListener(
-        'scroll',
-        function () {
-          clearTimeout(scrollTimer);
-          scrollTimer = setTimeout(function () {
-            stopVideosExceptSlide(root, null);
-          }, 150);
-        },
-        { passive: true }
-      );
     }
   });
 })();
