@@ -1796,13 +1796,19 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 }
 .photo-gallery__track {
   display: flex;
+  align-items: flex-start;
   gap: 1rem;
   overflow-x: auto;
+  overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth; /* overridden by prefers-reduced-motion globally */
   flex: 1;
   padding: 0.25rem 0;
   -webkit-overflow-scrolling: touch;
+  transition: height 0.25s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .photo-gallery__track { transition: none; }
 }
 .photo-gallery__track::-webkit-scrollbar { display: none; }
 .photo-gallery__slide {
