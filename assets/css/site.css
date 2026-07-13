@@ -976,30 +976,13 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background-image: var(--hub-fade), var(--hub-photo);
   background-position: 0 0, 62% center;
 }
-.hub-card--zipline-low {
-  --hub-color-strong: rgba(3, 105, 161, 0.96);
-  --hub-color-mid: rgba(3, 105, 161, 0.88);
-  --hub-color-soft: rgba(12, 74, 110, 0.45);
-  --hub-color-faint: rgba(12, 74, 110, 0.16);
-  --hub-photo: url("../../images/treetop-course-hub-still.webp");
-  --hub-fade: linear-gradient(
-    to right,
-    var(--hub-color-strong) 0%,
-    var(--hub-color-mid) 22%,
-    var(--hub-color-soft) 36%,
-    var(--hub-color-faint) 50%,
-    transparent 66%
-  );
-  background-color: #0c4a6e;
-  background-image: var(--hub-fade), var(--hub-photo);
-  background-position: 0 0, 72% center;
-}
+.hub-card--zipline-low,
 .activity-banner--zipline-low {
   --hub-color-strong: rgba(3, 105, 161, 0.96);
   --hub-color-mid: rgba(3, 105, 161, 0.88);
   --hub-color-soft: rgba(12, 74, 110, 0.45);
   --hub-color-faint: rgba(12, 74, 110, 0.16);
-  --hub-photo: url("../../images/treetop-course-banner-still.webp");
+  --hub-photo: url("../../images/visitor-gallery-treetop-course-guest-27.webp");
   --hub-fade: linear-gradient(
     to right,
     var(--hub-color-strong) 0%,
@@ -1010,7 +993,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   );
   background-color: #0c4a6e;
   background-image: var(--hub-fade), var(--hub-photo);
-  background-position: 0 0, 56% center;
 }
 .hub-card--climbing,
 .activity-banner--climbing {
@@ -1233,7 +1215,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background-position: 0 0, 68% center;
 }
 .activity-banner--zipline-low {
-  background-position: 0 0, 56% center;
+  background-size: 100% 100%, contain;
+  background-position: 0 0, right center;
+  background-repeat: no-repeat, no-repeat;
 }
 .activity-banner--aerotrim {
   background-position: 0 0, 72% center;

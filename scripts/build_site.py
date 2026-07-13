@@ -204,22 +204,7 @@ YOUTUBE_STILLS = [
     }),
 ]
 
-LOCAL_IMAGE_CROPS = [
-    ("visitor-gallery-treetop-course-guest-27.webp", "treetop-course-hub-still.webp", {
-        "aspect": 10 / 7,
-        "focus_x": 0.34,
-        "focus_y": 0.42,
-        "focus_output_x": 0.78,
-        "zoom": 1.4,
-    }),
-    ("visitor-gallery-treetop-course-guest-27.webp", "treetop-course-banner-still.webp", {
-        "aspect": 10 / 7,
-        "focus_x": 0.34,
-        "focus_y": 0.42,
-        "focus_output_x": 0.88,
-        "zoom": 1.28,
-    }),
-]
+LOCAL_IMAGE_CROPS = []
 
 EXTERNAL_IMAGES = [
     (
