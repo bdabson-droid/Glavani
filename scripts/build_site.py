@@ -63,7 +63,12 @@ from activity_reviews import render_activity_reviews  # noqa: E402
 from home_reviews import render_home_reviews_carousel  # noqa: E402
 from activity_seo import render_activity_seo_footer  # noqa: E402
 from trust_signals import book_cta_labels, render_stay_safe_badge, render_trust_strip  # noqa: E402
-from visitor_gallery import ACTIVITY_GALLERY_MAP, GALLERY_BY_IMAGE, VISITOR_GALLERY  # noqa: E402
+from visitor_gallery import (  # noqa: E402
+    ACTIVITY_GALLERY_ITEMS,
+    GALLERY_BY_IMAGE,
+    VISITOR_GALLERY,
+    VISITOR_VIDEOS,
+)
 from migration_redirects import render_redirect_script, render_redirects_file  # noqa: E402
 
 PRODUCTION_BASE = "https://www.glavanipark.com"
@@ -1673,28 +1678,49 @@ def render_event_page(event: dict, lang: str) -> str:
 
 def render_activity_visitor_photos(activity: dict, lang: str) -> str:
     alt_key = "hr_alt" if lang == "hr" else "en_alt"
+    title_key = "hr_title" if lang == "hr" else "en_title"
     en_slug = activity["en_slug"]
     data = activity[lang]
-    image_names = ACTIVITY_GALLERY_MAP.get(en_slug, [])
+    gallery_items = ACTIVITY_GALLERY_ITEMS.get(en_slug, [])
     if lang == "hr":
-        heading = f"Fotografije posjetitelja — {data['h1']}"
-        prev_label = "Prethodna fotografija"
-        next_label = "Sljedeća fotografija"
+        heading = f"Fotografije i video posjetitelja — {data['h1']}"
+        prev_label = "Prethodno"
+        next_label = "Sljedeće"
+        play_label = "Pokreni video"
     else:
-        heading = f"Visitor photos — {data['h1']}"
-        prev_label = "Previous photo"
-        next_label = "Next photo"
+        heading = f"Visitor photos & videos — {data['h1']}"
+        prev_label = "Previous"
+        next_label = "Next"
+        play_label = "Play video"
     slides = []
-    for image_name in image_names:
-        item = GALLERY_BY_IMAGE.get(image_name)
-        if not item:
-            continue
-        alt = esc(item[alt_key])
-        slides.append(
-            f"""        <figure class="photo-gallery__slide">
-          <img src="/images/{image_name}" alt="{alt}" width="800" height="560" loading="lazy">
+    for item in gallery_items:
+        if item["type"] == "image":
+            image_item = GALLERY_BY_IMAGE.get(item["ref"])
+            if not image_item:
+                continue
+            alt = esc(image_item[alt_key])
+            slides.append(
+                f"""        <figure class="photo-gallery__slide">
+          <img src="/images/{item['ref']}" alt="{alt}" width="800" height="560" loading="lazy">
         </figure>"""
-        )
+            )
+        elif item["type"] == "video":
+            video = VISITOR_VIDEOS.get(item["ref"])
+            if not video:
+                continue
+            title = esc(video[title_key])
+            video_id = esc(item["ref"])
+            label = esc(f"{play_label}: {title}")
+            slides.append(
+                f"""        <figure class="photo-gallery__slide photo-gallery__slide--video">
+          <div class="photo-gallery__video" data-youtube-id="{video_id}">
+            <button type="button" class="photo-gallery__video-play" aria-label="{label}">
+              <img src="https://i.ytimg.com/vi/{video_id}/hqdefault.jpg" alt="{title}" width="800" height="450" loading="lazy">
+              <span class="photo-gallery__video-icon" aria-hidden="true">▶</span>
+            </button>
+          </div>
+        </figure>"""
+            )
     if not slides:
         return ""
     return f"""<section class="visitor-photos" aria-label="{heading}">

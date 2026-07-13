@@ -187,47 +187,178 @@ VISITOR_GALLERY = [
     },
 ]
 
-ACTIVITY_GALLERY_MAP: dict[str, list[str]] = {
+ACTIVITY_GALLERY_ITEMS: dict[str, list[dict[str, str]]] = {
     "human-catapult": [
-        "visitor-gallery-human-catapult-launch-14.webp",
-        "visitor-gallery-group-event-10.webp",
-        "visitor-gallery-school-group-7.webp",
+        {"type": "image", "ref": "visitor-gallery-human-catapult-launch-14.webp"},
+        {"type": "video", "ref": "0ZHvelhfYFU"},
+        {"type": "image", "ref": "visitor-gallery-group-event-10.webp"},
+        {"type": "video", "ref": "gptE-l0kJ8E"},
+        {"type": "image", "ref": "visitor-gallery-school-group-7.webp"},
+        {"type": "video", "ref": "sN78QtB-nI0"},
+        {"type": "video", "ref": "hJPwH_bxnWQ"},
     ],
     "high-swing": [
-        "visitor-gallery-park-grounds-5.webp",
-        "visitor-gallery-adventure-park-3.webp",
-        "visitor-gallery-group-event-10.webp",
+        {"type": "image", "ref": "visitor-gallery-park-grounds-5.webp"},
+        {"type": "video", "ref": "3OFULwzXtmU"},
+        {"type": "image", "ref": "visitor-gallery-adventure-park-3.webp"},
+        {"type": "video", "ref": "HvBqYKEk9TM"},
+        {"type": "image", "ref": "visitor-gallery-group-event-10.webp"},
+        {"type": "video", "ref": "8C07_QgmaPo"},
     ],
     "training-route": [
-        "visitor-gallery-treetop-course-family-33.webp",
-        "visitor-gallery-treetop-course-staff-29.webp",
-        "visitor-gallery-treetop-course-guest-32.webp",
+        {"type": "image", "ref": "visitor-gallery-treetop-course-family-33.webp"},
+        {"type": "video", "ref": "QVz5eBaj02o"},
+        {"type": "image", "ref": "visitor-gallery-treetop-course-staff-29.webp"},
+        {"type": "video", "ref": "7URtyBlOHIQ"},
+        {"type": "image", "ref": "visitor-gallery-treetop-course-guest-32.webp"},
+        {"type": "video", "ref": "ZMgFGX1Z6N4"},
     ],
     "low-zipline": [
-        "visitor-gallery-treetop-course-guest-27.webp",
-        "visitor-gallery-treetop-course-guest-30.webp",
-        "visitor-gallery-treetop-course-family-33.webp",
-        "visitor-gallery-treetop-course-guest-28.webp",
+        {"type": "image", "ref": "visitor-gallery-treetop-course-guest-27.webp"},
+        {"type": "video", "ref": "QVz5eBaj02o"},
+        {"type": "image", "ref": "visitor-gallery-treetop-course-guest-30.webp"},
+        {"type": "video", "ref": "FQC8hqvD4lg"},
+        {"type": "image", "ref": "visitor-gallery-treetop-course-family-33.webp"},
+        {"type": "video", "ref": "7URtyBlOHIQ"},
+        {"type": "image", "ref": "visitor-gallery-treetop-course-guest-28.webp"},
     ],
     "valley-zipline": [
-        "visitor-gallery-valley-zipline-staff-22.webp",
-        "visitor-gallery-valley-zipline-staff-23.webp",
-        "visitor-gallery-valley-zipline-amphitheatre-26.webp",
-        "visitor-gallery-valley-zipline-guest-24.webp",
+        {"type": "image", "ref": "visitor-gallery-valley-zipline-staff-22.webp"},
+        {"type": "video", "ref": "-MG0CxMpNww"},
+        {"type": "image", "ref": "visitor-gallery-valley-zipline-staff-23.webp"},
+        {"type": "video", "ref": "HxDrfD2vtbo"},
+        {"type": "image", "ref": "visitor-gallery-valley-zipline-amphitheatre-26.webp"},
+        {"type": "video", "ref": "j_5MqCAGnCg"},
+        {"type": "image", "ref": "visitor-gallery-valley-zipline-guest-24.webp"},
+        {"type": "video", "ref": "uUT4xGBRa8Y"},
     ],
     "devils-causeway": [
-        "visitor-gallery-devils-causeway-guest-21.webp",
+        {"type": "image", "ref": "visitor-gallery-devils-causeway-guest-21.webp"},
+        {"type": "video", "ref": "0hSnp49CcZ8"},
+        {"type": "video", "ref": "6p-7QWy3z30"},
     ],
     "climbing-wall": [
-        "visitor-gallery-climbing-wall-guest-20.webp",
+        {"type": "image", "ref": "visitor-gallery-climbing-wall-guest-20.webp"},
     ],
     "aerotrim": [
-        "visitor-gallery-aerotrim-guest-19.webp",
+        {"type": "image", "ref": "visitor-gallery-aerotrim-guest-19.webp"},
+        {"type": "video", "ref": "HdOXPwBiqq8"},
     ],
     "20m-drop": [
-        "visitor-gallery-adventure-park-3.webp",
-        "visitor-gallery-high-ropes-platform-13.webp",
+        {"type": "image", "ref": "visitor-gallery-adventure-park-3.webp"},
+        {"type": "video", "ref": "NAhsPEJW4ig"},
+        {"type": "image", "ref": "visitor-gallery-high-ropes-platform-13.webp"},
+        {"type": "video", "ref": "UiZ6ZsU2hZY"},
     ],
+}
+
+VISITOR_VIDEOS: dict[str, dict[str, str | list[str]]] = {
+    "0ZHvelhfYFU": {
+        "en_title": "Human Catapult at Glavani Park",
+        "hr_title": "Ljudska katapulta u Glavani Parku",
+        "activities": ["human-catapult"],
+    },
+    "gptE-l0kJ8E": {
+        "en_title": "Human Catapult launch at Glavani Park",
+        "hr_title": "Lansiranje na ljudskoj katapulti u Glavani Parku",
+        "activities": ["human-catapult"],
+    },
+    "sN78QtB-nI0": {
+        "en_title": "Human Catapult ride at Glavani Park",
+        "hr_title": "Vožnja ljudskom katapultom u Glavani Parku",
+        "activities": ["human-catapult"],
+    },
+    "hJPwH_bxnWQ": {
+        "en_title": "Human Catapult highlights at Glavani Park",
+        "hr_title": "Najbolji trenuci ljudske katapulti u Glavani Parku",
+        "activities": ["human-catapult"],
+    },
+    "3OFULwzXtmU": {
+        "en_title": "High Swing at Glavani Park",
+        "hr_title": "Visoka ljuljačka u Glavani Parku",
+        "activities": ["high-swing"],
+    },
+    "HvBqYKEk9TM": {
+        "en_title": "High Swing ride at Glavani Park",
+        "hr_title": "Vožnja visokom ljuljačkom u Glavani Parku",
+        "activities": ["high-swing"],
+    },
+    "8C07_QgmaPo": {
+        "en_title": "High Swing in the oak forest at Glavani Park",
+        "hr_title": "Visoka ljuljačka u hrastovoj šumi Glavani Parka",
+        "activities": ["high-swing"],
+    },
+    "QVz5eBaj02o": {
+        "en_title": "Treetop Course at Glavani Park",
+        "hr_title": "Staza u krošnjama u Glavani Parku",
+        "activities": ["training-route", "low-zipline"],
+    },
+    "7URtyBlOHIQ": {
+        "en_title": "Treetop Course obstacles at Glavani Park",
+        "hr_title": "Prepreke na stazi u krošnjama u Glavani Parku",
+        "activities": ["training-route", "low-zipline"],
+    },
+    "ZMgFGX1Z6N4": {
+        "en_title": "Treetop Course adventure at Glavani Park",
+        "hr_title": "Avantura na stazi u krošnjama u Glavani Parku",
+        "activities": ["training-route"],
+    },
+    "FQC8hqvD4lg": {
+        "en_title": "Treetop Course zipline at Glavani Park",
+        "hr_title": "Zipline na stazi u krošnjama u Glavani Parku",
+        "activities": ["low-zipline"],
+    },
+    "-MG0CxMpNww": {
+        "en_title": "Valley Zipline at Glavani Park",
+        "hr_title": "Dolinski zipline u Glavani Parku",
+        "activities": ["valley-zipline"],
+    },
+    "uUT4xGBRa8Y": {
+        "en_title": "Valley Zipline through the forest at Glavani Park",
+        "hr_title": "Dolinski zipline kroz šumu u Glavani Parku",
+        "activities": ["valley-zipline"],
+    },
+    "HxDrfD2vtbo": {
+        "en_title": "Valley Zipline from the launch platform at Glavani Park",
+        "hr_title": "Dolinski zipline s platforme u Glavani Parku",
+        "activities": ["valley-zipline"],
+    },
+    "j_5MqCAGnCg": {
+        "en_title": "Double Valley Zipline run at Glavani Park",
+        "hr_title": "Dvostruka vožnja dolinskom ziplinom u Glavani Parku",
+        "activities": ["valley-zipline"],
+    },
+    "0hSnp49CcZ8": {
+        "en_title": "Devil's Causeway Course at Glavani Park",
+        "hr_title": "Staza Vražjeg puta u Glavani Parku",
+        "activities": ["devils-causeway"],
+    },
+    "6p-7QWy3z30": {
+        "en_title": "Starting the Devil's Causeway Course at Glavani Park",
+        "hr_title": "Početak Staze Vražjeg puta u Glavani Parku",
+        "activities": ["devils-causeway"],
+    },
+    "HdOXPwBiqq8": {
+        "en_title": "Aerotrim human gyroscope at Glavani Park",
+        "hr_title": "Aerotrim ljudski žiroskop u Glavani Parku",
+        "activities": ["aerotrim"],
+    },
+    "NAhsPEJW4ig": {
+        "en_title": "20m Quick Jump at Glavani Park",
+        "hr_title": "Brzi skok s 20 m u Glavani Parku",
+        "activities": ["20m-drop"],
+    },
+    "UiZ6ZsU2hZY": {
+        "en_title": "Quick Jump highlights at Glavani Park",
+        "hr_title": "Najbolji trenuci brzog skoka u Glavani Parku",
+        "activities": ["20m-drop"],
+    },
+}
+
+# Backwards-compatible image-only map (e.g. tests or tooling).
+ACTIVITY_GALLERY_MAP: dict[str, list[str]] = {
+    slug: [item["ref"] for item in items if item["type"] == "image"]
+    for slug, items in ACTIVITY_GALLERY_ITEMS.items()
 }
 
 HOME_GALLERY_IMAGES = [item["image"] for item in VISITOR_GALLERY if item.get("home")]
