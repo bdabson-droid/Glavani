@@ -344,14 +344,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   color: var(--green-deep);
   margin-bottom: 1rem;
 }
-.visitor-photos .photo-gallery { margin: 0 -0.25rem; }
+.visitor-photos .photo-gallery { margin: 0; }
 .visitor-photos .photo-gallery__slide {
-  flex: 0 0 min(100%, 100%);
-}
-@media (min-width: 640px) {
-  .visitor-photos .photo-gallery__slide {
-    flex: 0 0 min(85%, 520px);
-  }
+  flex: 0 0 100%;
+  width: 100%;
 }
 
 .quick-actions {
@@ -1790,10 +1786,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 
 .photo-gallery-section .section__heading { margin-bottom: 1rem; }
 .photo-gallery {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
+  position: relative;
+  width: 100%;
   min-height: 0;
+  overflow: hidden;
 }
 .photo-gallery__track {
   display: flex;
@@ -1803,15 +1799,16 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth; /* overridden by prefers-reduced-motion globally */
-  flex: 1;
+  width: 100%;
+  height: 100%;
   min-height: 0;
-  padding: 0.25rem 0;
+  padding: 0;
   -webkit-overflow-scrolling: touch;
 }
 .photo-gallery__track::-webkit-scrollbar { display: none; }
 .photo-gallery__slide {
-  flex: 0 0 min(100%, 520px);
-  width: min(100%, 520px);
+  flex: 0 0 100%;
+  width: 100%;
   scroll-snap-align: start;
   margin: 0;
   border-radius: var(--radius-lg);
@@ -1877,19 +1874,23 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   pointer-events: none;
 }
 .photo-gallery__nav {
-  flex-shrink: 0;
-  align-self: center;
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
   width: 2.5rem;
   height: 2.5rem;
   border: none;
   border-radius: 50%;
-  background: var(--green-deep);
+  background: rgba(26, 61, 46, 0.88);
   color: var(--white);
   font-size: 1.5rem;
   line-height: 1;
   cursor: pointer;
-  box-shadow: var(--shadow);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.28);
 }
+.photo-gallery__nav--prev { left: 0.65rem; }
+.photo-gallery__nav--next { right: 0.65rem; }
 .photo-gallery__nav:hover { background: var(--green-mid); }
 
 .faq-intro { max-width: 760px; margin: 0 auto 1.5rem; text-align: center; color: var(--rock-mid); line-height: 1.65; font-size: 0.9875rem; }
