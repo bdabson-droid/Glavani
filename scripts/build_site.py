@@ -196,11 +196,28 @@ YOUTUBE_STILLS = [
         "zoom": 1.45,
     }),
     ("DWMl2hZGARU", "valley-zipline-banner-still.webp", {
-        "aspect": 16 / 9,
+        "aspect": 10 / 7,
         "focus_x": 0.34,
         "focus_y": 0.48,
-        "focus_output_x": 0.9,
-        "zoom": 1.12,
+        "focus_output_x": 0.88,
+        "zoom": 1.28,
+    }),
+]
+
+LOCAL_IMAGE_CROPS = [
+    ("visitor-gallery-treetop-course-guest-27.webp", "treetop-course-hub-still.webp", {
+        "aspect": 10 / 7,
+        "focus_x": 0.34,
+        "focus_y": 0.42,
+        "focus_output_x": 0.78,
+        "zoom": 1.4,
+    }),
+    ("visitor-gallery-treetop-course-guest-27.webp", "treetop-course-banner-still.webp", {
+        "aspect": 10 / 7,
+        "focus_x": 0.34,
+        "focus_y": 0.42,
+        "focus_output_x": 0.88,
+        "zoom": 1.28,
     }),
 ]
 
@@ -372,6 +389,29 @@ def fetch_youtube_stills() -> None:
                 break
             except OSError:
                 continue
+
+
+def process_local_image_crops() -> None:
+    """Create hub/banner stills from local visitor gallery photos."""
+    img_dir = ROOT / "images"
+    for source_name, output_name, crop_opts in LOCAL_IMAGE_CROPS:
+        source = img_dir / source_name
+        path = img_dir / output_name
+        if not source.exists():
+            print(f"  warn: missing source for crop {source_name}")
+            continue
+        img = Image.open(source).convert("RGB")
+        img = focal_crop_to_aspect(
+            img,
+            crop_opts["aspect"],
+            focus_x=crop_opts.get("focus_x", 0.5),
+            focus_y=crop_opts.get("focus_y", 0.5),
+            focus_output_x=crop_opts.get("focus_output_x", 0.5),
+            focus_output_y=crop_opts.get("focus_output_y", 0.5),
+            zoom=crop_opts.get("zoom", 1.0),
+        )
+        img.save(path, "WEBP", quality=86, method=6)
+        print(f"  image: {path.name} (from {source_name})")
 
 
 SOCIAL_SHARE_IMAGE = "glavani-park-adventure-istria-croatia.jpg"
@@ -2440,6 +2480,7 @@ def main() -> None:
     print("Generating WebP/JPEG images...")
     generate_images()
     fetch_youtube_stills()
+    process_local_image_crops()
     generate_social_share_image()
     fetch_external_images()
 

@@ -235,7 +235,7 @@ ACTIVITIES = [
         "tile_mod": "zipline-low",
         "hide_video": True,
         "banner_header": True,
-        "image": "visitor-gallery-treetop-course-guest-27.webp",
+        "image": "treetop-course-hub-still.webp",
         "en": {
             "title": "Treetop Course | Glavani Park Istria",
             "h1": "Treetop Course",
