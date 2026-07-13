@@ -15,61 +15,105 @@
     track.scrollLeft += slideRect.left - trackRect.left;
   }
 
-  function leadingSlide(track, slides) {
-    if (!slides.length) return null;
-    var trackRect = track.getBoundingClientRect();
-    var trackCenter = trackRect.left + trackRect.width / 2;
-    var best = slides[0];
-    var bestDistance = Infinity;
-    slides.forEach(function (slide) {
-      var rect = slide.getBoundingClientRect();
-      var slideCenter = rect.left + rect.width / 2;
-      var distance = Math.abs(slideCenter - trackCenter);
-      if (distance < bestDistance) {
-        bestDistance = distance;
-        best = slide;
-      }
-    });
-    return best;
+  function trackPadding(track) {
+    var styles = getComputedStyle(track);
+    return (parseFloat(styles.paddingTop) || 0) + (parseFloat(styles.paddingBottom) || 0);
   }
 
-  function syncTrackHeight(track, slides) {
-    var slide = leadingSlide(track, slides);
-    if (!slide) return;
-    var styles = getComputedStyle(track);
-    var padding =
-      (parseFloat(styles.paddingTop) || 0) + (parseFloat(styles.paddingBottom) || 0);
-    track.style.height = slide.offsetHeight + padding + 'px';
+  function measureSlideHeight(slide) {
+    var video = slide.querySelector('.photo-gallery__video');
+    if (video) {
+      var width = slide.offsetWidth || slide.getBoundingClientRect().width;
+      var orientation = video.getAttribute('data-orientation') || 'portrait';
+      return orientation === 'landscape' ? (width * 9) / 16 : (width * 16) / 9;
+    }
+
+    var img = slide.querySelector('img');
+    var width = slide.offsetWidth || slide.getBoundingClientRect().width;
+    if (img && img.naturalWidth > 0 && img.naturalHeight > 0) {
+      return Math.round((width * img.naturalHeight) / img.naturalWidth);
+    }
+
+    return slide.offsetHeight;
+  }
+
+  function cacheSlideHeights(slides) {
+    return slides.map(measureSlideHeight);
+  }
+
+  function syncTrackHeight(track, slides, heights) {
+    if (!slides.length) return;
+    heights = heights || cacheSlideHeights(slides);
+    var padding = trackPadding(track);
+    var trackRect = track.getBoundingClientRect();
+    var center = trackRect.left + trackRect.width / 2;
+
+    var activeIndex = 0;
+    var activeDistance = Infinity;
+    slides.forEach(function (slide, index) {
+      var rect = slide.getBoundingClientRect();
+      var slideCenter = rect.left + rect.width / 2;
+      var distance = Math.abs(slideCenter - center);
+      if (distance < activeDistance) {
+        activeDistance = distance;
+        activeIndex = index;
+      }
+    });
+
+    var height = heights[activeIndex];
+    var activeSlide = slides[activeIndex];
+    var activeRect = activeSlide.getBoundingClientRect();
+    var activeCenter = activeRect.left + activeRect.width / 2;
+    var neighborIndex = center < activeCenter ? activeIndex - 1 : activeIndex + 1;
+
+    if (neighborIndex >= 0 && neighborIndex < slides.length) {
+      var neighbor = slides[neighborIndex];
+      var neighborRect = neighbor.getBoundingClientRect();
+      var neighborCenter = neighborRect.left + neighborRect.width / 2;
+      var span = Math.abs(neighborCenter - activeCenter);
+      if (span > 0) {
+        var progress = Math.min(1, Math.max(0, Math.abs(center - activeCenter) / span));
+        height = heights[activeIndex] + (heights[neighborIndex] - heights[activeIndex]) * progress;
+      }
+    }
+
+    track.style.height = Math.round(height + padding) + 'px';
   }
 
   function bindTrackHeight(track, slides) {
+    var heights = cacheSlideHeights(slides);
     var sync = function () {
-      syncTrackHeight(track, slides);
+      syncTrackHeight(track, slides, heights);
     };
-    var scrollTimer;
+    var ticking = false;
+
+    function remeasure() {
+      heights = cacheSlideHeights(slides);
+      sync();
+    }
 
     sync();
     slides.forEach(function (slide) {
       slide.querySelectorAll('img').forEach(function (img) {
         if (img.complete) return;
-        img.addEventListener('load', sync, { once: true });
+        img.addEventListener('load', remeasure, { once: true });
       });
     });
 
-    if ('onscrollend' in window) {
-      track.addEventListener('scrollend', sync);
-    } else {
-      track.addEventListener(
-        'scroll',
-        function () {
-          clearTimeout(scrollTimer);
-          scrollTimer = setTimeout(sync, 120);
-        },
-        { passive: true }
-      );
-    }
+    track.addEventListener(
+      'scroll',
+      function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          syncTrackHeight(track, slides, heights);
+          ticking = false;
+        });
+      },
+      { passive: true }
+    );
 
-    window.addEventListener('resize', sync, { passive: true });
+    window.addEventListener('resize', remeasure, { passive: true });
     return sync;
   }
 
@@ -130,7 +174,7 @@
     var track = wrap.closest('[data-gallery-track]');
     if (track) {
       var slides = Array.from(track.querySelectorAll('.photo-gallery__slide'));
-      syncTrackHeight(track, slides);
+      syncTrackHeight(track, slides, cacheSlideHeights(slides));
     }
   }
 
