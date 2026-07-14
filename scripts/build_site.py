@@ -616,6 +616,15 @@ def render_home_booking_policy(lang: str) -> str:
     return BOOKING_POLICY[lang]["home_notice"]
 
 
+def call_href(lang: str) -> str:
+    phone = PHONES[1] if lang == "hr" else PHONES[0]
+    return f"tel:{phone['tel']}"
+
+
+def call_display(lang: str) -> str:
+    return PHONES[1 if lang == "hr" else 0]["display"]
+
+
 def quick_actions(lang: str) -> str:
     book_href = booking_href(lang)
     labels = book_cta_labels(lang)
@@ -882,9 +891,17 @@ def render_sections(sections: list) -> str:
 
 def render_related(related: list, lang: str) -> str:
     prefix = f"/{lang}/"
+    seen: set[str] = set()
+    unique: list[dict] = []
+    for item in related:
+        slug = item["slug"]
+        if slug in seen:
+            continue
+        seen.add(slug)
+        unique.append(item)
     cards = "".join(
         f'<a class="topic-link" href="{prefix}{r["slug"]}/">{r["title"]}<span>{r["desc"]}</span></a>'
-        for r in related
+        for r in unique
     )
     heading = "Povezane stranice" if lang == "hr" else "Related Pages"
     return f"""
@@ -1118,10 +1135,10 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
           <ul>
             <li><strong>{'Otvoreno' if lang == 'hr' else 'Open'}:</strong> 9–17 h</li>
             <li><strong>{'Zadnji ulaz' if lang == 'hr' else 'Last entry'}:</strong> 15 h</li>
-            <li><a href="tel:+385918964525">+385 91 896 4525</a></li>
+            <li><a href="{call_href(lang)}">{call_display(lang)}</a></li>
             <li><a href="{GLAVANI_MAPS_LINK}">Google Maps</a></li>
           </ul>
-          <p style="margin-top:1rem;"><a class="btn-primary" href="tel:+385918964525" style="width:100%;font-size:0.875rem;">{cta}</a></p>
+          <p style="margin-top:1rem;"><a class="btn-primary" href="{call_href(lang)}" style="width:100%;font-size:0.875rem;">{cta}</a></p>
         </aside>"""
 
     img = page.get("image", "glavani-park-adventure-istria-croatia.jpg")
@@ -1158,19 +1175,19 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
         <p class="activity-banner__badge">{page['hero_badge']}</p>
         <h1 id="page-heading">{page['h1']}</h1>
         <div class="activity-banner__actions">
-          <a class="btn-primary" href="tel:+385918964525">{call_us}</a>
+          <a class="btn-primary" href="{call_href(lang)}">{call_us}</a>
         </div>
       </header>
       <p class="landing-lead">{page['hero_subtitle']}</p>"""
     else:
         if page.get("header_call_only"):
             hero_actions = f"""      <div class="activity-banner__actions">
-        <a class="btn-primary" href="tel:+385918964525">{cta}</a>
+        <a class="btn-primary" href="{call_href(lang)}">{cta}</a>
       </div>"""
         else:
             hero_actions = f"""      <div class="activity-banner__actions">
         <a class="btn-primary" href="{booking_href(lang)}">{book_cta_labels(lang)['book_tickets']}</a>
-        <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
+        <a class="btn-secondary" href="{call_href(lang)}">{cta}</a>
       </div>"""
         hero_block = f"""  <section class="hero hero--landing">
     <div class="hero__inner">
@@ -1210,7 +1227,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
       <p>{'Pozovite unaprijed za cijene i dostupnost termina.' if lang == 'hr' else 'Call ahead for pricing and availability — especially for groups.'}</p>
       <div class="pricing-teaser__actions">
         <a class="btn-primary" href="{booking_href(lang)}">{book_cta_labels(lang)['book_tickets']}</a>
-        <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
+        <a class="btn-secondary" href="{call_href(lang)}">{cta}</a>
       </div>
     </div>
   </section>
@@ -1650,7 +1667,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
       {visitor_photos}
       <div class="activity-detail__actions">
         <a class="btn-primary" href="{book_href}">{book_label}</a>
-        <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
+        <a class="btn-secondary" href="{call_href(lang)}">{cta}</a>
       </div>
     </article>
   </div>
@@ -1756,12 +1773,12 @@ def render_event_page(event: dict, lang: str) -> str:
     )
     if event.get("header_call_only"):
         header_actions = f"""      <div class="activity-banner__actions">
-        <a class="btn-primary" href="tel:+385918964525">{cta}</a>
+        <a class="btn-primary" href="{call_href(lang)}">{cta}</a>
       </div>"""
     else:
         header_actions = f"""      <div class="activity-banner__actions">
         <a class="btn-primary" href="{book_href}">{book_cta_labels(lang)['book_tickets']}</a>
-        <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
+        <a class="btn-secondary" href="{call_href(lang)}">{cta}</a>
       </div>"""
 
     return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=img, og_image_alt=data['image_alt'])}
@@ -1790,7 +1807,7 @@ def render_event_page(event: dict, lang: str) -> str:
       </div>
       <div class="activity-detail__actions">
         <a class="btn-primary" href="{book_href}">{book_cta_labels(lang)['book_tickets']}</a>
-        <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
+        <a class="btn-secondary" href="{call_href(lang)}">{cta}</a>
       </div>
     </article>
   </div>
@@ -1970,7 +1987,7 @@ def render_faq_page(lang: str) -> str:
       <p style="margin-top:1.5rem;text-align:center;color:var(--rock-mid);">{copy['book_note']}</p>
       <p style="margin-top:1rem;text-align:center;display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;">
         <a class="btn-primary" href="{book_href}">{book_label}</a>
-        <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
+        <a class="btn-secondary" href="{call_href(lang)}">{cta}</a>
       </p>
     </div>
   </section>
@@ -2238,7 +2255,7 @@ def render_prices_page(lang: str) -> str:
       <p style="margin-top:1.5rem;text-align:center;color:var(--rock-mid);">{copy['book_note']}</p>
       <p style="margin-top:1rem;text-align:center;display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;">
         <a class="btn-primary" href="{book_href}">{book_label}</a>
-        <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
+        <a class="btn-secondary" href="{call_href(lang)}">{cta}</a>
       </p>
       {render_legacy_gift_voucher_notice(lang)}
     </div>

@@ -798,7 +798,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   color: var(--yellow-accent);
   opacity: 1 !important;
 }
-.hub-card--groups { background: linear-gradient(145deg, var(--rock-mid), var(--rock-dark)); }
 .hub-card--travel { background: linear-gradient(145deg, #0369a1, #0c4a6e); }
 .hub-card--safety { background: linear-gradient(145deg, var(--brand-purple), var(--brand-purple-deep)); }
 .hub-card--location { background: linear-gradient(145deg, #0f766e, #134e4a); }
@@ -1070,6 +1069,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background-color: #92400e;
   background-image: var(--hub-fade), var(--hub-photo);
 }
+/* Devil's Causeway — three-layer photo tile (fade, edge blend, image) */
 .hub-card--causeway,
 .activity-banner--causeway {
   --hub-color-strong: rgba(185, 28, 28, 0.96);
