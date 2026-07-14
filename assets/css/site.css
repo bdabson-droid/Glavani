@@ -907,6 +907,24 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background-color: #4c1d95;
   background-image: var(--hub-fade), var(--hub-photo);
 }
+.activity-banner--safety {
+  --hub-color-strong: rgba(91, 75, 154, 0.96);
+  --hub-color-mid: rgba(91, 75, 154, 0.88);
+  --hub-color-soft: rgba(67, 54, 118, 0.45);
+  --hub-color-faint: rgba(67, 54, 118, 0.16);
+  --hub-photo: url("../../images/team-building-gallery-5.webp");
+  --hub-fade: linear-gradient(
+    to right,
+    var(--hub-color-strong) 0%,
+    var(--hub-color-mid) 22%,
+    var(--hub-color-soft) 36%,
+    var(--hub-color-faint) 50%,
+    transparent 66%
+  );
+  background-color: #433676;
+  background-image: var(--hub-fade), var(--hub-photo);
+  background-position: 0 0, 58% center;
+}
 .hub-card--drop,
 .activity-banner--drop {
   --hub-color-strong: rgba(37, 99, 235, 0.96);
