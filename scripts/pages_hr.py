@@ -622,6 +622,26 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
           'en_alt': 'School group in helmets and harnesses ready for the high-ropes course at Glavani Park',
           'hr_alt': 'Školska grupa u kacigama i harnesima prije visokih staza u Glavani Parku',
       },
+      {
+          'image': 'visitor-gallery-group-60.webp',
+          'en_alt': 'School and youth group ready for activities at Glavani Park, Istria',
+          'hr_alt': 'Školska i mlada grupa spremna za aktivnosti u Glavani Parku, Istria',
+      },
+      {
+          'image': 'visitor-gallery-group-59.webp',
+          'en_alt': 'Group of visitors in harnesses at Glavani Park between activities, Istria',
+          'hr_alt': 'Grupa posjetitelja u harnesima u Glavani Parku između aktivnosti, Istria',
+      },
+      {
+          'image': 'visitor-gallery-group-big-58.webp',
+          'en_alt': 'Large group of visitors at Glavani Park adventure park, Istria',
+          'hr_alt': 'Velika grupa posjetitelja u avanturističkom parku Glavani, Istria',
+      },
+      {
+          'image': 'visitor-gallery-group-event-10.webp',
+          'en_alt': 'Group of visitors in harnesses at Glavani Park between activities',
+          'hr_alt': 'Grupa posjetitelja u harnesima u Glavani Parku između aktivnosti',
+      },
   ],
   'sections': [{'h2': 'Vrijednost obrazovanja na otvorenom u Istri',
                 'paragraphs': ['<p>Nastava u učionici temelj je obrazovanja, ali neke '

@@ -193,7 +193,7 @@ ACTIVITIES = [
         "tile_mod": "training",
         "youtube_id": "TDl0ffqPj3U",
         "youtube_url": "https://youtu.be/TDl0ffqPj3U?is=E0eGJvpDww76o7MV",
-        "image": "training-route-youtube-still.webp",
+        "image": "training-route-main.webp",
         "en": {
             "title": "Yellow Training Route (High Ropes) | Glavani Park Istria",
             "h1": "Training Route",
@@ -405,7 +405,7 @@ ACTIVITIES = [
         "tile_mod": "aerotrim",
         "hide_video": True,
         "banner_header": True,
-        "image": "visitor-gallery-aerotrim-guest-19.webp",
+        "image": "aerotrim-main.webp",
         "en": {
             "title": "Aerotrim | Glavani Park Istria",
             "h1": "Aerotrim",
