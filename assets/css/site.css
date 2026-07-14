@@ -923,7 +923,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   );
   background-color: #433676;
   background-image: var(--hub-fade), var(--hub-photo);
-  background-position: 0 0, 58% center;
+  background-size: 100% 100%, auto 165%;
+  background-position: 0 0, 52% 100%;
 }
 .hub-card--drop,
 .activity-banner--drop {
@@ -1075,7 +1076,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   --hub-color-mid: rgba(185, 28, 28, 0.88);
   --hub-color-soft: rgba(127, 29, 29, 0.45);
   --hub-color-faint: rgba(127, 29, 29, 0.16);
-  --hub-photo: url("../../images/visitor-gallery-devils-causeway-skateboard-50.webp");
+  --hub-photo: url("../../images/visitor-gallery-devils-causeway-47.webp");
   --hub-photo-edge: linear-gradient(
     to right,
     #7f1d1d 0%,
@@ -1097,8 +1098,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   );
   background-color: #7f1d1d;
   background-image: var(--hub-fade), var(--hub-photo-edge), var(--hub-photo);
-  background-size: 100% 100%, 100% 100%, contain;
-  background-position: 0 0, 0 0, 82% bottom;
+  background-size: 100% 100%, 100% 100%, auto 140%;
+  background-position: 0 0, 0 0, 6% 40%;
   background-repeat: no-repeat, no-repeat, no-repeat;
 }
 .hub-card--causeway {
@@ -1185,8 +1186,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 .activity-showcase--compact .hub-card--causeway {
   min-height: 140px;
   height: 140px;
-  background-size: 100% 100%, 100% 100%, contain;
-  background-position: 0 0, 0 0, 82% bottom;
+  background-size: 100% 100%, 100% 100%, auto 150%;
+  background-position: 0 0, 0 0, 6% 40%;
 }
 
 /* Activity detail page — sibling links */
@@ -1277,8 +1278,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background-position: 0 0, 65% center;
 }
 .activity-banner--causeway {
-  background-size: 100% 100%, 100% 100%, contain;
-  background-position: 0 0, 0 0, 82% bottom;
+  background-size: 100% 100%, 100% 100%, auto 125%;
+  background-position: 0 0, 0 0, 6% 38%;
 }
 .activity-banner--zipline-low {
   background-size: 100% 100%, contain;
