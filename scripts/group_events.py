@@ -15,12 +15,12 @@ EVENT_PAGES = [
             {"image": "team-building-gallery-2.webp", "en_alt": "Corporate team on the climbing wall at Glavani Park", "hr_alt": "Korporativni tim na penjačkom zidu u Glavani Parku"},
             {"image": "visitor-gallery-group-big-58.webp", "en_alt": "Large group of visitors at Glavani Park adventure park, Istria", "hr_alt": "Velika grupa posjetitelja u avanturističkom parku Glavani, Istria"},
             {"image": "team-building-gallery-3.webp", "en_alt": "Team building activities in the oak forest", "hr_alt": "Team building aktivnosti u hrastovoj šumi"},
-            {"image": "visitor-gallery-group-59.webp", "en_alt": "Group of visitors in harnesses at Glavani Park between activities, Istria", "hr_alt": "Grupa posjetitelja u harnesima u Glavani Parku između aktivnosti, Istria"},
             {"image": "team-building-gallery-4.webp", "en_alt": "Group celebration after team building at Glavani Park", "hr_alt": "Proslava grupe nakon team buildinga u Glavani Parku"},
             {"image": "visitor-gallery-group-60.webp", "en_alt": "School and youth group ready for activities at Glavani Park, Istria", "hr_alt": "Školska i mlada grupa spremna za aktivnosti u Glavani Parku, Istria"},
             {"image": "team-building-gallery-5.webp", "en_alt": "Large team building group setup at Glavani Park, Istria", "hr_alt": "Velika team building grupa na postavci u Glavani Parku, Istria"},
             {"image": "visitor-gallery-group-event-10.webp", "en_alt": "Group of visitors in harnesses at Glavani Park between activities", "hr_alt": "Grupa posjetitelja u harnesima u Glavani Parku između aktivnosti"},
             {"image": "team-building-gallery-6.webp", "en_alt": "Corporate team building group at Glavani Park adventure park", "hr_alt": "Korporativna team building grupa u avanturističkom parku Glavani"},
+            {"image": "visitor-gallery-valley-zipline-amphitheatre-26.webp", "en_alt": "Valley Zipline amphitheatre and oak forest at Glavani Park, Istria", "hr_alt": "Amfiteatar dolinske zipline i hrastova šuma u Glavani Parku, Istria"},
             {"image": "visitor-gallery-school-group-7.webp", "en_alt": "School group in helmets and harnesses ready for the high-ropes course at Glavani Park", "hr_alt": "Školska grupa u kacigama i harnesima prije visokih staza u Glavani Parku"},
         ],
         "en": {
@@ -132,7 +132,7 @@ EVENT_PAGES = [
         "hr_slug": "rodjendanske-zabave-istri",
         "tile_mod": "birthday",
         "header_call_only": True,
-        "image": "birthday-parties-glavanipark.webp",
+        "image": "birthday-gallery-2.webp",
         "gallery": [
             {"image": "birthday-gallery-1.webp", "en_alt": "Birthday party at Glavani Park adventure park", "hr_alt": "Rođendanska proslava u Glavani Parku"},
             {"image": "birthday-gallery-2.webp", "en_alt": "Children celebrating a birthday outdoors at Glavani Park", "hr_alt": "Djeca slave rođendan na otvorenom u Glavani Parku"},
@@ -151,7 +151,7 @@ EVENT_PAGES = [
                 "adventure birthday party Istria, Glavani Park birthday"
             ),
             "hero_badge": "Kids & teens · outdoor birthday parties",
-            "image_alt": "Birthday party celebration at Glavani Park near Pula, Istria",
+            "image_alt": "Children celebrating a birthday outdoors at Glavani Park, Istria",
             "gallery_heading": "Birthday party gallery",
             "paragraphs": [
                 "Surprise your child with a celebration they won't forget.",
@@ -200,7 +200,7 @@ EVENT_PAGES = [
                 "avanturistički rođendan Istria, Glavani Park rođendan"
             ),
             "hero_badge": "Djeca i tinejdžeri · rođendani na otvorenom",
-            "image_alt": "Rođendanska proslava u Glavani Parku kod Pule, Istria",
+            "image_alt": "Djeca slave rođendan na otvorenom u Glavani Parku, Istria",
             "gallery_heading": "Galerija rođendana",
             "paragraphs": [
                 "Iznenadite svoje dijete proslavom koju neće zaboraviti.",
