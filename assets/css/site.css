@@ -1098,8 +1098,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   );
   background-color: #7f1d1d;
   background-image: var(--hub-fade), var(--hub-photo-edge), var(--hub-photo);
-  background-size: 100% 100%, 100% 100%, auto 140%;
-  background-position: 0 0, 0 0, 6% 40%;
+  background-size: 100% 100%, 100% 100%, auto 155%;
+  background-position: 0 0, 0 0, -22% 38%;
   background-repeat: no-repeat, no-repeat, no-repeat;
 }
 .hub-card--causeway {
@@ -1186,8 +1186,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 .activity-showcase--compact .hub-card--causeway {
   min-height: 140px;
   height: 140px;
-  background-size: 100% 100%, 100% 100%, auto 150%;
-  background-position: 0 0, 0 0, 6% 40%;
+  background-size: 100% 100%, 100% 100%, auto 165%;
+  background-position: 0 0, 0 0, -22% 38%;
 }
 
 /* Activity detail page — sibling links */
@@ -1278,8 +1278,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background-position: 0 0, 65% center;
 }
 .activity-banner--causeway {
-  background-size: 100% 100%, 100% 100%, auto 125%;
-  background-position: 0 0, 0 0, 6% 38%;
+  background-size: 100% 100%, 100% 100%, auto 138%;
+  background-position: 0 0, 0 0, -20% 36%;
 }
 .activity-banner--zipline-low {
   background-size: 100% 100%, contain;
