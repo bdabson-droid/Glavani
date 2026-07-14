@@ -591,6 +591,7 @@ PAGES = [{'slug': 'things-to-do-in-istria',
   'hero_subtitle': 'Take learning outdoors with instructor-led programmes that teach '
                    'risk assessment, physical coordination, and teamwork at Glavani '
                    'Park between Barban and Vodnjan.',
+  'header_call_only': True,
   'image': 'climbing-wall-outdoor-activities-istria.webp',
   'image_alt': 'School group on an educational visit to Glavani Park outdoor adventure '
                'park, Istria',

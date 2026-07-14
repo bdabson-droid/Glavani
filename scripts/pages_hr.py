@@ -611,6 +611,7 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
   'hero_subtitle': 'Iznesite nastavu na otvorenom s programima pod vodstvom '
                    'instruktora koji podučavaju procjeni rizika, fizičkoj koordinaciji '
                    'i timskom radu u Glavani Parku između Barbana i Vodnjanja.',
+  'header_call_only': True,
   'image': 'climbing-wall-outdoor-activities-istria.webp',
   'image_alt': 'Školska grupa na edukativnom posjetu Glavani Park avanturističkom '
                'parku, Istria',
