@@ -1061,26 +1061,28 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   --hub-photo-edge: linear-gradient(
     to right,
     #7f1d1d 0%,
-    rgba(127, 29, 29, 0.92) 14%,
-    rgba(127, 29, 29, 0.72) 26%,
-    rgba(127, 29, 29, 0.45) 38%,
-    rgba(127, 29, 29, 0.2) 50%,
-    rgba(127, 29, 29, 0.06) 60%,
+    #7f1d1d 12%,
+    rgba(127, 29, 29, 0.98) 22%,
+    rgba(127, 29, 29, 0.9) 32%,
+    rgba(127, 29, 29, 0.72) 42%,
+    rgba(127, 29, 29, 0.48) 52%,
+    rgba(127, 29, 29, 0.24) 60%,
+    rgba(127, 29, 29, 0.08) 66%,
     transparent 72%
   );
   --hub-fade: linear-gradient(
     to right,
     var(--hub-color-strong) 0%,
-    var(--hub-color-mid) 20%,
-    var(--hub-color-soft) 34%,
-    var(--hub-color-faint) 48%,
-    rgba(127, 29, 29, 0.08) 58%,
-    transparent 74%
+    var(--hub-color-mid) 18%,
+    var(--hub-color-soft) 32%,
+    var(--hub-color-faint) 44%,
+    rgba(127, 29, 29, 0.12) 52%,
+    transparent 64%
   );
   background-color: #7f1d1d;
   background-image: var(--hub-fade), var(--hub-photo-edge), var(--hub-photo);
-  background-size: 100% 100%, 100% 100%, contain;
-  background-position: 0 0, 0 0, 82% bottom;
+  background-size: 100% 100%, 100% 100%, auto 128%;
+  background-position: 0 0, 0 0, 100% bottom;
   background-repeat: no-repeat, no-repeat, no-repeat;
 }
 .hub-card--causeway {
@@ -1167,8 +1169,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 .activity-showcase--compact .hub-card--causeway {
   min-height: 140px;
   height: 140px;
-  background-size: 100% 100%, 100% 100%, contain;
-  background-position: 0 0, 0 0, 82% bottom;
+  background-size: 100% 100%, 100% 100%, auto 135%;
+  background-position: 0 0, 0 0, 100% bottom;
 }
 
 /* Activity detail page — sibling links */
@@ -1259,8 +1261,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background-position: 0 0, 65% center;
 }
 .activity-banner--causeway {
-  background-size: 100% 100%, 100% 100%, contain;
-  background-position: 0 0, 0 0, 82% bottom;
+  background-size: 100% 100%, 100% 100%, auto 118%;
+  background-position: 0 0, 0 0, 100% bottom;
 }
 .activity-banner--zipline-low {
   background-size: 100% 100%, contain;
