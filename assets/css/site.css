@@ -816,7 +816,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 .hub-card--causeway,
 .hub-card--aerotrim,
 .hub-card--groups,
-.hub-card--birthday {
+.hub-card--birthday,
+.hub-card--schools {
   min-height: 160px;
   height: 160px;
   background-repeat: no-repeat;
@@ -834,6 +835,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 .hub-card--aerotrim h3,
 .hub-card--groups h3,
 .hub-card--birthday h3,
+.hub-card--schools h3,
 .hub-card--catapult::after,
 .hub-card--swing::after,
 .hub-card--drop::after,
@@ -844,7 +846,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 .hub-card--causeway::after,
 .hub-card--aerotrim::after,
 .hub-card--groups::after,
-.hub-card--birthday::after {
+.hub-card--birthday::after,
+.hub-card--schools::after {
   position: relative;
   z-index: 1;
 }
@@ -858,7 +861,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 .hub-card--causeway h3,
 .hub-card--aerotrim h3,
 .hub-card--groups h3,
-.hub-card--birthday h3 {
+.hub-card--birthday h3,
+.hub-card--schools h3 {
   margin-bottom: 0;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
   display: -webkit-box;
@@ -1100,12 +1104,32 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background-color: #831843;
   background-image: var(--hub-fade), var(--hub-photo);
 }
+.hub-card--schools {
+  --hub-color-strong: rgba(29, 78, 216, 0.96);
+  --hub-color-mid: rgba(29, 78, 216, 0.88);
+  --hub-color-soft: rgba(30, 64, 175, 0.45);
+  --hub-color-faint: rgba(30, 64, 175, 0.16);
+  --hub-photo: url("../../images/visitor-gallery-school-group-7.webp");
+  --hub-fade: linear-gradient(
+    to right,
+    var(--hub-color-strong) 0%,
+    var(--hub-color-mid) 22%,
+    var(--hub-color-soft) 36%,
+    var(--hub-color-faint) 50%,
+    transparent 66%
+  );
+  background-color: #1e3a8a;
+  background-image: var(--hub-fade), var(--hub-photo);
+}
 
 .hub-grid--events {
   margin-bottom: 1rem;
 }
 @media (min-width: 540px) {
   .hub-grid--events { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 900px) {
+  .hub-grid--events { grid-template-columns: repeat(3, 1fr); }
 }
 
 .activity-showcase--compact .hub-card--catapult,
