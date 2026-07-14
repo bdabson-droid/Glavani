@@ -1058,7 +1058,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   --hub-color-mid: rgba(185, 28, 28, 0.88);
   --hub-color-soft: rgba(127, 29, 29, 0.45);
   --hub-color-faint: rgba(127, 29, 29, 0.16);
-  --hub-photo: url("../../images/devils-causeway-unicycle-glavani-park.webp");
+  --hub-photo: url("../../images/visitor-gallery-devils-causeway-skateboard-50.webp");
   --hub-fade: linear-gradient(
     to right,
     var(--hub-color-strong) 0%,
