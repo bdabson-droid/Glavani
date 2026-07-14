@@ -1157,15 +1157,21 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
       </header>
       <p class="landing-lead">{page['hero_subtitle']}</p>"""
     else:
+        if page.get("header_call_only"):
+            hero_actions = f"""      <div class="activity-banner__actions">
+        <a class="btn-primary" href="tel:+385918964525">{cta}</a>
+      </div>"""
+        else:
+            hero_actions = f"""      <div class="activity-banner__actions">
+        <a class="btn-primary" href="{booking_href(lang)}">{book_cta_labels(lang)['book_tickets']}</a>
+        <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
+      </div>"""
         hero_block = f"""  <section class="hero hero--landing">
     <div class="hero__inner">
       <p class="hero__badge">{page['hero_badge']}</p>
       <h1>{page['h1']}</h1>
       <p class="hero__subtitle">{page['hero_subtitle']}</p>
-      <div class="activity-banner__actions">
-        <a class="btn-primary" href="{booking_href(lang)}">{book_cta_labels(lang)['book_tickets']}</a>
-        <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
-      </div>
+{hero_actions}
     </div>
   </section>
   """

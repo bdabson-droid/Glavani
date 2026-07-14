@@ -128,6 +128,7 @@ EVENT_PAGES = [
         "en_slug": "birthday-parties-istria",
         "hr_slug": "rodjendanske-zabave-istri",
         "tile_mod": "birthday",
+        "header_call_only": True,
         "image": "birthday-parties-glavanipark.webp",
         "gallery": [
             {"image": "birthday-gallery-1.webp", "en_alt": "Birthday party at Glavani Park adventure park", "hr_alt": "Rođendanska proslava u Glavani Parku"},
