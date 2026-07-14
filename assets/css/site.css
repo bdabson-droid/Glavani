@@ -813,7 +813,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 .hub-card--zipline-low,
 .hub-card--climbing,
 .hub-card--training,
-.hub-card--causeway,
 .hub-card--aerotrim,
 .hub-card--groups,
 .hub-card--birthday,
@@ -1080,9 +1079,13 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   );
   background-color: #7f1d1d;
   background-image: var(--hub-fade), var(--hub-photo-edge), var(--hub-photo);
-  background-size: 100% 100%, 100% 100%, cover;
-  background-position: 0 0, 0 0, 36% 38%;
+  background-size: 100% 100%, 100% 100%, 170%;
+  background-position: 0 0, 0 0, 15% 42%;
   background-repeat: no-repeat, no-repeat, no-repeat;
+}
+.hub-card--causeway {
+  min-height: 160px;
+  height: 160px;
 }
 .hub-card--groups {
   --hub-color-strong: rgba(87, 83, 78, 0.96);
@@ -1153,7 +1156,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 .activity-showcase--compact .hub-card--zipline-low,
 .activity-showcase--compact .hub-card--climbing,
 .activity-showcase--compact .hub-card--training,
-.activity-showcase--compact .hub-card--causeway,
 .activity-showcase--compact .hub-card--aerotrim,
 .activity-showcase--compact .hub-card--groups,
 .activity-showcase--compact .hub-card--birthday {
@@ -1163,8 +1165,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 }
 
 .activity-showcase--compact .hub-card--causeway {
-  background-size: 100% 100%, 100% 100%, cover;
-  background-position: 0 0, 0 0, 36% 38%;
+  min-height: 140px;
+  height: 140px;
+  background-size: 100% 100%, 100% 100%, 185%;
+  background-position: 0 0, 0 0, 15% 42%;
 }
 
 /* Activity detail page — sibling links */
@@ -1255,9 +1259,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background-position: 0 0, 65% center;
 }
 .activity-banner--causeway {
-  background-size: 100% 100%, 100% 100%, cover;
-  background-position: 0 0, 0 0, 36% 38%;
-  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-size: 100% 100%, 100% 100%, 155%;
+  background-position: 0 0, 0 0, 15% 40%;
 }
 .activity-banner--zipline-low {
   background-size: 100% 100%, contain;
