@@ -440,7 +440,7 @@ ACTIVITY_GALLERY_ITEMS: dict[str, list[dict[str, str]]] = {
         {"type": "image", "ref": "visitor-gallery-training-route-35.webp"},
     ],
     "low-zipline": [
-        {"type": "image", "ref": "visitor-gallery-treetop-course-57.webp"},
+        {"type": "image", "ref": "visitor-gallery-treetop-course-guest-32.webp"},
         {"type": "image", "ref": "visitor-gallery-treetop-course-guest-27.webp"},
         {"type": "video", "ref": "QVz5eBaj02o"},
         {"type": "image", "ref": "visitor-gallery-treetop-course-guest-30.webp"},
@@ -452,7 +452,7 @@ ACTIVITY_GALLERY_ITEMS: dict[str, list[dict[str, str]]] = {
         {"type": "image", "ref": "visitor-gallery-training-route-39.webp"},
         {"type": "image", "ref": "visitor-gallery-treetop-course-staff-29.webp"},
         {"type": "video", "ref": "ZMgFGX1Z6N4"},
-        {"type": "image", "ref": "visitor-gallery-treetop-course-guest-32.webp"},
+        {"type": "image", "ref": "visitor-gallery-treetop-course-57.webp"},
     ],
     "valley-zipline": [
         {"type": "image", "ref": "visitor-gallery-valley-zipline-staff-22.webp"},
