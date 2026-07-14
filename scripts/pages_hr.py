@@ -981,9 +981,9 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
   'hero_subtitle': 'Svaku atrakciju u Glavani Parku vode educirani instruktori s '
                    'provjerenom, certificiranom opremom — jer je povjerenje u '
                    'sigurnost temelj svake velike avanture.',
-  'image': 'quick-jump-20m-free-fall-istria.webp',
-  'image_alt': 'Instruktor informira posjetitelja prije Quick Jumpa u Glavani Parku, '
-               'Istria',
+  'banner_mod': 'safety',
+  'image': 'team-building-gallery-5.webp',
+  'image_alt': 'Kacige i harnesi pripreavljeni za grupnu sigurnosnu obuku u Glavani Parku, Istria',
   'sections': [{'h2': 'Naša sigurnosna filozofija',
                 'paragraphs': ['<p>Adrenalin i sigurnost nisu suprotnosti — ovisni su '
                                'jedan o drugome. Posjetitelji skaču s platformi i kače '

@@ -914,9 +914,9 @@ PAGES = [{'slug': 'things-to-do-in-istria',
   'hero_subtitle': 'Every attraction at Glavani Park is operated by trained '
                    'instructors using inspected, certified equipment — because '
                    'confidence in safety is the foundation of every great adventure.',
-  'image': 'quick-jump-20m-free-fall-istria.webp',
-  'image_alt': 'Instructor briefing a visitor before the Quick Jump at Glavani Park, '
-               'Istria',
+  'banner_mod': 'safety',
+  'image': 'team-building-gallery-5.webp',
+  'image_alt': 'Helmets and harnesses prepared for a group safety briefing at Glavani Park, Istria',
   'sections': [{'h2': 'Our Safety Philosophy',
                 'paragraphs': ['<p>Adrenaline and safety are not opposites — they '
                                'depend on each other. Visitors step off platforms and '
