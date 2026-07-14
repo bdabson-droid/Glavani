@@ -1022,7 +1022,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   --hub-color-mid: rgba(8, 145, 178, 0.88);
   --hub-color-soft: rgba(14, 116, 144, 0.45);
   --hub-color-faint: rgba(8, 51, 68, 0.16);
-  --hub-photo: url("../../images/visitor-gallery-aerotrim-guest-19.webp");
+  --hub-photo: url("../../images/aerotrim-main.webp");
   --hub-fade: linear-gradient(
     to right,
     var(--hub-color-strong) 0%,
@@ -1040,7 +1040,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   --hub-color-mid: rgba(202, 138, 4, 0.88);
   --hub-color-soft: rgba(146, 64, 14, 0.45);
   --hub-color-faint: rgba(146, 64, 14, 0.16);
-  --hub-photo: url("../../images/training-route-youtube-still.webp");
+  --hub-photo: url("../../images/training-route-main.webp");
   --hub-fade: linear-gradient(
     to right,
     var(--hub-color-strong) 0%,
