@@ -798,7 +798,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   color: var(--yellow-accent);
   opacity: 1 !important;
 }
-.hub-card--groups { background: linear-gradient(145deg, var(--rock-mid), var(--rock-dark)); }
 .hub-card--travel { background: linear-gradient(145deg, #0369a1, #0c4a6e); }
 .hub-card--safety { background: linear-gradient(145deg, var(--brand-purple), var(--brand-purple-deep)); }
 .hub-card--location { background: linear-gradient(145deg, #0f766e, #134e4a); }
@@ -1070,6 +1069,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background-color: #92400e;
   background-image: var(--hub-fade), var(--hub-photo);
 }
+/* Devil's Causeway — three-layer photo tile (fade, edge blend, image) */
 .hub-card--causeway,
 .activity-banner--causeway {
   --hub-color-strong: rgba(185, 28, 28, 0.96);
@@ -1098,8 +1098,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   );
   background-color: #7f1d1d;
   background-image: var(--hub-fade), var(--hub-photo-edge), var(--hub-photo);
-  background-size: 100% 100%, 100% 100%, auto 140%;
-  background-position: 0 0, 0 0, 6% 40%;
+  background-size: 100% 100%, 100% 100%, auto 155%;
+  background-position: 0 0, 0 0, -22% 38%;
   background-repeat: no-repeat, no-repeat, no-repeat;
 }
 .hub-card--causeway {
@@ -1186,8 +1186,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 .activity-showcase--compact .hub-card--causeway {
   min-height: 140px;
   height: 140px;
-  background-size: 100% 100%, 100% 100%, auto 150%;
-  background-position: 0 0, 0 0, 6% 40%;
+  background-size: 100% 100%, 100% 100%, auto 165%;
+  background-position: 0 0, 0 0, -22% 38%;
 }
 
 /* Activity detail page — sibling links */
@@ -1278,8 +1278,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background-position: 0 0, 65% center;
 }
 .activity-banner--causeway {
-  background-size: 100% 100%, 100% 100%, auto 125%;
-  background-position: 0 0, 0 0, 6% 38%;
+  background-size: 100% 100%, 100% 100%, auto 138%;
+  background-position: 0 0, 0 0, -20% 36%;
 }
 .activity-banner--zipline-low {
   background-size: 100% 100%, contain;

@@ -352,8 +352,8 @@ ACTIVITIES = [
             "hero_badge": "Vražji put · monocikl · limit 85 kg",
             "image_alt": "Gost prelazi Stazu Vražjeg puta na monociklu u Glavani Parku, Istria",
             "paragraphs": [
-                "Kada ste prošli žutu, plavu i crnu stazu, vrijeme je da nastavite na najdužu zip liniju i Stazu Vražjeg puta. Zip liniju može svatko proći jer je do nje vrlo jednostavno doći; za most s monociklom vrijede ograničenja — osobe teže od 85 kg ne bi trebale ići na most, a mala djeca moraju dohvatiti pedale monocikla.",
-                "Prije monocikla čeka vas skateboard, malo veći i brži, te mostić kojeg je najlakše pretrčati — kroz cijelo razdoblje slušajte upute osoblja. Monocikl je najzahtjevniji dio u Glavani Parku: namjestite visinu sjedala, jednom rukom držite horizontalnu špagu, drugom se čvrsto držite ispod sjedala. Nakon toga slijede slackline i most; vratite se najdužom zip linijom ili kraćom, bržom do 11 m visoke ljuljačke.",
+                "Kada ste prošli žutu i plavu stazu — ili ako ste već iskusni u našem avanturističkom parku — vrijeme je da krenete na Stazu Vražjeg puta i pređete je na monociklu. Prvo vozite skateboard, zatim prelazite drveni most prije monocikla — najtežeg dijela parka.",
+                "Ako težite više od 85 kg ili niste dovoljno visoki da dosegnete pedale monocikla, ova igra možda nije prikladna; možete umjesto toga hodati po žici. Osoblje vas vodi kroz namještanje sjedala, ravnotežu i vožnju — jednom rukom držite sigurnosnu užad, drugom sjedalo. Nakon monocikla prijeđite slackline i jednostavan japanski most. Visoka ljuljačka je najbolja sljedeća atrakcija.",
             ],
         },
     },
