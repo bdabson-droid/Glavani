@@ -7,6 +7,7 @@ EVENT_PAGES = [
         "en_slug": "team-building-istria",
         "hr_slug": "team-building-istri",
         "tile_mod": "groups",
+        "header_call_only": True,
         "image": "team-building-program.webp",
         "gallery": [
             {"image": "team-building-gallery-1.webp", "en_alt": "Team building group at Glavani Park high ropes", "hr_alt": "Team building grupa na visokim stazama Glavani Parka"},

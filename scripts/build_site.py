@@ -1742,6 +1742,15 @@ def render_event_page(event: dict, lang: str) -> str:
         "open-status",
         *("photo-gallery",) if has_gallery else (),
     )
+    if event.get("header_call_only"):
+        header_actions = f"""      <div class="activity-banner__actions">
+        <a class="btn-primary" href="tel:+385918964525">{cta}</a>
+      </div>"""
+    else:
+        header_actions = f"""      <div class="activity-banner__actions">
+        <a class="btn-primary" href="{book_href}">{book_cta_labels(lang)['book_tickets']}</a>
+        <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
+      </div>"""
 
     return f"""{head_meta(lang, data['title'], data['meta_description'], data['keywords'], canonical, en_slug, hr_slug, og_image=img, og_image_alt=data['image_alt'])}
 {page_chrome(lang)}
@@ -1756,10 +1765,7 @@ def render_event_page(event: dict, lang: str) -> str:
     <div class="hero__inner">
       <p class="hero__badge">{data['hero_badge']}</p>
       <h1>{data['h1']}</h1>
-      <div class="activity-banner__actions">
-        <a class="btn-primary" href="{book_href}">{book_cta_labels(lang)['book_tickets']}</a>
-        <a class="btn-secondary" href="tel:+385918964525">{cta}</a>
-      </div>
+{header_actions}
     </div>
   </section>
   <div class="activity-detail-wrap section--theme-forest">
