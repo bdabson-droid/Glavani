@@ -1503,6 +1503,22 @@ def inject_after_nth_paragraph(html: str, insert: str, count: int = 2) -> str:
     return html[:pos] + insert + html[pos:]
 
 
+def inject_after_marker_plus_paragraphs(
+    html: str, marker: str, insert: str, paragraph_count: int = 2
+) -> str:
+    """Insert HTML after paragraph_count closing </p> tags that follow marker."""
+    if not insert or not marker:
+        return html
+    marker_idx = html.find(marker)
+    if marker_idx == -1:
+        return html
+    split_at = marker_idx + len(marker)
+    return html[:split_at] + inject_after_nth_paragraph(html[split_at:], insert, paragraph_count)
+
+
+ACTIVITY_VIDEO_END_MARKER = "<!-- /activity-video -->"
+
+
 def render_activity_video(activity: dict, data: dict, lang: str) -> str:
     video_id = activity.get("youtube_id")
     if not video_id:
@@ -1542,7 +1558,7 @@ def render_activity_video_section(activity: dict, data: dict, lang: str) -> str:
       <section class="activity-video activity-video--inline" aria-labelledby="activity-video-heading">
         <h2 id="activity-video-heading">{data['video_heading']}</h2>
         {render_activity_video(activity, data, lang)}
-      </section>"""
+      </section>{ACTIVITY_VIDEO_END_MARKER}"""
 
 
 def render_activity_page(activity: dict, lang: str) -> str:
@@ -1565,10 +1581,17 @@ def render_activity_page(activity: dict, lang: str) -> str:
     activities_url = f"{BASE}{activities_href}"
 
     prose = render_prose_blocks(data["paragraphs"])
+    prose += render_activity_seo_footer(activity, lang)
     video_section = render_activity_video_section(activity, data, lang)
+    visitor_photos = render_activity_visitor_photos(activity, lang)
     if video_section:
         prose = inject_after_nth_paragraph(prose, video_section, count=2)
-    prose += render_activity_seo_footer(activity, lang)
+        if visitor_photos:
+            prose = inject_after_marker_plus_paragraphs(
+                prose, ACTIVITY_VIDEO_END_MARKER, visitor_photos, paragraph_count=2
+            )
+    elif visitor_photos:
+        prose = inject_after_nth_paragraph(prose, visitor_photos, count=2)
     prices_href = f"{prefix}{PRICES_SLUGS[lang]}/"
     prices_label = "Packages &amp; prices" if lang == "en" else "Paketi i cijene"
     prose += (
@@ -1639,7 +1662,6 @@ def render_activity_page(activity: dict, lang: str) -> str:
 
     inline_cta = render_conversion_cta(lang, compact=True)
     review_teaser = render_activity_reviews(activity, lang)
-    visitor_photos = render_activity_visitor_photos(activity, lang)
     page_scripts = render_page_scripts(
         "open-status",
         *("photo-gallery",) if visitor_photos else (),
@@ -1664,7 +1686,6 @@ def render_activity_page(activity: dict, lang: str) -> str:
       </div>
       {inline_cta}
       {review_teaser}
-      {visitor_photos}
       <div class="activity-detail__actions">
         <a class="btn-primary" href="{book_href}">{book_label}</a>
         <a class="btn-secondary" href="{call_href(lang)}">{cta}</a>
