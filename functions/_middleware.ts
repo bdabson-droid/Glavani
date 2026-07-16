@@ -26,6 +26,24 @@ function replyToLine(guestName: string, guestEmail: string): string {
   return `Reply to confirm: ${who}`;
 }
 
+function formatBookingDate(raw: string, lang: string): string {
+  const trimmed = raw.trim();
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(trimmed);
+  if (!match) return trimmed || "date TBC";
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  const locale = lang === "hr" ? "hr-HR" : "en-GB";
+  return new Intl.DateTimeFormat(locale, {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(date);
+}
+
 function buildBookingEmailBody(
   formData: FormData,
   guestName: string,
@@ -42,7 +60,7 @@ function buildBookingEmailBody(
     field(formData, "header") || "Glavani Park booking request",
     "---",
     `Package: ${field(formData, "package")}`,
-    `Date: ${field(formData, "date")}`,
+    `Date: ${formatBookingDate(field(formData, "date"), field(formData, "lang"))}`,
     `Arrival: ${field(formData, "arrival")}`,
     `Guests: ${field(formData, "guests")}`,
     `Adults: ${field(formData, "adults")}`,
@@ -170,7 +188,10 @@ export const onRequest: PagesFunction<Env> = (context) => {
       if (name === BOOKING_FORM) {
         const guestName = field(formData, "name");
         const guestEmail = field(formData, "email");
-        const visitDate = field(formData, "date") || "date TBC";
+        const visitDate = formatBookingDate(
+          field(formData, "date"),
+          field(formData, "lang"),
+        );
         const body = buildBookingEmailBody(formData, guestName, guestEmail);
         const subject = bookingSubject(guestName, guestEmail, visitDate);
 
