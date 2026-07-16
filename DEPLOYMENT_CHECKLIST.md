@@ -15,8 +15,11 @@ Production domain: **https://glavani-park.com**
 | **Build command** | `npm install && pip install pillow && SITE_BASE=https://glavani-park.com python3 scripts/build_site.py` |
 | **Build output directory** | `/` (repository root) |
 | **Root directory** | `/` |
+| **Deploy command** | **Leave empty** — do not set `npx wrangler deploy` |
 
 The build emits static HTML into `en/`, `hr/`, and the repo root, plus `functions/` for form handling.
+
+Cloudflare Pages deploys automatically after a successful build. A custom **Deploy command** is only for Workers or advanced setups; using `npx wrangler deploy` here uploads the whole repo (including `node_modules`) as a Worker and fails with **Asset too large**.
 
 ## 3. Environment variables (Production)
 
@@ -103,6 +106,8 @@ Workflow `.github/workflows/pages.yml` builds and verifies on every push to `mai
 
 | Issue | Fix |
 |-------|-----|
+| **Deploy fails: `Asset too large` / `workerd` 122 MiB** | Remove the **Deploy command** in Pages → Settings → Builds. Leave it blank so Pages publishes the build output — do **not** use `npx wrangler deploy`. |
+| **Wrangler asks “Cloudflare Pages deployment?” then fails** | Same as above: clear Deploy command; ensure the project is **Pages** (Git-connected), not a Workers-only project. |
 | Forms return 500 | Set `RESEND_API_KEY`; verify Resend domain/sender |
 | Wrong canonical URLs | Set `SITE_BASE=https://glavani-park.com` in Cloudflare env |
 | Old CMS URLs 404 | Ensure `_redirects` deployed (Cloudflare Pages, not plain static hosting without redirects) |
