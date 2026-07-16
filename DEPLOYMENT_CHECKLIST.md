@@ -4,22 +4,39 @@ Production domain: **https://glavani-park.com**
 
 ## 1. Connect repository
 
-1. Cloudflare Dashboard → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**
+**Important:** Create a **Pages** project, not a **Workers** project.
+
+1. Cloudflare Dashboard → **Workers & Pages** → **Create** → select the **Pages** tab → **Connect to Git**
 2. Select this repository and branch `main`
 3. Use the settings below (do **not** use a subdirectory as the build output)
 
+If your project only shows **Build command** + **Deploy command** (both required) and defaults to `npx wrangler deploy`, you created a **Workers** project by mistake. Delete it and recreate using the **Pages** tab above.
+
 ## 2. Build settings
+
+### Option A — Cloudflare Pages (recommended)
 
 | Setting | Value |
 |---------|--------|
 | **Build command** | `npm install && pip install pillow && SITE_BASE=https://glavani-park.com python3 scripts/build_site.py` |
 | **Build output directory** | `/` (repository root) |
 | **Root directory** | `/` |
-| **Deploy command** | **Leave empty** — do not set `npx wrangler deploy` |
+| **Deploy command** | *(none — field not shown on Pages)* |
 
-The build emits static HTML into `en/`, `hr/`, and the repo root, plus `functions/` for form handling.
+The build emits static HTML into `en/`, `hr/`, and the repo root, plus `functions/` for form handling. Pages publishes automatically after a successful build.
 
-Cloudflare Pages deploys automatically after a successful build. A custom **Deploy command** is only for Workers or advanced setups; using `npx wrangler deploy` here uploads the whole repo (including `node_modules`) as a Worker and fails with **Asset too large**.
+### Option B — Workers Builds (if Deploy command is required)
+
+Some accounts only offer **Workers** Git integration, which **requires** a deploy command. Do **not** use `npx wrangler deploy` — that uploads the whole repo as a Worker and fails with **Asset too large**.
+
+| Setting | Value |
+|---------|--------|
+| **Build command** | `npm install && pip install pillow && SITE_BASE=https://glavani-park.com python3 scripts/build_site.py` |
+| **Deploy command** | `npx wrangler pages deploy . --project-name=glavaniparkwebsite` |
+
+Replace `glavaniparkwebsite` with your Pages project name. This deploys as **Pages** (respects `functions/` for forms, ignores `node_modules`). You may need to create the Pages project first: **Workers & Pages** → **Create** → **Pages** → **Upload assets** (create empty project), then connect Git or use the deploy command above.
+
+**Do not** use `npx wrangler deploy` for this site.
 
 ## 3. Environment variables (Production)
 
@@ -106,8 +123,9 @@ Workflow `.github/workflows/pages.yml` builds and verifies on every push to `mai
 
 | Issue | Fix |
 |-------|-----|
-| **Deploy fails: `Asset too large` / `workerd` 122 MiB** | Remove the **Deploy command** in Pages → Settings → Builds. Leave it blank so Pages publishes the build output — do **not** use `npx wrangler deploy`. |
-| **Wrangler asks “Cloudflare Pages deployment?” then fails** | Same as above: clear Deploy command; ensure the project is **Pages** (Git-connected), not a Workers-only project. |
+| **Can't leave Deploy command empty** | You have a **Workers** project, not **Pages**. Recreate via **Create → Pages** tab, or set deploy to `npx wrangler pages deploy . --project-name=glavaniparkwebsite` (see Option B above). |
+| **Deploy fails: `Asset too large` / `workerd` 122 MiB** | Replace `npx wrangler deploy` with `npx wrangler pages deploy . --project-name=glavaniparkwebsite`, or switch to a Pages project (Option A). |
+| **Wrangler asks “Cloudflare Pages deployment?” then fails** | Same as above — use `wrangler pages deploy`, not `wrangler deploy`. |
 | Forms return 500 | Set `RESEND_API_KEY`; verify Resend domain/sender |
 | Wrong canonical URLs | Set `SITE_BASE=https://glavani-park.com` in Cloudflare env |
 | Old CMS URLs 404 | Ensure `_redirects` deployed (Cloudflare Pages, not plain static hosting without redirects) |
