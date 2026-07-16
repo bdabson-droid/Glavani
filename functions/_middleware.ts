@@ -5,7 +5,12 @@ const CONTACT_FORM = "glavani-contact";
 
 interface Env {
   RESEND_API_KEY?: string;
+  RESEND_FROM_EMAIL?: string;
+  RESEND_TO_EMAIL?: string;
 }
+
+const DEFAULT_FROM_EMAIL = "info@glavani-park.com";
+const DEFAULT_TO_EMAIL = "info@glavanipark.com";
 
 function field(formData: FormData, key: string): string {
   const value = formData.get(key);
@@ -65,9 +70,12 @@ async function sendParkEmail(
     return { ok: false, errors: ["RESEND_API_KEY is not configured"] };
   }
 
+  const fromEmail = env.RESEND_FROM_EMAIL?.trim() || DEFAULT_FROM_EMAIL;
+  const toEmail = env.RESEND_TO_EMAIL?.trim() || DEFAULT_TO_EMAIL;
+
   const payload: Record<string, unknown> = {
-    from: `${fromLabel} <info@glavanipark.com>`,
-    to: ["info@glavanipark.com"],
+    from: `${fromLabel} <${fromEmail}>`,
+    to: [toEmail],
     subject,
     text: body,
   };
