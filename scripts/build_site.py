@@ -1043,11 +1043,6 @@ def head_meta(
   <meta property="og:image:width" content="{img_w}">
   <meta property="og:image:height" content="{img_h}">
   <meta property="og:image:alt" content="{safe_image_alt}">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{safe_title}">
-  <meta name="twitter:description" content="{safe_desc}">
-  <meta name="twitter:image" content="{og_image_url}">
-  <meta name="twitter:image:alt" content="{safe_image_alt}">
   <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
   <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="/images/glavani-park-logo.png">

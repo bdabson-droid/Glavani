@@ -90,9 +90,9 @@ def main() -> int:
             errors.append(f"{rel}: missing title or meta description")
         if 'rel="canonical"' not in text:
             errors.append(f"{rel}: missing canonical URL")
-        if 'property="og:title"' not in text or 'name="twitter:card"' not in text:
+        if 'property="og:title"' not in text:
             if not is_root_redirect:
-                errors.append(f"{rel}: missing Open Graph or Twitter tags")
+                errors.append(f"{rel}: missing Open Graph tags")
 
         parser = LinkParser()
         parser.feed(text)
