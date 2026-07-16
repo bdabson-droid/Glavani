@@ -119,8 +119,6 @@
       submitSuccessCall: 'Call to confirm',
       submitSuccessClose: 'Close',
       call: 'Call to confirm',
-      copy: 'Copy details',
-      copied: 'Copied to clipboard!',
       selectActivity: 'Please select a package or activity.',
       selectDate: 'Please select a visit date.',
       fillRequired: 'Please enter your name, email address, and phone number.',
@@ -198,8 +196,6 @@
       submitSuccessCall: 'Pozovite za potvrdu',
       submitSuccessClose: 'Zatvori',
       call: 'Pozovi za potvrdu',
-      copy: 'Kopiraj detalje',
-      copied: 'Kopirano!',
       selectActivity: 'Odaberite paket ili aktivnost.',
       selectDate: 'Odaberite datum posjeta.',
       fillRequired: 'Unesite ime, e-mail adresu i telefon.',
@@ -791,7 +787,6 @@
       <div class="book-send-grid">
         <button type="button" class="btn-primary btn-email-book" id="btn-submit">${t.sendBooking}</button>
         <a class="btn-secondary" href="tel:+${phone}">${t.call}</a>
-        <button type="button" class="btn-copy" id="btn-copy">${t.copy}</button>
       </div>
       <p class="book-hint">${t.parkHours}</p>
     </section>`;
@@ -933,15 +928,6 @@
 
     document.getElementById('btn-submit')?.addEventListener('click', () => {
       submitBooking();
-    });
-
-    document.getElementById('btn-copy')?.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(buildMessage());
-        alert(t.copied);
-      } catch {
-        prompt(t.copy, buildMessage());
-      }
     });
   }
 
