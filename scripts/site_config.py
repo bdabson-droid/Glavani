@@ -9,10 +9,8 @@ PRODUCTION_BASE = "https://www.glavani-park.com"
 # Legacy domain — redirect at DNS/CDN; emails stay on glavanipark.com
 LEGACY_BASE = "https://www.glavanipark.com"
 
-# Contact form — set FORMSPREE_FORM_ID in Cloudflare Pages environment variables
-FORMSPREE_FORM_ID = os.environ.get("FORMSPREE_FORM_ID", "").strip()
-
 # Analytics — optional; set in Cloudflare Pages env when ready
+RESEND_API_KEY_NOTE = "Set RESEND_API_KEY in Cloudflare Pages for form email delivery"
 GA4_MEASUREMENT_ID = os.environ.get("GA4_MEASUREMENT_ID", "").strip()
 GSC_VERIFICATION = os.environ.get("GSC_VERIFICATION", "").strip()
 CLOUDFLARE_ANALYTICS_TOKEN = os.environ.get("CLOUDFLARE_ANALYTICS_TOKEN", "").strip()

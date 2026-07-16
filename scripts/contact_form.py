@@ -1,11 +1,10 @@
-"""Formspree enquiry form for general contact (not the booking wizard)."""
+"""Contact enquiry form — submits via Cloudflare Static Forms."""
 
 from __future__ import annotations
 
 import html
 
 from activities import ACTIVITIES
-from site_config import FORMSPREE_FORM_ID
 
 LABELS = {
     "en": {
@@ -19,19 +18,7 @@ LABELS = {
         "children": "Number of children",
         "message": "Message",
         "submit": "Send enquiry",
-        "submitting": "Sending…",
-        "success_title": "Message sent",
-        "success_lead": "Thank you — we have received your enquiry and aim to reply within 48 hours.",
-        "success_spam": (
-            "If you do not hear back, check spam for email from info@glavanipark.com or "
-            "office@glavanipark.com, or call us to confirm."
-        ),
-        "error": "Sorry, we could not send your message. Please call us instead.",
         "required_hint": "Fields marked * are required.",
-        "not_configured": (
-            "The contact form is not yet configured. Please call or email "
-            "info@glavanipark.com for now."
-        ),
     },
     "hr": {
         "name": "Ime i prezime",
@@ -44,18 +31,7 @@ LABELS = {
         "children": "Broj djece",
         "message": "Poruka",
         "submit": "Pošaljite upit",
-        "submitting": "Šaljem…",
-        "success_title": "Poruka poslana",
-        "success_lead": "Hvala — primili smo vaš upit i nastojimo odgovoriti u roku od 48 sati.",
-        "success_spam": (
-            "Ako ne dobijete odgovor, provjerite neželjenu poštu za info@glavanipark.com ili "
-            "office@glavanipark.com, ili nas nazovite."
-        ),
-        "error": "Nažalost nismo mogli poslati poruku. Molimo nazovite nas.",
         "required_hint": "Polja označena * su obavezna.",
-        "not_configured": (
-            "Obrazac još nije konfiguriran. Za sada nazovite ili pišite na info@glavanipark.com."
-        ),
     },
 }
 
@@ -72,11 +48,7 @@ def _activity_options(lang: str) -> str:
 
 def render_contact_form(lang: str) -> str:
     labels = LABELS[lang]
-    if not FORMSPREE_FORM_ID:
-        return f'<p class="contact-form__notice" role="status">{labels["not_configured"]}</p>'
-
-    action = f"https://formspree.io/f/{html.escape(FORMSPREE_FORM_ID)}"
-    return f"""<form class="contact-form" id="contact-form" action="{action}" method="POST" novalidate>
+    return f"""<form class="contact-form" id="contact-form" data-static-form-name="glavani-contact" novalidate>
       <p class="contact-form__hint">{labels['required_hint']}</p>
       <div class="contact-form__row">
         <div>
@@ -116,8 +88,7 @@ def render_contact_form(lang: str) -> str:
         <label for="contact-message">{labels['message']} *</label>
         <textarea id="contact-message" name="message" rows="5" required></textarea>
       </div>
-      <input type="hidden" name="_subject" value="Glavani Park enquiry">
-      <input type="text" name="_gotcha" class="contact-form__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="text" name="botcheck" class="contact-form__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
       <button type="submit" class="btn-primary" id="contact-submit">{labels['submit']}</button>
       <div class="contact-form__feedback" id="contact-feedback" role="status" aria-live="polite" hidden></div>
     </form>"""

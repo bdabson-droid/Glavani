@@ -1,0 +1,11 @@
+{
+  "name": "glavani-park",
+  "private": true,
+  "description": "Glavani Park static site with Cloudflare Pages Functions",
+  "scripts": {
+    "build": "python3 scripts/build_site.py"
+  },
+  "dependencies": {
+    "@cloudflare/pages-plugin-static-forms": "^1.0.3"
+  }
+}

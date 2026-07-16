@@ -1758,21 +1758,28 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   line-height: 1.5;
   margin-bottom: 0.75rem;
 }
+.book-success-dialog__followup {
+  font-size: 0.875rem;
+  color: var(--rock-mid);
+  line-height: 1.55;
+  margin-bottom: 1rem;
+  text-align: left;
+}
 
-.book-mailto-dialog__actions {
+.book-success-dialog__actions {
   display: grid;
   gap: 0.75rem;
   margin-bottom: 1rem;
 }
 
-.book-mailto-dialog__actions .btn-primary,
-.book-mailto-dialog__actions .btn-secondary {
+.book-success-dialog__actions .btn-primary,
+.book-success-dialog__actions .btn-secondary {
   width: 100%;
   text-align: center;
   justify-content: center;
 }
 
-.book-mailto-dialog__close {
+.book-success-dialog__close {
   width: 100%;
 }
 

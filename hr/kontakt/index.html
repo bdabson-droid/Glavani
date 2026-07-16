@@ -102,7 +102,50 @@
     <div class="section__inner contact-page">
       <h1>Kontakt</h1>
       <p>Pitanja o posjetu, grupama ili partnerstvu? Nazovite nas, pišite na info@glavanipark.com ili koristite obrazac u nastavku.</p><ul class="contact-details"><li><a href="tel:+385918964525">Nigel Simpson: +385 91 896 4525</a></li><li><a href="tel:+38598224314">Nevenko Bulić: +385 98 224 314</a></li><li><a href="mailto:info@glavanipark.com">info@glavanipark.com</a></li><li><a href="mailto:office@glavanipark.com">office@glavanipark.com</a></li><li><a href="https://maps.app.goo.gl/t7gPDq5KuPRdtezP6" target="_blank" rel="noopener noreferrer">Google Maps</a></li></ul>
-      <p class="contact-form__notice" role="status">Obrazac još nije konfiguriran. Za sada nazovite ili pišite na info@glavanipark.com.</p>
+      <form class="contact-form" id="contact-form" data-static-form-name="glavani-contact" novalidate>
+      <p class="contact-form__hint">Polja označena * su obavezna.</p>
+      <div class="contact-form__row">
+        <div>
+          <label for="contact-name">Ime i prezime *</label>
+          <input id="contact-name" name="name" type="text" required autocomplete="name">
+        </div>
+        <div>
+          <label for="contact-email">E-mail adresa *</label>
+          <input id="contact-email" name="email" type="email" required autocomplete="email">
+        </div>
+      </div>
+      <div class="contact-form__row">
+        <div>
+          <label for="contact-phone">Broj telefona *</label>
+          <input id="contact-phone" name="phone" type="tel" required autocomplete="tel">
+        </div>
+        <div>
+          <label for="contact-activity">Aktivnost (opcionalno)</label>
+          <select id="contact-activity" name="activity"><option value="">Opći upit</option><option value="Ljudska katapulta">Ljudska katapulta</option><option value="Visoka ljuljačka">Visoka ljuljačka</option><option value="Trening ruta">Trening ruta</option><option value="Staza u krošnjama">Staza u krošnjama</option><option value="Dolinski zipline">Dolinski zipline</option><option value="Staza Vražjeg puta">Staza Vražjeg puta</option><option value="Penjački zid">Penjački zid</option><option value="Aerotrim">Aerotrim</option><option value="Pad s 20 m">Pad s 20 m</option></select>
+        </div>
+      </div>
+      <div class="contact-form__row">
+        <div>
+          <label for="contact-date">Željeni datum posjeta (opcionalno)</label>
+          <input id="contact-date" name="date" type="date">
+        </div>
+        <div>
+          <label for="contact-adults">Broj odraslih</label>
+          <input id="contact-adults" name="adults" type="number" min="0" max="99" value="1">
+        </div>
+        <div>
+          <label for="contact-children">Broj djece</label>
+          <input id="contact-children" name="children" type="number" min="0" max="99" value="0">
+        </div>
+      </div>
+      <div>
+        <label for="contact-message">Poruka *</label>
+        <textarea id="contact-message" name="message" rows="5" required></textarea>
+      </div>
+      <input type="text" name="botcheck" class="contact-form__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit" class="btn-primary" id="contact-submit">Pošaljite upit</button>
+      <div class="contact-form__feedback" id="contact-feedback" role="status" aria-live="polite" hidden></div>
+    </form>
     </div>
   </section>
 </main>

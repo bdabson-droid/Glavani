@@ -102,7 +102,50 @@
     <div class="section__inner contact-page">
       <h1>Contact Us</h1>
       <p>Questions about visiting, groups, or partnerships? Call us, email info@glavanipark.com, or use the form below.</p><ul class="contact-details"><li><a href="tel:+385918964525">Nigel Simpson: +385 91 896 4525</a></li><li><a href="tel:+38598224314">Nevenko Bulić: +385 98 224 314</a></li><li><a href="mailto:info@glavanipark.com">info@glavanipark.com</a></li><li><a href="mailto:office@glavanipark.com">office@glavanipark.com</a></li><li><a href="https://maps.app.goo.gl/t7gPDq5KuPRdtezP6" target="_blank" rel="noopener noreferrer">Google Maps</a></li></ul>
-      <p class="contact-form__notice" role="status">The contact form is not yet configured. Please call or email info@glavanipark.com for now.</p>
+      <form class="contact-form" id="contact-form" data-static-form-name="glavani-contact" novalidate>
+      <p class="contact-form__hint">Fields marked * are required.</p>
+      <div class="contact-form__row">
+        <div>
+          <label for="contact-name">Your name *</label>
+          <input id="contact-name" name="name" type="text" required autocomplete="name">
+        </div>
+        <div>
+          <label for="contact-email">Email address *</label>
+          <input id="contact-email" name="email" type="email" required autocomplete="email">
+        </div>
+      </div>
+      <div class="contact-form__row">
+        <div>
+          <label for="contact-phone">Phone number *</label>
+          <input id="contact-phone" name="phone" type="tel" required autocomplete="tel">
+        </div>
+        <div>
+          <label for="contact-activity">Activity (optional)</label>
+          <select id="contact-activity" name="activity"><option value="">General enquiry</option><option value="Human Catapult">Human Catapult</option><option value="High Swing">High Swing</option><option value="Training Route">Training Route</option><option value="Treetop Course">Treetop Course</option><option value="Valley Zipline (Big Zipline)">Valley Zipline (Big Zipline)</option><option value="Devil&#x27;s Causeway Course">Devil&#x27;s Causeway Course</option><option value="Climbing Wall">Climbing Wall</option><option value="Aerotrim">Aerotrim</option><option value="20m Drop">20m Drop</option></select>
+        </div>
+      </div>
+      <div class="contact-form__row">
+        <div>
+          <label for="contact-date">Preferred visit date (optional)</label>
+          <input id="contact-date" name="date" type="date">
+        </div>
+        <div>
+          <label for="contact-adults">Number of adults</label>
+          <input id="contact-adults" name="adults" type="number" min="0" max="99" value="1">
+        </div>
+        <div>
+          <label for="contact-children">Number of children</label>
+          <input id="contact-children" name="children" type="number" min="0" max="99" value="0">
+        </div>
+      </div>
+      <div>
+        <label for="contact-message">Message *</label>
+        <textarea id="contact-message" name="message" rows="5" required></textarea>
+      </div>
+      <input type="text" name="botcheck" class="contact-form__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit" class="btn-primary" id="contact-submit">Send enquiry</button>
+      <div class="contact-form__feedback" id="contact-feedback" role="status" aria-live="polite" hidden></div>
+    </form>
     </div>
   </section>
 </main>
