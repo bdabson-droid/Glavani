@@ -26,7 +26,7 @@ HOME = {
         "We're a family-run adventure park in the Istrian countryside — friendly, qualified staff, "
         "forest ziplines, and memories you'll talk about for years. Drop in for a chat before you clip in."
     ),
-    "image": "glavani-park-adventure-istria-croatia.jpg",
+    "image": "glavani-park-adventure-istria-croatia.webp",
     "image_alt": "Aerial view of Glavani Park, Croatia's number 1 adventure park in Istria",
 }
 
@@ -46,7 +46,7 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                    'medieval hill towns — Istria rewards curious travellers. Add '
                    'Glavani Park to your itinerary for a full day of adrenaline '
                    'between Barban and Vodnjan.',
-  'image': 'glavani-park-adventure-istria-croatia.jpg',
+  'image': 'glavani-park-adventure-istria-croatia.webp',
   'image_alt': 'Glavani Park adventure park set in the Istrian countryside near Barban '
                'and Pula',
   'sections': [{'h2': "Why Istria Is One of Croatia's Most Versatile Destinations",
@@ -1239,7 +1239,7 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                    'approved links, embed snippets, and anchor-text suggestions — all '
                    'pointing to Glavani Park near Barban and Pula.',
   'banner_mod': 'link',
-  'image': 'glavani-park-adventure-istria-croatia.jpg',
+  'image': 'glavani-park-adventure-istria-croatia.webp',
   'image_alt': 'Glavani Park · Istria, Croatia',
   'sections': [{'h2': 'Why Link to Glavani Park?',
                 'paragraphs': ['<p>Travel blogs, Istria accommodation websites, '
@@ -1262,23 +1262,23 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                 'paragraphs': ['<p>Use these primary URLs when linking to Glavani Park '
                                'content:</p>',
                                '<p><strong>Homepage (English):</strong> '
-                               '<code>https://www.glavanipark.com/en/</code></p>',
+                               '<code>https://glavani-park.com/en/</code></p>',
                                '<p><strong>Things to Do in Istria:</strong> '
-                               '<code>https://www.glavanipark.com/en/things-to-do-in-istria/</code></p>',
+                               '<code>https://glavani-park.com/en/things-to-do-in-istria/</code></p>',
                                '<p><strong>Our Activities:</strong> '
-                               '<code>https://www.glavanipark.com/en/adventure-park-croatia/</code></p>',
+                               '<code>https://glavani-park.com/en/adventure-park-croatia/</code></p>',
                                '<p><strong>Zipline Croatia:</strong> '
-                               '<code>https://www.glavanipark.com/en/zipline-croatia/</code></p>',
+                               '<code>https://glavani-park.com/en/zipline-croatia/</code></p>',
                                '<p><strong>Team Building Istria:</strong> '
-                               '<code>https://www.glavanipark.com/en/team-building-istria/</code></p>',
+                               '<code>https://glavani-park.com/en/team-building-istria/</code></p>',
                                '<p><strong>Things to Do Near Pula:</strong> '
-                               '<code>https://www.glavanipark.com/en/things-to-do-near-pula/</code></p>',
+                               '<code>https://glavani-park.com/en/things-to-do-near-pula/</code></p>',
                                '<p><strong>Adventure Park Croatia:</strong> '
-                               '<code>https://www.glavanipark.com/en/adventure-park-croatia/</code></p>',
+                               '<code>https://glavani-park.com/en/adventure-park-croatia/</code></p>',
                                '<p><strong>Safety:</strong> '
-                               '<code>https://www.glavanipark.com/en/safety/</code></p>',
+                               '<code>https://glavani-park.com/en/safety/</code></p>',
                                '<p><strong>Partners:</strong> '
-                               '<code>https://www.glavanipark.com/en/partners/</code></p>']},
+                               '<code>https://glavani-park.com/en/partners/</code></p>']},
                {'h2': 'Suggested Anchor Text',
                 'paragraphs': ['<p>Varied, natural anchor text helps search engines '
                                'and readers alike. Approved examples you may use:</p>',
@@ -1303,20 +1303,20 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'article is usually sufficient.</p>']},
                {'h2': 'HTML Embed Codes',
                 'paragraphs': ['<p><strong>Simple text link (homepage):</strong></p>',
-                               '<p><code>&lt;a href="https://www.glavanipark.com/en/" '
+                               '<p><code>&lt;a href="https://glavani-park.com/en/" '
                                'title="Glavani Park – Adventure Park Istria, '
                                'Croatia"&gt;Glavani Park – adventure park near Pula, '
                                'Barban &amp; Vodnjan&lt;/a&gt;</code></p>',
                                '<p><strong>Text link to zipline page:</strong></p>',
                                '<p><code>&lt;a '
-                               'href="https://www.glavanipark.com/en/zipline-croatia/" '
+                               'href="https://glavani-park.com/en/zipline-croatia/" '
                                'title="Zipline Croatia at Glavani Park '
                                'Istria"&gt;120-metre zipline at Glavani Park '
                                'Istria&lt;/a&gt;</code></p>',
                                '<p><strong>Text link to family '
                                'activities:</strong></p>',
                                '<p><code>&lt;a '
-                               'href="https://www.glavanipark.com/en/adventure-park-croatia/" '
+                               'href="https://glavani-park.com/en/adventure-park-croatia/" '
                                'title="Family activities Istria"&gt;Family activities '
                                'and high ropes near Pula&lt;/a&gt;</code></p>',
                                '<p><strong>Image link with alt text (replace image URL '
@@ -1324,8 +1324,8 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'href="/en/partners/">partner '
                                'programme</a>):</strong></p>',
                                '<p><code>&lt;a '
-                               'href="https://www.glavanipark.com/en/"&gt;&lt;img '
-                               'src="https://www.glavanipark.com/images/glavani-park-adventure-istria-croatia.jpg" '
+                               'href="https://glavani-park.com/en/"&gt;&lt;img '
+                               'src="https://glavani-park.com/images/glavani-park-adventure-istria-croatia.webp" '
                                'alt="Glavani Park adventure and adrenaline park in '
                                'Istria, Croatia" width="600" height="400" '
                                'loading="lazy"&gt;&lt;/a&gt;</code></p>',
@@ -1338,7 +1338,7 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'Catapult near Pula. Open daily 9 AM–5 PM, last entry 3 '
                                'PM. Call &lt;a href="tel:+385918964525"&gt;+385 91 896 '
                                '4525&lt;/a&gt;. &lt;a '
-                               'href="https://www.glavanipark.com/en/"&gt;Plan your '
+                               'href="https://glavani-park.com/en/"&gt;Plan your '
                                'visit →&lt;/a&gt;&lt;/aside&gt;</code></p>']},
                {'h2': 'Attribution, Partners, and Contact',
                 'paragraphs': ['<p>Hotels, campsites, and travel agencies with '
@@ -1358,7 +1358,7 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'citations:</p>',
                                '<p><strong>Glavani Park</strong><br>Glavani 10, 52207 '
                                'Barban, Istria, Croatia<br>Phone: +385 91 896 '
-                               '4525<br>Web: https://www.glavanipark.com/en/</p>',
+                               '4525<br>Web: https://glavani-park.com/en/</p>',
                                '<p>Thank you for helping travellers discover one of '
                                "Istria's best outdoor adventures. Explore our content "
                                'hub starting with <a '
@@ -1375,7 +1375,7 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'Barban. Near Pula (30 min), Vodnjan (10 km), Barban (6 '
                                'km). Hours: daily 9 AM–5 PM, last entry 3 PM. Phone: '
                                '+385 91 896 4525. Website: '
-                               'https://www.glavanipark.com/en/</p>',
+                               'https://glavani-park.com/en/</p>',
                                '<p>When publishing listicles such as "Top 10 things to '
                                'do in Istria" or "Best day trips from Pula", a single '
                                'well-placed Glavani Park link with factual hours and '
@@ -1384,7 +1384,7 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'search engines that your Istria content is '
                                'comprehensive and locally accurate.</p>',
                                '<p>If you maintain a Croatian-language site, link to '
-                               '<code>https://www.glavanipark.com/hr/</code> for '
+                               '<code>https://glavani-park.com/hr/</code> for '
                                'domestic audiences while keeping English canonical '
                                'URLs for international travel guides. Either way, '
                                'preserving accurate opening hours (9 AM–5 PM, last '
@@ -1400,7 +1400,7 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                  'receive referral tracking and commission. Apply via the partners '
                  'page or call +385 91 896 4525.'},
            {'q': 'Which page should I link for family travel content?',
-            'a': 'Use https://www.glavanipark.com/en/adventure-park-croatia/ with '
+            'a': 'Use https://glavani-park.com/en/adventure-park-croatia/ with '
                  "anchor text such as 'family activities in Istria' or 'things to do "
                  "near Pula with kids'."},
            {'q': 'Can I translate your link text into German or Italian?',

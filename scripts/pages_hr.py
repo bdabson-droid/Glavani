@@ -41,7 +41,7 @@ HOME = {
         'Obiteljski avanturistički park u istarskom krajoliku — profesionalna i srdačna ekipa, '
         'zipline u šumi i uspomene o kojima ćete pričati godinama. Svratite na kavu prije nego krenete u avanturu.'
     ),
-    "image": 'glavani-park-adventure-istria-croatia.jpg',
+    "image": 'glavani-park-adventure-istria-croatia.webp',
     "image_alt": 'Pogled iz zraka na Glavani Park, broj 1 avanturistički park u Istri, Hrvatska',
 }
 
@@ -60,7 +60,7 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                    'srednjovjekovnih gradova — Istra nagrađuje znatiželjne putnike. '
                    'Uključite Glavani Park u itinerar za cjelodnevni adrenalin između '
                    'Barbana i Vodnjanja.',
-  'image': 'glavani-park-adventure-istria-croatia.jpg',
+  'image': 'glavani-park-adventure-istria-croatia.webp',
   'image_alt': 'Glavani Park avanturistički park u istarskom krajoliku kod Barbana i '
                'Pule',
   'sections': [{'h2': 'Zašto je Istra jedna od najsvestranijih destinacija u Hrvatskoj',
@@ -1342,7 +1342,7 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                    'odobrenim linkovima, embed snippetima i prijedlozima anchor texta '
                    '— sve prema Glavani Parku kod Barbana i Pule.',
   'banner_mod': 'link',
-  'image': 'glavani-park-adventure-istria-croatia.jpg',
+  'image': 'glavani-park-adventure-istria-croatia.webp',
   'image_alt': 'Glavani Park · Istria, Hrvatska',
   'sections': [{'h2': 'Zašto linkati Glavani Park?',
                 'paragraphs': ['<p>Travel blogovi, web stranice smještaja u Istri, '
@@ -1373,29 +1373,29 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                 'paragraphs': ['<p>Koristite ove primarne URL-ove pri linkanju '
                                'sadržaja Glavani Parka:</p>',
                                '<p><strong>Početna (hrvatski):</strong> '
-                               '<code>https://www.glavanipark.com/hr/</code></p>',
+                               '<code>https://glavani-park.com/hr/</code></p>',
                                '<p><strong>Što raditi u Istri:</strong> '
-                               '<code>https://www.glavanipark.com/hr/sto-raditi-u-istri/</code></p>',
+                               '<code>https://glavani-park.com/hr/sto-raditi-u-istri/</code></p>',
                                '<p><strong>Naše aktivnosti:</strong> '
-                               '<code>https://www.glavanipark.com/hr/avanturisticki-park-hrvatska/</code></p>',
+                               '<code>https://glavani-park.com/hr/avanturisticki-park-hrvatska/</code></p>',
                                '<p><strong>Zipline Hrvatska:</strong> '
-                               '<code>https://www.glavanipark.com/hr/zipline-hrvatska/</code></p>',
+                               '<code>https://glavani-park.com/hr/zipline-hrvatska/</code></p>',
                                '<p><strong>Team building Istria:</strong> '
-                               '<code>https://www.glavanipark.com/hr/team-building-istri/</code></p>',
+                               '<code>https://glavani-park.com/hr/team-building-istri/</code></p>',
                                '<p><strong>Što raditi kod Pule:</strong> '
-                               '<code>https://www.glavanipark.com/hr/sto-raditi-kod-pule/</code></p>',
+                               '<code>https://glavani-park.com/hr/sto-raditi-kod-pule/</code></p>',
                                '<p><strong>Avanturistički park Hrvatska:</strong> '
-                               '<code>https://www.glavanipark.com/hr/avanturisticki-park-hrvatska/</code></p>',
+                               '<code>https://glavani-park.com/hr/avanturisticki-park-hrvatska/</code></p>',
                                '<p><strong>Sigurnost:</strong> '
-                               '<code>https://www.glavanipark.com/hr/sigurnost/</code></p>',
+                               '<code>https://glavani-park.com/hr/sigurnost/</code></p>',
                                '<p><strong>Partneri:</strong> '
-                               '<code>https://www.glavanipark.com/hr/partneri/</code></p>',
+                               '<code>https://glavani-park.com/hr/partneri/</code></p>',
                                '<p>Za hreflang alternativu engleska verzija dostupna '
                                'je na odgovarajućim <code>/en/</code> URL-ovima prema '
                                'mapi slugova.</p>',
                                '<p>Structured data (Schema.org) za lokalnu firmu može '
                                'referencirati našu domenu i sliku '
-                               'glavani-park-adventure-istria-croatia.jpg s točnim geo '
+                               'glavani-park-adventure-istria-croatia.webp s točnim geo '
                                'koordinatama. Blogeri koji pišu listicle „top 10 u '
                                'Istri“ mogu koristiti kratki opis s linkom na '
                                '/hr/sto-raditi-u-istri/ za širi kontekst, a zatim '
@@ -1433,21 +1433,21 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                {'h2': 'HTML embed kodovi',
                 'paragraphs': ['<p><strong>Jednostavan tekstualni link (početna, '
                                'HR):</strong></p>',
-                               '<p><code>&lt;a href="https://www.glavanipark.com/hr/" '
+                               '<p><code>&lt;a href="https://glavani-park.com/hr/" '
                                'title="Glavani Park – avanturistički park Istria, '
                                'Hrvatska"&gt;Glavani Park – avanturistički park kod '
                                'Pule, Barbana i Vodnjanja&lt;/a&gt;</code></p>',
                                '<p><strong>Tekstualni link na zipline '
                                'stranicu:</strong></p>',
                                '<p><code>&lt;a '
-                               'href="https://www.glavanipark.com/hr/zipline-hrvatska/" '
+                               'href="https://glavani-park.com/hr/zipline-hrvatska/" '
                                'title="Zipline Hrvatska u Glavani Parku '
                                'Istria"&gt;120-metarski zipline u Glavani Parku '
                                'Istria&lt;/a&gt;</code></p>',
                                '<p><strong>Tekstualni link na obiteljske '
                                'aktivnosti:</strong></p>',
                                '<p><code>&lt;a '
-                               'href="https://www.glavanipark.com/hr/avanturisticki-park-hrvatska/" '
+                               'href="https://glavani-park.com/hr/avanturisticki-park-hrvatska/" '
                                'title="Obiteljske aktivnosti Istria"&gt;Obiteljske '
                                'aktivnosti i visoke staze kod '
                                'Pule&lt;/a&gt;</code></p>',
@@ -1456,8 +1456,8 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                '<a href="/hr/partneri/">partnerskog '
                                'programa</a>):</strong></p>',
                                '<p><code>&lt;a '
-                               'href="https://www.glavanipark.com/hr/"&gt;&lt;img '
-                               'src="https://www.glavanipark.com/images/glavani-park-adventure-istria-croatia.jpg" '
+                               'href="https://glavani-park.com/hr/"&gt;&lt;img '
+                               'src="https://glavani-park.com/images/glavani-park-adventure-istria-croatia.webp" '
                                'alt="Glavani Park avanturistički i adrenalinski park u '
                                'Istri, Hrvatska" width="600" height="400" '
                                'loading="lazy"&gt;&lt;/a&gt;</code></p>',
@@ -1469,7 +1469,7 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                'katapulta kod Pule. Otvoreno 9–17 h, posljednji ulaz '
                                '15 h. Nazovite &lt;a href="tel:+385918964525"&gt;+385 '
                                '91 896 4525&lt;/a&gt;. &lt;a '
-                               'href="https://www.glavanipark.com/hr/"&gt;Planirajte '
+                               'href="https://glavani-park.com/hr/"&gt;Planirajte '
                                'posjet →&lt;/a&gt;&lt;/aside&gt;</code></p>',
                                '<p>Za wikije putničkih destinacija i crowdsourced '
                                'vodiče molimo da ne mijenjate telefonske brojeve niti '
@@ -1497,7 +1497,7 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                '<p><strong>Glavani Park</strong><br>Glavani 10, 52207 '
                                'Barban, Istria, Hrvatska<br>Telefon: +385 91 896 4525 '
                                '/ +385 98 224 314<br>Web: '
-                               'https://www.glavanipark.com/hr/</p>',
+                               'https://glavani-park.com/hr/</p>',
                                '<p>Hvala što putnicima pomažete otkriti jednu od '
                                'najboljih istarskih avantura na otvorenom. Počnite s '
                                '<a href="/hr/sto-raditi-u-istri/">što raditi u '
@@ -1534,7 +1534,7 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                  'nazovite +385 91 896 4525.'},
            {'q': 'Na koju stranicu linkati za obiteljski sadržaj?',
             'a': 'Koristite '
-                 'https://www.glavanipark.com/hr/avanturisticki-park-hrvatska/ s '
+                 'https://glavani-park.com/hr/avanturisticki-park-hrvatska/ s '
                  "anchor textom poput 'obiteljske aktivnosti u Istri' ili 'što raditi "
                  "kod Pule s djecom'."},
            {'q': 'Mogu li prevesti link tekst na njemački ili talijanski?',

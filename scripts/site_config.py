@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import os
 
-# Primary domain (Cloudflare Pages)
-PRODUCTION_BASE = "https://www.glavani-park.com"
-# Legacy domain — redirect at DNS/CDN; emails stay on glavanipark.com
+# Primary domain (Cloudflare Pages) — canonical without www
+PRODUCTION_BASE = "https://glavani-park.com"
+CANONICAL_HOST = "glavani-park.com"
+# Legacy web domain — redirect at CDN; emails stay on glavanipark.com
 LEGACY_BASE = "https://www.glavanipark.com"
 
 # Analytics — optional; set in Cloudflare Pages env when ready

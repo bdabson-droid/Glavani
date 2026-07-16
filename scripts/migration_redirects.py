@@ -8,7 +8,18 @@ Used to generate:
 
 from __future__ import annotations
 
-# Exact pathname matches (no trailing slash). Checked before prefix rules.
+from site_config import CANONICAL_HOST, PRODUCTION_BASE
+
+# Host-level redirects (Cloudflare Pages _redirects). Path rules follow below.
+DOMAIN_REDIRECT_LINES = [
+    f"https://www.{CANONICAL_HOST}/*  {PRODUCTION_BASE}/:splat  301",
+    f"http://{CANONICAL_HOST}/*  {PRODUCTION_BASE}/:splat  301",
+    f"http://www.{CANONICAL_HOST}/*  {PRODUCTION_BASE}/:splat  301",
+    f"https://www.glavanipark.com/*  {PRODUCTION_BASE}/:splat  301",
+    f"http://www.glavanipark.com/*  {PRODUCTION_BASE}/:splat  301",
+    f"https://glavanipark.com/*  {PRODUCTION_BASE}/:splat  301",
+    f"http://glavanipark.com/*  {PRODUCTION_BASE}/:splat  301",
+]
 EXACT_REDIRECTS: dict[str, str] = {
     "/": "/hr/",
     "/hr": "/hr/",
@@ -143,11 +154,13 @@ def render_redirects_file() -> str:
     import re
 
     lines = [
-        "# Glavani Park CMS → static site migration redirects",
-        "# Deploy with Cloudflare Pages or Netlify for true 301 responses.",
+        "# Glavani Park — domain + CMS migration redirects",
+        "# Deploy with Cloudflare Pages for true HTTP 301 responses.",
         "# GitHub Pages alone uses the 404.html client-side fallback.",
         "",
     ]
+    lines.extend(DOMAIN_REDIRECT_LINES)
+    lines.append("")
     lang_roots = {"/en", "/hr", "/de", "/it", "/ru", "/nl"}
     for old, new in sorted(EXACT_REDIRECTS.items()):
         if old == "/":
