@@ -1,14 +1,7 @@
-# Glavani Park — domain + CMS migration redirects
-# Deploy with Cloudflare Pages for true HTTP 301 responses.
-# GitHub Pages alone uses the 404.html client-side fallback.
-
-https://www.glavani-park.com/*  https://glavani-park.com/:splat  301
-http://glavani-park.com/*  https://glavani-park.com/:splat  301
-http://www.glavani-park.com/*  https://glavani-park.com/:splat  301
-https://www.glavanipark.com/*  https://glavani-park.com/:splat  301
-http://www.glavanipark.com/*  https://glavani-park.com/:splat  301
-https://glavanipark.com/*  https://glavani-park.com/:splat  301
-http://glavanipark.com/*  https://glavani-park.com/:splat  301
+# Glavani Park — path-based redirects for Cloudflare Pages
+# Domain/host redirects (www → apex, HTTP → HTTPS) are in cloudflare-bulk-redirects.csv
+# Import that file via Cloudflare Dashboard → Rules → Bulk Redirects.
+# Docs: https://developers.cloudflare.com/pages/how-to/www-redirect/
 
 /  /hr/  301
 /de  /en/  301

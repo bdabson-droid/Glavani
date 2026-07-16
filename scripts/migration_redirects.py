@@ -8,18 +8,7 @@ Used to generate:
 
 from __future__ import annotations
 
-from site_config import CANONICAL_HOST, PRODUCTION_BASE
-
-# Host-level redirects (Cloudflare Pages _redirects). Path rules follow below.
-DOMAIN_REDIRECT_LINES = [
-    f"https://www.{CANONICAL_HOST}/*  {PRODUCTION_BASE}/:splat  301",
-    f"http://{CANONICAL_HOST}/*  {PRODUCTION_BASE}/:splat  301",
-    f"http://www.{CANONICAL_HOST}/*  {PRODUCTION_BASE}/:splat  301",
-    f"https://www.glavanipark.com/*  {PRODUCTION_BASE}/:splat  301",
-    f"http://www.glavanipark.com/*  {PRODUCTION_BASE}/:splat  301",
-    f"https://glavanipark.com/*  {PRODUCTION_BASE}/:splat  301",
-    f"http://glavanipark.com/*  {PRODUCTION_BASE}/:splat  301",
-]
+# Exact pathname matches (no trailing slash). Checked before prefix rules.
 EXACT_REDIRECTS: dict[str, str] = {
     "/": "/hr/",
     "/hr": "/hr/",
@@ -154,13 +143,12 @@ def render_redirects_file() -> str:
     import re
 
     lines = [
-        "# Glavani Park — domain + CMS migration redirects",
-        "# Deploy with Cloudflare Pages for true HTTP 301 responses.",
-        "# GitHub Pages alone uses the 404.html client-side fallback.",
+        "# Glavani Park — path-based redirects for Cloudflare Pages",
+        "# Domain/host redirects (www → apex, HTTP → HTTPS) are in cloudflare-bulk-redirects.csv",
+        "# Import that file via Cloudflare Dashboard → Rules → Bulk Redirects.",
+        "# Docs: https://developers.cloudflare.com/pages/how-to/www-redirect/",
         "",
     ]
-    lines.extend(DOMAIN_REDIRECT_LINES)
-    lines.append("")
     lang_roots = {"/en", "/hr", "/de", "/it", "/ru", "/nl"}
     for old, new in sorted(EXACT_REDIRECTS.items()):
         if old == "/":

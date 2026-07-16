@@ -28,16 +28,35 @@ The build emits static HTML into `en/`, `hr/`, and the repo root, plus `function
 | `GSC_VERIFICATION` | Optional | Google Search Console HTML verification meta tag |
 | `CLOUDFLARE_ANALYTICS_TOKEN` | Optional | Cloudflare Web Analytics beacon |
 
-## 4. Custom domain & DNS
+## 4. Custom domain, DNS & redirects
+
+Cloudflare Pages `_redirects` only handles **path-based** rules. **Domain-level** redirects (www → apex, apex trailing slash) use **Bulk Redirects** — Cloudflare’s recommended approach.
+
+### 4a. Import Bulk Redirects (required once)
+
+1. Cloudflare Dashboard → **Rules** → **Bulk Redirects** → **Create Bulk Redirect List**
+2. Import `cloudflare-bulk-redirects.csv` from this repository
+3. Create a **Bulk Redirect Rule** that applies the list
+4. Verify with: `curl -I https://www.glavani-park.com/` → `Location: https://glavani-park.com/...`
+
+| Source | Target | Purpose |
+|--------|--------|---------|
+| `www.glavani-park.com` | `https://glavani-park.com` | www → apex (subpath + query preserved) |
+| `glavani-park.com` | `https://glavani-park.com/` | Enforce HTTPS + trailing slash on apex |
+| `www.glavanipark.com` / `glavanipark.com` | `https://glavani-park.com` | Legacy domain → new apex |
+
+Also enable **SSL/TLS → Always Use HTTPS** for the zone.
+
+### 4b. Custom domains & DNS
 
 1. Pages project → **Custom domains** → add `glavani-park.com` and `www.glavani-park.com`
 2. Set **glavani-park.com** as the primary/canonical hostname
-3. `_redirects` in the repo 301-redirects `www` and legacy `glavanipark.com` hosts to `https://glavani-park.com`
+3. `_redirects` in the repo handles CMS path migrations (e.g. `/en/human_catapult` → `/en/human-catapult/`)
 
 ### DNS records (at your registrar or Cloudflare DNS)
 
 - `glavani-park.com` → CNAME to `<project>.pages.dev` (proxied)
-- `www` → CNAME to `<project>.pages.dev` (proxied) — redirected to apex by `_redirects`
+- `www` → CNAME to `<project>.pages.dev` (proxied) — redirected to apex by Bulk Redirects
 
 ## 5. Resend (email delivery)
 
