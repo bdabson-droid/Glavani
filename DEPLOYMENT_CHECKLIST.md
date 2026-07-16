@@ -23,6 +23,8 @@ The build emits static HTML into `en/`, `hr/`, and the repo root, plus `function
 | Variable | Required | Purpose |
 |----------|----------|---------|
 | `RESEND_API_KEY` | **Yes** (forms) | Sends contact + booking emails via Resend |
+| `RESEND_FROM_EMAIL` | Recommended | `info@glavani-park.com` — must be on a domain verified in Resend |
+| `RESEND_TO_EMAIL` | Recommended | `info@glavanipark.com` — where enquiries are delivered |
 | `SITE_BASE` | Recommended | `https://glavani-park.com` — canonical URLs in sitemap/schema |
 | `GA4_MEASUREMENT_ID` | Optional | Google Analytics 4 (loads after cookie consent) |
 | `GSC_VERIFICATION` | Optional | Google Search Console HTML verification meta tag |
@@ -60,10 +62,55 @@ Also enable **SSL/TLS → Always Use HTTPS** for the zone.
 
 ## 5. Resend (email delivery)
 
-1. Create a Resend account and verify domain **glavanipark.com**
-2. Add sender `info@glavanipark.com` (used as the From address in `functions/_middleware.ts`)
-3. Paste the API key into Cloudflare Pages → **Settings** → **Environment variables** as `RESEND_API_KEY`
-4. Test contact (`/en/contact/`) and booking (`/en/reservation/`) forms after deploy
+Forms send **from** a verified address on **glavani-park.com** and deliver **to** `info@glavanipark.com` (your existing inbox). You do not need DNS access to `glavanipark.com` for this.
+
+### 5a. Resend — verify glavani-park.com
+
+1. Go to [resend.com](https://resend.com) → sign in or create an account
+2. Left sidebar → **Domains** → **Add Domain**
+3. Enter `glavani-park.com` → **Add**
+4. Resend shows DNS records (usually TXT + a few more). Keep this tab open
+
+### 5b. Cloudflare DNS — add Resend records
+
+1. [dash.cloudflare.com](https://dash.cloudflare.com) → select the **glavani-park.com** zone
+2. Left sidebar → **DNS** → **Records** → **Add record**
+3. For each record Resend shows, add the matching **Type**, **Name**, and **Content** (Proxy status: **DNS only** / grey cloud for mail-related records)
+4. Return to Resend → **Domains** → wait until `glavani-park.com` shows **Verified** (can take a few minutes)
+
+### 5c. Resend — create API key
+
+1. Resend left sidebar → **API Keys** → **Create API Key**
+2. Name it e.g. `glavani-park-forms` → **Create**
+3. Copy the key (`re_...`) — you will not see it again
+
+### 5d. Cloudflare Pages — environment variables
+
+1. [dash.cloudflare.com](https://dash.cloudflare.com) → **Workers & Pages**
+2. Click your **Pages** project (not the old Worker)
+3. Top tab → **Settings** → left menu → **Environment variables**
+4. **Add variables** → scope **Production** → add:
+
+| Variable | Value |
+|----------|--------|
+| `RESEND_API_KEY` | `re_...` (paste API key) |
+| `RESEND_FROM_EMAIL` | `info@glavani-park.com` |
+| `RESEND_TO_EMAIL` | `info@glavanipark.com` |
+| `SITE_BASE` | `https://glavani-park.com` |
+
+5. **Save**
+
+Defaults in code match the table above if you only set `RESEND_API_KEY`.
+
+### 5e. Redeploy and test
+
+1. Same Pages project → **Deployments** → latest deploy → **⋯** → **Retry deployment**
+2. After it finishes, test:
+   - https://glavani-park.com/en/contact/
+   - https://glavani-park.com/en/reservation/
+3. Check `info@glavanipark.com` inbox (and spam) for the test messages
+
+When you later control `glavanipark.com` DNS, verify that domain in Resend and change `RESEND_FROM_EMAIL` to `info@glavanipark.com`.
 
 ## 6. Post-deploy verification
 
