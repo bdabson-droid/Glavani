@@ -19,6 +19,35 @@ PHONES = (
     },
 )
 
+NIGEL_PHONE = PHONES[0]
+
+
+def limits_call_link() -> str:
+    """Clickable tel link for Nigel — used for height/weight limit questions."""
+    p = NIGEL_PHONE
+    return f'<a href="tel:{p["tel"]}">{p["display"]}</a>'
+
+
+def limits_call_plain() -> str:
+    return NIGEL_PHONE["display"]
+
+
+def limits_call_cta(lang: str, *, unsure: bool = True) -> str:
+    link = limits_call_link()
+    if lang == "hr":
+        tail = " ako niste sigurni." if unsure else "."
+        return f"Nazovite nas na {link}{tail}"
+    tail = " if you are unsure." if unsure else "."
+    return f"Call us on {link}{tail}"
+
+
+def limits_call_prompt(lang: str, continuation: str) -> str:
+    """Call CTA where more text follows the phone link."""
+    link = limits_call_link()
+    if lang == "hr":
+        return f"Nazovite nas na {link} {continuation}"
+    return f"Call us on {link} {continuation}"
+
 VISITOR = {
     "en": {
         "hours_label": "Open daily",
