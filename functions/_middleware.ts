@@ -66,9 +66,8 @@ async function sendParkEmail(
   }
 
   const payload: Record<string, unknown> = {
-    from: `${fromLabel} <booking@glavanipark.com>`,
+    from: `${fromLabel} <info@glavanipark.com>`,
     to: ["info@glavanipark.com"],
-    cc: ["office@glavanipark.com"],
     subject,
     text: body,
   };
