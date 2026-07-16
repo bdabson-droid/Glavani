@@ -2238,10 +2238,75 @@ body.page-404.is-hr .lang-en.block { display: none; }
   margin-top: 1.25rem;
 }
 
-.home-reviews .section__heading p {
+.home-testimonials__inner {
+  max-width: 52rem;
+  margin-inline: auto;
+  text-align: center;
+}
+.home-testimonials h2 {
+  margin-bottom: 0.75rem;
+}
+.home-testimonials__rating {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem 0.75rem;
+  margin: 0 0 1.5rem;
   color: var(--rock-mid);
   font-size: 0.9375rem;
 }
+.home-testimonials__stars {
+  color: #4285f4;
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+}
+.home-testimonials__score strong {
+  color: var(--green-deep);
+  font-size: 1.05rem;
+}
+.home-testimonials__quotes {
+  display: grid;
+  gap: 1rem;
+  text-align: left;
+}
+@media (min-width: 720px) {
+  .home-testimonials__quotes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+.home-testimonials__quote {
+  margin: 0;
+  padding: 1.1rem 1rem;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  border-left: 4px solid #4285f4;
+}
+.home-testimonials__quote p {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--rock-dark);
+  font-style: italic;
+}
+.home-testimonials__author {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--rock-mid);
+}
+.home-testimonials__link {
+  margin: 1.35rem 0 0;
+  font-size: 0.9375rem;
+}
+.home-testimonials__link a {
+  font-weight: 600;
+}
+
 .review-carousel {
   position: relative;
   display: grid;
