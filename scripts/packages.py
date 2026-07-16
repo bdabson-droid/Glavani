@@ -17,8 +17,8 @@ def booking_page_href(lang: str) -> str:
 CHILD_MAX_AGE = 10
 
 LEGACY_GIFT_VOUCHER_URLS = {
-    "en": "https://www.glavanipark.com/en/gift_card/4",
-    "hr": "https://www.glavanipark.com/hr/gift_card/4",
+    "en": "https://glavani-park.com/en/prices/",
+    "hr": "https://glavani-park.com/hr/cijene/",
 }
 
 GROUP_LABELS = {

@@ -1,61 +1,64 @@
-name: Deploy GitHub Pages
+name: Build static site
 
 on:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: site-build-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install pillow
+        run: |
+          npm install
+          pip install pillow
 
       - name: Build site for production
         env:
-          SITE_BASE: https://www.glavani-park.com
+          SITE_BASE: https://glavani-park.com
         run: python3 scripts/build_site.py
 
       - name: Verify build output
-        run: |
-          test -f en/reservation/index.html
-          test ! -d en/book
-          ! grep -r 'preview-banner' en hr index.html 404.html || (echo 'Preview banners still in build' && exit 1)
-          ! grep -r 'preview-booking-guard' en hr || (echo 'Preview guard still referenced' && exit 1)
-          grep -q 'href="reservation/"' en/index.html
-          grep -q 'booking-app' en/reservation/index.html
+        run: python3 scripts/verify_site.py
 
-      - name: Prepare Pages artifact
-        run: |
-          mkdir -p _site
-          cp -r assets en hr images _site/
-          cp index.html 404.html robots.txt sitemap.xml _redirects _headers manifest.webmanifest _site/
-          touch _site/.nojekyll
+      - name: Check Cloudflare Functions compile
+        run: npx wrangler pages functions build
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
         with:
-          path: _site
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          name: glavani-park-static
+          path: |
+            assets
+            en
+            hr
+            images
+            functions
+            index.html
+            404.html
+            robots.txt
+            sitemap.xml
+            _redirects
+            _headers
+            manifest.webmanifest
+            package.json

@@ -1,6 +1,14 @@
-# Glavani Park CMS → static site migration redirects
-# Deploy with Cloudflare Pages or Netlify for true 301 responses.
+# Glavani Park — domain + CMS migration redirects
+# Deploy with Cloudflare Pages for true HTTP 301 responses.
 # GitHub Pages alone uses the 404.html client-side fallback.
+
+https://www.glavani-park.com/*  https://glavani-park.com/:splat  301
+http://glavani-park.com/*  https://glavani-park.com/:splat  301
+http://www.glavani-park.com/*  https://glavani-park.com/:splat  301
+https://www.glavanipark.com/*  https://glavani-park.com/:splat  301
+http://www.glavanipark.com/*  https://glavani-park.com/:splat  301
+https://glavanipark.com/*  https://glavani-park.com/:splat  301
+http://glavanipark.com/*  https://glavani-park.com/:splat  301
 
 /  /hr/  301
 /de  /en/  301

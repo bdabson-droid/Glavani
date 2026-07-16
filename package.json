@@ -3,7 +3,8 @@
   "private": true,
   "description": "Glavani Park static site with Cloudflare Pages Functions",
   "scripts": {
-    "build": "python3 scripts/build_site.py"
+    "build": "SITE_BASE=https://glavani-park.com python3 scripts/build_site.py",
+    "verify": "python3 scripts/verify_site.py"
   },
   "dependencies": {
     "@cloudflare/pages-plugin-static-forms": "^1.0.3"

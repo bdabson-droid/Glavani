@@ -1,13 +1,14 @@
 """Concise visitor FAQs for Glavani Park."""
 
-import os
 import re
 
 from booking_policy import BOOKING_POLICY
 from brand_voice import ONLINE_BOOKING_MAX
 from packages import PRICES_SLUGS, booking_page_href, pricing_hub_blurb
+from site_config import PRODUCTION_BASE
 
-PRODUCTION_BASE = "https://www.glavanipark.com"
+import os
+
 BASE = os.environ.get("SITE_BASE", PRODUCTION_BASE).rstrip("/")
 
 FAQ_SLUGS = {"en": "faq", "hr": "cesta-pitanja"}

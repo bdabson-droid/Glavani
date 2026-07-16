@@ -71,6 +71,7 @@ from visitor_gallery import (  # noqa: E402
 )
 from migration_redirects import render_redirect_script, render_redirects_file  # noqa: E402
 from site_config import (  # noqa: E402
+    CANONICAL_HOST,
     CLOUDFLARE_ANALYTICS_TOKEN,
     CONTACT_SLUGS,
     COOKIE_SLUGS,
@@ -98,7 +99,7 @@ def site_path_from_base() -> str:
 def footer_site_link() -> tuple[str, str]:
     """Footer home link (href, label)."""
     if BASE.rstrip("/") == PRODUCTION_BASE.rstrip("/"):
-        return f"{PRODUCTION_BASE}/", "www.glavani-park.com"
+        return f"{PRODUCTION_BASE}/", CANONICAL_HOST
     host = BASE.replace("https://", "").replace("http://", "")
     return f"{BASE}/", host
 
@@ -319,10 +320,53 @@ def fetch_external_images() -> None:
                 print(f"  image: {path.name} (external)")
                 continue
             img = Image.open(io.BytesIO(data)).convert("RGB")
-            img.save(path, "WEBP", quality=86, method=6)
+            max_w = 1400
+            if img.width > max_w:
+                img = img.resize(
+                    (max_w, int(img.height * max_w / img.width)),
+                    Image.Resampling.LANCZOS,
+                )
+            img.save(path, "WEBP", quality=82, method=6)
             print(f"  image: {path.name} (external)")
         except OSError as exc:
             print(f"  warn: could not fetch {filename}: {exc}")
+
+
+def optimize_image_library() -> None:
+    """Resize and recompress local images for faster static delivery."""
+    img_dir = ROOT / "images"
+    skip = {"favicon.ico", "glavani-park-logo.png", "glavani-park-logo-small.png", "stay-safe.png"}
+    for path in sorted(img_dir.iterdir()):
+        if not path.is_file() or path.name in skip:
+            continue
+        suffix = path.suffix.lower()
+        if suffix not in {".webp", ".jpg", ".jpeg", ".png"}:
+            continue
+        try:
+            img = Image.open(path)
+            if img.mode not in ("RGB", "RGBA"):
+                img = img.convert("RGB")
+            limit = 1200 if any(
+                token in path.name
+                for token in ("banner", "youtube-still", "adventure-istria", "logo")
+            ) else 1400
+            changed = False
+            if img.width > limit:
+                new_h = max(1, int(img.height * limit / img.width))
+                img = img.resize((limit, new_h), Image.Resampling.LANCZOS)
+                changed = True
+            out = path
+            if suffix in {".jpg", ".jpeg", ".png"}:
+                out = path.with_suffix(".webp")
+                changed = True
+            if changed or suffix == ".webp":
+                save_img = img.convert("RGB") if img.mode == "RGBA" else img
+                save_img.save(out, "WEBP", quality=80, method=6)
+                if out != path and path.exists():
+                    path.unlink()
+                print(f"  image optimized: {out.name}")
+        except OSError as exc:
+            print(f"  warn: optimize {path.name}: {exc}")
 
 
 def center_crop_to_aspect(img: Image.Image, aspect: float) -> Image.Image:
@@ -449,7 +493,7 @@ def process_local_image_crops() -> None:
         print(f"  image: {path.name} (from {source_name})")
 
 
-SOCIAL_SHARE_IMAGE = "glavani-park-adventure-istria-croatia.jpg"
+SOCIAL_SHARE_IMAGE = "glavani-park-adventure-istria-croatia.webp"
 SOCIAL_SHARE_CATAPULT = "human-catapult-youtube-still.webp"
 
 
@@ -519,7 +563,7 @@ def generate_social_share_image() -> None:
         draw.text((x + dx, y + 36 + dy), subtitle, fill=(0, 0, 0), font=small)
     draw.text((x, y), title, fill=(255, 255, 255), font=font)
     draw.text((x, y + 36), subtitle, fill=(240, 253, 244), font=small)
-    img.save(out, "JPEG", quality=88, optimize=True)
+    img.save(out, "WEBP", quality=84, method=6)
     print(f"  image: {out.name} (social share)")
 
 
@@ -639,7 +683,7 @@ def location_contact_link(lang: str) -> str:
         detail = "30 min from Pula · map & GPS"
         alt = "Glavani Park location"
     photo = (
-        f'<img class="contact-link__photo" src="/images/glavani-park-adventure-istria-croatia.jpg" '
+        f'<img class="contact-link__photo" src="/images/{SOCIAL_SHARE_IMAGE}" '
         f'alt="{alt}" width="36" height="36" loading="lazy">'
     )
     return (
@@ -957,7 +1001,7 @@ def head_meta(
     en_slug: str | None = None,
     hr_slug: str | None = None,
     is_home: bool = False,
-    og_image: str = "glavani-park-adventure-istria-croatia.jpg",
+    og_image: str = "glavani-park-adventure-istria-croatia.webp",
     og_image_alt: str | None = None,
     extra_head: str = "",
     early_head: str = "",
@@ -973,6 +1017,9 @@ def head_meta(
     safe_desc = esc(description)
     safe_keywords = esc(keywords)
     safe_image_alt = esc(image_alt)
+    hero_preload = ""
+    if og_image and "logo" not in og_image.lower():
+        hero_preload = f'  <link rel="preload" href="/images/{og_image}" as="image" fetchpriority="high">\n'
     return f"""<!DOCTYPE html>
 <html lang="{lang}">
 <head>
@@ -1005,7 +1052,7 @@ def head_meta(
   <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="/images/glavani-park-logo.png">
   <meta name="theme-color" content="#0a0a0a">
-  <link rel="preload" href="/assets/css/site.min.css" as="style">
+{hero_preload}  <link rel="preload" href="/assets/css/site.min.css" as="style">
   <link rel="stylesheet" href="/assets/css/site.min.css">
 {render_analytics_head()}
 {extra_head}
@@ -1070,10 +1117,40 @@ def site_org_id(lang: str) -> str:
     return f"{BASE}/{lang}/#glavani-park"
 
 
-def webpage_schema(url: str, name: str, description: str, lang: str) -> dict:
-    org = site_org_id(lang)
+def park_org_node(lang: str) -> dict:
+    """LocalBusiness + TouristAttraction node referenced across inner pages."""
+    home_url = f"{BASE}/{lang}/"
     return {
-        "@context": "https://schema.org",
+        "@type": ["LocalBusiness", "TouristAttraction"],
+        "@id": f"{home_url}#glavani-park",
+        "name": "Glavani Park",
+        "url": home_url,
+        "telephone": "+385918964525",
+        "image": f"{BASE}/images/{SOCIAL_SHARE_IMAGE}",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Glavani 10",
+            "addressLocality": "Barban",
+            "postalCode": "52207",
+            "addressRegion": "Istria",
+            "addressCountry": "HR",
+        },
+        "geo": {"@type": "GeoCoordinates", "latitude": GLAVANI_LAT, "longitude": GLAVANI_LNG},
+        "hasMap": GLAVANI_MAPS_LINK,
+        "sameAs": [GLAVANI_MAPS_LINK, TRIPADVISOR_URL, FACEBOOK_URL],
+    }
+
+
+def webpage_schema(
+    url: str,
+    name: str,
+    description: str,
+    lang: str,
+    *,
+    include_org: bool = True,
+) -> dict:
+    org = site_org_id(lang)
+    page = {
         "@type": "WebPage",
         "@id": f"{url}#webpage",
         "url": url,
@@ -1082,6 +1159,12 @@ def webpage_schema(url: str, name: str, description: str, lang: str) -> dict:
         "inLanguage": "hr-HR" if lang == "hr" else "en-GB",
         "isPartOf": {"@id": org},
         "about": {"@id": org},
+    }
+    if not include_org:
+        return {"@context": "https://schema.org", **page}
+    return {
+        "@context": "https://schema.org",
+        "@graph": [page, park_org_node(lang)],
     }
 
 
@@ -1281,7 +1364,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
           <p style="margin-top:1rem;"><a class="btn-primary" href="{call_href(lang)}" style="width:100%;font-size:0.875rem;">{cta}</a></p>
         </aside>"""
 
-    img = page.get("image", "glavani-park-adventure-istria-croatia.jpg")
+    img = page.get("image", SOCIAL_SHARE_IMAGE)
     location_map = render_location_map(lang) if page.get("location_map") else ""
     map_head = LOCATION_MAP_HEAD if page.get("location_map") else ""
     page_scripts = render_page_scripts(
@@ -2749,6 +2832,7 @@ def main() -> None:
     process_local_image_crops()
     generate_social_share_image()
     fetch_external_images()
+    optimize_image_library()
 
     print("Building English pages...")
     import shutil

@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /upload/
 
-Sitemap: https://www.glavani-park.com/sitemap.xml
+Sitemap: https://glavani-park.com/sitemap.xml
