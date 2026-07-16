@@ -4,7 +4,7 @@ Each page targets 800–1200 words of substantive Istria tourism and park conten
 """
 
 from booking_policy import BOOKING_POLICY
-from brand_voice import ONLINE_BOOKING_MAX
+from brand_voice import ONLINE_BOOKING_MAX, limits_call_cta, limits_call_prompt
 
 _EN_BOOKING = BOOKING_POLICY["en"]
 
@@ -289,8 +289,8 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'levels, and ground-level activities suitable for '
                                'mixed-age groups. The Human Catapult and 20-metre '
                                'Quick Jump are aimed at older teens and adults with '
-                               'specific height and health requirements — staff advise '
-                               'on suitability at the ticket desk.</p>']},
+                               'specific height and health requirements — '
+                               f'{limits_call_cta("en")}</p>']},
                {'h2': 'A Full Family Day at the Park',
                 'paragraphs': ['<p>Most families spend three to four hours at Glavani '
                                'Park, though enthusiastic groups often stay longer. '
@@ -352,7 +352,7 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'and the high swing are popular with teens; the Human '
                                'Catapult and Quick Jump have stricter age and health '
                                'criteria. If you are unsure which activities suit your '
-                               'children, call ahead — our team will help you plan a '
+                               f'children, {limits_call_prompt("en", "and our team will help you plan a ")}'
                                "visit that matches your family's ages and confidence "
                                'levels.</p>',
                                '<p>Read our full <a href="/en/safety/">safety and '
@@ -365,9 +365,8 @@ PAGES = [{'slug': 'things-to-do-in-istria',
   'faqs': [{'q': 'What is the minimum age for children at Glavani Park?',
             'a': 'The 2-metre yellow high-ropes route is designed for younger children '
                  'with adult supervision. Specific age and height limits apply to '
-                 'taller attractions like the Human Catapult and Quick Jump. Contact '
-                 '+385 91 896 4525 before visiting if you have questions about '
-                 'suitability for your children.'},
+                 'taller attractions like the Human Catapult and Quick Jump. '
+                 f'{limits_call_prompt("en", "before visiting if you have questions about suitability for your children.")}'},
            {'q': 'Can parents participate with their children?',
             'a': 'Absolutely. Parents are encouraged to join the yellow and blue '
                  'routes alongside their children. Many families treat it as a shared '
@@ -468,8 +467,8 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'visitors, from teenagers experiencing their first '
                                'aerial ride to adults seeking an adrenaline highlight '
                                'during an Istria road trip. Minimum height and weight '
-                               'limits apply for safety reasons — these are displayed '
-                               'at the ticket area and explained during the briefing. '
+                               'limits apply for safety reasons — '
+                               f'{limits_call_cta("en")} '
                                'Children who do not meet the minimum requirements can '
                                'still enjoy the 2-metre yellow high-ropes route and '
                                'other ground-level activities while older family '
@@ -564,8 +563,7 @@ PAGES = [{'slug': 'things-to-do-in-istria',
            {'q': 'What is the minimum age for the zipline at Glavani Park?',
             'a': 'Minimum height and age limits apply for safety. Younger children can '
                  'enjoy the 2-metre yellow route while older children and teens ride '
-                 'the ziplines. Call +385 91 896 4525 before visiting if you are '
-                 'unsure about suitability.'}],
+                 f'the ziplines. {limits_call_cta("en")}'}],
   'related': [{'slug': 'adventure-park-croatia',
                'title': 'Adventure Parks in Croatia',
                'desc': 'Full attraction overview at Glavani Park Istria'},
@@ -675,8 +673,8 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'supervision alongside park instructors — typically one '
                                'teacher or parent helper per small group in addition '
                                'to park staff. Minimum height and health requirements '
-                               'apply to certain attractions; these are communicated '
-                               'during booking so teachers can set accurate '
+                               'apply to certain attractions — '
+                               f'{limits_call_prompt("en", "when booking so teachers can set accurate ")}'
                                'expectations before the trip.</p>',
                                '<p>Full details of certifications and operational '
                                'standards are published on our <a '
@@ -731,8 +729,7 @@ PAGES = [{'slug': 'things-to-do-in-istria',
   'faqs': [{'q': 'What age groups can visit on a school trip?',
             'a': 'Primary through secondary ages are welcome. The yellow route suits '
                  'younger pupils; blue and black routes suit older students. Minimum '
-                 'height limits apply to some attractions — discuss your class profile '
-                 'when booking on +385 91 896 4525.'},
+                 f'{limits_call_prompt("en", "when booking to discuss your class profile.")}'},
            {'q': 'Do teachers need to pay?',
             'a': 'Teacher and supervisor ratios are agreed during booking. Contact the '
                  'park for current policy on complimentary supervisor places and '
@@ -968,8 +965,9 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'equipment function. They have authority to pause or '
                                'stop an activity if wind, rain, or participant health '
                                'raises concern. Minimum height, weight, age, and '
-                               'health restrictions exist for extreme attractions; '
-                               'these are enforced consistently, not waived under '
+                               'health restrictions exist for extreme attractions — '
+                               f'{limits_call_cta("en")} '
+                               'These are enforced consistently, not waived under '
                                'pressure.</p>',
                                '<p>Group visits — <a '
                                'href="/en/school-trips-istria/">school trips</a>, <a '

@@ -4,7 +4,7 @@ Svaka stranica sadrži 800–1200 riječi kvalitetnog turističkog i park sadrž
 """
 
 from booking_policy import BOOKING_POLICY
-from brand_voice import ONLINE_BOOKING_MAX
+from brand_voice import ONLINE_BOOKING_MAX, limits_call_cta, limits_call_prompt
 
 _HR_BOOKING = BOOKING_POLICY["hr"]
 
@@ -297,7 +297,8 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                'penjanje i aktivnosti na razini tla za mješovite '
                                'skupine. Ljudska katapulta i Quick Jump s 20 metara '
                                'namijenjeni su starijim tinejdžerima i odraslima s '
-                               'posebnim uvjetima — osoblje savjetuje na blagajni.</p>',
+                               'posebnim uvjetima — '
+                               f'{limits_call_cta("hr", unsure=False)}.</p>',
                                '<p>Glavani Park surađuje s lokalnim turističkim '
                                'organizacijama i redovito prima grupe iz cijele regije '
                                '— od pulskih kampova do obiteljskih vila u Motovunu. '
@@ -369,7 +370,8 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                'djeci, tinejdžerima i odraslima koji zadovoljavaju '
                                'minimalnu visinu. Zipline i visoka ljuljačka popularni '
                                'su kod tinejdžera; katapulta i Quick Jump imaju strože '
-                               'uvjete. Ako niste sigurni, nazovite unaprijed — pomoći '
+                               'uvjete. Ako niste sigurni, '
+                               f'{limits_call_prompt("hr", "i pomoći ")}'
                                'ćemo planirati posjet.</p>',
                                '<p>Pročitajte stranicu <a '
                                'href="/hr/sigurnost/">sigurnost i oprema</a> za '
@@ -379,7 +381,7 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
   'faqs': [{'q': 'Koja je minimalna dob djece u Glavani Parku?',
             'a': 'Žuta staza visine 2 m dizajnirana je za mlađu djecu pod nadzorom '
                  'odrasle osobe. Za više atrakcije vrijede posebni uvjeti — '
-                 'kontaktirajte +385 98 224 314 prije posjeta.'},
+                 f'{limits_call_prompt("hr", "prije posjeta.")}'},
            {'q': 'Mogu li roditelji sudjelovati s djecom?',
             'a': 'Apsolutno. Roditelje potičemo na žutu i plavu stazu uz djecu. Mnoge '
                  'obitelji doživljavaju posjet kao zajedničku avanturu. Svaki sudionik '
@@ -488,8 +490,9 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                'posjetitelja — od tinejdžera na prvoj zračnoj vožnji '
                                'do odraslih u potrazi za vrhuncem istarskog odmora. '
                                'Minimalna visina i težina vrijede iz sigurnosnih '
-                               'razloga — prikazane su na blagajni i objašnjavaju se '
-                               'na obuci. Djeca koja ne zadovoljavaju uvjete mogu '
+                               'razloga — '
+                               f'{limits_call_cta("hr")} '
+                               'Djeca koja ne zadovoljavaju uvjete mogu '
                                'uživati u žutoj stazi na 2 m i drugim aktivnostima dok '
                                'stariji voze zipline.</p>',
                                '<p>Potrebne su zatvorene sportske cipele i udobna '
@@ -584,8 +587,7 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
            {'q': 'Koja je minimalna dob za zipline u Glavani Parku?',
             'a': 'Minimalna visina i dob vrijede iz sigurnosnih razloga. Mlađa djeca '
                  'mogu uživati u žutoj stazi na 2 m, dok starija djeca i tinejdžeri '
-                 'voze zipline. Nazovite +385 98 224 314 prije posjeta ako niste '
-                 'sigurni.'}],
+                 f'voze zipline. {limits_call_cta("hr")}'}],
   'related': [{'slug': 'avanturisticki-park-hrvatska',
                'title': 'Avanturistički parkovi u Hrvatskoj',
                'desc': 'Pregled atrakcija u Glavani Parku Istria'},
@@ -703,7 +705,8 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                'instruktore parka — tipično jedan nastavnik ili '
                                'roditelj po manjoj skupini uz osoblje parka. Minimalna '
                                'visina i zdravstveni uvjeti vrijede za određene '
-                               'atrakcije; komuniciraju se pri rezervaciji kako bi '
+                               'atrakcije — '
+                               f'{limits_call_prompt("hr", "pri rezervaciji kako bi ")}'
                                'učitelji postavili realna očekivanja.</p>',
                                '<p>Detalji certifikata i operativnih standarda '
                                'objavljeni su na <a href="/hr/sigurnost/">stranici o '
@@ -775,8 +778,8 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
   'faqs': [{'q': 'Koje dobne skupine mogu doći na školski izlet?',
             'a': 'Dobrodošli učenici od osnovne do srednje škole. Žuta staza odgovara '
                  'mlađima; plava i crna starijima. Minimalna visina vrijedi za neke '
-                 'atrakcije — razgovarajte o profilu razreda pri rezervaciji na +385 '
-                 '98 224 314.'},
+                 'atrakcije — '
+                 f'{limits_call_prompt("hr", "pri rezervaciji kako biste razgovarali o profilu razreda.")}'},
            {'q': 'Trebaju li nastavnici plaćati ulaz?',
             'a': 'Omjeri nadzora i cijene za nastavnike dogovaraju se pri rezervaciji. '
                  'Kontaktirajte park za trenutnu politiku besplatnih mjesta za '
@@ -1047,7 +1050,8 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                'zaustaviti aktivnost ako vjetar, kiša ili zdravlje '
                                'sudionika izazovu zabrinutost. Minimalna visina, '
                                'težina, dob i zdravstvena ograničenja za ekstremne '
-                               'atrakcije dosljedno se provode.</p>',
+                               'atrakcije dosljedno se provode — '
+                               f'{limits_call_cta("hr")}</p>',
                                '<p>Grupni posjeti — <a '
                                'href="/hr/skolski-izleti-istri/">školski izleti</a>, '
                                '<a href="/hr/team-building-istri/">korporativni '

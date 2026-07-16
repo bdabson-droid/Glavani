@@ -4,7 +4,7 @@ import os
 import re
 
 from booking_policy import BOOKING_POLICY
-from brand_voice import ONLINE_BOOKING_MAX
+from brand_voice import ONLINE_BOOKING_MAX, limits_call_cta
 from packages import PRICES_SLUGS, booking_page_href, pricing_hub_blurb
 
 PRODUCTION_BASE = "https://www.glavanipark.com"
@@ -125,7 +125,7 @@ VISITOR_FAQS = {
             "a": (
                 "Children's prices apply to visitors under 10 years old. The yellow training route at Glavani Park suits younger children with adult supervision. "
                 "Taller attractions such as the Human Catapult and Quick Jump have minimum age and height limits — "
-                "call +385 91 896 4525 if unsure."
+                f"{limits_call_cta('en')}"
             ),
         },
         {
@@ -199,7 +199,8 @@ VISITOR_FAQS = {
             "q": "Koje dobne skupine mogu sudjelovati u Glavani Parku?",
             "a": (
                 "Dječje cijene vrijede za posjetitelje mlađe od 10 godina. Žuta trening ruta u Glavani Parku odgovara mlađoj djeci pod nadzorom odrasle osobe. "
-                "Više atrakcije imaju minimalnu dob i visinu — nazovite +385 98 224 314 ako niste sigurni."
+                "Više atrakcije imaju minimalnu dob i visinu — "
+                f"{limits_call_cta('hr')}"
             ),
         },
         {

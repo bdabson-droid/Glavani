@@ -3,7 +3,7 @@ Individual activity pages — brief copy and video placeholder per attraction.
 """
 
 from booking_policy import activity_booking_answer
-from brand_voice import ONLINE_BOOKING_MAX
+from brand_voice import ONLINE_BOOKING_MAX, limits_call_cta
 from packages import booking_page_href
 from packages import package_price_faq_answer
 
@@ -39,7 +39,7 @@ ACTIVITIES = [
             "image_alt": "Human Catapult launch at Glavani Park adrenaline park, Istria Croatia",
             "paragraphs": [
                 "Feel race-car acceleration in a single second on Croatia's only Human Catapult — one of only a handful of horizontal catapult rides in Europe. Strap in, hold the release, and go from 0 to around 100 km/h quicker than an F1 car off the line.",
-                "Staff fit your harness, run a full safety briefing, and supervise every launch. More than 9,000 catapults have been completed at Glavani Park and almost every guest loves it. Minimum age, height and weight limits apply — ask at the ticket desk or call ahead if you are unsure.",
+                f"Staff fit your harness, run a full safety briefing, and supervise every launch. More than 9,000 catapults have been completed at Glavani Park and almost every guest loves it. Minimum age, height and weight limits apply — {limits_call_cta('en')}",
             ],
             "video_heading": "Human Catapult video",
             "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
@@ -56,7 +56,7 @@ ACTIVITIES = [
             "image_alt": "Lansiranje ljudske katapulata u Glavani Parku, Istria Hrvatska",
             "paragraphs": [
                 "Osjetite ubrzanje trkaćeg automobila u jednoj sekundi na jedinoj ljudskoj katapulti u Hrvatskoj — jedna od rijetkih horizontalnih katapulti u Europi. Zavežite se, povucite za puštanje i krenite s 0 na oko 100 km/h brže nego Formula 1 s mjesta.",
-                "Osoblje prilagođava harnes, provodi sigurnosnu obuku i nadzire svako lansiranje. U Glavani Parku je obavljeno više od 9.000 lansiranja i gotovo svi gosti odlaze oduševljeni. Primjenjuju se minimalna dob, visina i težina — pitajte na blagajni ili nazovite unaprijed.",
+                f"Osoblje prilagođava harnes, provodi sigurnosnu obuku i nadzire svako lansiranje. U Glavani Parku je obavljeno više od 9.000 lansiranja i gotovo svi gosti odlaze oduševljeni. Primjenjuju se minimalna dob, visina i težina — {limits_call_cta('hr')}",
             ],
             "video_heading": "Video ljudske katapulata",
             "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
@@ -335,7 +335,7 @@ ACTIVITIES = [
             "image_alt": "Guest crossing the Devil's Causeway Course on a unicycle at Glavani Park, Istria",
             "paragraphs": [
                 "Once you've completed the yellow and blue routes — or when you're already experienced at our adventure park — it's time to head to the Devil's Causeway Course and cross it on a unicycle. You ride a skateboard first, then cross a wooden slatted bridge before the unicycle — the most difficult part of the park.",
-                "If you weigh more than 85 kg or aren't tall enough to reach the unicycle pedals, this game may not be suitable; you can walk on the wire instead. Staff guide you through seat adjustment, balance, and pedalling — hold the safety rope with one hand and the seat with the other. After the unicycle, complete a ropeline and a simple Japanese bridge. The giant swing is the best game to do next.",
+                f"If you weigh more than 85 kg or aren't tall enough to reach the unicycle pedals, this game may not be suitable; you can walk on the wire instead. Staff guide you through seat adjustment, balance, and pedalling — hold the safety rope with one hand and the seat with the other. After the unicycle, complete a ropeline and a simple Japanese bridge. The giant swing is the best game to do next. {limits_call_cta('en')}",
             ],
         },
         "hr": {
@@ -353,7 +353,7 @@ ACTIVITIES = [
             "image_alt": "Gost prelazi Stazu Vražjeg puta na monociklu u Glavani Parku, Istria",
             "paragraphs": [
                 "Kada ste prošli žutu i plavu stazu — ili ako ste već iskusni u našem avanturističkom parku — vrijeme je da krenete na Stazu Vražjeg puta i pređete je na monociklu. Prvo vozite skateboard, zatim prelazite drveni most prije monocikla — najtežeg dijela parka.",
-                "Ako težite više od 85 kg ili niste dovoljno visoki da dosegnete pedale monocikla, ova igra možda nije prikladna; možete umjesto toga hodati po žici. Osoblje vas vodi kroz namještanje sjedala, ravnotežu i vožnju — jednom rukom držite sigurnosnu užad, drugom sjedalo. Nakon monocikla prijeđite slackline i jednostavan japanski most. Visoka ljuljačka je najbolja sljedeća atrakcija.",
+                f"Ako težite više od 85 kg ili niste dovoljno visoki da dosegnete pedale monocikla, ova igra možda nije prikladna; možete umjesto toga hodati po žici. Osoblje vas vodi kroz namještanje sjedala, ravnotežu i vožnju — jednom rukom držite sigurnosnu užad, drugom sjedalo. Nakon monocikla prijeđite slackline i jednostavan japanski most. Visoka ljuljačka je najbolja sljedeća atrakcija. {limits_call_cta('hr')}",
             ],
         },
     },
@@ -376,7 +376,7 @@ ACTIVITIES = [
             "image_alt": "Outdoor climbing wall at Glavani Park adventure park, Istria",
             "paragraphs": [
                 "Glavani Park's outdoor climbing wall offers several routes on a purpose-built structure in the forest clearing. Staff fit your harness and helmet, explain belay signals, and support you whether it is your first climb or you are building confidence for the high-ropes courses.",
-                "The wall works well for families, school groups warming up, and visitors taking a break between bigger rides. Wear trainers with a good grip. Younger children can often climb with instructor assistance — ask on arrival about suitability.",
+                f"The wall works well for families, school groups warming up, and visitors taking a break between bigger rides. Wear trainers with a good grip. Younger children can often climb with instructor assistance — {limits_call_cta('en')}",
             ],
             "video_heading": "Climbing Wall video",
             "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
@@ -393,7 +393,7 @@ ACTIVITIES = [
             "image_alt": "Vanjski penjački zid u Glavani Parku, Istria",
             "paragraphs": [
                 "Vanjski penjački zid u Glavani Parku nudi nekoliko smjerova na namjenskoj konstrukciji u šumskoj čistini. Osoblje prilagođava harnes i kacigu, objašnjava signale i podržava vas bez obzira je li prvo penjanje ili gradite samopouzdanje za visoke staze.",
-                "Zid je odličan za obitelji, školske grupe na zagrijavanju i posjetitelje između većih vožnji. Nosite tenisice s dobrim gripom. Mlađa djeca često mogu penjati uz pomoć instruktora — pitajte na ulazu o prikladnosti.",
+                f"Zid je odličan za obitelji, školske grupe na zagrijavanju i posjetitelje između većih vožnji. Nosite tenisice s dobrim gripom. Mlađa djeca često mogu penjati uz pomoć instruktora — {limits_call_cta('hr')}",
             ],
             "video_heading": "Video penjačkog zida",
             "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
@@ -421,7 +421,7 @@ ACTIVITIES = [
             ),
             "paragraphs": [
                 "Strap into Glavani Park's Aerotrim — a human gyroscope that spins you through multiple axes while you stay secured in the frame. Staff set the pace, explain how to hold your body, and supervise every session in the forest clearing.",
-                "It is a unique sensation between thrill and disorientation — popular with teenagers and adults who want something different from the ziplines and catapult. Height, age, and health restrictions apply; ask at the ticket desk before you book.",
+                f"It is a unique sensation between thrill and disorientation — popular with teenagers and adults who want something different from the ziplines and catapult. Height, age, and health restrictions apply — {limits_call_cta('en')}",
             ],
             "video_heading": "Aerotrim video",
             "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
@@ -441,7 +441,7 @@ ACTIVITIES = [
             ),
             "paragraphs": [
                 "Zavežite se u Aerotrim Glavani Parka — ljudski žiroskop koji vas okreće u više osi dok ste sigurno pričvršćeni u okviru. Osoblje određuje tempo, objašnjava položaj tijela i nadzire svaku vožnju u šumskoj čistini.",
-                "Jedinstven je spoj adrenalina i dezorijentacije — popularan među tinejdžerima i odraslima koji žele nešto drugačije od ziplinea i katapulata. Primjenjuju se ograničenja visine, dobi i zdravlja; pitajte na blagajni prije rezervacije.",
+                f"Jedinstven je spoj adrenalina i dezorijentacije — popularan među tinejdžerima i odraslima koji žele nešto drugačije od ziplinea i katapulata. Primjenjuju se ograničenja visine, dobi i zdravlja — {limits_call_cta('hr')}",
             ],
             "video_heading": "Video Aerotrima",
             "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",

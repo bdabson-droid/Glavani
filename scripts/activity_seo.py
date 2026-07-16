@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from activities import ACTIVITIES
-from brand_voice import ONLINE_BOOKING_MAX
+from brand_voice import ONLINE_BOOKING_MAX, limits_call_cta, limits_call_link
 from faqs import FAQ_SLUGS
 from packages import BOOKING_SLUGS, PRICES_SLUGS, booking_page_href, pricing_visit_footer_line
 
@@ -60,6 +60,8 @@ def _fmt(text: str, lang: str) -> str:
     """Interpolate link placeholders in SEO snippet strings."""
     return text.format(
         pricing_footer=pricing_visit_footer_line(lang),
+        limits_call=limits_call_link(),
+        limits_call_cta=limits_call_cta(lang),
         **_links(lang),
     )
 
@@ -79,7 +81,7 @@ def _human_catapult_snippets(lang: str) -> list[str]:
             "<h2>Je li sigurna?</h2>",
             "<p>Da. Svako lansiranje vodi kvalificirani instruktor. Oprema je CE certificirana, provjerava se dnevno, a prije puštanja dobivate punu obuku i provjeru harnesa. Katapulta je projektirana za kontrolirano lansiranje i zaustavljanje — niste slobodni u zraku kao na bungeeju. Više o standardima na našoj <a href=\"{safety}\">stranici o sigurnosti</a>.</p>",
             "<h2>Tko može voziti? Dob, visina i težina</h2>",
-            "<p>Primjenjuju se minimalna dob, visina i težina — pitajte na blagajni ili nazovite unaprijed ako niste sigurni. Osoblje provjerava svakog gosta prije lansiranja i savjetuje ako aktivnost nije prikladna. Djeca mlađa od tinejdžerske dobi obično ne ispunjavaju uvjete; stariji tinejdžeri i odrasli koji zadovoljavaju limite često uživaju u vožnji.</p>",
+            "<p>Primjenjuju se minimalna dob, visina i težina — {limits_call_cta} Osoblje provjerava svakog gosta prije lansiranja i savjetuje ako aktivnost nije prikladna. Djeca mlađa od tinejdžerske dobi obično ne ispunjavaju uvjete; stariji tinejdžeri i odrasli koji zadovoljavaju limite često uživaju u vožnji.</p>",
             "<h2>Koliko dugo traje iskustvo?</h2>",
             "<p>Sam lansirajući trenutak traje sekunde, ali osjećaj — ubrzanje brže od F1 automobila — ostaje s vama. Mnogi gosti kažu da je uzbudljiviji od bungee skoka jer ubrzanje osjetite odmah. Uključite vrijeme za obuku, prilagodbu harnesa i red: računajte 15–20 minuta po grupi na katapulti.</p>",
             "<h2>Mogu li gledatelji promatrati?</h2>",
@@ -108,7 +110,7 @@ def _human_catapult_snippets(lang: str) -> list[str]:
         "<h2>Is it safe?</h2>",
         "<p>Yes. Every launch is instructor-led. Equipment is CE-certified, checked daily, and you receive a full briefing and harness check before release. The catapult is engineered for controlled launch and deceleration — you are not free-falling like on a bungee. Read more about our standards on the <a href=\"{safety}\">safety page</a>.</p>",
         "<h2>Who can ride? Age, height and weight</h2>",
-        "<p>Minimum age, height and weight limits apply — ask at the ticket desk or call ahead if you are unsure. Staff check every guest before launch and will advise if the activity is not suitable. Younger children typically do not meet the requirements; older teens and adults who fit the limits usually enjoy the ride.</p>",
+        "<p>Minimum age, height and weight limits apply — {limits_call_cta} Staff check every guest before launch and will advise if the activity is not suitable. Younger children typically do not meet the requirements; older teens and adults who fit the limits usually enjoy the ride.</p>",
         "<h2>How long does the experience take?</h2>",
         "<p>The launch itself lasts seconds, but the sensation — acceleration quicker than an F1 car — stays with you. Many guests say it is more exhilarating than a bungee jump because you feel the rush immediately. Allow time for briefing, harness fitting and queueing: plan on 15–20 minutes per group at the catapult.</p>",
         "<h2>Can spectators watch?</h2>",
@@ -136,7 +138,7 @@ def _high_swing_snippets(lang: str) -> list[str]:
             "<h2>Je li zastrašujuća?</h2>",
             "<p>Intenzivnija je od obiteljskih vožnji, ali mnogi gosti koji su prošli zipline ili trening rutu uživaju u ljuljački kao sljedećem koraku. Možete gledati druge prije nego odlučite. Osoblje je strpljivo i vodi vas kroz svaki korak.</p>",
             "<h2>Sigurnost i tko može voziti</h2>",
-            "<p>Svako puštanje pod nadzorom je instruktora s CE certificiranom opremom. Primjenjuju se minimalna dob i visina — pitajte na blagajni. Više na <a href=\"{safety}\">stranici o sigurnosti</a>.</p>",
+            "<p>Svako puštanje pod nadzorom je instruktora s CE certificiranom opremom. Primjenjuju se minimalna dob i visina — {limits_call_cta} Više na <a href=\"{safety}\">stranici o sigurnosti</a>.</p>",
             "<h2>Cijene i kombinacije</h2>",
             "<p>Ljuljačka je uključena u pakete cijelog parka ili je dostupna u kombinaciji s <a href=\"{human_catapult}\">ljudskom katapultom</a>. Pogledajte <a href=\"{prices}\">pakete i cijene</a> ili <a href=\"{book}\">rezervirajte online</a>. Kombinirajte s <a href=\"{valley_zipline}\">dolinskim ziplineom</a> i <a href=\"{drop_20m}\">padom s 20 m</a>.</p>",
         ]
@@ -148,7 +150,7 @@ def _high_swing_snippets(lang: str) -> list[str]:
         "<h2>Is it scary?</h2>",
         "<p>More intense than family rides, but many guests who have done the ziplines or training route enjoy the swing as a next step. You can watch others first. Staff are patient and guide you through every stage.</p>",
         "<h2>Safety and who can ride</h2>",
-        "<p>Every release is instructor-led with CE-certified equipment. Minimum age and height apply — ask at the ticket desk. Read more on our <a href=\"{safety}\">safety page</a>.</p>",
+        "<p>Every release is instructor-led with CE-certified equipment. Minimum age and height apply — {limits_call_cta} Read more on our <a href=\"{safety}\">safety page</a>.</p>",
         "<h2>Prices and combinations</h2>",
         "<p>The swing is included in whole-park packages or available in a combo with the <a href=\"{human_catapult}\">Human Catapult</a>. See <a href=\"{prices}\">packages and prices</a> or <a href=\"{book}\">book online</a>. Pair with the <a href=\"{valley_zipline}\">Valley Zipline (Big Zipline)</a> and <a href=\"{drop_20m}\">20 m Drop</a> for a full adrenaline day.</p>",
     ]
@@ -220,7 +222,7 @@ def _devils_causeway_snippets(lang: str) -> list[str]:
             "<h2>Najzahtjevniji izazov parka — monocikl, slackline i japanski most</h2>",
             "<p>Staza Vražjeg puta završnica je crne staze — skateboard, drveni most, prijelaz monociklom, slackline i japanski most. Nagrađuje posjetitelje koji su stekli samopouzdanje na <a href=\"{training_route}\">žutoj</a> i <a href=\"{low_zipline}\">plavoj</a> stazi.</p>",
             "<h2>Monocikl i ograničenja</h2>",
-            "<p>Dio s monociklom jedinstven je u Hrvatskoj. Na most s monociklom vrijedi limit 85 kg; mala djeca moraju dohvatiti pedale. Osoblje može predložiti alternative. Ostavite dodatno vrijeme — mnogi gosti zastanu gledati druge.</p>",
+            "<p>Dio s monociklom jedinstven je u Hrvatskoj. Na most s monociklom vrijedi limit 85 kg; mala djeca moraju dohvatiti pedale. {limits_call_cta} Ostavite dodatno vrijeme — mnogi gosti zastanu gledati druge.</p>",
             "<h2>Sljedeći koraci</h2>",
             "<p>Nakon crne staze mnogi idu na <a href=\"{valley_zipline}\">dolinski zipline</a> ili adrenalin <a href=\"{human_catapult}\">katapultu</a>. Više o <a href=\"{safety}\">sigurnosti</a>.</p>",
         ]
@@ -228,7 +230,7 @@ def _devils_causeway_snippets(lang: str) -> list[str]:
         "<h2>The park's toughest challenge — unicycle, slackline and Japanese bridge</h2>",
         "<p>The Devil's Causeway Course is the black-route finale — skateboard, wooden bridge, unicycle crossing, slackline, and Japanese bridge. It rewards visitors who have built confidence on the <a href=\"{training_route}\">yellow</a> and <a href=\"{low_zipline}\">blue</a> routes.</p>",
         "<h2>The unicycle and restrictions</h2>",
-        "<p>The unicycle section is unique in Croatia. Weight limit 85 kg applies to the unicycle bridge; younger children must reach the pedals. Staff can advise alternatives. Allow extra time — many guests pause to watch others.</p>",
+        "<p>The unicycle section is unique in Croatia. Weight limit 85 kg applies to the unicycle bridge; younger children must reach the pedals. {limits_call_cta} Allow extra time — many guests pause to watch others.</p>",
         "<h2>What to do next</h2>",
         "<p>After the black route many head to the <a href=\"{valley_zipline}\">Valley Zipline (Big Zipline)</a> or the <a href=\"{human_catapult}\">Human Catapult</a>. Read more about <a href=\"{safety}\">safety</a>.</p>",
     ]
@@ -240,7 +242,7 @@ def _climbing_wall_snippets(lang: str) -> list[str]:
             "<h2>Penjanje na otvorenom za sve razine</h2>",
             "<p>Vanjski penjački zid u šumskoj čistini nudi više smjerova — od početničkih držala do strmijih izazova. Idealno za zagrijavanje prije <a href=\"{training_route}\">visokih staza</a>, školske grupe ili obitelji između većih vožnji.</p>",
             "<h2>Tko može penjati</h2>",
-            "<p>Vožnje su pod nadzorom instruktora s harnesom i kacigom. Mlađa djeca često penju uz pomoć — pitajte osoblje o dobi i visini na ulazu.</p>",
+            "<p>Vožnje su pod nadzorom instruktora s harnesom i kacigom. Mlađa djeca često penju uz pomoć — {limits_call_cta}</p>",
             "<h2>Uključeno u pakete</h2>",
             "<p>Penjački zid uključen je u pakete cijelog parka. Pogledajte <a href=\"{prices}\">cijene</a> i <a href=\"{book}\">rezervaciju</a>.</p>",
         ]
@@ -248,7 +250,7 @@ def _climbing_wall_snippets(lang: str) -> list[str]:
         "<h2>Outdoor climbing for all levels</h2>",
         "<p>Our outdoor climbing wall sits in a forest clearing with multiple routes from beginner-friendly holds to steeper challenges. Ideal for warming up before the <a href=\"{training_route}\">high ropes routes</a>, school groups, or families taking a break between bigger rides.</p>",
         "<h2>Who can climb</h2>",
-        "<p>Sessions are instructor-supervised with harness and helmet provided. Younger children often climb with assistance — ask staff about age and height suitability when you arrive.</p>",
+        "<p>Sessions are instructor-supervised with harness and helmet provided. Younger children often climb with assistance — {limits_call_cta}</p>",
         "<h2>Included in packages</h2>",
         "<p>The climbing wall is included in whole-park packages. See <a href=\"{prices}\">prices</a> and <a href=\"{book}\">booking</a>.</p>",
     ]
@@ -260,7 +262,7 @@ def _aerotrim_snippets(lang: str) -> list[str]:
             "<h2>Ljudski žiroskop u šumi</h2>",
             "<p>Aerotrim vas okreće u više osi dok ste sigurno u okviru — osjećaj drugačiji od ziplinea i katapulata. Osoblje kontrolira brzinu i objašnjava položaj tijela. Popularan među tinejdžerima koji traže nešto drugačije.</p>",
             "<h2>Zdravstvena ograničenja</h2>",
-            "<p>Primjenjuju se zdravstvena, visinska i dobna ograničenja. Ako ste osjetljivi na kretanje, pogledajte sesiju ili napravite pauzu uz osvježenje između vožnji.</p>",
+            "<p>Primjenjuju se zdravstvena, visinska i dobna ograničenja. {limits_call_cta} Ako ste osjetljivi na kretanje, pogledajte sesiju ili napravite pauzu uz osvježenje između vožnji.</p>",
             "<h2>Kombinirajte</h2>",
             "<p>Često se spaja s <a href=\"{human_catapult}\">katapultom</a> i <a href=\"{high_swing}\">ljuljačkom</a>. <a href=\"{prices}\">Paketi</a> · <a href=\"{faq}\">Pitanja</a></p>",
         ]
@@ -268,7 +270,7 @@ def _aerotrim_snippets(lang: str) -> list[str]:
         "<h2>Human gyroscope in the forest</h2>",
         "<p>The Aerotrim spins you through multiple axes while you stay secured in the frame — a sensation unlike the ziplines and catapult. Staff control the speed and explain how to position your body. Popular with teenagers looking for something different.</p>",
         "<h2>Health restrictions</h2>",
-        "<p>Health, height, and age restrictions apply. If you are prone to motion sickness, consider watching a session first or taking a break at our refreshments area between rides.</p>",
+        "<p>Health, height, and age restrictions apply. {limits_call_cta} If you are prone to motion sickness, consider watching a session first or taking a break at our refreshments area between rides.</p>",
         "<h2>Combine your visit</h2>",
         "<p>Often paired with the <a href=\"{human_catapult}\">Human Catapult</a> and <a href=\"{high_swing}\">High Swing</a>. <a href=\"{prices}\">Packages</a> · <a href=\"{faq}\">FAQ</a></p>",
     ]
@@ -280,7 +282,7 @@ def _20m_drop_snippets(lang: str) -> list[str]:
             "<h2>20 metara kontroliranog slobodnog pada</h2>",
             "<p>Quick Jump omogućuje korak s platforme visoko u krošnjama i pravi osjećaj slobodnog pada prije nego certificirani sustav nježno spusti na tlo. Jedna je od najintenzivnijih samostalnih atrakcija u parku.</p>",
             "<h2>Što očekivati</h2>",
-            "<p>Obuka pokriva harnes, položaj i što očekivati tijekom spusta. Primjenjuju se zdravstvena i dobna ograničenja — osoblje savjetuje na ulazu.</p>",
+            "<p>Obuka pokriva harnes, položaj i što očekivati tijekom spusta. Primjenjuju se zdravstvena i dobna ograničenja — {limits_call_cta}</p>",
             "<h2>Adrenalinski dan</h2>",
             "<p>Mnogi kombiniraju pad s <a href=\"{human_catapult}\">katapultom</a> ili <a href=\"{high_swing}\">ljuljačkom</a>. <a href=\"{book}\">Rezervirajte</a> · <a href=\"{prices}\">cijene</a></p>",
         ]
@@ -288,7 +290,7 @@ def _20m_drop_snippets(lang: str) -> list[str]:
         "<h2>20 metres of controlled free fall</h2>",
         "<p>The Quick Jump lets you step off a platform high in the trees and experience genuine free fall before a certified descender brings you smoothly to the ground. It is one of the most intense standalone rides in the park.</p>",
         "<h2>What to expect</h2>",
-        "<p>The briefing covers harness fit, body position, and what to expect during the descent. Health and age restrictions apply — staff advise at entry.</p>",
+        "<p>The briefing covers harness fit, body position, and what to expect during the descent. Health and age restrictions apply — {limits_call_cta}</p>",
         "<h2>Build an adrenaline day</h2>",
         "<p>Many combine the drop with the <a href=\"{human_catapult}\">Human Catapult</a> or <a href=\"{high_swing}\">High Swing</a>. <a href=\"{book}\">Book</a> · <a href=\"{prices}\">prices</a></p>",
     ]
