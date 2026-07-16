@@ -1386,7 +1386,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   text-align: center;
   font-size: 0.875rem;
 }
-.activity-video__notice {
+.activity-video__notice,
+.activity-detail__notice {
   margin: 0.85rem 0 0;
   padding: 0.75rem 1rem;
   background: rgba(245, 130, 32, 0.1);
@@ -1397,7 +1398,11 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   line-height: 1.45;
   text-align: center;
 }
-.activity-video__notice strong { color: var(--green-deep); }
+.activity-detail__notice {
+  margin: 0 0 1.25rem;
+}
+.activity-video__notice strong,
+.activity-detail__notice strong { color: var(--green-deep); }
 .activity-video__youtube-link a {
   font-weight: 600;
 }

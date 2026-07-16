@@ -250,6 +250,10 @@ ACTIVITIES = [
                 "The Treetop Course is Glavani Park's blue high-ropes route at 6 metres above the ground. The 113-metre zipline section links platforms on the course, so you stay on continuous belay from climb to landing.",
                 "It is a great introduction for visitors moving up from the family yellow route or those who want zipline speed without the full valley height. Instructors guide you at entry and exit points. Access is included when you complete the blue course circuit.",
             ],
+            "activity_notice": (
+                "The games on this route are the same as described below, but the course has been moved "
+                "in the park to run through the live trees. This page will be updated shortly."
+            ),
             "video_heading": "Treetop Course video",
             "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
         },
@@ -267,6 +271,10 @@ ACTIVITIES = [
                 "Staza u krošnjama plava je visoka staza Glavani Parka na 6 metara iznad tla. Dio od 113 metara povezuje platforme na stazi — ostajete na kontinuiranom osiguranju od penjanja do slijetanja.",
                 "Odličan je uvod za posjetitelje koji prelaze s obiteljske žute staze ili žele brzinu ziplinea bez pune visine doline. Instruktori vode na ulazu i izlazu. Pristup je uključen kada obavite plavu stazu.",
             ],
+            "activity_notice": (
+                "Igre na ovoj stazi iste su kao u opisu, ali je staza premještena u parku kako bi "
+                "prolazila kroz živa stabla. Opis ćemo uskoro ažurirati."
+            ),
             "video_heading": "Video staze u krošnjama",
             "video_placeholder": "Video uskoro — ovdje zalijepite YouTube embed ili video datoteku.",
         },
