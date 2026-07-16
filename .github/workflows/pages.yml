@@ -30,9 +30,9 @@ jobs:
       - name: Install dependencies
         run: pip install pillow
 
-      - name: Build site for GitHub Pages
+      - name: Build site for production
         env:
-          SITE_BASE: https://bdabson-droid.github.io/Glavani
+          SITE_BASE: https://www.glavani-park.com
         run: python3 scripts/build_site.py
 
       - name: Verify build output
@@ -48,7 +48,7 @@ jobs:
         run: |
           mkdir -p _site
           cp -r assets en hr images _site/
-          cp index.html 404.html robots.txt sitemap.xml _redirects manifest.webmanifest _site/
+          cp index.html 404.html robots.txt sitemap.xml _redirects _headers manifest.webmanifest _site/
           touch _site/.nojekyll
 
       - name: Upload Pages artifact

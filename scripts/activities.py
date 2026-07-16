@@ -427,7 +427,7 @@ ACTIVITIES = [
             "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
         },
         "hr": {
-            "title": "Aerotrim | Glavani Park Istria",
+            "title": "Aerotrim rotacija | Glavani Park Istria",
             "h1": "Aerotrim",
             "meta_description": (
                 "Isprobajte Aerotrim ljudski žiroskop u Glavani Parku, Istria — okretanje u više osi pod nadzorom "

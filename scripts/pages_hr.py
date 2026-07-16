@@ -1273,7 +1273,8 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                 'paragraphs': ['<p>Za partnerski program javite se s nazivom tvrtke, '
                                'web stranicom, lokacijom u Istri (ako postoji), '
                                'profilom publike ili gostiju i načinom promocije '
-                               'parka. E-mail <a '
+                               'parka. Koristite <a href="/hr/kontakt/">kontakt obrazac</a>, '
+                               'e-mail <a '
                                'href="mailto:info@glavanipark.com">info@glavanipark.com</a> '
                                'ili <a href="tel:+385918964525">+385 91 896 '
                                '4525</a>.</p>',
@@ -1488,7 +1489,8 @@ PAGES = [{'slug': 'sto-raditi-u-istri',
                                'preporučuje najava na +385 91 896 4525 ili +385 98 224 '
                                '314.</p>',
                                '<p>Za fotografije visoke rezolucije, familiarizacijske '
-                               'posjete ili co-branded widgete pišite <a '
+                               'posjete ili co-branded widgete koristite <a '
+                               'href="/hr/kontakt/">kontakt obrazac</a> ili pišite <a '
                                'href="mailto:info@glavanipark.com">info@glavanipark.com</a> '
                                'ili nazovite <a href="tel:+385918964525">+385 91 896 '
                                '4525</a>. Točan NAP za citate:</p>',
