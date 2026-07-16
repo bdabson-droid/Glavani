@@ -42,7 +42,7 @@ The build emits static HTML into `en/`, `hr/`, and the repo root, plus `function
 ## 5. Resend (email delivery)
 
 1. Create a Resend account and verify domain **glavanipark.com**
-2. Add sender `booking@glavanipark.com` (used as the From address in `functions/_middleware.ts`)
+2. Add sender `info@glavanipark.com` (used as the From address in `functions/_middleware.ts`)
 3. Paste the API key into Cloudflare Pages → **Settings** → **Environment variables** as `RESEND_API_KEY`
 4. Test contact (`/en/contact/`) and booking (`/en/reservation/`) forms after deploy
 
@@ -72,7 +72,7 @@ After deploy, manually check:
 
 ## 8. What stays on glavanipark.com (intentional)
 
-- Email addresses: `info@`, `office@`, `booking@glavanipark.com`
+- Email address: `info@glavanipark.com`
 - Build-time image sources from the legacy CMS (downloaded at build, not served live)
 - CMS path redirects in `_redirects` and `404.html` for old bookmarked URLs
 

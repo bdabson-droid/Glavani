@@ -81,7 +81,7 @@ from site_config import (  # noqa: E402
     PRODUCTION_BASE,
     TERMS_SLUGS,
 )
-from legal_pages import LEGAL_PAGES, OFFICE_EMAIL  # noqa: E402
+from legal_pages import LEGAL_PAGES  # noqa: E402
 from contact_form import render_contact_form  # noqa: E402
 from build_assets import build_headers, build_minified_assets  # noqa: E402
 
@@ -906,8 +906,7 @@ def footer(lang: str) -> str:
       <p><strong>{contact_label}:</strong>
         <a href="tel:{nigel['tel']}">{nigel['display']}</a> ·
         <a href="tel:{nevenko['tel']}">{nevenko['display']}</a> ·
-        <a href="mailto:{BOOKING_EMAIL}">{BOOKING_EMAIL}</a> ·
-        <a href="mailto:{OFFICE_EMAIL}">{OFFICE_EMAIL}</a>
+        <a href="mailto:{BOOKING_EMAIL}">{BOOKING_EMAIL}</a>
       </p>
       <p><a href="{prefix}{location_slug}/#location-map">{map_label}</a> ·
         <a href="{GLAVANI_MAPS_LINK}" target="_blank" rel="noopener noreferrer">Google Maps</a>
@@ -2632,7 +2631,6 @@ def render_contact_page(lang: str) -> str:
         f"<li><a href=\"tel:{nigel['tel']}\">{nigel['name']}: {nigel['display']}</a></li>"
         f"<li><a href=\"tel:{nevenko['tel']}\">{nevenko['name']}: {nevenko['display']}</a></li>"
         f"<li><a href=\"mailto:{BOOKING_EMAIL}\">{BOOKING_EMAIL}</a></li>"
-        f"<li><a href=\"mailto:{OFFICE_EMAIL}\">{OFFICE_EMAIL}</a></li>"
         f"<li><a href=\"{GLAVANI_MAPS_LINK}\" target=\"_blank\" rel=\"noopener noreferrer\">Google Maps</a></li>"
         f"</ul>"
     )

@@ -5,8 +5,6 @@ from __future__ import annotations
 from brand_voice import BOOKING_EMAIL, PHONES, VISITOR
 from site_config import COOKIE_SLUGS, CONTACT_SLUGS, PRIVACY_SLUGS, TERMS_SLUGS
 
-OFFICE_EMAIL = "office@glavanipark.com"
-
 LEGAL_PAGES = {
     "contact": {
         "en_slug": CONTACT_SLUGS["en"],
@@ -16,7 +14,7 @@ LEGAL_PAGES = {
             "h1": "Contact Us",
             "meta_description": (
                 "Contact Glavani Park in Istria — call Nigel or Nevenko, or send an enquiry. "
-                "Open daily 9 AM–5 PM. info@glavanipark.com · office@glavanipark.com"
+                f"Open daily 9 AM–5 PM. {BOOKING_EMAIL}"
             ),
             "keywords": "contact Glavani Park, adventure park Istria phone, book Glavani Park",
             "lead": (
@@ -29,7 +27,7 @@ LEGAL_PAGES = {
             "h1": "Kontakt",
             "meta_description": (
                 "Kontaktirajte Glavani Park u Istri — nazovite Nigela ili Nevenka ili pošaljite upit. "
-                "Otvoreno 9–17 h. info@glavanipark.com · office@glavanipark.com"
+                f"Otvoreno 9–17 h. {BOOKING_EMAIL}"
             ),
             "keywords": "kontakt Glavani Park, avanturistički park Istria telefon",
             "lead": (
