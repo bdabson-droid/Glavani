@@ -1700,20 +1700,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   text-align: center;
   text-decoration: none;
 }
-.btn-copy {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  padding: 0.75rem 1rem;
-  background: var(--off-white);
-  color: var(--green-deep);
-  font-weight: 700;
-  border: 2px solid var(--green-mid);
-  border-radius: var(--radius);
-  cursor: pointer;
-  font-size: 0.9375rem;
-}
 .book-hint { text-align: center; font-size: 0.8125rem; color: var(--rock-mid); margin-top: 1rem; }
 
 .book-success-dialog {
