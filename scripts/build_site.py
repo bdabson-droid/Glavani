@@ -70,8 +70,20 @@ from visitor_gallery import (  # noqa: E402
     VISITOR_VIDEOS,
 )
 from migration_redirects import render_redirect_script, render_redirects_file  # noqa: E402
+from site_config import (  # noqa: E402
+    CLOUDFLARE_ANALYTICS_TOKEN,
+    CONTACT_SLUGS,
+    COOKIE_SLUGS,
+    GA4_MEASUREMENT_ID,
+    GSC_VERIFICATION,
+    PRIVACY_SLUGS,
+    PRODUCTION_BASE,
+    TERMS_SLUGS,
+)
+from legal_pages import LEGAL_PAGES, OFFICE_EMAIL  # noqa: E402
+from contact_form import render_contact_form  # noqa: E402
+from build_assets import build_headers, build_minified_assets  # noqa: E402
 
-PRODUCTION_BASE = "https://www.glavanipark.com"
 BASE = os.environ.get("SITE_BASE", PRODUCTION_BASE).rstrip("/")
 TODAY = date.today().isoformat()
 
@@ -85,10 +97,36 @@ def site_path_from_base() -> str:
 
 def footer_site_link() -> tuple[str, str]:
     """Footer home link (href, label)."""
-    if BASE == PRODUCTION_BASE:
-        return f"{PRODUCTION_BASE}/", "www.glavanipark.com"
+    if BASE.rstrip("/") == PRODUCTION_BASE.rstrip("/"):
+        return f"{PRODUCTION_BASE}/", "www.glavani-park.com"
     host = BASE.replace("https://", "").replace("http://", "")
     return f"{BASE}/", host
+
+
+class _PageContext:
+    en_slug: str | None = None
+    hr_slug: str | None = None
+    is_home: bool = False
+
+
+PAGE = _PageContext()
+
+
+def set_page_context(*, en_slug: str | None = None, hr_slug: str | None = None, is_home: bool = False) -> None:
+    PAGE.en_slug = en_slug
+    PAGE.hr_slug = hr_slug
+    PAGE.is_home = is_home
+
+
+def language_switch_href(lang: str) -> str:
+    other = "hr" if lang == "en" else "en"
+    if PAGE.is_home:
+        return f"/{other}/"
+    if lang == "en" and PAGE.hr_slug:
+        return f"/hr/{PAGE.hr_slug}/"
+    if lang == "hr" and PAGE.en_slug:
+        return f"/en/{PAGE.en_slug}/"
+    return f"/{other}/"
 
 
 def render_site_redirect_script() -> str:
@@ -108,20 +146,24 @@ LOCATION_MAP_HEAD = """
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>"""
 
 PAGE_SCRIPTS = {
-    "open-status": "/assets/js/open-status.js",
-    "photo-gallery": "/assets/js/photo-gallery-carousel.js",
-    "review-carousel": "/assets/js/review-carousel.js",
-    "prices-book": "/assets/js/prices-book.js",
-    "booking-app": "/assets/js/booking-app.js",
-    "location-map": "/assets/js/location-map.js",
+    "open-status": "/assets/js/open-status.min.js",
+    "photo-gallery": "/assets/js/photo-gallery-carousel.min.js",
+    "prices-book": "/assets/js/prices-book.min.js",
+    "booking-app": "/assets/js/booking-app.min.js",
+    "location-map": "/assets/js/location-map.min.js",
+    "contact-form": "/assets/js/contact-form.min.js",
+    "cookie-consent": "/assets/js/cookie-consent.min.js",
 }
 
 
 def render_page_scripts(*needs: str) -> str:
     """Emit script tags only for the bundles a page actually uses."""
+    keys = list(needs)
+    if (GA4_MEASUREMENT_ID or CLOUDFLARE_ANALYTICS_TOKEN) and "cookie-consent" not in keys:
+        keys.append("cookie-consent")
     seen: set[str] = set()
     lines: list[str] = []
-    for key in needs:
+    for key in keys:
         if key in seen:
             continue
         path = PAGE_SCRIPTS.get(key)
@@ -136,12 +178,20 @@ EN_TO_HR.update({v: k for k, v in ACTIVITY_SLUG_MAP.items()})
 EN_TO_HR["reservation"] = "rezervacija"
 EN_TO_HR["faq"] = "cesta-pitanja"
 EN_TO_HR["prices"] = "cijene"
+EN_TO_HR[CONTACT_SLUGS["en"]] = CONTACT_SLUGS["hr"]
+EN_TO_HR[PRIVACY_SLUGS["en"]] = PRIVACY_SLUGS["hr"]
+EN_TO_HR[COOKIE_SLUGS["en"]] = COOKIE_SLUGS["hr"]
+EN_TO_HR[TERMS_SLUGS["en"]] = TERMS_SLUGS["hr"]
 
 HR_TO_EN = dict(SLUG_MAP)
 HR_TO_EN.update(ACTIVITY_SLUG_MAP)
 HR_TO_EN["rezervacija"] = "reservation"
 HR_TO_EN["cesta-pitanja"] = "faq"
 HR_TO_EN["cijene"] = "prices"
+HR_TO_EN[CONTACT_SLUGS["hr"]] = CONTACT_SLUGS["en"]
+HR_TO_EN[PRIVACY_SLUGS["hr"]] = PRIVACY_SLUGS["en"]
+HR_TO_EN[COOKIE_SLUGS["hr"]] = COOKIE_SLUGS["en"]
+HR_TO_EN[TERMS_SLUGS["hr"]] = TERMS_SLUGS["en"]
 
 IMAGES = [
     ("12-5m-high-swing-glavani-park-istria.webp", "12.5m High Swing", (234, 88, 12), (180, 83, 9)),
@@ -676,11 +726,14 @@ def render_visit_cta_bar(lang: str) -> str:
 
 
 def page_chrome(lang: str, *, is_home: bool = False) -> str:
-    return f"""{quick_actions(lang)}
+    skip = "Preskoči na sadržaj" if lang == "hr" else "Skip to main content"
+    return f"""<a class="skip-link" href="#main-content">{skip}</a>
+{quick_actions(lang)}
 {render_visit_cta_bar(lang)}
 {site_header(lang)}
 {visitor_bar(lang)}
-{site_nav(lang, is_home=is_home)}"""
+{site_nav(lang, is_home=is_home)}
+{render_cookie_banner(lang)}"""
 
 
 def visitor_bar(lang: str) -> str:
@@ -724,6 +777,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Lokacija", f"{prefix}sto-raditi-kod-pule/#location-map"),
             ("Grupe", f"{prefix}team-building-istri/"),
             ("Pitanja", f"{prefix}{FAQ_SLUGS['hr']}/"),
+            ("Kontakt", f"{prefix}{CONTACT_SLUGS['hr']}/"),
             ("Sigurnost", f"{prefix}sigurnost/"),
         ]
         book_label = book_cta_labels("hr")["book_tickets"]
@@ -735,6 +789,7 @@ def site_nav(lang: str, is_home: bool = False) -> str:
             ("Location", f"{prefix}things-to-do-near-pula/#location-map"),
             ("Groups", f"{prefix}team-building-istria/"),
             ("FAQ", f"{prefix}{FAQ_SLUGS['en']}/"),
+            ("Contact", f"{prefix}{CONTACT_SLUGS['en']}/"),
             ("Safety", f"{prefix}safety/"),
         ]
         book_label = book_cta_labels("en")["book_tickets"]
@@ -745,56 +800,139 @@ def site_nav(lang: str, is_home: bool = False) -> str:
     <div class="site-nav__inner">
       {items}
       <a class="site-nav__cta" href="{book_href}">{book_label}</a>
-      <a href="/{other}/" hreflang="{other}">{other_label}</a>
+      <a href="{language_switch_href(lang)}" hreflang="{other}">{other_label}</a>
     </div>
   </nav>"""
 
 
 def footer(lang: str) -> str:
     prefix = f"/{lang}/"
-    other = "hr" if lang == "en" else "en"
+    copy = VISITOR[lang]
+    nigel = PHONES[0]
+    nevenko = PHONES[1]
+    location_slug = "sto-raditi-kod-pule" if lang == "hr" else "things-to-do-near-pula"
     if lang == "hr":
-        copy = "Glavani Park · avanturistički park Istria · zipline Hrvatska"
+        tagline = "Glavani Park · avanturistički park Istria · zipline Hrvatska"
         links = [
             ("Početna", prefix),
             ("Aktivnosti", f"{prefix}avanturisticki-park-hrvatska/"),
             ("Cijene", f"{prefix}cijene/"),
+            ("Kontakt", f"{prefix}{CONTACT_SLUGS['hr']}/"),
             ("FAQ", f"{prefix}cesta-pitanja/"),
+            ("Kontakt", f"{prefix}kontakt/"),
             ("Grupe", f"{prefix}team-building-istri/"),
-            ("Rođendanske zabave", f"{prefix}rodjendanske-zabave-istri/"),
-            ("Školski izleti", f"{prefix}skolski-izleti-istri/"),
-            ("English", f"/en/"),
+            ("English", language_switch_href(lang)),
             ("Partneri", f"{prefix}partneri/"),
-            ("Link na nas", f"{prefix}link-na-nas/"),
             ("Sigurnost", f"{prefix}sigurnost/"),
+            ("Privatnost", f"{prefix}{PRIVACY_SLUGS['hr']}/"),
+            ("Kolačići", f"{prefix}{COOKIE_SLUGS['hr']}/"),
+            ("Uvjeti", f"{prefix}{TERMS_SLUGS['hr']}/"),
         ]
+        hours_label = "Radno vrijeme"
+        contact_label = "Kontakt"
+        map_label = "Karta i upute"
     else:
-        copy = "Glavani Park · Adventure Park Istria · Zipline Croatia"
+        tagline = "Glavani Park · Adventure Park Istria · Zipline Croatia"
         links = [
             ("Home", prefix),
             ("Activities", f"{prefix}adventure-park-croatia/"),
             ("Prices", f"{prefix}prices/"),
+            ("Contact", f"{prefix}{CONTACT_SLUGS['en']}/"),
             ("FAQ", f"{prefix}faq/"),
+            ("Contact", f"{prefix}contact/"),
             ("Groups", f"{prefix}team-building-istria/"),
-            ("Birthday Parties", f"{prefix}birthday-parties-istria/"),
-            ("School Trips", f"{prefix}school-trips-istria/"),
-            ("Hrvatski", f"/hr/"),
+            ("Hrvatski", language_switch_href(lang)),
             ("Partners", f"{prefix}partners/"),
-            ("Link to Us", f"{prefix}link-to-us/"),
             ("Safety", f"{prefix}safety/"),
+            ("Privacy", f"{prefix}{PRIVACY_SLUGS['en']}/"),
+            ("Cookies", f"{prefix}{COOKIE_SLUGS['en']}/"),
+            ("Terms", f"{prefix}{TERMS_SLUGS['en']}/"),
         ]
+        hours_label = "Opening hours"
+        contact_label = "Contact"
+        map_label = "Map & directions"
     link_html = "".join(f"<li><a href=\"{h}\">{t}</a></li>" for t, h in links)
     footer_href, footer_label = footer_site_link()
     return f"""
 {render_stay_safe_badge(lang)}
 {render_trust_strip(lang, in_footer=True)}
   <footer class="site-footer">
-    <p>&copy; <time datetime="2026">2026</time> {copy}</p>
+    <div class="site-footer__contact">
+      <p><strong>{hours_label}:</strong> {copy['hours_label']} {copy['hours']}</p>
+      <p><strong>{contact_label}:</strong>
+        <a href="tel:{nigel['tel']}">{nigel['display']}</a> ·
+        <a href="tel:{nevenko['tel']}">{nevenko['display']}</a> ·
+        <a href="mailto:{BOOKING_EMAIL}">{BOOKING_EMAIL}</a> ·
+        <a href="mailto:{OFFICE_EMAIL}">{OFFICE_EMAIL}</a>
+      </p>
+      <p><a href="{prefix}{location_slug}/#location-map">{map_label}</a> ·
+        <a href="{GLAVANI_MAPS_LINK}" target="_blank" rel="noopener noreferrer">Google Maps</a>
+      </p>
+    </div>
+    <p>&copy; <time datetime="2026">2026</time> {tagline}</p>
     <ul class="site-footer__links">
       <li><a href="{footer_href}">{footer_label}</a></li>
       {link_html}
     </ul>
   </footer>"""
+
+
+def render_cookie_banner(lang: str) -> str:
+    if not (GA4_MEASUREMENT_ID or CLOUDFLARE_ANALYTICS_TOKEN):
+        return ""
+    if lang == "hr":
+        text = "Koristimo opcionalne kolačiće za analitiku kako bismo poboljšali stranicu."
+        accept = "Prihvati"
+        decline = "Odbij"
+        policy = "Pravila o kolačićima"
+        policy_href = f"/hr/{COOKIE_SLUGS['hr']}/"
+    else:
+        text = "We use optional cookies for analytics to help improve this site."
+        accept = "Accept"
+        decline = "Decline"
+        policy = "Cookie policy"
+        policy_href = f"/en/{COOKIE_SLUGS['en']}/"
+    return f"""
+  <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="{'Kolačići' if lang == 'hr' else 'Cookies'}" hidden>
+    <p>{text} <a href="{policy_href}">{policy}</a></p>
+    <div class="cookie-banner__actions">
+      <button type="button" class="btn-primary" id="cookie-accept">{accept}</button>
+      <button type="button" class="btn-secondary" id="cookie-decline">{decline}</button>
+    </div>
+  </div>"""
+
+
+def render_analytics_head() -> str:
+    lines: list[str] = []
+    if GSC_VERIFICATION:
+        lines.append(f'  <meta name="google-site-verification" content="{esc(GSC_VERIFICATION)}">')
+    if GA4_MEASUREMENT_ID:
+        gid = esc(GA4_MEASUREMENT_ID)
+        lines.append(f"""  <script>
+    window.GLAVANI_GA4 = '{gid}';
+    function loadGa4() {{
+      if (window.__ga4Loaded) return;
+      window.__ga4Loaded = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id={gid}';
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){{dataLayer.push(arguments);}}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', '{gid}', {{ anonymize_ip: true }});
+    }}
+    if (localStorage.getItem('glavani-cookie-consent') === 'accepted') loadGa4();
+    document.addEventListener('glavani:analytics-consent', loadGa4);
+  </script>""")
+    if CLOUDFLARE_ANALYTICS_TOKEN:
+        token = esc(CLOUDFLARE_ANALYTICS_TOKEN)
+        lines.append(
+            f'  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" '
+            f'data-cf-beacon=\'{{"token": "{token}"}}\'></script>'
+        )
+    return "\n".join(lines)
 
 
 def hreflang_tags(en_slug: str | None, hr_slug: str | None, is_home: bool = False) -> str:
@@ -867,7 +1005,9 @@ def head_meta(
   <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="/images/glavani-park-logo.png">
   <meta name="theme-color" content="#0a0a0a">
-  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="preload" href="/assets/css/site.min.css" as="style">
+  <link rel="stylesheet" href="/assets/css/site.min.css">
+{render_analytics_head()}
 {extra_head}
 </head>
 <body class="{body_class}">"""
@@ -1207,7 +1347,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
     body = f"""{head_meta(lang, page['title'], page['meta_description'], page['keywords'], canonical, en_slug, hr_slug, og_image=img, og_image_alt=page.get('image_alt'), extra_head=map_head)}
 {page_chrome(lang)}
 {crumbs}
-<main>
+<main id="main-content">
 {hero_block}{location_map}
   <div class="landing-layout section--theme-forest">
     <div class="landing-layout__inner">
@@ -1452,7 +1592,7 @@ def render_activities_hub_page(lang: str) -> str:
       <li>{copy['h1']}</li>
     </ol>
   </nav>
-<main>
+<main id="main-content">
   <section class="section section--theme-adrenaline" id="activities" aria-labelledby="activities-heading">
     <div class="section__inner">
       <div class="section__heading">
@@ -1676,7 +1816,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
       <li>{data['h1']}</li>
     </ol>
   </nav>
-<main>
+<main id="main-content">
 {page_header}
   <div class="activity-detail-wrap section--theme-forest">
     <article class="activity-detail">
@@ -1810,7 +1950,7 @@ def render_event_page(event: dict, lang: str) -> str:
       <li>{data['h1']}</li>
     </ol>
   </nav>
-<main>
+<main id="main-content">
   <section class="hero hero--landing hero--activity">
     <div class="hero__inner">
       <p class="hero__badge">{data['hero_badge']}</p>
@@ -1993,7 +2133,7 @@ def render_faq_page(lang: str) -> str:
       <li>{copy['h1']}</li>
     </ol>
   </nav>
-<main>
+<main id="main-content">
   <section class="hero hero--landing">
     <div class="hero__inner">
       <p class="hero__badge">{'Informacije za posjetitelje' if lang == 'hr' else 'Visitor information'}</p>
@@ -2260,7 +2400,7 @@ def render_prices_page(lang: str) -> str:
       <li>{copy['h1']}</li>
     </ol>
   </nav>
-<main>
+<main id="main-content">
   <section class="hero hero--landing">
     <div class="hero__inner">
       <p class="hero__badge">{'Online do ' + str(ONLINE_BOOKING_MAX) + ' osoba · nazovite za ' + str(CALL_FOR_GROUPS_ABOVE + 1) + '+' if lang == 'hr' else f'Book online · up to {ONLINE_BOOKING_MAX} · call for {CALL_FOR_GROUPS_ABOVE + 1}+'}</p>
@@ -2342,6 +2482,7 @@ def render_booking_app(lang: str) -> str:
 <nav class="breadcrumb" aria-label="Breadcrumb">
   <ol><li><a href="{prefix}">{home_label}</a></li><li>{h1}</li></ol>
 </nav>
+<main id="main-content">
 <div class="book-app-hero">
   <h1>{h1}</h1>
   <p>{lead}</p>
@@ -2354,8 +2495,86 @@ def render_booking_app(lang: str) -> str:
   <p class="book-app-notice book-app-notice--policy">{policy}</p>
   {render_legacy_gift_voucher_notice(lang)}
 </div>
+</main>
 {footer(lang)}
+{breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (h1, None)])}
+{json_ld_script(webpage_schema(canonical, title, desc, lang))}
 {render_page_scripts("open-status", "booking-app")}
+</body>
+</html>"""
+
+
+def render_legal_page(page_key: str, lang: str) -> str:
+    page_def = LEGAL_PAGES[page_key]
+    copy = page_def[lang]
+    en_slug = page_def["en_slug"]
+    hr_slug = page_def["hr_slug"]
+    slug = hr_slug if lang == "hr" else en_slug
+    prefix = f"/{lang}/"
+    canonical = f"{BASE}{prefix}{slug}/"
+    home_label = "Početna" if lang == "hr" else "Home"
+    crumbs = f"""
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol><li><a href="{prefix}">{home_label}</a></li><li>{copy['h1']}</li></ol>
+</nav>"""
+    body = render_sections(copy.get("sections", []))
+    scripts = ""
+    return f"""{head_meta(lang, copy['title'], copy['meta_description'], copy['keywords'], canonical, en_slug, hr_slug)}
+{page_chrome(lang)}
+{crumbs}
+<main id="main-content">
+  <article class="prose legal-page">
+    <h1>{copy['h1']}</h1>
+    {body}
+  </article>
+</main>
+{footer(lang)}
+{breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (copy['h1'], None)])}
+{json_ld_script(webpage_schema(canonical, copy['h1'], copy['meta_description'], lang))}
+{render_page_scripts()}
+</body>
+</html>"""
+
+
+def render_contact_page(lang: str) -> str:
+    page_def = LEGAL_PAGES["contact"]
+    copy = page_def[lang]
+    en_slug = page_def["en_slug"]
+    hr_slug = page_def["hr_slug"]
+    slug = hr_slug if lang == "hr" else en_slug
+    prefix = f"/{lang}/"
+    canonical = f"{BASE}{prefix}{slug}/"
+    home_label = "Početna" if lang == "hr" else "Home"
+    nigel = PHONES[0]
+    nevenko = PHONES[1]
+    contact_intro = (
+        f"<p>{copy['lead']}</p>"
+        f"<ul class=\"contact-details\">"
+        f"<li><a href=\"tel:{nigel['tel']}\">{nigel['name']}: {nigel['display']}</a></li>"
+        f"<li><a href=\"tel:{nevenko['tel']}\">{nevenko['name']}: {nevenko['display']}</a></li>"
+        f"<li><a href=\"mailto:{BOOKING_EMAIL}\">{BOOKING_EMAIL}</a></li>"
+        f"<li><a href=\"mailto:{OFFICE_EMAIL}\">{OFFICE_EMAIL}</a></li>"
+        f"<li><a href=\"{GLAVANI_MAPS_LINK}\" target=\"_blank\" rel=\"noopener noreferrer\">Google Maps</a></li>"
+        f"</ul>"
+    )
+    return f"""{head_meta(lang, copy['title'], copy['meta_description'], copy['keywords'], canonical, en_slug, hr_slug)}
+{page_chrome(lang)}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol><li><a href="{prefix}">{home_label}</a></li><li>{copy['h1']}</li></ol>
+</nav>
+<main id="main-content">
+  <section class="section section--theme-forest">
+    <div class="section__inner contact-page">
+      <h1>{copy['h1']}</h1>
+      {contact_intro}
+      {render_contact_form(lang)}
+    </div>
+  </section>
+</main>
+{footer(lang)}
+{breadcrumb_schema([(home_label, f"{BASE}{prefix}"), (copy['h1'], None)])}
+{json_ld_script(webpage_schema(canonical, copy['h1'], copy['meta_description'], lang))}
+{render_page_scripts("contact-form")}
 </body>
 </html>"""
 
@@ -2372,7 +2591,7 @@ def render_home(lang: str) -> str:
         "@context": "https://schema.org",
         "@graph": [
             {
-                "@type": ["AmusementPark", "TouristAttraction"],
+                "@type": ["AmusementPark", "TouristAttraction", "LocalBusiness"],
                 "@id": f"{canonical}#glavani-park",
                 "name": "Glavani Park",
                 "description": home["meta_description"],
@@ -2445,12 +2664,14 @@ def render_home(lang: str) -> str:
             },
         ],
     }
+    home_label = "Početna" if lang == "hr" else "Home"
     return f"""{head_meta(lang, home['title'], home['meta_description'], home['keywords'], canonical, is_home=True, og_image=home['image'], og_image_alt="Glavani Park adventure and zipline park in Istria, Croatia")}
 {page_chrome(lang, is_home=True)}
 {body_content}
 {footer(lang)}
+{breadcrumb_schema([(home_label, None)])}
 {json_ld_script(org_schema)}
-{render_page_scripts("open-status")}
+{render_page_scripts("open-status", *(( "cookie-consent",) if (GA4_MEASUREMENT_ID or CLOUDFLARE_ANALYTICS_TOKEN) else ()))}
 </body>
 </html>"""
 
@@ -2537,11 +2758,26 @@ def main() -> None:
     if old_en_book.exists():
         shutil.rmtree(old_en_book)
 
+    set_page_context(is_home=True)
     write_file(ROOT / "en" / "index.html", render_home("en"))
+    set_page_context(en_slug=en_booking, hr_slug=hr_booking)
     write_file(ROOT / "en" / en_booking / "index.html", render_booking_app("en"))
+    set_page_context(en_slug=PRICES_SLUGS["en"], hr_slug=PRICES_SLUGS["hr"])
     write_file(ROOT / "en" / PRICES_SLUGS["en"] / "index.html", render_prices_page("en"))
+    set_page_context(en_slug=FAQ_SLUGS["en"], hr_slug=FAQ_SLUGS["hr"])
     write_file(ROOT / "en" / FAQ_SLUGS["en"] / "index.html", render_faq_page("en"))
-    sitemap_urls = [(f"{BASE}/en/", "weekly"), (f"{BASE}/en/{en_booking}/", "weekly")]
+    set_page_context(en_slug=CONTACT_SLUGS["en"], hr_slug=CONTACT_SLUGS["hr"])
+    write_file(ROOT / "en" / CONTACT_SLUGS["en"] / "index.html", render_contact_page("en"))
+    sitemap_urls: list[tuple[str, str]] = [
+        (f"{BASE}/en/", "weekly"),
+        (f"{BASE}/en/{en_booking}/", "weekly"),
+        (f"{BASE}/en/{CONTACT_SLUGS['en']}/", "monthly"),
+    ]
+    for legal_key in ("privacy", "cookies", "terms"):
+        page_def = LEGAL_PAGES[legal_key]
+        set_page_context(en_slug=page_def["en_slug"], hr_slug=page_def["hr_slug"])
+        write_file(ROOT / "en" / page_def["en_slug"] / "index.html", render_legal_page(legal_key, "en"))
+        sitemap_urls.append((f"{BASE}/en/{page_def['en_slug']}/", "yearly"))
     sitemap_urls.append((f"{BASE}/en/{PRICES_SLUGS['en']}/", "monthly"))
     sitemap_urls.append((f"{BASE}/en/{FAQ_SLUGS['en']}/", "monthly"))
     for page in PAGES_EN:
@@ -2549,8 +2785,10 @@ def main() -> None:
         if slug in SKIP_LANDING_SLUGS["en"]:
             continue
         hr_slug = EN_TO_HR.get(slug, slug)
+        set_page_context(en_slug=slug, hr_slug=hr_slug)
         write_file(ROOT / "en" / slug / "index.html", render_landing(page, "en", slug, hr_slug))
         sitemap_urls.append((f"{BASE}/en/{slug}/", "monthly"))
+    set_page_context(en_slug=activities_hub_slug("en"), hr_slug=activities_hub_slug("hr"))
     write_file(
         ROOT / "en" / activities_hub_slug("en") / "index.html",
         render_activities_hub_page("en"),
@@ -2559,19 +2797,33 @@ def main() -> None:
     for activity in ACTIVITIES:
         slug = activity["en_slug"]
         hr_slug = activity["hr_slug"]
+        set_page_context(en_slug=slug, hr_slug=hr_slug)
         write_file(ROOT / "en" / slug / "index.html", render_activity_page(activity, "en"))
         sitemap_urls.append((f"{BASE}/en/{slug}/", "monthly"))
     for event in EVENT_PAGES:
+        set_page_context(en_slug=event["en_slug"], hr_slug=event["hr_slug"])
         write_file(ROOT / "en" / event["en_slug"] / "index.html", render_event_page(event, "en"))
         sitemap_urls.append((f"{BASE}/en/{event['en_slug']}/", "monthly"))
 
     print("Building Croatian pages...")
+    set_page_context(is_home=True)
     write_file(ROOT / "hr" / "index.html", render_home("hr"))
+    set_page_context(en_slug=en_booking, hr_slug=hr_booking)
     write_file(ROOT / "hr" / hr_booking / "index.html", render_booking_app("hr"))
+    set_page_context(en_slug=PRICES_SLUGS["en"], hr_slug=PRICES_SLUGS["hr"])
     write_file(ROOT / "hr" / PRICES_SLUGS["hr"] / "index.html", render_prices_page("hr"))
+    set_page_context(en_slug=FAQ_SLUGS["en"], hr_slug=FAQ_SLUGS["hr"])
     write_file(ROOT / "hr" / FAQ_SLUGS["hr"] / "index.html", render_faq_page("hr"))
+    set_page_context(en_slug=CONTACT_SLUGS["en"], hr_slug=CONTACT_SLUGS["hr"])
+    write_file(ROOT / "hr" / CONTACT_SLUGS["hr"] / "index.html", render_contact_page("hr"))
+    for legal_key in ("privacy", "cookies", "terms"):
+        page_def = LEGAL_PAGES[legal_key]
+        set_page_context(en_slug=page_def["en_slug"], hr_slug=page_def["hr_slug"])
+        write_file(ROOT / "hr" / page_def["hr_slug"] / "index.html", render_legal_page(legal_key, "hr"))
+        sitemap_urls.append((f"{BASE}/hr/{page_def['hr_slug']}/", "yearly"))
     sitemap_urls.append((f"{BASE}/hr/", "weekly"))
     sitemap_urls.append((f"{BASE}/hr/{hr_booking}/", "weekly"))
+    sitemap_urls.append((f"{BASE}/hr/{CONTACT_SLUGS['hr']}/", "monthly"))
     sitemap_urls.append((f"{BASE}/hr/{PRICES_SLUGS['hr']}/", "monthly"))
     sitemap_urls.append((f"{BASE}/hr/{FAQ_SLUGS['hr']}/", "monthly"))
     for page in PAGES_HR:
@@ -2579,8 +2831,10 @@ def main() -> None:
         if slug in SKIP_LANDING_SLUGS["hr"]:
             continue
         en_slug = SLUG_MAP.get(slug, slug)
+        set_page_context(en_slug=en_slug, hr_slug=slug)
         write_file(ROOT / "hr" / slug / "index.html", render_landing(page, "hr", en_slug, slug))
         sitemap_urls.append((f"{BASE}/hr/{slug}/", "monthly"))
+    set_page_context(en_slug=activities_hub_slug("en"), hr_slug=activities_hub_slug("hr"))
     write_file(
         ROOT / "hr" / activities_hub_slug("hr") / "index.html",
         render_activities_hub_page("hr"),
@@ -2588,18 +2842,22 @@ def main() -> None:
     sitemap_urls.append((f"{BASE}/hr/{activities_hub_slug('hr')}/", "monthly"))
     for activity in ACTIVITIES:
         slug = activity["hr_slug"]
+        set_page_context(en_slug=activity["en_slug"], hr_slug=slug)
         write_file(ROOT / "hr" / slug / "index.html", render_activity_page(activity, "hr"))
         sitemap_urls.append((f"{BASE}/hr/{slug}/", "monthly"))
     for event in EVENT_PAGES:
+        set_page_context(en_slug=event["en_slug"], hr_slug=event["hr_slug"])
         write_file(ROOT / "hr" / event["hr_slug"] / "index.html", render_event_page(event, "hr"))
         sitemap_urls.append((f"{BASE}/hr/{event['hr_slug']}/", "monthly"))
 
-    print("Writing robots.txt, sitemap.xml, and migration redirects...")
+    print("Writing robots.txt, sitemap.xml, headers, and migration redirects...")
     build_robots()
     build_sitemap(sitemap_urls)
     build_redirects()
+    build_headers()
     build_root_redirect()
     build_404()
+    build_minified_assets()
     relativize_site()
     print("Done.")
 

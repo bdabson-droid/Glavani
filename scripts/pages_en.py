@@ -1174,7 +1174,8 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                 'paragraphs': ['<p>To join the Glavani Park partner programme, contact '
                                'us with your business name, website, location in '
                                'Istria (if applicable), audience or guest profile, and '
-                               'how you plan to promote the park. Email <a '
+                               'how you plan to promote the park. Use our <a '
+                               'href="/en/contact/">contact form</a>, email <a '
                                'href="mailto:info@glavanipark.com">info@glavanipark.com</a> '
                                'or call <a href="tel:+385918964525">+385 91 896 '
                                '4525</a>.</p>',
@@ -1349,7 +1350,8 @@ PAGES = [{'slug': 'things-to-do-in-istria',
                                'Barban and Vodnjan with booking recommended on +385 91 '
                                '896 4525.</p>',
                                '<p>For high-resolution images, familiarisation visits, '
-                               'or custom co-branded widgets, email <a '
+                               'or custom co-branded widgets, use our <a '
+                               'href="/en/contact/">contact form</a>, email <a '
                                'href="mailto:info@glavanipark.com">info@glavanipark.com</a> '
                                'or call <a href="tel:+385918964525">+385 91 896 '
                                '4525</a>. Correct NAP (name, address, phone) for '

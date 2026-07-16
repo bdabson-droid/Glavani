@@ -1,0 +1,94 @@
+/**
+ * Formspree contact form — client validation and inline success message.
+ */
+(function () {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+
+  const feedback = document.getElementById('contact-feedback');
+  const submitBtn = document.getElementById('contact-submit');
+  const lang = document.documentElement.lang === 'hr' ? 'hr' : 'en';
+
+  const t = {
+    en: {
+      submitting: 'Sending…',
+      submit: 'Send enquiry',
+      fillRequired: 'Please fill in all required fields.',
+      emailInvalid: 'Please enter a valid email address.',
+      successTitle: 'Message sent',
+      successLead: 'Thank you — we have received your enquiry and aim to reply within 48 hours.',
+      successSpam:
+        'If you do not hear back, check spam for email from info@glavanipark.com or office@glavanipark.com, or call us to confirm.',
+      error: 'Sorry, we could not send your message. Please call us instead.',
+    },
+    hr: {
+      submitting: 'Šaljem…',
+      submit: 'Pošaljite upit',
+      fillRequired: 'Molimo ispunite sva obavezna polja.',
+      emailInvalid: 'Unesite ispravnu e-mail adresu.',
+      successTitle: 'Poruka poslana',
+      successLead: 'Hvala — primili smo vaš upit i nastojimo odgovoriti u roku od 48 sati.',
+      successSpam:
+        'Ako ne dobijete odgovor, provjerite neželjenu poštu za info@glavanipark.com ili office@glavanipark.com, ili nas nazovite.',
+      error: 'Nažalost nismo mogli poslati poruku. Molimo nazovite nas.',
+    },
+  }[lang];
+
+  function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
+  }
+
+  function showFeedback(html, isError) {
+    if (!feedback) return;
+    feedback.hidden = false;
+    feedback.className = 'contact-form__feedback' + (isError ? ' contact-form__feedback--error' : ' contact-form__feedback--success');
+    feedback.innerHTML = html;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const honeypot = form.querySelector('[name="_gotcha"]');
+    if (honeypot && honeypot.value) return;
+
+    const name = form.querySelector('#contact-name')?.value.trim() || '';
+    const email = form.querySelector('#contact-email')?.value.trim() || '';
+    const phone = form.querySelector('#contact-phone')?.value.trim() || '';
+    const message = form.querySelector('#contact-message')?.value.trim() || '';
+
+    if (!name || !email || !phone || !message) {
+      showFeedback(`<p>${t.fillRequired}</p>`, true);
+      return;
+    }
+    if (!isValidEmail(email)) {
+      showFeedback(`<p>${t.emailInvalid}</p>`, true);
+      return;
+    }
+
+    const originalLabel = submitBtn?.textContent || t.submit;
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = t.submitting;
+    }
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (!response.ok) throw new Error('submit failed');
+      form.reset();
+      showFeedback(
+        `<h3>${t.successTitle}</h3><p>${t.successLead}</p><p>${t.successSpam}</p>`,
+        false
+      );
+    } catch (err) {
+      showFeedback(`<p>${t.error}</p>`, true);
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+      }
+    }
+  });
+})();
