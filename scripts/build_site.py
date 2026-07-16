@@ -60,7 +60,7 @@ from packages import (  # noqa: E402
 )
 from open_status import park_status  # noqa: E402
 from activity_reviews import render_activity_reviews  # noqa: E402
-from home_reviews import render_home_reviews_carousel  # noqa: E402
+from home_reviews import render_home_testimonials  # noqa: E402
 from activity_seo import render_activity_seo_footer  # noqa: E402
 from trust_signals import book_cta_labels, render_stay_safe_badge, render_trust_strip  # noqa: E402
 from visitor_gallery import (  # noqa: E402
@@ -1951,7 +1951,7 @@ def inject_home_extras(body: str, lang: str) -> str:
         ),
         "<!-- ACTIVITY_HUB_GRID -->": render_activity_hub_cards(lang),
         "<!-- ACTIVITIES_CTA -->": render_conversion_cta(lang),
-        "<!-- HOME_REVIEWS_CAROUSEL -->": render_home_reviews_carousel(lang),
+        "<!-- HOME_TESTIMONIALS -->": render_home_testimonials(lang),
     }
     for marker, html in replacements.items():
         body = body.replace(marker, html)
@@ -2450,7 +2450,7 @@ def render_home(lang: str) -> str:
 {body_content}
 {footer(lang)}
 {json_ld_script(org_schema)}
-{render_page_scripts("open-status", "review-carousel")}
+{render_page_scripts("open-status")}
 </body>
 </html>"""
 
