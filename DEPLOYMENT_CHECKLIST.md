@@ -23,7 +23,9 @@ The build emits static HTML into `en/`, `hr/`, and the repo root, plus `function
 | Variable | Required | Purpose |
 |----------|----------|---------|
 | `RESEND_API_KEY` | **Yes** (forms) | Sends contact + booking emails via Resend |
-| `RESEND_FROM_EMAIL` | Recommended | `info@glavani-park.com` — must be on a domain verified in Resend |
+| `RESEND_BOOKING_FROM_EMAIL` | Optional | `booking@glavani-park.com` — booking form sender |
+| `RESEND_CONTACT_FROM_EMAIL` | Optional | `contact@glavani-park.com` — contact form sender |
+| `RESEND_FROM_EMAIL` | Optional | Legacy fallback if the per-form vars are not set |
 | `RESEND_TO_EMAIL` | Recommended | `info@glavanipark.com` — where enquiries are delivered |
 | `SITE_BASE` | Recommended | `https://glavani-park.com` — canonical URLs in sitemap/schema |
 | `GA4_MEASUREMENT_ID` | Optional | Google Analytics 4 (loads after cookie consent) |
@@ -94,13 +96,14 @@ Forms send **from** a verified address on **glavani-park.com** and deliver **to*
 | Variable | Value |
 |----------|--------|
 | `RESEND_API_KEY` | `re_...` (paste API key) |
-| `RESEND_FROM_EMAIL` | `info@glavani-park.com` |
+| `RESEND_BOOKING_FROM_EMAIL` | `booking@glavani-park.com` |
+| `RESEND_CONTACT_FROM_EMAIL` | `contact@glavani-park.com` |
 | `RESEND_TO_EMAIL` | `info@glavanipark.com` |
 | `SITE_BASE` | `https://glavani-park.com` |
 
 5. **Save**
 
-Defaults in code match the table above if you only set `RESEND_API_KEY`.
+Defaults in code use `booking@` / `contact@` on `glavani-park.com` if you only set `RESEND_API_KEY`. Any `@glavani-park.com` address works once the domain is verified in Resend — no separate mailbox setup required.
 
 ### 5e. Redeploy and test
 
@@ -110,7 +113,7 @@ Defaults in code match the table above if you only set `RESEND_API_KEY`.
    - https://glavani-park.com/en/reservation/
 3. Check `info@glavanipark.com` inbox (and spam) for the test messages
 
-When you later control `glavanipark.com` DNS, verify that domain in Resend and change `RESEND_FROM_EMAIL` to `info@glavanipark.com`.
+When you later control `glavanipark.com` DNS, you can switch sender addresses to `@glavanipark.com` if preferred.
 
 ## 6. Post-deploy verification
 

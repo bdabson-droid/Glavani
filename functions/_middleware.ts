@@ -6,10 +6,13 @@ const CONTACT_FORM = "glavani-contact";
 interface Env {
   RESEND_API_KEY?: string;
   RESEND_FROM_EMAIL?: string;
+  RESEND_BOOKING_FROM_EMAIL?: string;
+  RESEND_CONTACT_FROM_EMAIL?: string;
   RESEND_TO_EMAIL?: string;
 }
 
-const DEFAULT_FROM_EMAIL = "info@glavani-park.com";
+const DEFAULT_BOOKING_FROM_EMAIL = "booking@glavani-park.com";
+const DEFAULT_CONTACT_FROM_EMAIL = "contact@glavani-park.com";
 const DEFAULT_TO_EMAIL = "info@glavanipark.com";
 
 function field(formData: FormData, key: string): string {
@@ -17,11 +20,25 @@ function field(formData: FormData, key: string): string {
   return value == null ? "" : String(value).trim();
 }
 
-function buildBookingEmailBody(formData: FormData): string {
+function replyToLine(guestName: string, guestEmail: string): string {
+  if (!guestEmail) return "Reply to confirm: (no email provided)";
+  const who = guestName ? `${guestName} <${guestEmail}>` : guestEmail;
+  return `Reply to confirm: ${who}`;
+}
+
+function buildBookingEmailBody(
+  formData: FormData,
+  guestName: string,
+  guestEmail: string,
+): string {
   const message = field(formData, "message");
-  if (message) return message;
+  if (message) {
+    return [replyToLine(guestName, guestEmail), "", message].join("\n");
+  }
 
   return [
+    replyToLine(guestName, guestEmail),
+    "",
     field(formData, "header") || "Glavani Park booking request",
     "---",
     `Package: ${field(formData, "package")}`,
@@ -31,8 +48,8 @@ function buildBookingEmailBody(formData: FormData): string {
     `Adults: ${field(formData, "adults")}`,
     `Children: ${field(formData, "children")}`,
     `Total: ${field(formData, "total")}`,
-    `Name: ${field(formData, "name")}`,
-    `Email: ${field(formData, "email")}`,
+    `Name: ${guestName}`,
+    `Email: ${guestEmail}`,
     `Phone: ${field(formData, "phone")}`,
     `Notes: ${field(formData, "notes") || "—"}`,
     "---",
@@ -40,12 +57,18 @@ function buildBookingEmailBody(formData: FormData): string {
   ].join("\n");
 }
 
-function buildContactEmailBody(formData: FormData): string {
+function buildContactEmailBody(
+  formData: FormData,
+  guestName: string,
+  guestEmail: string,
+): string {
   return [
+    replyToLine(guestName, guestEmail),
+    "",
     "Glavani Park enquiry",
     "---",
-    `Name: ${field(formData, "name")}`,
-    `Email: ${field(formData, "email")}`,
+    `Name: ${guestName}`,
+    `Email: ${guestEmail}`,
     `Phone: ${field(formData, "phone")}`,
     `Activity: ${field(formData, "activity") || "General enquiry"}`,
     `Date: ${field(formData, "date") || "—"}`,
@@ -57,30 +80,69 @@ function buildContactEmailBody(formData: FormData): string {
   ].join("\n");
 }
 
+function bookingSubject(guestName: string, guestEmail: string, visitDate: string): string {
+  const who = guestName || "Guest";
+  const emailPart = guestEmail ? ` (${guestEmail})` : "";
+  return `Booking – ${who}${emailPart} – ${visitDate}`;
+}
+
+function contactSubject(
+  guestName: string,
+  guestEmail: string,
+  activity: string,
+): string {
+  const who = guestName || activity;
+  const emailPart = guestEmail ? ` (${guestEmail})` : "";
+  return `Enquiry – ${who}${emailPart}`;
+}
+
+function resolveFromEmail(
+  env: Env,
+  kind: "booking" | "contact",
+): string {
+  const legacy = env.RESEND_FROM_EMAIL?.trim();
+  if (kind === "booking") {
+    return (
+      env.RESEND_BOOKING_FROM_EMAIL?.trim() ||
+      legacy ||
+      DEFAULT_BOOKING_FROM_EMAIL
+    );
+  }
+  return (
+    env.RESEND_CONTACT_FROM_EMAIL?.trim() ||
+    legacy ||
+    DEFAULT_CONTACT_FROM_EMAIL
+  );
+}
+
 async function sendParkEmail(
   env: Env,
-  body: string,
-  subject: string,
-  guestEmail: string,
-  guestName: string,
-  fromLabel: string,
+  options: {
+    body: string;
+    subject: string;
+    guestEmail: string;
+    guestName: string;
+    fromLabel: string;
+    fromEmail: string;
+  },
 ): Promise<{ ok: boolean; errors?: string[] }> {
   const apiKey = env.RESEND_API_KEY;
   if (!apiKey) {
     return { ok: false, errors: ["RESEND_API_KEY is not configured"] };
   }
 
-  const fromEmail = env.RESEND_FROM_EMAIL?.trim() || DEFAULT_FROM_EMAIL;
   const toEmail = env.RESEND_TO_EMAIL?.trim() || DEFAULT_TO_EMAIL;
 
   const payload: Record<string, unknown> = {
-    from: `${fromLabel} <${fromEmail}>`,
+    from: `${options.fromLabel} <${options.fromEmail}>`,
     to: [toEmail],
-    subject,
-    text: body,
+    subject: options.subject,
+    text: options.body,
   };
-  if (guestEmail) {
-    payload.reply_to = guestName ? `${guestName} <${guestEmail}>` : guestEmail;
+  if (options.guestEmail) {
+    payload.reply_to = options.guestName
+      ? `${options.guestName} <${options.guestEmail}>`
+      : options.guestEmail;
   }
 
   const response = await fetch("https://api.resend.com/emails", {
@@ -109,17 +171,17 @@ export const onRequest: PagesFunction<Env> = (context) => {
         const guestName = field(formData, "name");
         const guestEmail = field(formData, "email");
         const visitDate = field(formData, "date") || "date TBC";
-        const body = buildBookingEmailBody(formData);
-        const subject = `Glavani Park booking request – ${visitDate}`;
+        const body = buildBookingEmailBody(formData, guestName, guestEmail);
+        const subject = bookingSubject(guestName, guestEmail, visitDate);
 
-        const result = await sendParkEmail(
-          context.env,
+        const result = await sendParkEmail(context.env, {
           body,
           subject,
           guestEmail,
           guestName,
-          "Glavani Park Booking",
-        );
+          fromLabel: "Glavani Park Booking",
+          fromEmail: resolveFromEmail(context.env, "booking"),
+        });
 
         if (!result.ok) {
           return Response.json(
@@ -138,17 +200,17 @@ export const onRequest: PagesFunction<Env> = (context) => {
         const guestName = field(formData, "name");
         const guestEmail = field(formData, "email");
         const activity = field(formData, "activity") || "General enquiry";
-        const body = buildContactEmailBody(formData);
-        const subject = `Glavani Park enquiry – ${guestName || activity}`;
+        const body = buildContactEmailBody(formData, guestName, guestEmail);
+        const subject = contactSubject(guestName, guestEmail, activity);
 
-        const result = await sendParkEmail(
-          context.env,
+        const result = await sendParkEmail(context.env, {
           body,
           subject,
           guestEmail,
           guestName,
-          "Glavani Park Enquiry",
-        );
+          fromLabel: "Glavani Park Enquiry",
+          fromEmail: resolveFromEmail(context.env, "contact"),
+        });
 
         if (!result.ok) {
           return Response.json(
