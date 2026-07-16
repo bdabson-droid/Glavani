@@ -196,7 +196,7 @@ ACTIVITIES = [
         "image": "training-route-main.webp",
         "en": {
             "title": "Yellow Training Route (High Ropes) | Glavani Park Istria",
-            "h1": "Training Route",
+            "h1": "Training Route (yellow route)",
             "meta_description": (
                 "Try the 2-metre yellow training route at Glavani Park, Istria — a family-friendly high-ropes "
                 "course with harness and instructor briefing. Near Pula, open daily 9 AM–5 PM."
@@ -213,7 +213,7 @@ ACTIVITIES = [
         },
         "hr": {
             "title": "Žuta trening ruta (visoke staze) | Glavani Park Istria",
-            "h1": "Trening ruta",
+            "h1": "Trening ruta (žuta staza)",
             "meta_description": (
                 "Isprobajte žutu trening rutu na 2 m u Glavani Parku, Istria — obiteljska visoka staza s harnesom "
                 "i obukom instruktora. Kod Pule, otvoreno svaki dan 9–17 h."
@@ -237,15 +237,21 @@ ACTIVITIES = [
         "banner_header": True,
         "image": "visitor-gallery-treetop-course-guest-27.webp",
         "en": {
-            "title": "Treetop Course | Glavani Park Istria",
-            "h1": "Treetop Course",
+            "title": "Treetop Course (Blue Route) | Glavani Park Istria",
+            "h1": "Treetop Course (blue route)",
             "meta_description": (
                 "Glavani Park's blue Treetop Course — high ropes and a 113 m zipline at 6 m above the forest. "
                 "Instructor-led treetop adventure near Pula. Open daily."
             ),
             "keywords": "treetop course Istria, blue high ropes Croatia, Glavani Park treetop course, adventure near Pula",
-            "hero_badge": "113 m on the blue course · 6 m high",
+            "hero_badge": "Blue route · 113 m zipline · 6 m high",
             "image_alt": "Treetop high-ropes course and zipline at Glavani Park, Istria",
+            "content_notice": (
+                "The description below reflects our previous layout and will be updated shortly. "
+                "The <strong>blue route</strong> now follows the same games through the "
+                "<strong>living trees at the park</strong> — a different experience from what is "
+                "currently described on this page."
+            ),
             "paragraphs": [
                 "The Treetop Course is Glavani Park's blue high-ropes route at 6 metres above the ground. The 113-metre zipline section links platforms on the course, so you stay on continuous belay from climb to landing.",
                 "It is a great introduction for visitors moving up from the family yellow route or those who want zipline speed without the full valley height. Instructors guide you at entry and exit points. Access is included when you complete the blue course circuit.",
@@ -254,15 +260,21 @@ ACTIVITIES = [
             "video_placeholder": "Activity video coming soon — paste a YouTube embed or video file here.",
         },
         "hr": {
-            "title": "Staza u krošnjama | Glavani Park Istria",
-            "h1": "Staza u krošnjama",
+            "title": "Staza u krošnjama (plava staza) | Glavani Park Istria",
+            "h1": "Staza u krošnjama (plava staza)",
             "meta_description": (
                 "Plava Staza u krošnjama Glavani Parka — visoke staze i zipline od 113 m na 6 m iznad šume. "
                 "Avantura u krošnjama pod nadzorom instruktora kod Pule. Otvoreno svaki dan."
             ),
             "keywords": "staza u krošnjama Istria, plava visoka staza Hrvatska, Glavani Park krošnje, avantura kod Pule",
-            "hero_badge": "113 m na plavoj stazi · 6 m visine",
+            "hero_badge": "Plava staza · zipline 113 m · 6 m visine",
             "image_alt": "Staza u krošnjama — visoka staza i zipline u Glavani Parku, Istria",
+            "content_notice": (
+                "Opis u nastavku odnosi se na stariji raspored i uskoro će biti ažuriran. "
+                "<strong>Plava staza</strong> sada prolazi istim igrama kroz "
+                "<strong>žive stabla u parku</strong> — drugačije iskustvo od onoga što je trenutno "
+                "opisano na ovoj stranici."
+            ),
             "paragraphs": [
                 "Staza u krošnjama plava je visoka staza Glavani Parka na 6 metara iznad tla. Dio od 113 metara povezuje platforme na stazi — ostajete na kontinuiranom osiguranju od penjanja do slijetanja.",
                 "Odličan je uvod za posjetitelje koji prelaze s obiteljske žute staze ili žele brzinu ziplinea bez pune visine doline. Instruktori vode na ulazu i izlazu. Pristup je uključen kada obavite plavu stazu.",

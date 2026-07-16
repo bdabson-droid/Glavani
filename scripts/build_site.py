@@ -1804,6 +1804,9 @@ def render_activity_page(activity: dict, lang: str) -> str:
     activities_url = f"{BASE}{activities_href}"
 
     prose = render_prose_blocks(data["paragraphs"])
+    content_notice = data.get("content_notice")
+    if content_notice:
+        prose = f'<p class="activity-video__notice">{content_notice}</p>' + prose
     prose += render_activity_seo_footer(activity, lang)
     video_section = render_activity_video_section(activity, data, lang)
     visitor_photos = render_activity_visitor_photos(activity, lang)
