@@ -897,6 +897,11 @@ def footer(lang: str) -> str:
         map_label = "Map & directions"
     link_html = "".join(f"<li><a href=\"{h}\">{t}</a></li>" for t, h in links)
     footer_href, footer_label = footer_site_link()
+    former_domain = (
+        "Prije bilo dostupno na glavanipark.com"
+        if lang == "hr"
+        else "Formerly available at glavanipark.com"
+    )
     return f"""
 {render_stay_safe_badge(lang)}
 {render_trust_strip(lang, in_footer=True)}
@@ -913,6 +918,7 @@ def footer(lang: str) -> str:
       </p>
     </div>
     <p>&copy; <time datetime="2026">2026</time> {tagline}</p>
+    <p class="site-footer__former-domain">{former_domain}</p>
     <ul class="site-footer__links">
       <li><a href="{footer_href}">{footer_label}</a></li>
       {link_html}
