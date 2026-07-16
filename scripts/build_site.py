@@ -1580,7 +1580,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
     activities_href = activities_hub_path(lang)
     activities_url = f"{BASE}{activities_href}"
 
-    prose = render_prose_blocks(data["paragraphs"])
+    prose = render_activity_notice(data) + render_prose_blocks(data["paragraphs"])
     prose += render_activity_seo_footer(activity, lang)
     video_section = render_activity_video_section(activity, data, lang)
     visitor_photos = render_activity_visitor_photos(activity, lang)
@@ -1903,6 +1903,13 @@ def render_activity_visitor_photos(activity: dict, lang: str) -> str:
         <button type="button" class="photo-gallery__nav photo-gallery__nav--next" aria-label="{next_label}" data-gallery-next>›</button>
       </div>
     </section>"""
+
+
+def render_activity_notice(data: dict) -> str:
+    notice = data.get("activity_notice")
+    if not notice:
+        return ""
+    return f'<p class="activity-detail__notice">{notice}</p>'
 
 
 def render_prose_blocks(paragraphs: list[str]) -> str:
