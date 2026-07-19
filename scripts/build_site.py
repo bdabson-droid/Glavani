@@ -2185,26 +2185,23 @@ def render_home_video_hero(lang: str) -> str:
     video_src = f"/images/{quote(HOME_LANDING_VIDEO)}"
     poster_src = f"/images/{HOME_LANDING_POSTER}"
     logo_alt = VISITOR[lang]["logo_alt"]
-    return f"""    <section class="home-video-hero" aria-label="{esc(copy['aria'])}">
-      <div class="home-video-hero__media" aria-hidden="true">
-        <video class="home-video-hero__video" autoplay muted loop playsinline preload="metadata" poster="{poster_src}">
-          <source src="{video_src}" type="video/mp4">
-        </video>
-      </div>
-      <div class="home-video-hero__overlay" aria-hidden="true"></div>
-      <div class="home-video-hero__content">
-        <img class="home-video-hero__logo" src="/images/glavani-park-logo.png" alt="{esc(logo_alt)}" width="420" height="242" fetchpriority="high">
-        <p class="home-video-hero__tagline">{esc(copy['tagline'])}</p>
-        <a class="home-video-hero__scroll" href="#home-content">{esc(copy['scroll'])}</a>
-      </div>
-    </section>"""
+    return f"""<section class="home-video-hero" aria-label="{esc(copy['aria'])}">
+  <video class="home-video-hero__video" autoplay muted loop playsinline preload="auto" poster="{poster_src}" aria-hidden="true">
+    <source src="{video_src}" type="video/mp4">
+  </video>
+  <div class="home-video-hero__overlay" aria-hidden="true"></div>
+  <div class="home-video-hero__content">
+    <img class="home-video-hero__logo" src="/images/glavani-park-logo.png" alt="{esc(logo_alt)}" width="420" height="242" fetchpriority="high">
+    <p class="home-video-hero__tagline">{esc(copy['tagline'])}</p>
+    <a class="home-video-hero__scroll" href="#home-content">{esc(copy['scroll'])}</a>
+  </div>
+</section>"""
 
 
 def inject_home_extras(body: str, lang: str) -> str:
     summary = price_summary(lang)
     status = park_status(lang)
     replacements = {
-        "<!-- HOME_VIDEO_HERO -->": render_home_video_hero(lang),
         "<!-- HERO_OPEN_STATUS -->": (
             f'<span class="hero__open-status-row visitor-bar__status visitor-bar__status--{status["state"]}">'
             f'<span class="visitor-bar__icon" aria-hidden="true">●</span>'
@@ -2795,6 +2792,7 @@ def render_home(lang: str) -> str:
     }
     home_label = "Početna" if lang == "hr" else "Home"
     return f"""{head_meta(lang, home['title'], home['meta_description'], home['keywords'], canonical, is_home=True, og_image=home['image'], og_image_alt="Glavani Park adventure and zipline park in Istria, Croatia", body_class="theme-page home-landing")}
+{render_home_video_hero(lang)}
 {page_chrome(lang, is_home=True)}
 {body_content}
 {footer(lang)}

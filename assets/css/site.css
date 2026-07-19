@@ -645,63 +645,71 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 
 .home-video-hero {
   position: relative;
-  display: grid;
-  place-items: center;
-  min-height: min(88svh, 820px);
+  width: 100%;
+  height: 100dvh;
+  min-height: 32rem;
+  overflow: hidden;
+  background: var(--brand-black);
   color: var(--text-on-dark);
   text-align: center;
-  overflow: hidden;
-  isolation: isolate;
 }
-.home-video-hero__media {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: var(--brand-black);
-}
+
 .home-video-hero__video {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
   object-fit: cover;
   object-position: center center;
+  pointer-events: none;
 }
+
 .home-video-hero__overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(
-    180deg,
-    rgba(10, 10, 10, 0.3) 0%,
-    rgba(10, 10, 10, 0.48) 50%,
-    rgba(10, 10, 10, 0.62) 100%
-  );
+  background:
+    linear-gradient(180deg, rgba(10, 10, 10, 0.2) 0%, rgba(10, 10, 10, 0.35) 45%, rgba(10, 10, 10, 0.55) 100%);
   pointer-events: none;
 }
+
 .home-video-hero__content {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 2;
-  padding: 2rem 1.25rem 2.75rem;
-  max-width: 760px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 2rem 1.25rem 5rem;
 }
+
 .home-video-hero__logo {
-  width: min(420px, 78vw);
+  width: min(440px, 82vw);
   height: auto;
-  filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.45));
+  filter: drop-shadow(0 6px 28px rgba(0, 0, 0, 0.55));
 }
+
 .home-video-hero__tagline {
   margin: 0;
-  font-size: clamp(1rem, 2.8vw, 1.25rem);
+  max-width: 40ch;
+  font-size: clamp(1.05rem, 2.9vw, 1.35rem);
   line-height: 1.45;
   font-weight: 600;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
-  max-width: 38ch;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.65);
 }
+
 .home-video-hero__scroll {
-  margin-top: 0.35rem;
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
   color: var(--accent-on-dark);
   text-decoration: none;
   font-size: 0.8125rem;
@@ -727,15 +735,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(0.35rem); }
 }
-@media (min-width: 900px) {
-  .home-video-hero {
-    min-height: min(100svh, 960px);
-  }
-  .home-video-hero__video {
-    object-fit: contain;
-    object-position: center center;
-  }
-}
+
 @media (prefers-reduced-motion: reduce) {
   .home-video-hero__scroll::after {
     animation: none;
@@ -743,7 +743,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   .home-video-hero__video {
     display: none;
   }
-  .home-video-hero__media {
+  .home-video-hero {
     background: center / cover no-repeat url("/images/human-catapult-youtube-still.webp");
   }
 }
