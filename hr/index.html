@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preload" href="../images/Catapult%20Short%20Vid%20Gif%20Portrait%20%28trimmed%29.gif" as="image" media="(max-width: 899px)" fetchpriority="high">
-  <link rel="preload" href="../images/Catapult%20Short%20Vid%20Gif%20Landscape%20%28trimmed%29.gif" as="image" media="(min-width: 900px)" fetchpriority="high">
+  <link rel="preload" href="../images/catapult-home-portrait.gif" as="image" media="(max-width: 899px)" fetchpriority="high">
+  <link rel="preload" href="../images/catapult-home-landscape.gif" as="image" media="(min-width: 900px)" fetchpriority="high">
   <title>Glavani Park | Broj 1 avanturistički park u Hrvatskoj · Istria</title>
   <meta name="description" content="Glavani Park je broj 1 avanturistički park u Istri, Hrvatska — zipline, visoke staze, ljudska katapulta i aktivnosti na otvorenom kod Pule, Barbana i Vodnjanja. Otvoreno svaki dan 9–17 h, zadnji ulaz u 15 h. Pozovite +385 98 224 314 ili rezervirajte online do 10 osoba.">
   <meta name="keywords" content="broj 1 avanturistički park Hrvatska, avanturistički park Istria, avanturistički park Hrvatska, zipline park Istria, zipline park Hrvatska, adrenalinski park Istria, aktivnosti na otvorenom Istria Hrvatska, visoke staze Hrvatska, obiteljske aktivnosti Istria, što raditi kod Pule, Glavani Park">
@@ -30,14 +30,14 @@
   <link rel="apple-touch-icon" href="../images/glavani-park-logo.png">
   <meta name="theme-color" content="#0a0a0a">
   <link rel="preload" href="../images/glavani-park-adventure-istria-croatia.webp" as="image" fetchpriority="high">
-  <link rel="preload" href="../assets/css/site.min.css?v=20260719b" as="style">
-  <link rel="stylesheet" href="../assets/css/site.min.css?v=20260719b">
+  <link rel="preload" href="../assets/css/site.min.css?v=20260719d" as="style">
+  <link rel="stylesheet" href="../assets/css/site.min.css?v=20260719d">
 
   <style>
 .home-landing .breadcrumb--home{display:none}
 .site-header--home-video{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;min-height:100dvh;padding:2rem 1.25rem 4.5rem;overflow:hidden}
-.site-header__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#0a0a0a}
-.site-header__gif{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;width:auto;height:auto;max-width:none!important;transform:translate(-50%,-50%);object-fit:cover;object-position:50% 50%;pointer-events:none}
+.site-header__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#0a0a0a center/cover no-repeat url("../images/human-catapult-youtube-still.webp")}
+.site-header__gif{position:absolute;top:50%;left:50%;display:block;min-width:100%;min-height:100%;width:auto;height:auto;max-width:none!important;transform:translate(-50%,-50%);object-fit:cover;object-position:50% 50%;pointer-events:none}
 .site-header__gif--landscape{display:none}
 .site-header__video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,10,10,.22) 0%,rgba(10,10,10,.42) 50%,rgba(10,10,10,.58) 100%);pointer-events:none}
 .site-header__home-inner{position:relative;z-index:2;width:100%;max-width:760px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:1rem}
@@ -77,8 +77,8 @@
 
   <header class="site-header site-header--home-video" aria-label="Ljudska katapulta u Glavani Parku">
     <div class="site-header__bg" aria-hidden="true">
-      <img class="site-header__gif site-header__gif--portrait" src="../images/Catapult%20Short%20Vid%20Gif%20Portrait%20%28trimmed%29.gif" alt="" width="1080" height="1920" decoding="async" fetchpriority="high">
-      <img class="site-header__gif site-header__gif--landscape" src="../images/Catapult%20Short%20Vid%20Gif%20Landscape%20%28trimmed%29.gif" alt="" width="1920" height="1080" decoding="async" fetchpriority="high">
+      <img class="site-header__gif site-header__gif--portrait" src="../images/catapult-home-portrait.gif" alt="" width="1080" height="1920" decoding="sync" loading="eager" fetchpriority="high">
+      <img class="site-header__gif site-header__gif--landscape" src="../images/catapult-home-landscape.gif" alt="" width="1920" height="1080" decoding="sync" loading="eager" fetchpriority="high">
     </div>
     <div class="site-header__video-overlay" aria-hidden="true"></div>
     <div class="site-header__home-inner">

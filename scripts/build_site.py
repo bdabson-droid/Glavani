@@ -37,7 +37,7 @@ HOME_LANDING_COPY = {
     },
 }
 
-SITE_CSS_VERSION = "20260719b"
+SITE_CSS_VERSION = "20260719d"
 
 from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
@@ -604,6 +604,8 @@ def relativize_paths(html: str, depth: int, lang: str) -> str:
 
     html = re.sub(r'(href|src)="/assets/', rf'\1="{up}assets/', html)
     html = re.sub(r'(href|src)="/images/', rf'\1="{up}images/', html)
+    html = re.sub(r'url\("/images/', rf'url("{up}images/', html)
+    html = re.sub(r"url\('/images/", rf"url('{up}images/", html)
     html = html.replace('href="/manifest.webmanifest"', f'href="{up}manifest.webmanifest"')
 
     def other_lang_link(match: re.Match[str]) -> str:
@@ -642,6 +644,8 @@ def relativize_root_paths(html: str) -> str:
 
     html = re.sub(r'(href|src)="/assets/', r'\1="assets/', html)
     html = re.sub(r'(href|src)="/images/', r'\1="images/', html)
+    html = re.sub(r'url\("/images/', r'url("images/', html)
+    html = re.sub(r"url\('/images/", r"url('images/", html)
     html = html.replace('href="/manifest.webmanifest"', 'href="manifest.webmanifest"')
     html = re.sub(r'href="/(en|hr)/([^"]*)"', r'href="\1/\2"', html)
     return html
@@ -824,34 +828,23 @@ def visitor_bar(lang: str) -> str:
 
 
 def resolve_home_landing_gifs() -> tuple[str, str]:
-    """Find portrait and landscape GIFs in images/ (filename must include those words)."""
+    """Return portrait and landscape GIF filenames for the home hero."""
     img_dir = ROOT / "images"
+    portrait = HOME_LANDING_GIF_PORTRAIT
+    landscape = HOME_LANDING_GIF_LANDSCAPE
+    if (img_dir / portrait).is_file() and (img_dir / landscape).is_file():
+        return portrait, landscape
     gifs = sorted(p.name for p in img_dir.glob("*.gif"))
     gifs += sorted(p.name for p in img_dir.glob("*.GIF"))
-    portrait = next((g for g in gifs if "portrait" in g.lower()), "")
-    landscape = next((g for g in gifs if "landscape" in g.lower()), "")
-    if portrait and landscape:
-        return portrait, landscape
-    if len(gifs) == 2:
-        try:
-            from PIL import Image as PILImage
-
-            sizes = []
-            for name in gifs:
-                with PILImage.open(img_dir / name) as img:
-                    sizes.append((img.width / img.height, name))
-            sizes.sort()
-            return sizes[0][1], sizes[-1][1]
-        except OSError:
-            return gifs[0], gifs[1]
-    portrait = portrait or HOME_LANDING_GIF_PORTRAIT
-    landscape = landscape or HOME_LANDING_GIF_LANDSCAPE
+    found_portrait = next((g for g in gifs if "portrait" in g.lower()), "")
+    found_landscape = next((g for g in gifs if "landscape" in g.lower()), "")
+    if found_portrait and found_landscape:
+        return found_portrait, found_landscape
     for name in (portrait, landscape):
         if not (img_dir / name).is_file():
             print(
                 f"  warn: home landing GIF not found ({name}) — "
-                "upload portrait and landscape GIFs to images/ "
-                "(filenames should include 'portrait' and 'landscape')"
+                "add catapult-home-portrait.gif and catapult-home-landscape.gif to images/"
             )
     return portrait, landscape
 
@@ -861,8 +854,8 @@ def render_home_hero_critical_css() -> str:
     return """  <style>
 .home-landing .breadcrumb--home{display:none}
 .site-header--home-video{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;min-height:100dvh;padding:2rem 1.25rem 4.5rem;overflow:hidden}
-.site-header__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#0a0a0a}
-.site-header__gif{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;width:auto;height:auto;max-width:none!important;transform:translate(-50%,-50%);object-fit:cover;object-position:50% 50%;pointer-events:none}
+.site-header__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#0a0a0a center/cover no-repeat url("/images/human-catapult-youtube-still.webp")}
+.site-header__gif{position:absolute;top:50%;left:50%;display:block;min-width:100%;min-height:100%;width:auto;height:auto;max-width:none!important;transform:translate(-50%,-50%);object-fit:cover;object-position:50% 50%;pointer-events:none}
 .site-header__gif--landscape{display:none}
 .site-header__video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,10,10,.22) 0%,rgba(10,10,10,.42) 50%,rgba(10,10,10,.58) 100%);pointer-events:none}
 .site-header__home-inner{position:relative;z-index:2;width:100%;max-width:760px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:1rem}
@@ -907,8 +900,8 @@ def site_header(lang: str, is_home: bool = False) -> str:
         return f"""
   <header class="site-header site-header--home-video" aria-label="{esc(landing['aria'])}">
     <div class="site-header__bg" aria-hidden="true">
-      <img class="site-header__gif site-header__gif--portrait" src="{portrait_src}" alt="" width="1080" height="1920" decoding="async" fetchpriority="high">
-      <img class="site-header__gif site-header__gif--landscape" src="{landscape_src}" alt="" width="1920" height="1080" decoding="async" fetchpriority="high">
+      <img class="site-header__gif site-header__gif--portrait" src="{portrait_src}" alt="" width="1080" height="1920" decoding="sync" loading="eager" fetchpriority="high">
+      <img class="site-header__gif site-header__gif--landscape" src="{landscape_src}" alt="" width="1920" height="1080" decoding="sync" loading="eager" fetchpriority="high">
     </div>
     <div class="site-header__video-overlay" aria-hidden="true"></div>
     <div class="site-header__home-inner">
