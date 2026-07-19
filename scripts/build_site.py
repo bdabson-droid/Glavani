@@ -35,7 +35,7 @@ HOME_LANDING_COPY = {
     },
 }
 
-SITE_CSS_VERSION = "20260719j"
+SITE_CSS_VERSION = "20260719k"
 
 from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
@@ -194,7 +194,7 @@ def render_page_scripts(*needs: str) -> str:
         path = PAGE_SCRIPTS.get(key)
         if path:
             seen.add(key)
-            lines.append(f'<script src="{path}" defer></script>')
+            lines.append(f'<script src="{path}?v={SITE_CSS_VERSION}" defer></script>')
     return "\n".join(lines)
 
 # Reverse map EN slug -> HR slug
@@ -747,7 +747,7 @@ def call_display(lang: str) -> str:
     return PHONES[1 if lang == "hr" else 0]["display"]
 
 
-def quick_actions(lang: str) -> str:
+def quick_actions(lang: str, *, hidden: bool = False) -> str:
     book_href = booking_href(lang)
     labels = book_cta_labels(lang)
     if lang == "hr":
@@ -757,8 +757,9 @@ def quick_actions(lang: str) -> str:
         call = "Call"
         find = "Map"
     primary = PHONES[1] if lang == "hr" else PHONES[0]
+    hidden_attr = ' aria-hidden="true"' if hidden else ""
     return f"""
-  <nav class="quick-actions" aria-label="{'Brze radnje' if lang == 'hr' else 'Quick actions'}">
+  <nav class="quick-actions" aria-label="{'Brze radnje' if lang == 'hr' else 'Quick actions'}"{hidden_attr}>
     <a class="btn-book-now" href="{book_href}">
       <span aria-hidden="true">🎟️</span> {labels['book_tickets']}
     </a>
@@ -771,7 +772,7 @@ def quick_actions(lang: str) -> str:
   </nav>"""
 
 
-def render_visit_cta_bar(lang: str) -> str:
+def render_visit_cta_bar(lang: str, *, hidden: bool = False) -> str:
     labels = book_cta_labels(lang)
     status = park_status(lang)
     book_href = booking_href(lang)
@@ -782,8 +783,9 @@ def render_visit_cta_bar(lang: str) -> str:
         else "Visit today — call for availability"
     )
     aria = "Rezervacija i današnji status" if lang == "hr" else "Book online and today's status"
+    hidden_attr = ' aria-hidden="true"' if hidden else ""
     return f"""
-  <div class="visit-cta-bar" aria-label="{aria}">
+  <div class="visit-cta-bar" aria-label="{aria}"{hidden_attr}>
     <div class="visit-cta-bar__inner">
       <p class="visit-cta-bar__status visitor-bar__status visitor-bar__status--{status['state']}">
         <span class="visitor-bar__icon" aria-hidden="true">●</span>
@@ -799,9 +801,10 @@ def render_visit_cta_bar(lang: str) -> str:
 
 def page_chrome(lang: str, *, is_home: bool = False) -> str:
     skip = "Preskoči na sadržaj" if lang == "hr" else "Skip to main content"
+    hide_chrome = is_home
     return f"""<a class="skip-link" href="#main-content">{skip}</a>
-{quick_actions(lang)}
-{render_visit_cta_bar(lang)}
+{quick_actions(lang, hidden=hide_chrome)}
+{render_visit_cta_bar(lang, hidden=hide_chrome)}
 {site_header(lang, is_home=is_home)}
 {visitor_bar(lang)}
 {site_nav(lang, is_home=is_home)}
@@ -868,13 +871,13 @@ def render_home_hero_critical_css() -> str:
 @media(min-width:900px){.site-header__gif--portrait{display:none}.site-header__gif--landscape{display:block}.site-header--home-video .site-header__brand{top:clamp(3.25rem,12vh,6rem)}.site-header__tagline--landing{bottom:clamp(5.25rem,21vh,9rem)}}
 .home-landing:not(.home-past-hero){padding-bottom:0;background:#0a0a0a}
 .home-landing.home-past-hero{padding-bottom:calc(var(--sticky-h) + 1rem)}
-.home-landing .visit-cta-bar,.home-landing .quick-actions{position:fixed;left:0;right:0;width:100%;will-change:transform,opacity;transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .35s ease}
+.home-landing .visit-cta-bar,.home-landing .quick-actions{position:fixed;left:0;right:0;width:100%;will-change:transform,opacity;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .22s ease}
 .home-landing .visit-cta-bar{top:0;z-index:998}
 .home-landing .quick-actions{top:auto;bottom:0;z-index:1000}
-.home-landing:not(.home-past-hero) .visit-cta-bar,.home-landing:not(.home-past-hero) .quick-actions{opacity:0;visibility:hidden;pointer-events:none;transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .35s ease,visibility 0s linear .45s}
+.home-landing:not(.home-past-hero) .visit-cta-bar,.home-landing:not(.home-past-hero) .quick-actions{opacity:0;visibility:hidden;pointer-events:none;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .22s ease,visibility 0s linear .28s}
 .home-landing:not(.home-past-hero) .visit-cta-bar{transform:translate3d(0,-100%,0)}
 .home-landing:not(.home-past-hero) .quick-actions{transform:translate3d(0,100%,0)}
-.home-landing.home-past-hero .visit-cta-bar,.home-landing.home-past-hero .quick-actions{opacity:1;visibility:visible;pointer-events:auto;transform:translate3d(0,0,0);transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .35s ease,visibility 0s}
+.home-landing.home-past-hero .visit-cta-bar,.home-landing.home-past-hero .quick-actions{opacity:1;visibility:visible;pointer-events:auto;transform:translate3d(0,0,0);transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .22s ease,visibility 0s}
 @media(min-width:768px){.home-landing.home-past-hero{padding-bottom:0}.home-landing .quick-actions{top:auto;bottom:0;border-top:3px solid #f5a623;border-bottom:none}}
 </style>"""
 

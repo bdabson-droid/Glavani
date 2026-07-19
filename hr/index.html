@@ -30,8 +30,8 @@
   <link rel="apple-touch-icon" href="../images/glavani-park-logo.png">
   <meta name="theme-color" content="#0a0a0a">
   <link rel="preload" href="../images/glavani-park-adventure-istria-croatia.webp" as="image" fetchpriority="high">
-  <link rel="preload" href="../assets/css/site.min.css?v=20260719j" as="style">
-  <link rel="stylesheet" href="../assets/css/site.min.css?v=20260719j">
+  <link rel="preload" href="../assets/css/site.min.css?v=20260719k" as="style">
+  <link rel="stylesheet" href="../assets/css/site.min.css?v=20260719k">
 
   <style>
 .home-landing .breadcrumb--home{display:none}
@@ -51,20 +51,20 @@
 @media(min-width:900px){.site-header__gif--portrait{display:none}.site-header__gif--landscape{display:block}.site-header--home-video .site-header__brand{top:clamp(3.25rem,12vh,6rem)}.site-header__tagline--landing{bottom:clamp(5.25rem,21vh,9rem)}}
 .home-landing:not(.home-past-hero){padding-bottom:0;background:#0a0a0a}
 .home-landing.home-past-hero{padding-bottom:calc(var(--sticky-h) + 1rem)}
-.home-landing .visit-cta-bar,.home-landing .quick-actions{position:fixed;left:0;right:0;width:100%;will-change:transform,opacity;transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .35s ease}
+.home-landing .visit-cta-bar,.home-landing .quick-actions{position:fixed;left:0;right:0;width:100%;will-change:transform,opacity;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .22s ease}
 .home-landing .visit-cta-bar{top:0;z-index:998}
 .home-landing .quick-actions{top:auto;bottom:0;z-index:1000}
-.home-landing:not(.home-past-hero) .visit-cta-bar,.home-landing:not(.home-past-hero) .quick-actions{opacity:0;visibility:hidden;pointer-events:none;transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .35s ease,visibility 0s linear .45s}
+.home-landing:not(.home-past-hero) .visit-cta-bar,.home-landing:not(.home-past-hero) .quick-actions{opacity:0;visibility:hidden;pointer-events:none;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .22s ease,visibility 0s linear .28s}
 .home-landing:not(.home-past-hero) .visit-cta-bar{transform:translate3d(0,-100%,0)}
 .home-landing:not(.home-past-hero) .quick-actions{transform:translate3d(0,100%,0)}
-.home-landing.home-past-hero .visit-cta-bar,.home-landing.home-past-hero .quick-actions{opacity:1;visibility:visible;pointer-events:auto;transform:translate3d(0,0,0);transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .35s ease,visibility 0s}
+.home-landing.home-past-hero .visit-cta-bar,.home-landing.home-past-hero .quick-actions{opacity:1;visibility:visible;pointer-events:auto;transform:translate3d(0,0,0);transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .22s ease,visibility 0s}
 @media(min-width:768px){.home-landing.home-past-hero{padding-bottom:0}.home-landing .quick-actions{top:auto;bottom:0;border-top:3px solid #f5a623;border-bottom:none}}
 </style>
 </head>
 <body class="theme-page home-landing">
 <a class="skip-link" href="#main-content">Preskoči na sadržaj</a>
 
-  <nav class="quick-actions" aria-label="Brze radnje">
+  <nav class="quick-actions" aria-label="Brze radnje" aria-hidden="true">
     <a class="btn-book-now" href="rezervacija/">
       <span aria-hidden="true">🎟️</span> Rezervirajte online
     </a>
@@ -76,7 +76,7 @@
     </a>
   </nav>
 
-  <div class="visit-cta-bar" aria-label="Rezervacija i današnji status">
+  <div class="visit-cta-bar" aria-label="Rezervacija i današnji status" aria-hidden="true">
     <div class="visit-cta-bar__inner">
       <p class="visit-cta-bar__status visitor-bar__status visitor-bar__status--closed">
         <span class="visitor-bar__icon" aria-hidden="true">●</span>
@@ -210,10 +210,6 @@
       </div>
     </section>
 
-    <div class="info-strip" id="contacts" aria-label="Informacije za posjetitelje">
-      <div class="info-strip__item info-strip__item--contact"><a class="info-strip__contact" href="tel:+385918964525"><img class="contact-link__photo" src="../images/nigel-simpson-glavanipark.webp" alt="Nigel Simpson" width="36" height="36" loading="lazy"><span class="contact-link__text"><strong>Nigel Simpson</strong> <span class="contact-link__number">+385 91 896 4525</span></span></a></div><div class="info-strip__item info-strip__item--contact"><a class="info-strip__contact" href="tel:+38598224314"><img class="contact-link__photo" src="../images/nevenko-bulic-glavanipark.webp" alt="Nevenko Bulić" width="36" height="36" loading="lazy"><span class="contact-link__text"><strong>Nevenko Bulić</strong> <span class="contact-link__number">+385 98 224 314</span></span></a></div><div class="info-strip__item info-strip__item--contact"><a class="info-strip__contact" href="sto-raditi-kod-pule/#location-map"><img class="contact-link__photo" src="../images/glavani-park-adventure-istria-croatia.webp" alt="Lokacija Glavani Parka" width="36" height="36" loading="lazy"><span class="contact-link__text"><strong>Lokacija i upute</strong> <span class="contact-link__number">30 min iz Pule · karta i GPS</span></span></a></div>
-    </div>
-
     <section class="section section--theme-rock" aria-labelledby="plan-heading">
       <div class="section__inner">
         <div class="section__heading">
@@ -260,6 +256,10 @@
         </div>
       </div>
     </section>
+
+    <div class="info-strip" id="contacts" aria-label="Informacije za posjetitelje">
+      <div class="info-strip__item info-strip__item--contact"><a class="info-strip__contact" href="tel:+385918964525"><img class="contact-link__photo" src="../images/nigel-simpson-glavanipark.webp" alt="Nigel Simpson" width="36" height="36" loading="lazy"><span class="contact-link__text"><strong>Nigel Simpson</strong> <span class="contact-link__number">+385 91 896 4525</span></span></a></div><div class="info-strip__item info-strip__item--contact"><a class="info-strip__contact" href="tel:+38598224314"><img class="contact-link__photo" src="../images/nevenko-bulic-glavanipark.webp" alt="Nevenko Bulić" width="36" height="36" loading="lazy"><span class="contact-link__text"><strong>Nevenko Bulić</strong> <span class="contact-link__number">+385 98 224 314</span></span></a></div><div class="info-strip__item info-strip__item--contact"><a class="info-strip__contact" href="sto-raditi-kod-pule/#location-map"><img class="contact-link__photo" src="../images/glavani-park-adventure-istria-croatia.webp" alt="Lokacija Glavani Parka" width="36" height="36" loading="lazy"><span class="contact-link__text"><strong>Lokacija i upute</strong> <span class="contact-link__number">30 min iz Pule · karta i GPS</span></span></a></div>
+    </div>
 
   </main>
 
@@ -596,7 +596,7 @@
   ]
 }
 </script>
-<script src="../assets/js/open-status.min.js" defer></script>
-<script src="../assets/js/home-hero-chrome.min.js" defer></script>
+<script src="../assets/js/open-status.min.js?v=20260719k" defer></script>
+<script src="../assets/js/home-hero-chrome.min.js?v=20260719k" defer></script>
 </body>
 </html>
