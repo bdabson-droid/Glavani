@@ -874,7 +874,10 @@ def site_header(lang: str, is_home: bool = False) -> str:
         )
         return f"""
   <header class="site-header site-header--home-video" aria-label="{esc(landing['aria'])}">
-    <div class="site-header__bg" aria-hidden="true" style="--home-gif-portrait: url('{portrait_src}'); --home-gif-landscape: url('{landscape_src}'); --home-gif-fallback: url('{fallback_src}');"></div>
+    <div class="site-header__bg" aria-hidden="true">
+      <img class="site-header__gif site-header__gif--portrait" src="{portrait_src}" alt="" width="1080" height="1920" decoding="async" fetchpriority="high">
+      <img class="site-header__gif site-header__gif--landscape" src="{landscape_src}" alt="" width="1920" height="1080" decoding="async" fetchpriority="high">
+    </div>
     <div class="site-header__video-overlay" aria-hidden="true"></div>
     <div class="site-header__home-inner">
       <a class="site-header__brand" href="{home}">
