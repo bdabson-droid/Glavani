@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
+import subprocess
 import sys
 from datetime import date
 from pathlib import Path
@@ -17,7 +19,25 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 HOME_LANDING_GIF_PORTRAIT = "catapult-home-portrait.gif"
 HOME_LANDING_GIF_LANDSCAPE = "catapult-home-landscape.gif"
+HOME_LANDING_VIDEO_PORTRAIT = "catapult-home-portrait"
+HOME_LANDING_VIDEO_LANDSCAPE = "catapult-home-landscape"
 HOME_LANDING_FALLBACK = "human-catapult-youtube-still.webp"
+LOCATION_CONTACT_THUMB = "glavani-park-location-thumb.webp"
+LOGO_WEBP = "glavani-park-logo.webp"
+HUB_TILE_SOURCES = (
+    "human-catapult-youtube-still.webp",
+    "high-swing-youtube-still.webp",
+    "quick-jump-youtube-still.webp",
+    "valley-zipline-youtube-still.webp",
+    "visitor-gallery-treetop-course-guest-27.webp",
+    "climbing-wall-youtube-still.webp",
+    "aerotrim-main.webp",
+    "training-route-main.webp",
+    "visitor-gallery-devils-causeway-47.webp",
+    "team-building-program.webp",
+    "birthday-parties-glavanipark.webp",
+    "visitor-gallery-school-group-7.webp",
+)
 HOME_LANDING_COPY = {
     "en": {
         "aria": "Human catapult at Glavani Park",
@@ -35,7 +55,7 @@ HOME_LANDING_COPY = {
     },
 }
 
-SITE_CSS_VERSION = "20260719k"
+SITE_CSS_VERSION = "20260719m"
 
 from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
@@ -359,12 +379,21 @@ def fetch_external_images() -> None:
 def optimize_image_library() -> None:
     """Resize and recompress local images for faster static delivery."""
     img_dir = ROOT / "images"
-    skip = {"favicon.ico", "glavani-park-logo.png", "glavani-park-logo-small.png", "stay-safe.png"}
+    skip = {
+        "favicon.ico",
+        "glavani-park-logo.png",
+        "glavani-park-logo-small.png",
+        "stay-safe.png",
+        LOGO_WEBP,
+        LOCATION_CONTACT_THUMB,
+    }
     for path in sorted(img_dir.iterdir()):
         if not path.is_file() or path.name in skip:
             continue
         suffix = path.suffix.lower()
         if suffix not in {".webp", ".jpg", ".jpeg", ".png"}:
+            continue
+        if path.name.endswith("-hub.webp"):
             continue
         try:
             img = Image.open(path)
@@ -391,6 +420,180 @@ def optimize_image_library() -> None:
                 print(f"  image optimized: {out.name}")
         except OSError as exc:
             print(f"  warn: optimize {path.name}: {exc}")
+
+
+def hub_tile_name(filename: str) -> str:
+    stem = Path(filename).stem
+    return f"{stem}-hub.webp"
+
+
+def build_hub_tile_images() -> None:
+    """Generate small WebP tiles for home hub cards (below the fold)."""
+    img_dir = ROOT / "images"
+    for filename in HUB_TILE_SOURCES:
+        src = img_dir / filename
+        if not src.is_file():
+            print(f"  warn: hub tile source missing ({filename})")
+            continue
+        dst = img_dir / hub_tile_name(filename)
+        try:
+            img = Image.open(src)
+            if img.mode not in ("RGB", "RGBA"):
+                img = img.convert("RGB")
+            if img.width > 720:
+                new_h = max(1, int(img.height * 720 / img.width))
+                img = img.resize((720, new_h), Image.Resampling.LANCZOS)
+            save_img = img.convert("RGB") if img.mode == "RGBA" else img
+            save_img.save(dst, "WEBP", quality=74, method=6)
+            print(f"  image: {dst.name}")
+        except OSError as exc:
+            print(f"  warn: hub tile {filename}: {exc}")
+
+
+def build_location_contact_thumb() -> None:
+    img_dir = ROOT / "images"
+    src = img_dir / SOCIAL_SHARE_IMAGE
+    dst = img_dir / LOCATION_CONTACT_THUMB
+    if not src.is_file():
+        return
+    try:
+        img = Image.open(src).convert("RGB")
+        img = img.resize((72, 72), Image.Resampling.LANCZOS)
+        img.save(dst, "WEBP", quality=80, method=6)
+        print(f"  image: {dst.name}")
+    except OSError as exc:
+        print(f"  warn: location thumb: {exc}")
+
+
+def build_logo_webp() -> None:
+    img_dir = ROOT / "images"
+    src = img_dir / "glavani-park-logo.png"
+    dst = img_dir / LOGO_WEBP
+    if not src.is_file():
+        return
+    try:
+        img = Image.open(src)
+        if img.mode not in ("RGB", "RGBA"):
+            img = img.convert("RGBA")
+        img.save(dst, "WEBP", quality=85, method=6)
+        print(f"  image: {dst.name}")
+    except OSError as exc:
+        print(f"  warn: logo webp: {exc}")
+
+
+def _needs_rebuild(output: Path, *sources: Path) -> bool:
+    if not output.is_file():
+        return True
+    out_mtime = output.stat().st_mtime
+    return any(src.is_file() and src.stat().st_mtime > out_mtime for src in sources)
+
+
+def build_home_hero_videos() -> None:
+    """Convert home hero GIF sources to MP4/WebM plus poster stills."""
+    if not shutil.which("ffmpeg"):
+        print("  warn: ffmpeg not found — skipping home hero video conversion")
+        return
+    img_dir = ROOT / "images"
+    pairs = (
+        (HOME_LANDING_GIF_PORTRAIT, HOME_LANDING_VIDEO_PORTRAIT),
+        (HOME_LANDING_GIF_LANDSCAPE, HOME_LANDING_VIDEO_LANDSCAPE),
+    )
+    for gif_name, base_name in pairs:
+        gif_path = img_dir / gif_name
+        if not gif_path.is_file():
+            continue
+        mp4_path = img_dir / f"{base_name}.mp4"
+        webm_path = img_dir / f"{base_name}.webm"
+        poster_path = img_dir / f"{base_name}-poster.webp"
+        if _needs_rebuild(mp4_path, gif_path):
+            subprocess.run(
+                [
+                    "ffmpeg", "-y", "-i", str(gif_path),
+                    "-movflags", "+faststart", "-pix_fmt", "yuv420p",
+                    "-vf", "scale='min(1080,iw)':-2",
+                    "-c:v", "libx264", "-crf", "28", "-preset", "slow", "-an",
+                    str(mp4_path),
+                ],
+                check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+            )
+            if mp4_path.is_file():
+                print(f"  image: {mp4_path.name}")
+        if _needs_rebuild(webm_path, gif_path):
+            subprocess.run(
+                [
+                    "ffmpeg", "-y", "-i", str(gif_path),
+                    "-c:v", "libvpx-vp9", "-crf", "35", "-b:v", "0", "-row-mt", "1", "-an",
+                    str(webm_path),
+                ],
+                check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+            )
+            if webm_path.is_file():
+                print(f"  image: {webm_path.name}")
+        if _needs_rebuild(poster_path, gif_path):
+            subprocess.run(
+                [
+                    "ffmpeg", "-y", "-i", str(gif_path),
+                    "-frames:v", "1", "-c:v", "libwebp", "-quality", "82",
+                    str(poster_path),
+                ],
+                check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+            )
+            if poster_path.is_file():
+                print(f"  image: {poster_path.name}")
+
+
+def resolve_home_landing_media() -> dict[str, dict[str, str]]:
+    """Return portrait/landscape hero media paths (video preferred, still fallback)."""
+    img_dir = ROOT / "images"
+    fallback = f"/images/{HOME_LANDING_FALLBACK}"
+
+    def pick(base_name: str, gif_name: str) -> dict[str, str]:
+        poster = img_dir / f"{base_name}-poster.webp"
+        mp4 = img_dir / f"{base_name}.mp4"
+        webm = img_dir / f"{base_name}.webm"
+        if mp4.is_file() and webm.is_file() and poster.is_file():
+            return {
+                "poster": f"/images/{quote(poster.name)}",
+                "mp4": f"/images/{quote(mp4.name)}",
+                "webm": f"/images/{quote(webm.name)}",
+                "mode": "video",
+            }
+        if (img_dir / gif_name).is_file():
+            return {"poster": f"/images/{quote(gif_name)}", "mode": "image"}
+        return {"poster": fallback, "mode": "image"}
+
+    return {
+        "portrait": pick(HOME_LANDING_VIDEO_PORTRAIT, HOME_LANDING_GIF_PORTRAIT),
+        "landscape": pick(HOME_LANDING_VIDEO_LANDSCAPE, HOME_LANDING_GIF_LANDSCAPE),
+    }
+
+
+def render_home_hero_media(media: dict[str, dict[str, str]], *, orientation: str) -> str:
+    item = media[orientation]
+    classes = f"site-header__hero-media site-header__hero-media--{orientation}"
+    if item["mode"] == "video":
+        return (
+            f'<video class="{classes}" autoplay muted loop playsinline preload="metadata" '
+            f'poster="{item["poster"]}" width="1080" height="1920" aria-hidden="true">'
+            f'<source src="{item["webm"]}" type="video/webm">'
+            f'<source src="{item["mp4"]}" type="video/mp4">'
+            f"</video>"
+        )
+    return (
+        f'<img class="{classes}" src="{item["poster"]}" alt="" width="1080" height="1920" '
+        f'decoding="async" loading="eager" fetchpriority="high">'
+    )
+
+
+def render_logo_img(*, alt: str, priority: bool = False) -> str:
+    fetch = ' fetchpriority="high"' if priority else ' loading="eager"'
+    return (
+        f"<picture>"
+        f'<source srcset="/images/{LOGO_WEBP}" type="image/webp">'
+        f'<img class="site-header__logo-img" src="/images/glavani-park-logo.png" '
+        f'alt="{alt}" width="420" height="242"{fetch}>'
+        f"</picture>"
+    )
 
 
 def center_crop_to_aspect(img: Image.Image, aspect: float) -> Image.Image:
@@ -602,7 +805,7 @@ def relativize_paths(html: str, depth: int, lang: str) -> str:
     other = "hr" if lang == "en" else "en"
 
     html = re.sub(r'(href|src)="/assets/', rf'\1="{up}assets/', html)
-    html = re.sub(r'(href|src)="/images/', rf'\1="{up}images/', html)
+    html = re.sub(r'(href|src|poster)="/images/', rf'\1="{up}images/', html)
     html = re.sub(r'url\("/images/', rf'url("{up}images/', html)
     html = re.sub(r"url\('/images/", rf"url('{up}images/", html)
     html = html.replace('href="/manifest.webmanifest"', f'href="{up}manifest.webmanifest"')
@@ -711,7 +914,7 @@ def location_contact_link(lang: str) -> str:
         detail = "30 min from Pula · map & GPS"
         alt = "Glavani Park location"
     photo = (
-        f'<img class="contact-link__photo" src="/images/{SOCIAL_SHARE_IMAGE}" '
+        f'<img class="contact-link__photo" src="/images/{LOCATION_CONTACT_THUMB}" '
         f'alt="{alt}" width="36" height="36" loading="lazy">'
     )
     return (
@@ -829,36 +1032,15 @@ def visitor_bar(lang: str) -> str:
   </div>"""
 
 
-def resolve_home_landing_gifs() -> tuple[str, str]:
-    """Return portrait and landscape GIF filenames for the home hero."""
-    img_dir = ROOT / "images"
-    portrait = HOME_LANDING_GIF_PORTRAIT
-    landscape = HOME_LANDING_GIF_LANDSCAPE
-    if (img_dir / portrait).is_file() and (img_dir / landscape).is_file():
-        return portrait, landscape
-    gifs = sorted(p.name for p in img_dir.glob("*.gif"))
-    gifs += sorted(p.name for p in img_dir.glob("*.GIF"))
-    found_portrait = next((g for g in gifs if "portrait" in g.lower()), "")
-    found_landscape = next((g for g in gifs if "landscape" in g.lower()), "")
-    if found_portrait and found_landscape:
-        return found_portrait, found_landscape
-    for name in (portrait, landscape):
-        if not (img_dir / name).is_file():
-            print(
-                f"  warn: home landing GIF not found ({name}) — "
-                "add catapult-home-portrait.gif and catapult-home-landscape.gif to images/"
-            )
-    return portrait, landscape
-
 
 def render_home_hero_critical_css() -> str:
-    """Inline hero styles so home GIF/logo layout works even if site.min.css is cached."""
+    """Inline hero styles so home video/logo layout works even if site.min.css is cached."""
     return """  <style>
 .home-landing .breadcrumb--home{display:none}
 .site-header--home-video{position:relative;isolation:isolate;min-height:100dvh;padding:0;overflow:hidden}
 .site-header__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#0a0a0a center/cover no-repeat url("/images/human-catapult-youtube-still.webp")}
-.site-header__gif{position:absolute;top:50%;left:50%;display:block;min-width:100%;min-height:100%;width:auto;height:auto;max-width:none!important;transform:translate(-50%,-50%);object-fit:cover;object-position:50% 50%;pointer-events:none}
-.site-header__gif--landscape{display:none}
+.site-header__hero-media{position:absolute;top:50%;left:50%;display:block;min-width:100%;min-height:100%;width:auto;height:auto;max-width:none!important;transform:translate(-50%,-50%);object-fit:cover;object-position:50% 50%;pointer-events:none}
+.site-header__hero-media--landscape{display:none}
 .site-header__video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,10,10,.22) 0%,rgba(10,10,10,.42) 50%,rgba(10,10,10,.58) 100%);pointer-events:none}
 .site-header__home-inner{position:absolute;inset:0;z-index:2;width:100%;max-width:none;margin:0}
 .site-header--home-video .site-header__brand{position:absolute;top:clamp(2.75rem,10vh,5.5rem);left:50%;transform:translateX(-50%);width:min(88vw,420px);max-width:none;margin:0}
@@ -868,7 +1050,7 @@ def render_home_hero_critical_css() -> str:
 .site-header__lang:hover{background:rgba(0,0,0,.55);color:#fff;text-decoration:none}
 .site-header__scroll{position:static;transform:none;color:#c8eb9a;text-decoration:none;font-size:.8125rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;display:inline-flex;flex-direction:column;align-items:center;gap:.35rem}
 .site-header--home-video .site-header__logo-img{filter:drop-shadow(0 6px 28px rgba(0,0,0,.55))}
-@media(min-width:900px){.site-header__gif--portrait{display:none}.site-header__gif--landscape{display:block}.site-header--home-video .site-header__brand{top:clamp(3.25rem,12vh,6rem)}.site-header__tagline--landing{bottom:clamp(5.25rem,21vh,9rem)}}
+@media(min-width:900px){.site-header__hero-media--portrait{display:none}.site-header__hero-media--landscape{display:block}.site-header--home-video .site-header__brand{top:clamp(3.25rem,12vh,6rem)}.site-header__tagline--landing{bottom:clamp(5.25rem,21vh,9rem)}}
 .home-landing:not(.home-past-hero){padding-bottom:0;background:#0a0a0a}
 .home-landing.home-past-hero{padding-bottom:calc(var(--sticky-h) + 1rem)}
 .home-landing .visit-cta-bar,.home-landing .quick-actions{position:fixed;left:0;right:0;width:100%;will-change:transform,opacity;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .22s ease}
@@ -883,16 +1065,22 @@ def render_home_hero_critical_css() -> str:
 
 
 def render_home_hero_preload() -> str:
-    portrait_gif, landscape_gif = resolve_home_landing_gifs()
-    img_dir = ROOT / "images"
-    portrait_src = f"/images/{quote(portrait_gif)}"
-    landscape_src = f"/images/{quote(landscape_gif)}"
-    if not (img_dir / portrait_gif).is_file():
-        portrait_src = f"/images/{HOME_LANDING_FALLBACK}"
-    if not (img_dir / landscape_gif).is_file():
-        landscape_src = f"/images/{HOME_LANDING_FALLBACK}"
-    return f"""  <link rel="preload" href="{portrait_src}" as="image" media="(max-width: 899px)" fetchpriority="high">
-  <link rel="preload" href="{landscape_src}" as="image" media="(min-width: 900px)" fetchpriority="high">"""
+    media = resolve_home_landing_media()
+    portrait = media["portrait"]
+    landscape = media["landscape"]
+    lines = [
+        f'  <link rel="preload" href="{portrait["poster"]}" as="image" media="(max-width: 899px)" fetchpriority="high">',
+        f'  <link rel="preload" href="{landscape["poster"]}" as="image" media="(min-width: 900px)" fetchpriority="high">',
+    ]
+    if portrait["mode"] == "video":
+        lines.append(
+            f'  <link rel="preload" href="{portrait["mp4"]}" as="video" type="video/mp4" media="(max-width: 899px)">'
+        )
+    if landscape["mode"] == "video":
+        lines.append(
+            f'  <link rel="preload" href="{landscape["mp4"]}" as="video" type="video/mp4" media="(min-width: 900px)">'
+        )
+    return "\n".join(lines)
 
 
 def site_header(lang: str, is_home: bool = False) -> str:
@@ -900,19 +1088,7 @@ def site_header(lang: str, is_home: bool = False) -> str:
     home = f"/{lang}/"
     if is_home:
         landing = HOME_LANDING_COPY[lang]
-        portrait_gif, landscape_gif = resolve_home_landing_gifs()
-        fallback_src = f"/images/{HOME_LANDING_FALLBACK}"
-        img_dir = ROOT / "images"
-        portrait_src = (
-            f"/images/{quote(portrait_gif)}"
-            if (img_dir / portrait_gif).is_file()
-            else fallback_src
-        )
-        landscape_src = (
-            f"/images/{quote(landscape_gif)}"
-            if (img_dir / landscape_gif).is_file()
-            else fallback_src
-        )
+        hero_media = resolve_home_landing_media()
         other = "hr" if lang == "en" else "en"
         other_label = "Hrvatski" if lang == "en" else "English"
         lang_aria = "Prebaci na hrvatski" if lang == "en" else "Switch to English"
@@ -920,13 +1096,13 @@ def site_header(lang: str, is_home: bool = False) -> str:
         return f"""
   <header class="site-header site-header--home-video" aria-label="{esc(landing['aria'])}">
     <div class="site-header__bg" aria-hidden="true">
-      <img class="site-header__gif site-header__gif--portrait" src="{portrait_src}" alt="" width="1080" height="1920" decoding="sync" loading="eager" fetchpriority="high">
-      <img class="site-header__gif site-header__gif--landscape" src="{landscape_src}" alt="" width="1920" height="1080" decoding="sync" loading="eager" fetchpriority="high">
+      {render_home_hero_media(hero_media, orientation="portrait")}
+      {render_home_hero_media(hero_media, orientation="landscape")}
     </div>
     <div class="site-header__video-overlay" aria-hidden="true"></div>
     <div class="site-header__home-inner">
       <a class="site-header__brand" href="{home}">
-        <img class="site-header__logo-img" src="/images/glavani-park-logo.png" alt="{esc(copy['logo_alt'])}" width="420" height="242" fetchpriority="high">
+        {render_logo_img(alt=esc(copy['logo_alt']), priority=True)}
       </a>
       <p class="site-header__tagline site-header__tagline--landing">{esc(landing['tagline'])}</p>
     </div>
@@ -938,7 +1114,7 @@ def site_header(lang: str, is_home: bool = False) -> str:
     return f"""
   <header class="site-header">
     <a class="site-header__brand" href="{home}">
-      <img class="site-header__logo-img" src="/images/glavani-park-logo.png" alt="{copy['logo_alt']}" width="420" height="242" loading="eager">
+      {render_logo_img(alt=copy['logo_alt'])}
     </a>
     <p class="site-header__tagline">{copy['tagline']}</p>
   </header>"""
@@ -2969,6 +3145,10 @@ def main() -> None:
     generate_social_share_image()
     fetch_external_images()
     optimize_image_library()
+    build_home_hero_videos()
+    build_hub_tile_images()
+    build_location_contact_thumb()
+    build_logo_webp()
 
     print("Building English pages...")
     import shutil

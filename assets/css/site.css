@@ -477,7 +477,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background: center / cover no-repeat url("/images/human-catapult-youtube-still.webp");
   background-color: var(--brand-black);
 }
-.site-header__gif {
+.site-header__hero-media {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -492,14 +492,14 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   object-position: 50% 50%;
   pointer-events: none;
 }
-.site-header__gif--landscape {
+.site-header__hero-media--landscape {
   display: none;
 }
 @media (min-width: 900px) {
-  .site-header__gif--portrait {
+  .site-header__hero-media--portrait {
     display: none;
   }
-  .site-header__gif--landscape {
+  .site-header__hero-media--landscape {
     display: block;
   }
 }
@@ -635,7 +635,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   .site-header__scroll::after {
     animation: none;
   }
-  .site-header__gif {
+  .site-header__hero-media {
     display: none;
   }
   .site-header__bg {
@@ -1406,6 +1406,20 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   background-color: #1e3a8a;
   background-image: var(--hub-fade), var(--hub-photo);
 }
+
+/* Home hub grid — compressed photo tiles (full-size kept for activity banners) */
+.hub-card--catapult { --hub-photo: url("../../images/human-catapult-youtube-still-hub.webp"); }
+.hub-card--swing { --hub-photo: url("../../images/high-swing-youtube-still-hub.webp"); }
+.hub-card--drop { --hub-photo: url("../../images/quick-jump-youtube-still-hub.webp"); }
+.hub-card--zipline-valley { --hub-photo: url("../../images/valley-zipline-youtube-still-hub.webp"); }
+.hub-card--zipline-low { --hub-photo: url("../../images/visitor-gallery-treetop-course-guest-27-hub.webp"); }
+.hub-card--climbing { --hub-photo: url("../../images/climbing-wall-youtube-still-hub.webp"); }
+.hub-card--aerotrim { --hub-photo: url("../../images/aerotrim-main-hub.webp"); }
+.hub-card--training { --hub-photo: url("../../images/training-route-main-hub.webp"); }
+.hub-card--causeway { --hub-photo: url("../../images/visitor-gallery-devils-causeway-47-hub.webp"); }
+.hub-card--groups { --hub-photo: url("../../images/team-building-program-hub.webp"); }
+.hub-card--birthday { --hub-photo: url("../../images/birthday-parties-glavanipark-hub.webp"); }
+.hub-card--schools { --hub-photo: url("../../images/visitor-gallery-school-group-7-hub.webp"); }
 
 .hub-grid--events {
   margin-bottom: 1rem;
