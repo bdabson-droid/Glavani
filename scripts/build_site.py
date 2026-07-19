@@ -55,7 +55,7 @@ HOME_LANDING_COPY = {
     },
 }
 
-SITE_CSS_VERSION = "20260719n"
+SITE_CSS_VERSION = "20260719o"
 
 from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402

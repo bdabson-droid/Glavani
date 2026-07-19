@@ -16,9 +16,18 @@ def minify_css(css: str) -> str:
 
 
 def minify_js(js: str) -> str:
+    placeholders: list[str] = []
+
+    def protect_regex(match: re.Match[str]) -> str:
+        placeholders.append(match.group(0))
+        return f"__REGEX_{len(placeholders) - 1}__"
+
+    js = re.sub(r"/(?:\\.|[^/\r\n])+/[gimsuy]*", protect_regex, js)
     js = re.sub(r"/\*[\s\S]*?\*/", "", js)
     js = re.sub(r"(^|[^:])//.*$", r"\1", js, flags=re.M)
     js = re.sub(r"\n\s*\n", "\n", js)
+    for index, regex in enumerate(placeholders):
+        js = js.replace(f"__REGEX_{index}__", regex)
     return js.strip()
 
 
