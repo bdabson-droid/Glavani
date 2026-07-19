@@ -474,9 +474,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  background: center / cover no-repeat url("/images/human-catapult-youtube-still.webp");
   background-color: var(--brand-black);
 }
+.site-header__hero-poster,
 .site-header__hero-media {
   position: absolute;
   top: 50%;
@@ -491,6 +491,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   object-fit: cover;
   object-position: 50% 50%;
   pointer-events: none;
+}
+.site-header__hero-poster {
+  z-index: 0;
+}
+.site-header__hero-media {
+  z-index: 1;
 }
 .site-header__hero-media--landscape {
   display: none;
