@@ -35,7 +35,7 @@ HOME_LANDING_COPY = {
     },
 }
 
-SITE_CSS_VERSION = "20260719i"
+SITE_CSS_VERSION = "20260719j"
 
 from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
@@ -860,7 +860,10 @@ def render_home_hero_critical_css() -> str:
 .site-header__home-inner{position:absolute;inset:0;z-index:2;width:100%;max-width:none;margin:0}
 .site-header--home-video .site-header__brand{position:absolute;top:clamp(2.75rem,10vh,5.5rem);left:50%;transform:translateX(-50%);width:min(88vw,420px);max-width:none;margin:0}
 .site-header__tagline--landing{position:absolute;left:50%;bottom:clamp(4.75rem,19vh,8.5rem);transform:translateX(-50%);width:min(92vw,46rem);margin:0;padding:1.15rem 1.6rem 1.25rem;max-width:none;font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.35rem,4.5vw,2.1rem);line-height:1.35;font-weight:700;font-style:italic;letter-spacing:.04em;text-align:center;color:#fff;background:rgba(0,0,0,.2);border:2px solid rgba(245,166,35,.75);border-radius:4px 20px 4px 20px;box-shadow:0 8px 28px rgba(0,0,0,.35);text-shadow:0 2px 12px rgba(0,0,0,.95),0 0 24px rgba(0,0,0,.65);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);quotes:none}
-.site-header__scroll{position:absolute;bottom:1.5rem;left:50%;z-index:2;transform:translateX(-50%);color:#c8eb9a;text-decoration:none;font-size:.8125rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.site-header__home-footer{position:absolute;bottom:1.5rem;left:50%;z-index:2;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.75rem}
+.site-header__lang{display:inline-flex;align-items:center;justify-content:center;padding:.45rem 1rem;border-radius:999px;border:2px solid rgba(245,166,35,.85);background:rgba(0,0,0,.35);color:#fff;text-decoration:none;font-size:.8125rem;font-weight:700;letter-spacing:.04em;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.site-header__lang:hover{background:rgba(0,0,0,.55);color:#fff;text-decoration:none}
+.site-header__scroll{position:static;transform:none;color:#c8eb9a;text-decoration:none;font-size:.8125rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;display:inline-flex;flex-direction:column;align-items:center;gap:.35rem}
 .site-header--home-video .site-header__logo-img{filter:drop-shadow(0 6px 28px rgba(0,0,0,.55))}
 @media(min-width:900px){.site-header__gif--portrait{display:none}.site-header__gif--landscape{display:block}.site-header--home-video .site-header__brand{top:clamp(3.25rem,12vh,6rem)}.site-header__tagline--landing{bottom:clamp(5.25rem,21vh,9rem)}}
 .home-landing:not(.home-past-hero){padding-bottom:0;background:#0a0a0a}
@@ -907,6 +910,10 @@ def site_header(lang: str, is_home: bool = False) -> str:
             if (img_dir / landscape_gif).is_file()
             else fallback_src
         )
+        other = "hr" if lang == "en" else "en"
+        other_label = "Hrvatski" if lang == "en" else "English"
+        lang_aria = "Prebaci na hrvatski" if lang == "en" else "Switch to English"
+        lang_href = language_switch_href(lang)
         return f"""
   <header class="site-header site-header--home-video" aria-label="{esc(landing['aria'])}">
     <div class="site-header__bg" aria-hidden="true">
@@ -920,7 +927,10 @@ def site_header(lang: str, is_home: bool = False) -> str:
       </a>
       <p class="site-header__tagline site-header__tagline--landing">{esc(landing['tagline'])}</p>
     </div>
-    <a class="site-header__scroll" href="#home-content">{esc(landing['scroll'])}</a>
+    <div class="site-header__home-footer">
+      <a class="site-header__lang" href="{lang_href}" hreflang="{other}" lang="{other}" aria-label="{esc(lang_aria)}">{other_label}</a>
+      <a class="site-header__scroll" href="#home-content">{esc(landing['scroll'])}</a>
+    </div>
   </header>"""
     return f"""
   <header class="site-header">
