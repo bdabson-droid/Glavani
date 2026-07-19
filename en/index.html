@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preload" href="../images/catapult-home-portrait.gif" as="image" media="(max-width: 899px)" fetchpriority="high">
-  <link rel="preload" href="../images/catapult-home-landscape.gif" as="image" media="(min-width: 900px)" fetchpriority="high">
+  <link rel="preload" href="../images/catapult-home-portrait-poster.webp" as="image" media="(max-width: 899px)" fetchpriority="high">
+  <link rel="preload" href="../images/catapult-home-landscape-poster.webp" as="image" media="(min-width: 900px)" fetchpriority="high">
+  <link rel="preload" href="../images/catapult-home-portrait.mp4" as="video" type="video/mp4" media="(max-width: 899px)">
+  <link rel="preload" href="../images/catapult-home-landscape.mp4" as="video" type="video/mp4" media="(min-width: 900px)">
   <title>Glavani Park | Croatia's Number 1 Adventure Park · Istria</title>
   <meta name="description" content="Glavani Park is Croatia's number 1 adventure park in Istria — ziplines, high ropes, human catapult and outdoor activities near Pula, Barban &amp; Vodnjan. Open daily 9 AM–5 PM, last entry 3 PM. Call +385 91 896 4525 or book online for up to 10 people.">
   <meta name="keywords" content="Croatia number 1 adventure park, adventure park Istria, adventure park Croatia, zipline park Istria, zipline park Croatia, adrenaline park Istria, outdoor activities Istria Croatia, high ropes course Croatia, family activities Istria, things to do near Pula, Glavani Park">
@@ -30,15 +32,15 @@
   <link rel="apple-touch-icon" href="../images/glavani-park-logo.png">
   <meta name="theme-color" content="#0a0a0a">
   <link rel="preload" href="../images/glavani-park-adventure-istria-croatia.webp" as="image" fetchpriority="high">
-  <link rel="preload" href="../assets/css/site.min.css?v=20260719k" as="style">
-  <link rel="stylesheet" href="../assets/css/site.min.css?v=20260719k">
+  <link rel="preload" href="../assets/css/site.min.css?v=20260719m" as="style">
+  <link rel="stylesheet" href="../assets/css/site.min.css?v=20260719m">
 
   <style>
 .home-landing .breadcrumb--home{display:none}
 .site-header--home-video{position:relative;isolation:isolate;min-height:100dvh;padding:0;overflow:hidden}
 .site-header__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#0a0a0a center/cover no-repeat url("../images/human-catapult-youtube-still.webp")}
-.site-header__gif{position:absolute;top:50%;left:50%;display:block;min-width:100%;min-height:100%;width:auto;height:auto;max-width:none!important;transform:translate(-50%,-50%);object-fit:cover;object-position:50% 50%;pointer-events:none}
-.site-header__gif--landscape{display:none}
+.site-header__hero-media{position:absolute;top:50%;left:50%;display:block;min-width:100%;min-height:100%;width:auto;height:auto;max-width:none!important;transform:translate(-50%,-50%);object-fit:cover;object-position:50% 50%;pointer-events:none}
+.site-header__hero-media--landscape{display:none}
 .site-header__video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,10,10,.22) 0%,rgba(10,10,10,.42) 50%,rgba(10,10,10,.58) 100%);pointer-events:none}
 .site-header__home-inner{position:absolute;inset:0;z-index:2;width:100%;max-width:none;margin:0}
 .site-header--home-video .site-header__brand{position:absolute;top:clamp(2.75rem,10vh,5.5rem);left:50%;transform:translateX(-50%);width:min(88vw,420px);max-width:none;margin:0}
@@ -48,7 +50,7 @@
 .site-header__lang:hover{background:rgba(0,0,0,.55);color:#fff;text-decoration:none}
 .site-header__scroll{position:static;transform:none;color:#c8eb9a;text-decoration:none;font-size:.8125rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;display:inline-flex;flex-direction:column;align-items:center;gap:.35rem}
 .site-header--home-video .site-header__logo-img{filter:drop-shadow(0 6px 28px rgba(0,0,0,.55))}
-@media(min-width:900px){.site-header__gif--portrait{display:none}.site-header__gif--landscape{display:block}.site-header--home-video .site-header__brand{top:clamp(3.25rem,12vh,6rem)}.site-header__tagline--landing{bottom:clamp(5.25rem,21vh,9rem)}}
+@media(min-width:900px){.site-header__hero-media--portrait{display:none}.site-header__hero-media--landscape{display:block}.site-header--home-video .site-header__brand{top:clamp(3.25rem,12vh,6rem)}.site-header__tagline--landing{bottom:clamp(5.25rem,21vh,9rem)}}
 .home-landing:not(.home-past-hero){padding-bottom:0;background:#0a0a0a}
 .home-landing.home-past-hero{padding-bottom:calc(var(--sticky-h) + 1rem)}
 .home-landing .visit-cta-bar,.home-landing .quick-actions{position:fixed;left:0;right:0;width:100%;will-change:transform,opacity;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .22s ease}
@@ -80,7 +82,7 @@
     <div class="visit-cta-bar__inner">
       <p class="visit-cta-bar__status visitor-bar__status visitor-bar__status--closed">
         <span class="visitor-bar__icon" aria-hidden="true">●</span>
-        <span data-open-status data-lang="en">Closed now · Opens tomorrow at 9 AM</span>
+        <span data-open-status data-lang="en">Opens at 9 AM</span>
       </p>
       <div class="visit-cta-bar__actions">
         <a class="btn-primary btn-primary--xl btn-book-tickets" href="reservation/">Book Online</a>
@@ -91,13 +93,13 @@
 
   <header class="site-header site-header--home-video" aria-label="Human catapult at Glavani Park">
     <div class="site-header__bg" aria-hidden="true">
-      <img class="site-header__gif site-header__gif--portrait" src="../images/catapult-home-portrait.gif" alt="" width="1080" height="1920" decoding="sync" loading="eager" fetchpriority="high">
-      <img class="site-header__gif site-header__gif--landscape" src="../images/catapult-home-landscape.gif" alt="" width="1920" height="1080" decoding="sync" loading="eager" fetchpriority="high">
+      <video class="site-header__hero-media site-header__hero-media--portrait" autoplay muted loop playsinline preload="metadata" poster="../images/catapult-home-portrait-poster.webp" width="1080" height="1920" aria-hidden="true"><source src="../images/catapult-home-portrait.webm" type="video/webm"><source src="../images/catapult-home-portrait.mp4" type="video/mp4"></video>
+      <video class="site-header__hero-media site-header__hero-media--landscape" autoplay muted loop playsinline preload="metadata" poster="../images/catapult-home-landscape-poster.webp" width="1080" height="1920" aria-hidden="true"><source src="../images/catapult-home-landscape.webm" type="video/webm"><source src="../images/catapult-home-landscape.mp4" type="video/mp4"></video>
     </div>
     <div class="site-header__video-overlay" aria-hidden="true"></div>
     <div class="site-header__home-inner">
       <a class="site-header__brand" href="./">
-        <img class="site-header__logo-img" src="../images/glavani-park-logo.png" alt="Glavani Park — A Great Place to Be" width="420" height="242" fetchpriority="high">
+        <picture><source srcset="/images/glavani-park-logo.webp" type="image/webp"><img class="site-header__logo-img" src="../images/glavani-park-logo.png" alt="Glavani Park — A Great Place to Be" width="420" height="242" fetchpriority="high"></picture>
       </a>
       <p class="site-header__tagline site-header__tagline--landing">Strap in, hold on, and go from 0 to 100 km/h quicker than an F1 car!</p>
     </div>
@@ -111,7 +113,7 @@
     <div class="visitor-bar__inner">
       <p class="visitor-bar__status visitor-bar__status--closed">
         <span class="visitor-bar__icon" aria-hidden="true">●</span>
-        <span data-open-status data-lang="en">Closed now · Opens tomorrow at 9 AM</span>
+        <span data-open-status data-lang="en">Opens at 9 AM</span>
       </p>
       <p class="visitor-bar__hours">
         <span class="visitor-bar__icon" aria-hidden="true">🕐</span>
@@ -145,7 +147,7 @@
           <p class="hero__headline">A Great Place to Be</p>
           <div class="hero__review-badges"><p class="review-badge review-badge--google"><span class="review-badge__stars" aria-hidden="true">★★★★★</span> <a href="https://maps.app.goo.gl/t7gPDq5KuPRdtezP6" target="_blank" rel="noopener noreferrer" aria-label="Google rating"><strong>4.8 on Google · 900+ reviews</strong></a></p><p class="review-badge"><span class="review-badge__stars" aria-hidden="true">★★★★★</span> <a href="https://www.tripadvisor.com/Attraction_Review-g1157701-d1973802-Reviews-Glavani_Park-Barban_Istria.html" target="_blank" rel="noopener noreferrer" aria-label="TripAdvisor rating"><strong>4.9 on TripAdvisor · 159 reviews</strong></a></p></div>
           <ul class="hero__essentials" aria-label="Essential visitor information">
-            <li><span class="hero__open-status-row visitor-bar__status visitor-bar__status--closed"><span class="visitor-bar__icon" aria-hidden="true">●</span><span class="hero__open-status hero__open-status--closed" data-open-status data-lang="en">Closed now · Opens tomorrow at 9 AM</span></span></li>
+            <li><span class="hero__open-status-row visitor-bar__status visitor-bar__status--closed"><span class="visitor-bar__icon" aria-hidden="true">●</span><span class="hero__open-status hero__open-status--closed" data-open-status data-lang="en">Opens at 9 AM</span></span></li>
             <li><strong>Open daily</strong> 9 AM – 5 PM</li>
           </ul>
           <p class="hero__price-teaser">Packages from <strong>€20</strong> children · <strong>€30</strong> adults · <a href="prices/">See prices</a></p>
@@ -258,7 +260,7 @@
     </section>
 
     <div class="info-strip" id="contacts" aria-label="Visitor information">
-      <div class="info-strip__item info-strip__item--contact"><a class="info-strip__contact" href="tel:+385918964525"><img class="contact-link__photo" src="../images/nigel-simpson-glavanipark.webp" alt="Nigel Simpson" width="36" height="36" loading="lazy"><span class="contact-link__text"><strong>Nigel Simpson</strong> <span class="contact-link__number">+385 91 896 4525</span></span></a></div><div class="info-strip__item info-strip__item--contact"><a class="info-strip__contact" href="tel:+38598224314"><img class="contact-link__photo" src="../images/nevenko-bulic-glavanipark.webp" alt="Nevenko Bulić" width="36" height="36" loading="lazy"><span class="contact-link__text"><strong>Nevenko Bulić</strong> <span class="contact-link__number">+385 98 224 314</span></span></a></div><div class="info-strip__item info-strip__item--contact"><a class="info-strip__contact" href="things-to-do-near-pula/#location-map"><img class="contact-link__photo" src="../images/glavani-park-adventure-istria-croatia.webp" alt="Glavani Park location" width="36" height="36" loading="lazy"><span class="contact-link__text"><strong>Location & Directions</strong> <span class="contact-link__number">30 min from Pula · map & GPS</span></span></a></div>
+      <div class="info-strip__item info-strip__item--contact"><a class="info-strip__contact" href="tel:+385918964525"><img class="contact-link__photo" src="../images/nigel-simpson-glavanipark.webp" alt="Nigel Simpson" width="36" height="36" loading="lazy"><span class="contact-link__text"><strong>Nigel Simpson</strong> <span class="contact-link__number">+385 91 896 4525</span></span></a></div><div class="info-strip__item info-strip__item--contact"><a class="info-strip__contact" href="tel:+38598224314"><img class="contact-link__photo" src="../images/nevenko-bulic-glavanipark.webp" alt="Nevenko Bulić" width="36" height="36" loading="lazy"><span class="contact-link__text"><strong>Nevenko Bulić</strong> <span class="contact-link__number">+385 98 224 314</span></span></a></div><div class="info-strip__item info-strip__item--contact"><a class="info-strip__contact" href="things-to-do-near-pula/#location-map"><img class="contact-link__photo" src="../images/glavani-park-location-thumb.webp" alt="Glavani Park location" width="36" height="36" loading="lazy"><span class="contact-link__text"><strong>Location & Directions</strong> <span class="contact-link__number">30 min from Pula · map & GPS</span></span></a></div>
     </div>
 
   </main>
@@ -596,7 +598,7 @@
   ]
 }
 </script>
-<script src="../assets/js/open-status.min.js?v=20260719k" defer></script>
-<script src="../assets/js/home-hero-chrome.min.js?v=20260719k" defer></script>
+<script src="../assets/js/open-status.min.js?v=20260719m" defer></script>
+<script src="../assets/js/home-hero-chrome.min.js?v=20260719m" defer></script>
 </body>
 </html>
