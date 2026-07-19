@@ -34,7 +34,7 @@
 
 
 </head>
-<body class="theme-page">
+<body class="theme-page home-landing">
 <a class="skip-link" href="#main-content">Preskoči na sadržaj</a>
 
   <nav class="quick-actions" aria-label="Brze radnje">
@@ -90,7 +90,7 @@
     </div>
   </nav>
 
-<nav class="breadcrumb" aria-label="Breadcrumb">
+<nav class="breadcrumb breadcrumb--home" aria-label="Breadcrumb">
     <ol>
       <li><a href="./">Početna</a></li>
       <li>Avanturistički park Istria</li>
@@ -99,7 +99,21 @@
 
   <main id="main-content">
 
-    <section class="hero hero--home" aria-labelledby="hero-heading">
+        <section class="home-video-hero" aria-label="Ljudska katapulta u Glavani Parku">
+      <div class="home-video-hero__media" aria-hidden="true">
+        <video class="home-video-hero__video" autoplay muted loop playsinline preload="metadata" poster="/images/human-catapult-youtube-still.webp">
+          <source src="../images/Catapult%20Short%20Vid%20No%20audio%20Landscape%20%28trimmed%29.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="home-video-hero__overlay" aria-hidden="true"></div>
+      <div class="home-video-hero__content">
+        <img class="home-video-hero__logo" src="../images/glavani-park-logo.png" alt="Glavani Park — odlično mjesto za avanturu" width="420" height="242" fetchpriority="high">
+        <p class="home-video-hero__tagline">Vežite se, držite otpust i u trenu idite od 0 do oko 100 km/h — brže nego Formula 1 s mjesta.</p>
+        <a class="home-video-hero__scroll" href="#home-content">Skrolajte za više</a>
+      </div>
+    </section>
+
+    <section class="hero hero--home" id="home-content" aria-labelledby="hero-heading">
       <div class="hero__inner">
         <div>
           <p class="hero__badge">Broj 1 avanturistički park u Hrvatskoj</p>

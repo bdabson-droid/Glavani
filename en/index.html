@@ -34,7 +34,7 @@
 
 
 </head>
-<body class="theme-page">
+<body class="theme-page home-landing">
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <nav class="quick-actions" aria-label="Quick actions">
@@ -90,7 +90,7 @@
     </div>
   </nav>
 
-<nav class="breadcrumb" aria-label="Breadcrumb">
+<nav class="breadcrumb breadcrumb--home" aria-label="Breadcrumb">
     <ol>
       <li><a href="./">Home</a></li>
       <li>Adventure Park Istria</li>
@@ -99,7 +99,21 @@
 
   <main id="main-content">
 
-    <section class="hero hero--home" aria-labelledby="hero-heading">
+        <section class="home-video-hero" aria-label="Human catapult at Glavani Park">
+      <div class="home-video-hero__media" aria-hidden="true">
+        <video class="home-video-hero__video" autoplay muted loop playsinline preload="metadata" poster="/images/human-catapult-youtube-still.webp">
+          <source src="../images/Catapult%20Short%20Vid%20No%20audio%20Landscape%20%28trimmed%29.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="home-video-hero__overlay" aria-hidden="true"></div>
+      <div class="home-video-hero__content">
+        <img class="home-video-hero__logo" src="../images/glavani-park-logo.png" alt="Glavani Park — A Great Place to Be" width="420" height="242" fetchpriority="high">
+        <p class="home-video-hero__tagline">Strap in, hold the release, and go from 0 to around 100 km/h quicker than an F1 car off the line.</p>
+        <a class="home-video-hero__scroll" href="#home-content">Scroll for more</a>
+      </div>
+    </section>
+
+    <section class="hero hero--home" id="home-content" aria-labelledby="hero-heading">
       <div class="hero__inner">
         <div>
           <p class="hero__badge">Croatia's Number 1 Adventure Park</p>

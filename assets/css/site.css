@@ -638,6 +638,116 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 }
 .section--theme-adrenaline .section__inner { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.25rem; }
 
+.home-landing .breadcrumb--home,
+.home-landing .site-header {
+  display: none;
+}
+
+.home-video-hero {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: min(88svh, 820px);
+  color: var(--text-on-dark);
+  text-align: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+.home-video-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--brand-black);
+}
+.home-video-hero__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+.home-video-hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 10, 0.3) 0%,
+    rgba(10, 10, 10, 0.48) 50%,
+    rgba(10, 10, 10, 0.62) 100%
+  );
+  pointer-events: none;
+}
+.home-video-hero__content {
+  position: relative;
+  z-index: 2;
+  padding: 2rem 1.25rem 2.75rem;
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.home-video-hero__logo {
+  width: min(420px, 78vw);
+  height: auto;
+  filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.45));
+}
+.home-video-hero__tagline {
+  margin: 0;
+  font-size: clamp(1rem, 2.8vw, 1.25rem);
+  line-height: 1.45;
+  font-weight: 600;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+  max-width: 38ch;
+}
+.home-video-hero__scroll {
+  margin-top: 0.35rem;
+  color: var(--accent-on-dark);
+  text-decoration: none;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+.home-video-hero__scroll::after {
+  content: "⌄";
+  font-size: 1.25rem;
+  line-height: 1;
+  animation: home-video-scroll-bounce 1.6s ease-in-out infinite;
+}
+.home-video-hero__scroll:hover {
+  color: var(--white);
+  text-decoration: none;
+}
+@keyframes home-video-scroll-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(0.35rem); }
+}
+@media (min-width: 900px) {
+  .home-video-hero {
+    min-height: min(100svh, 960px);
+  }
+  .home-video-hero__video {
+    object-fit: contain;
+    object-position: center center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-video-hero__scroll::after {
+    animation: none;
+  }
+  .home-video-hero__video {
+    display: none;
+  }
+  .home-video-hero__media {
+    background: center / cover no-repeat url("/images/human-catapult-youtube-still.webp");
+  }
+}
+
 .hero--home { text-align: left; padding: 2rem 1.25rem 2.5rem; }
 .hero--home .hero__inner { max-width: 1100px; display: grid; gap: 2rem; align-items: start; }
 @media (min-width: 900px) { .hero--home .hero__inner { grid-template-columns: 1fr 1fr; } }
