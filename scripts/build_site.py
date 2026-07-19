@@ -55,7 +55,7 @@ HOME_LANDING_COPY = {
     },
 }
 
-SITE_CSS_VERSION = "20260719o"
+SITE_CSS_VERSION = "20260719p"
 
 from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
@@ -590,36 +590,76 @@ def resolve_home_landing_media() -> dict[str, dict[str, str]]:
     }
 
 
+def img_loading_attrs(*, lcp: bool = False) -> str:
+    if lcp:
+        return 'fetchpriority="high" loading="eager" decoding="async"'
+    return 'loading="lazy" decoding="async"'
+
+
+def render_home_hero_video(media: dict[str, dict[str, str]], *, orientation: str) -> str:
+    item = media[orientation]
+    classes = f"site-header__hero-media site-header__hero-media--{orientation}"
+    width = item.get("width", "1080")
+    height = item.get("height", "1920")
+    sources = []
+    if item.get("webm"):
+        sources.append(f'<source src="{item["webm"]}" type="video/webm">')
+    sources.append(f'<source src="{item["mp4"]}" type="video/mp4">')
+    sources_html = "".join(sources)
+    return (
+        f'<video class="{classes}" autoplay muted loop playsinline preload="none" '
+        f'width="{width}" height="{height}" aria-hidden="true">'
+        f"{sources_html}"
+        f"</video>"
+    )
+
+
+def render_home_hero_background(media: dict[str, dict[str, str]]) -> str:
+    portrait = media["portrait"]
+    landscape = media["landscape"]
+    if portrait["mode"] == "video" and landscape["mode"] == "video":
+        poster = (
+            f"<picture>"
+            f'<source media="(min-width: 900px)" srcset="{landscape["poster"]}">'
+            f'<img class="site-header__hero-poster" src="{portrait["poster"]}" alt="" '
+            f'width="{portrait["width"]}" height="{portrait["height"]}" '
+            f'{img_loading_attrs(lcp=True)} aria-hidden="true">'
+            f"</picture>"
+        )
+        return poster + render_home_hero_video(media, orientation="portrait") + render_home_hero_video(
+            media, orientation="landscape"
+        )
+    return (
+        render_home_hero_media(media, orientation="portrait")
+        + render_home_hero_media(media, orientation="landscape")
+    )
+
+
 def render_home_hero_media(media: dict[str, dict[str, str]], *, orientation: str) -> str:
     item = media[orientation]
     classes = f"site-header__hero-media site-header__hero-media--{orientation}"
     width = item.get("width", "1080")
     height = item.get("height", "1920")
     if item["mode"] == "video":
-        sources = []
-        if item.get("webm"):
-            sources.append(f'<source src="{item["webm"]}" type="video/webm">')
-        sources.append(f'<source src="{item["mp4"]}" type="video/mp4">')
-        sources_html = "".join(sources)
-        return (
-            f'<video class="{classes}" autoplay muted loop playsinline preload="metadata" '
-            f'poster="{item["poster"]}" width="{width}" height="{height}" aria-hidden="true">'
-            f"{sources_html}"
-            f"</video>"
+        poster_img = (
+            f'<img class="site-header__hero-poster site-header__hero-poster--{orientation}" '
+            f'src="{item["poster"]}" alt="" width="{width}" height="{height}" '
+            f'{img_loading_attrs(lcp=True)} aria-hidden="true">'
         )
+        return poster_img + render_home_hero_video(media, orientation=orientation)
     return (
         f'<img class="{classes}" src="{item["poster"]}" alt="" width="{width}" height="{height}" '
-        f'decoding="async" loading="eager" fetchpriority="high">'
+        f'{img_loading_attrs(lcp=True)}>'
     )
 
 
 def render_logo_img(*, alt: str, priority: bool = False) -> str:
-    fetch = ' fetchpriority="high"' if priority else ' loading="eager"'
+    attrs = ' loading="eager" decoding="async"' if priority else ' loading="eager"'
     return (
         f"<picture>"
         f'<source srcset="/images/{LOGO_WEBP}" type="image/webp">'
         f'<img class="site-header__logo-img" src="/images/glavani-park-logo.png" '
-        f'alt="{alt}" width="420" height="242"{fetch}>'
+        f'alt="{alt}" width="420" height="242"{attrs}>'
         f"</picture>"
     )
 
@@ -1066,8 +1106,10 @@ def render_home_hero_critical_css() -> str:
     return """  <style>
 .home-landing .breadcrumb--home{display:none}
 .site-header--home-video{position:relative;isolation:isolate;min-height:100dvh;padding:0;overflow:hidden}
-.site-header__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#0a0a0a center/cover no-repeat url("/images/human-catapult-youtube-still.webp")}
-.site-header__hero-media{position:absolute;top:50%;left:50%;display:block;min-width:100%;min-height:100%;width:auto;height:auto;max-width:none!important;transform:translate(-50%,-50%);object-fit:cover;object-position:50% 50%;pointer-events:none}
+.site-header__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#0a0a0a}
+.site-header__hero-poster,.site-header__hero-media{position:absolute;top:50%;left:50%;display:block;min-width:100%;min-height:100%;width:auto;height:auto;max-width:none!important;transform:translate(-50%,-50%);object-fit:cover;object-position:50% 50%;pointer-events:none}
+.site-header__hero-poster{z-index:0}
+.site-header__hero-media{z-index:1}
 .site-header__hero-media--landscape{display:none}
 .site-header__video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,10,10,.22) 0%,rgba(10,10,10,.42) 50%,rgba(10,10,10,.58) 100%);pointer-events:none}
 .site-header__home-inner{position:absolute;inset:0;z-index:2;width:100%;max-width:none;margin:0}
@@ -1096,19 +1138,10 @@ def render_home_hero_preload() -> str:
     media = resolve_home_landing_media()
     portrait = media["portrait"]
     landscape = media["landscape"]
-    lines = [
+    return "\n".join([
         f'  <link rel="preload" href="{portrait["poster"]}" as="image" media="(max-width: 899px)" fetchpriority="high">',
         f'  <link rel="preload" href="{landscape["poster"]}" as="image" media="(min-width: 900px)" fetchpriority="high">',
-    ]
-    if portrait["mode"] == "video":
-        lines.append(
-            f'  <link rel="preload" href="{portrait["mp4"]}" as="video" type="video/mp4" media="(max-width: 899px)">'
-        )
-    if landscape["mode"] == "video":
-        lines.append(
-            f'  <link rel="preload" href="{landscape["mp4"]}" as="video" type="video/mp4" media="(min-width: 900px)">'
-        )
-    return "\n".join(lines)
+    ])
 
 
 def site_header(lang: str, is_home: bool = False) -> str:
@@ -1124,8 +1157,7 @@ def site_header(lang: str, is_home: bool = False) -> str:
         return f"""
   <header class="site-header site-header--home-video" aria-label="{esc(landing['aria'])}">
     <div class="site-header__bg" aria-hidden="true">
-      {render_home_hero_media(hero_media, orientation="portrait")}
-      {render_home_hero_media(hero_media, orientation="landscape")}
+      {render_home_hero_background(hero_media)}
     </div>
     <div class="site-header__video-overlay" aria-hidden="true"></div>
     <div class="site-header__home-inner">
@@ -1361,7 +1393,7 @@ def head_meta(
     safe_keywords = esc(keywords)
     safe_image_alt = esc(image_alt)
     hero_preload = ""
-    if og_image and "logo" not in og_image.lower():
+    if og_image and "logo" not in og_image.lower() and not early_head.strip():
         hero_preload = f'  <link rel="preload" href="/images/{og_image}" as="image" fetchpriority="high">\n'
     return f"""<!DOCTYPE html>
 <html lang="{lang}">
@@ -1761,7 +1793,7 @@ def render_landing(page: dict, lang: str, en_slug: str, hr_slug: str) -> str:
   """
         if page.get("image"):
             article_open = f"""      <figure class="feature-img">
-        <img src="/images/{img}" alt="{page['image_alt']}" width="800" height="560" loading="eager">
+        <img src="/images/{img}" alt="{page['image_alt']}" width="800" height="560" {img_loading_attrs(lcp=True)}>
       </figure>"""
         else:
             article_open = ""
@@ -2200,7 +2232,7 @@ def render_activity_page(activity: dict, lang: str) -> str:
         </div>"""
 
     feature_img = f"""      <figure class="feature-img">
-        <img src="/images/{img}" alt="{data['image_alt']}" width="800" height="560" loading="eager">
+        <img src="/images/{img}" alt="{data['image_alt']}" width="800" height="560" {img_loading_attrs(lcp=True)}>
       </figure>"""
 
     if use_banner_header:
@@ -2286,11 +2318,12 @@ def render_photo_gallery_items(gallery: list, heading: str, lang: str) -> str:
     prev_label = "Prethodna fotografija" if lang == "hr" else "Previous photo"
     next_label = "Sljedeća fotografija" if lang == "hr" else "Next photo"
     slides = []
-    for item in gallery:
+    for index, item in enumerate(gallery):
         alt = esc(item[alt_key])
+        attrs = img_loading_attrs(lcp=index == 0)
         slides.append(
             f"""        <figure class="photo-gallery__slide">
-          <img src="/images/{item['image']}" alt="{alt}" width="800" height="560" loading="lazy">
+          <img src="/images/{item['image']}" alt="{alt}" width="800" height="560" {attrs}>
         </figure>"""
         )
     return f"""
@@ -2385,7 +2418,7 @@ def render_event_page(event: dict, lang: str) -> str:
   <div class="activity-detail-wrap section--theme-forest">
     <article class="activity-detail">
       <figure class="feature-img">
-        <img src="/images/{img}" alt="{data['image_alt']}" width="800" height="560" loading="eager">
+        <img src="/images/{img}" alt="{data['image_alt']}" width="800" height="560" {img_loading_attrs(lcp=True)}>
       </figure>
       <div class="prose activity-detail__prose">
         {prose}
@@ -2426,15 +2459,16 @@ def render_activity_visitor_photos(activity: dict, lang: str) -> str:
         next_label = "Next"
         play_label = "Play video"
     slides = []
-    for item in gallery_items:
+    for index, item in enumerate(gallery_items):
         if item["type"] == "image":
             image_item = GALLERY_BY_IMAGE.get(item["ref"])
             if not image_item:
                 continue
             alt = esc(image_item[alt_key])
+            attrs = img_loading_attrs(lcp=index == 0)
             slides.append(
                 f"""        <figure class="photo-gallery__slide">
-          <img src="/images/{item['ref']}" alt="{alt}" width="800" height="560" loading="lazy">
+          <img src="/images/{item['ref']}" alt="{alt}" width="800" height="560" {attrs}>
         </figure>"""
             )
         elif item["type"] == "video":
@@ -2445,11 +2479,12 @@ def render_activity_visitor_photos(activity: dict, lang: str) -> str:
             video_id = esc(item["ref"])
             label = esc(f"{play_label}: {title}")
             orientation = esc(video.get("orientation", "portrait"))
+            attrs = img_loading_attrs(lcp=index == 0)
             slides.append(
                 f"""        <figure class="photo-gallery__slide photo-gallery__slide--video">
           <div class="photo-gallery__video" data-youtube-id="{video_id}" data-video-title="{title}" data-play-label="{label}" data-orientation="{orientation}">
             <button type="button" class="photo-gallery__video-play" aria-label="{label}">
-              <img src="https://i.ytimg.com/vi/{video_id}/hqdefault.jpg" alt="{title}" width="800" height="450" loading="lazy">
+              <img src="https://i.ytimg.com/vi/{video_id}/hqdefault.jpg" alt="{title}" width="800" height="450" {attrs}>
               <span class="photo-gallery__video-icon" aria-hidden="true">▶</span>
             </button>
           </div>
