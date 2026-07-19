@@ -8,11 +8,33 @@ import os
 import sys
 from datetime import date
 from pathlib import Path
+from urllib.parse import quote
 
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
+
+HOME_LANDING_VIDEO = "Catapult Short Vid No audio Landscape (trimmed).mp4"
+HOME_LANDING_POSTER = "human-catapult-youtube-still.webp"
+HOME_LANDING_COPY = {
+    "en": {
+        "aria": "Human catapult at Glavani Park",
+        "tagline": (
+            "Strap in, hold the release, and go from 0 to around 100 km/h "
+            "quicker than an F1 car off the line."
+        ),
+        "scroll": "Scroll for more",
+    },
+    "hr": {
+        "aria": "Ljudska katapulta u Glavani Parku",
+        "tagline": (
+            "Vežite se, držite otpust i u trenu idite od 0 do oko 100 km/h — "
+            "brže nego Formula 1 s mjesta."
+        ),
+        "scroll": "Skrolajte za više",
+    },
+}
 
 from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
@@ -2158,10 +2180,31 @@ def render_activity_hub_cards(lang: str) -> str:
     return "".join(cards)
 
 
+def render_home_video_hero(lang: str) -> str:
+    copy = HOME_LANDING_COPY[lang]
+    video_src = f"/images/{quote(HOME_LANDING_VIDEO)}"
+    poster_src = f"/images/{HOME_LANDING_POSTER}"
+    logo_alt = VISITOR[lang]["logo_alt"]
+    return f"""    <section class="home-video-hero" aria-label="{esc(copy['aria'])}">
+      <div class="home-video-hero__media" aria-hidden="true">
+        <video class="home-video-hero__video" autoplay muted loop playsinline preload="metadata" poster="{poster_src}">
+          <source src="{video_src}" type="video/mp4">
+        </video>
+      </div>
+      <div class="home-video-hero__overlay" aria-hidden="true"></div>
+      <div class="home-video-hero__content">
+        <img class="home-video-hero__logo" src="/images/glavani-park-logo.png" alt="{esc(logo_alt)}" width="420" height="242" fetchpriority="high">
+        <p class="home-video-hero__tagline">{esc(copy['tagline'])}</p>
+        <a class="home-video-hero__scroll" href="#home-content">{esc(copy['scroll'])}</a>
+      </div>
+    </section>"""
+
+
 def inject_home_extras(body: str, lang: str) -> str:
     summary = price_summary(lang)
     status = park_status(lang)
     replacements = {
+        "<!-- HOME_VIDEO_HERO -->": render_home_video_hero(lang),
         "<!-- HERO_OPEN_STATUS -->": (
             f'<span class="hero__open-status-row visitor-bar__status visitor-bar__status--{status["state"]}">'
             f'<span class="visitor-bar__icon" aria-hidden="true">●</span>'
@@ -2751,7 +2794,7 @@ def render_home(lang: str) -> str:
         ],
     }
     home_label = "Početna" if lang == "hr" else "Home"
-    return f"""{head_meta(lang, home['title'], home['meta_description'], home['keywords'], canonical, is_home=True, og_image=home['image'], og_image_alt="Glavani Park adventure and zipline park in Istria, Croatia")}
+    return f"""{head_meta(lang, home['title'], home['meta_description'], home['keywords'], canonical, is_home=True, og_image=home['image'], og_image_alt="Glavani Park adventure and zipline park in Istria, Croatia", body_class="theme-page home-landing")}
 {page_chrome(lang, is_home=True)}
 {body_content}
 {footer(lang)}
