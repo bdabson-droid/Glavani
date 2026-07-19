@@ -8,10 +8,13 @@
   var visible = false;
   var ticking = false;
 
-  function thresholds() {
-    var showAt = Math.min(20, Math.max(6, Math.round(window.innerHeight * 0.015)));
-    var hideAt = 0;
-    return { showAt: showAt, hideAt: hideAt };
+  function scrollTop() {
+    return (
+      window.scrollY ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0
+    );
   }
 
   function setPastHero(pastHero) {
@@ -24,11 +27,10 @@
   }
 
   function update() {
-    var y = window.scrollY;
-    var limits = thresholds();
-    if (!visible && y > limits.showAt) {
+    var y = scrollTop();
+    if (!visible && y > 0) {
       setPastHero(true);
-    } else if (visible && y <= limits.hideAt) {
+    } else if (visible && y <= 0) {
       setPastHero(false);
     }
   }
@@ -42,6 +44,12 @@
     });
   }
 
+  function onScrollIntent() {
+    if (!visible) {
+      setPastHero(true);
+    }
+  }
+
   var scrollLink = document.querySelector(".site-header__scroll");
   if (scrollLink) {
     scrollLink.addEventListener("click", function () {
@@ -49,7 +57,21 @@
     });
   }
 
+  chrome.forEach(function (el) {
+    el.setAttribute("aria-hidden", "true");
+  });
+
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll, { passive: true });
+  window.addEventListener(
+    "wheel",
+    function (event) {
+      if (!visible && event.deltaY !== 0) {
+        onScrollIntent();
+      }
+    },
+    { passive: true }
+  );
+  window.addEventListener("touchmove", onScrollIntent, { passive: true });
   update();
 })();

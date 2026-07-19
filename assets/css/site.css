@@ -71,8 +71,8 @@ body {
   width: 100%;
   will-change: transform, opacity;
   transition:
-    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.35s ease;
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.22s ease;
 }
 .home-landing .visit-cta-bar {
   top: 0;
@@ -89,9 +89,9 @@ body {
   visibility: hidden;
   pointer-events: none;
   transition:
-    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.35s ease,
-    visibility 0s linear 0.45s;
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.22s ease,
+    visibility 0s linear 0.28s;
 }
 .home-landing:not(.home-past-hero) .visit-cta-bar {
   transform: translate3d(0, -100%, 0);
@@ -106,8 +106,8 @@ body {
   pointer-events: auto;
   transform: translate3d(0, 0, 0);
   transition:
-    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.35s ease,
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.22s ease,
     visibility 0s;
 }
 @media (prefers-reduced-motion: reduce) {
