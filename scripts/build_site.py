@@ -15,8 +15,9 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 
-HOME_LANDING_VIDEO = "Catapult Short Vid No audio Landscape (trimmed).mp4"
-HOME_LANDING_POSTER = "human-catapult-youtube-still.webp"
+HOME_LANDING_GIF_PORTRAIT = "catapult-home-portrait.gif"
+HOME_LANDING_GIF_LANDSCAPE = "catapult-home-landscape.gif"
+HOME_LANDING_FALLBACK = "human-catapult-youtube-still.webp"
 HOME_LANDING_COPY = {
     "en": {
         "aria": "Human catapult at Glavani Park",
@@ -820,20 +821,60 @@ def visitor_bar(lang: str) -> str:
   </div>"""
 
 
+def resolve_home_landing_gifs() -> tuple[str, str]:
+    """Find portrait and landscape GIFs in images/ (filename must include those words)."""
+    img_dir = ROOT / "images"
+    gifs = sorted(p.name for p in img_dir.glob("*.gif"))
+    gifs += sorted(p.name for p in img_dir.glob("*.GIF"))
+    portrait = next((g for g in gifs if "portrait" in g.lower()), "")
+    landscape = next((g for g in gifs if "landscape" in g.lower()), "")
+    if portrait and landscape:
+        return portrait, landscape
+    if len(gifs) == 2:
+        try:
+            from PIL import Image as PILImage
+
+            sizes = []
+            for name in gifs:
+                with PILImage.open(img_dir / name) as img:
+                    sizes.append((img.width / img.height, name))
+            sizes.sort()
+            return sizes[0][1], sizes[-1][1]
+        except OSError:
+            return gifs[0], gifs[1]
+    portrait = portrait or HOME_LANDING_GIF_PORTRAIT
+    landscape = landscape or HOME_LANDING_GIF_LANDSCAPE
+    for name in (portrait, landscape):
+        if not (img_dir / name).is_file():
+            print(
+                f"  warn: home landing GIF not found ({name}) — "
+                "upload portrait and landscape GIFs to images/ "
+                "(filenames should include 'portrait' and 'landscape')"
+            )
+    return portrait, landscape
+
+
 def site_header(lang: str, is_home: bool = False) -> str:
     copy = VISITOR[lang]
     home = f"/{lang}/"
     if is_home:
         landing = HOME_LANDING_COPY[lang]
-        video_src = f"/images/{quote(HOME_LANDING_VIDEO)}"
-        poster_src = f"/images/{HOME_LANDING_POSTER}"
+        portrait_gif, landscape_gif = resolve_home_landing_gifs()
+        fallback_src = f"/images/{HOME_LANDING_FALLBACK}"
+        img_dir = ROOT / "images"
+        portrait_src = (
+            f"/images/{quote(portrait_gif)}"
+            if (img_dir / portrait_gif).is_file()
+            else fallback_src
+        )
+        landscape_src = (
+            f"/images/{quote(landscape_gif)}"
+            if (img_dir / landscape_gif).is_file()
+            else fallback_src
+        )
         return f"""
   <header class="site-header site-header--home-video" aria-label="{esc(landing['aria'])}">
-    <div class="site-header__video-wrap" aria-hidden="true">
-      <video class="site-header__video" autoplay muted loop playsinline preload="auto" poster="{poster_src}">
-        <source src="{video_src}" type="video/mp4">
-      </video>
-    </div>
+    <div class="site-header__bg" aria-hidden="true" style="--home-gif-portrait: url('{portrait_src}'); --home-gif-landscape: url('{landscape_src}'); --home-gif-fallback: url('{fallback_src}');"></div>
     <div class="site-header__video-overlay" aria-hidden="true"></div>
     <div class="site-header__home-inner">
       <a class="site-header__brand" href="{home}">

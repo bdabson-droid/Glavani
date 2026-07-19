@@ -399,6 +399,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   border-bottom: 3px solid var(--brand-orange);
 }
 .site-header--home-video {
+  position: relative;
+  isolation: isolate;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -406,20 +408,21 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   padding: 2rem 1.25rem 4.5rem;
   overflow: hidden;
 }
-.site-header__video-wrap {
+.site-header__bg {
   position: absolute;
   inset: 0;
   z-index: 0;
-  overflow: hidden;
-  background: var(--brand-black);
-}
-.site-header__video {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 50%;
+  background-color: var(--brand-black);
+  background-image: var(--home-gif-portrait, var(--home-gif-fallback));
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
   pointer-events: none;
+}
+@media (min-width: 900px) {
+  .site-header__bg {
+    background-image: var(--home-gif-landscape, var(--home-gif-fallback));
+  }
 }
 .site-header__video-overlay {
   position: absolute;
@@ -487,25 +490,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 .site-header--home-video .site-header__logo-img {
   filter: drop-shadow(0 6px 28px rgba(0, 0, 0, 0.55));
 }
-@media (max-width: 899px) {
-  .site-header__video {
-    object-fit: cover;
-    object-position: 50% 50%;
-    width: 100%;
-    height: 100%;
-    max-width: none;
-    max-height: none;
-  }
-}
 @media (prefers-reduced-motion: reduce) {
   .site-header__scroll::after {
     animation: none;
-  }
-  .site-header--home-video .site-header__video {
-    display: none;
-  }
-  .site-header--home-video .site-header__video-wrap {
-    background: center / cover no-repeat url("/images/human-catapult-youtube-still.webp");
   }
 }
 .site-header__brand {
