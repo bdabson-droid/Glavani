@@ -413,12 +413,14 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   inset: 0;
   z-index: 0;
   overflow: hidden;
+  background: center / cover no-repeat url("/images/human-catapult-youtube-still.webp");
   background-color: var(--brand-black);
 }
 .site-header__gif {
   position: absolute;
   top: 50%;
   left: 50%;
+  display: block;
   min-width: 100%;
   min-height: 100%;
   width: auto;
