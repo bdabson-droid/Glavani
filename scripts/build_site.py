@@ -35,7 +35,7 @@ HOME_LANDING_COPY = {
     },
 }
 
-SITE_CSS_VERSION = "20260719h"
+SITE_CSS_VERSION = "20260719i"
 
 from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
@@ -864,11 +864,15 @@ def render_home_hero_critical_css() -> str:
 .site-header--home-video .site-header__logo-img{filter:drop-shadow(0 6px 28px rgba(0,0,0,.55))}
 @media(min-width:900px){.site-header__gif--portrait{display:none}.site-header__gif--landscape{display:block}.site-header--home-video .site-header__brand{top:clamp(3.25rem,12vh,6rem)}.site-header__tagline--landing{bottom:clamp(5.25rem,21vh,9rem)}}
 .home-landing:not(.home-past-hero){padding-bottom:0;background:#0a0a0a}
-.home-landing:not(.home-past-hero) .visit-cta-bar,.home-landing:not(.home-past-hero) .quick-actions{position:fixed;left:0;right:0;width:100%;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s ease,transform .25s ease,visibility .25s}
-.home-landing:not(.home-past-hero) .visit-cta-bar{top:0;z-index:998;transform:translateY(-100%)}
-.home-landing:not(.home-past-hero) .quick-actions{top:auto;bottom:0;z-index:1000;transform:translateY(100%)}
-.home-landing.home-past-hero .visit-cta-bar,.home-landing.home-past-hero .quick-actions{opacity:1;visibility:visible;pointer-events:auto;transform:none}
-@media(min-width:768px){.home-landing:not(.home-past-hero) .quick-actions{top:0;bottom:auto;transform:translateY(-100%)}}
+.home-landing.home-past-hero{padding-bottom:calc(var(--sticky-h) + 1rem)}
+.home-landing .visit-cta-bar,.home-landing .quick-actions{position:fixed;left:0;right:0;width:100%;will-change:transform,opacity;transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .35s ease}
+.home-landing .visit-cta-bar{top:0;z-index:998}
+.home-landing .quick-actions{top:auto;bottom:0;z-index:1000}
+.home-landing:not(.home-past-hero) .visit-cta-bar,.home-landing:not(.home-past-hero) .quick-actions{opacity:0;visibility:hidden;pointer-events:none;transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .35s ease,visibility 0s linear .45s}
+.home-landing:not(.home-past-hero) .visit-cta-bar{transform:translate3d(0,-100%,0)}
+.home-landing:not(.home-past-hero) .quick-actions{transform:translate3d(0,100%,0)}
+.home-landing.home-past-hero .visit-cta-bar,.home-landing.home-past-hero .quick-actions{opacity:1;visibility:visible;pointer-events:auto;transform:translate3d(0,0,0);transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .35s ease,visibility 0s}
+@media(min-width:768px){.home-landing.home-past-hero{padding-bottom:0}.home-landing .quick-actions{top:auto;bottom:0;border-top:3px solid #f5a623;border-bottom:none}}
 </style>"""
 
 

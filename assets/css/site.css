@@ -60,34 +60,65 @@ body {
   padding-bottom: 0;
   background: var(--brand-black);
 }
-.home-landing:not(.home-past-hero) .visit-cta-bar,
-.home-landing:not(.home-past-hero) .quick-actions {
+.home-landing.home-past-hero {
+  padding-bottom: calc(var(--sticky-h) + 1rem);
+}
+.home-landing .visit-cta-bar,
+.home-landing .quick-actions {
   position: fixed;
   left: 0;
   right: 0;
   width: 100%;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+  will-change: transform, opacity;
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease;
 }
-.home-landing:not(.home-past-hero) .visit-cta-bar {
+.home-landing .visit-cta-bar {
   top: 0;
   z-index: 998;
-  transform: translateY(-100%);
 }
-.home-landing:not(.home-past-hero) .quick-actions {
+.home-landing .quick-actions {
   top: auto;
   bottom: 0;
   z-index: 1000;
-  transform: translateY(100%);
+}
+.home-landing:not(.home-past-hero) .visit-cta-bar,
+.home-landing:not(.home-past-hero) .quick-actions {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease,
+    visibility 0s linear 0.45s;
+}
+.home-landing:not(.home-past-hero) .visit-cta-bar {
+  transform: translate3d(0, -100%, 0);
+}
+.home-landing:not(.home-past-hero) .quick-actions {
+  transform: translate3d(0, 100%, 0);
 }
 .home-landing.home-past-hero .visit-cta-bar,
 .home-landing.home-past-hero .quick-actions {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: none;
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease,
+    visibility 0s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-landing .visit-cta-bar,
+  .home-landing .quick-actions {
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+  }
+  .home-landing:not(.home-past-hero) .visit-cta-bar,
+  .home-landing:not(.home-past-hero) .quick-actions {
+    transform: none;
+  }
 }
 
 body.theme-page {
@@ -3060,12 +3091,22 @@ body.page-404.is-hr .lang-en.block { display: none; }
 
 @media (min-width: 768px) {
   body { padding-bottom: 0; }
-  .home-landing:not(.home-past-hero) .quick-actions {
-    top: 0;
-    bottom: auto;
-    transform: translateY(-100%);
+  .home-landing.home-past-hero {
+    padding-bottom: 0;
+  }
+  .home-landing .quick-actions {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    border-top: 3px solid var(--yellow-accent);
+    border-bottom: none;
+    justify-content: flex-end;
+    padding: 0.5rem 1.5rem;
   }
   .visit-cta-bar { top: var(--sticky-h); }
+  .home-landing .visit-cta-bar {
+    top: 0;
+  }
   .quick-actions {
     position: sticky;
     top: 0;
