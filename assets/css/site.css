@@ -520,24 +520,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
     0 0 32px rgba(245, 130, 32, 0.5);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-}
-.site-header__tagline--landing::before {
-  content: "";
-  display: block;
-  width: 4.5rem;
-  height: 3px;
-  margin: 0 auto 0.65rem;
-  border-radius: 999px;
-  background: linear-gradient(90deg, transparent, #f58220, #f5a623, #f58220, transparent);
-}
-.site-header__tagline--landing::after {
-  content: "";
-  display: block;
-  width: 2.5rem;
-  height: 2px;
-  margin: 0.7rem auto 0;
-  border-radius: 999px;
-  background: linear-gradient(90deg, transparent, rgba(245, 166, 35, 0.85), transparent);
+  quotes: none;
 }
 @media (min-width: 900px) {
   .site-header--home-video .site-header__brand {
