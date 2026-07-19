@@ -412,16 +412,32 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
   background-color: var(--brand-black);
-  background-image: var(--home-gif-portrait, var(--home-gif-fallback));
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  background-size: cover;
+}
+.site-header__gif {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  max-width: none;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  object-position: 50% 50%;
   pointer-events: none;
 }
+.site-header__gif--landscape {
+  display: none;
+}
 @media (min-width: 900px) {
-  .site-header__bg {
-    background-image: var(--home-gif-landscape, var(--home-gif-fallback));
+  .site-header__gif--portrait {
+    display: none;
+  }
+  .site-header__gif--landscape {
+    display: block;
   }
 }
 .site-header__video-overlay {
@@ -449,12 +465,21 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 }
 .site-header__tagline--landing {
   margin: 0;
-  max-width: 40ch;
-  font-size: clamp(1.05rem, 2.9vw, 1.35rem);
-  line-height: 1.45;
-  font-weight: 600;
-  color: var(--text-on-dark);
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.65);
+  padding: 0.9rem 1.2rem;
+  max-width: 44ch;
+  font-size: clamp(1.125rem, 3.4vw, 1.55rem);
+  line-height: 1.35;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  background: rgba(10, 10, 10, 0.5);
+  border: 2px solid rgba(245, 166, 35, 0.8);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    0 0 48px rgba(245, 130, 32, 0.2);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
 }
 .site-header__scroll {
   position: absolute;
@@ -493,6 +518,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 @media (prefers-reduced-motion: reduce) {
   .site-header__scroll::after {
     animation: none;
+  }
+  .site-header__gif {
+    display: none;
+  }
+  .site-header__bg {
+    background: center / cover no-repeat url("/images/human-catapult-youtube-still.webp");
   }
 }
 .site-header__brand {
