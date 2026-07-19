@@ -2,11 +2,12 @@
   var body = document.body;
   if (!body.classList.contains("home-landing")) return;
 
-  var hero = document.querySelector(".site-header--home-video");
-  if (!hero) return;
-
   var chrome = document.querySelectorAll(".visit-cta-bar, .quick-actions");
   if (!chrome.length) return;
+
+  function scrollThreshold() {
+    return Math.min(96, Math.max(40, Math.round(window.innerHeight * 0.06)));
+  }
 
   function setPastHero(pastHero) {
     body.classList.toggle("home-past-hero", pastHero);
@@ -15,17 +16,11 @@
     });
   }
 
-  if (!("IntersectionObserver" in window)) {
-    setPastHero(true);
-    return;
+  function update() {
+    setPastHero(window.scrollY > scrollThreshold());
   }
 
-  var observer = new IntersectionObserver(
-    function (entries) {
-      setPastHero(!entries[0].isIntersecting);
-    },
-    { threshold: 0 }
-  );
-
-  observer.observe(hero);
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update, { passive: true });
+  update();
 })();
