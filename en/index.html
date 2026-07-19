@@ -30,8 +30,8 @@
   <link rel="apple-touch-icon" href="../images/glavani-park-logo.png">
   <meta name="theme-color" content="#0a0a0a">
   <link rel="preload" href="../images/glavani-park-adventure-istria-croatia.webp" as="image" fetchpriority="high">
-  <link rel="preload" href="../assets/css/site.min.css?v=20260719e" as="style">
-  <link rel="stylesheet" href="../assets/css/site.min.css?v=20260719e">
+  <link rel="preload" href="../assets/css/site.min.css?v=20260719f" as="style">
+  <link rel="stylesheet" href="../assets/css/site.min.css?v=20260719f">
 
   <style>
 .home-landing .breadcrumb--home{display:none}
@@ -48,6 +48,12 @@
 .site-header__scroll{position:absolute;bottom:1.5rem;left:50%;z-index:2;transform:translateX(-50%);color:#c8eb9a;text-decoration:none;font-size:.8125rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 .site-header--home-video .site-header__logo-img{filter:drop-shadow(0 6px 28px rgba(0,0,0,.55))}
 @media(min-width:900px){.site-header__gif--portrait{display:none}.site-header__gif--landscape{display:block}.site-header--home-video .site-header__brand{top:clamp(3.25rem,12vh,6rem)}.site-header__tagline--landing{bottom:clamp(5.25rem,21vh,9rem)}}
+.home-landing:not(.home-past-hero){padding-bottom:0}
+.home-landing:not(.home-past-hero) .visit-cta-bar,.home-landing:not(.home-past-hero) .quick-actions{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s ease,transform .25s ease,visibility .25s}
+.home-landing:not(.home-past-hero) .visit-cta-bar{transform:translateY(-100%)}
+.home-landing:not(.home-past-hero) .quick-actions{transform:translateY(100%)}
+.home-landing.home-past-hero .visit-cta-bar,.home-landing.home-past-hero .quick-actions{opacity:1;visibility:visible;pointer-events:auto;transform:none}
+@media(min-width:768px){.home-landing:not(.home-past-hero) .quick-actions{transform:translateY(-100%)}}
 </style>
 </head>
 <body class="theme-page home-landing">
@@ -88,7 +94,7 @@
       <a class="site-header__brand" href="./">
         <img class="site-header__logo-img" src="../images/glavani-park-logo.png" alt="Glavani Park — A Great Place to Be" width="420" height="242" fetchpriority="high">
       </a>
-      <p class="site-header__tagline site-header__tagline--landing">Strap in, hold the release, and go from 0 to around 100 km/h quicker than an F1 car off the line.</p>
+      <p class="site-header__tagline site-header__tagline--landing">Strap in, hold on, and go from 0 to 100 km/h quicker than an F1 car!</p>
     </div>
     <a class="site-header__scroll" href="#home-content">Scroll for more</a>
   </header>
@@ -583,5 +589,6 @@
 }
 </script>
 <script src="../assets/js/open-status.min.js" defer></script>
+<script src="../assets/js/home-hero-chrome.min.js" defer></script>
 </body>
 </html>

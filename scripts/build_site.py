@@ -22,22 +22,20 @@ HOME_LANDING_COPY = {
     "en": {
         "aria": "Human catapult at Glavani Park",
         "tagline": (
-            "Strap in, hold the release, and go from 0 to around 100 km/h "
-            "quicker than an F1 car off the line."
+            "Strap in, hold on, and go from 0 to 100 km/h quicker than an F1 car!"
         ),
         "scroll": "Scroll for more",
     },
     "hr": {
         "aria": "Ljudska katapulta u Glavani Parku",
         "tagline": (
-            "Vežite se, držite otpust i u trenu idite od 0 do oko 100 km/h — "
-            "brže nego Formula 1 s mjesta."
+            "Vežite se, držite se i idite od 0 do 100 km/h brže nego Formula 1!"
         ),
         "scroll": "Skrolajte za više",
     },
 }
 
-SITE_CSS_VERSION = "20260719e"
+SITE_CSS_VERSION = "20260719f"
 
 from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
@@ -179,6 +177,7 @@ PAGE_SCRIPTS = {
     "location-map": "/assets/js/location-map.min.js",
     "contact-form": "/assets/js/contact-form.min.js",
     "cookie-consent": "/assets/js/cookie-consent.min.js",
+    "home-hero-chrome": "/assets/js/home-hero-chrome.min.js",
 }
 
 
@@ -866,6 +865,12 @@ def render_home_hero_critical_css() -> str:
 .site-header__scroll{position:absolute;bottom:1.5rem;left:50%;z-index:2;transform:translateX(-50%);color:#c8eb9a;text-decoration:none;font-size:.8125rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 .site-header--home-video .site-header__logo-img{filter:drop-shadow(0 6px 28px rgba(0,0,0,.55))}
 @media(min-width:900px){.site-header__gif--portrait{display:none}.site-header__gif--landscape{display:block}.site-header--home-video .site-header__brand{top:clamp(3.25rem,12vh,6rem)}.site-header__tagline--landing{bottom:clamp(5.25rem,21vh,9rem)}}
+.home-landing:not(.home-past-hero){padding-bottom:0}
+.home-landing:not(.home-past-hero) .visit-cta-bar,.home-landing:not(.home-past-hero) .quick-actions{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s ease,transform .25s ease,visibility .25s}
+.home-landing:not(.home-past-hero) .visit-cta-bar{transform:translateY(-100%)}
+.home-landing:not(.home-past-hero) .quick-actions{transform:translateY(100%)}
+.home-landing.home-past-hero .visit-cta-bar,.home-landing.home-past-hero .quick-actions{opacity:1;visibility:visible;pointer-events:auto;transform:none}
+@media(min-width:768px){.home-landing:not(.home-past-hero) .quick-actions{transform:translateY(-100%)}}
 </style>"""
 
 
@@ -2871,7 +2876,7 @@ def render_home(lang: str) -> str:
 {footer(lang)}
 {breadcrumb_schema([(home_label, None)])}
 {json_ld_script(org_schema)}
-{render_page_scripts("open-status", *(( "cookie-consent",) if (GA4_MEASUREMENT_ID or CLOUDFLARE_ANALYTICS_TOKEN) else ()))}
+{render_page_scripts("open-status", "home-hero-chrome", *(( "cookie-consent",) if (GA4_MEASUREMENT_ID or CLOUDFLARE_ANALYTICS_TOKEN) else ()))}
 </body>
 </html>"""
 
