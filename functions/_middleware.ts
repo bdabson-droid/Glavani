@@ -20,6 +20,29 @@ function field(formData: FormData, key: string): string {
   return value == null ? "" : String(value).trim();
 }
 
+function containsLink(value: string): boolean {
+  const text = value.trim();
+  if (!text) return false;
+  if (/https?:\/\//i.test(text)) return true;
+  if (/\bwww\./i.test(text)) return true;
+  if (/<a\s[\s\S]*?href\s*=/i.test(text)) return true;
+  if (/\[[\s\S]*?\]\(\s*https?:/i.test(text)) return true;
+  if (
+    /\b[a-z0-9][-a-z0-9]{0,62}\.(com|net|org|io|co|uk|de|hr|info|biz|xyz|ru|cn|tk|click|link|top|shop|site|online|me|ly)(?:\/[^\s]*)?\b/i.test(
+      text,
+    )
+  ) {
+    return true;
+  }
+  return false;
+}
+
+function contactFormContainsLink(formData: FormData): boolean {
+  return ["message", "name", "activity"].some((key) =>
+    containsLink(field(formData, key)),
+  );
+}
+
 function replyToLine(guestName: string, guestEmail: string): string {
   if (!guestEmail) return "Reply to confirm: (no email provided)";
   const who = guestName ? `${guestName} <${guestEmail}>` : guestEmail;
@@ -216,6 +239,13 @@ export const onRequest: PagesFunction<Env> = (context) => {
       if (name === CONTACT_FORM) {
         if (field(formData, "botcheck")) {
           return Response.json({ ok: true });
+        }
+
+        if (contactFormContainsLink(formData)) {
+          return Response.json(
+            { ok: false, error: "links_not_allowed" },
+            { status: 400 },
+          );
         }
 
         const guestName = field(formData, "name");
