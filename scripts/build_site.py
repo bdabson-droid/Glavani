@@ -15,9 +15,8 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 
-HOME_LANDING_GIF_PORTRAIT = "catapult-home-portrait.gif"
-HOME_LANDING_GIF_LANDSCAPE = "catapult-home-landscape.gif"
-HOME_LANDING_FALLBACK = "human-catapult-youtube-still.webp"
+HOME_LANDING_VIDEO = "catapult-home-landscape.mp4"
+HOME_LANDING_POSTER = "human-catapult-youtube-still.webp"
 HOME_LANDING_COPY = {
     "en": {
         "aria": "Human catapult at Glavani Park",
@@ -37,7 +36,7 @@ HOME_LANDING_COPY = {
     },
 }
 
-SITE_CSS_VERSION = "20260719b"
+SITE_CSS_VERSION = "20260719c"
 
 from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
@@ -823,67 +822,47 @@ def visitor_bar(lang: str) -> str:
   </div>"""
 
 
-def resolve_home_landing_gifs() -> tuple[str, str]:
-    """Find portrait and landscape GIFs in images/ (filename must include those words)."""
+def resolve_home_landing_video() -> str:
+    """Return the home hero MP4 filename (landscape video, centre-cropped on mobile)."""
     img_dir = ROOT / "images"
-    gifs = sorted(p.name for p in img_dir.glob("*.gif"))
-    gifs += sorted(p.name for p in img_dir.glob("*.GIF"))
-    portrait = next((g for g in gifs if "portrait" in g.lower()), "")
-    landscape = next((g for g in gifs if "landscape" in g.lower()), "")
-    if portrait and landscape:
-        return portrait, landscape
-    if len(gifs) == 2:
-        try:
-            from PIL import Image as PILImage
-
-            sizes = []
-            for name in gifs:
-                with PILImage.open(img_dir / name) as img:
-                    sizes.append((img.width / img.height, name))
-            sizes.sort()
-            return sizes[0][1], sizes[-1][1]
-        except OSError:
-            return gifs[0], gifs[1]
-    portrait = portrait or HOME_LANDING_GIF_PORTRAIT
-    landscape = landscape or HOME_LANDING_GIF_LANDSCAPE
-    for name in (portrait, landscape):
-        if not (img_dir / name).is_file():
-            print(
-                f"  warn: home landing GIF not found ({name}) — "
-                "upload portrait and landscape GIFs to images/ "
-                "(filenames should include 'portrait' and 'landscape')"
-            )
-    return portrait, landscape
+    if (img_dir / HOME_LANDING_VIDEO).is_file():
+        return HOME_LANDING_VIDEO
+    mp4s = sorted(p.name for p in img_dir.glob("*.mp4"))
+    mp4s += sorted(p.name for p in img_dir.glob("*.MP4"))
+    if mp4s:
+        return mp4s[0]
+    print(
+        f"  warn: home landing video not found ({HOME_LANDING_VIDEO}) — "
+        "upload an MP4 to images/"
+    )
+    return HOME_LANDING_VIDEO
 
 
 def render_home_hero_critical_css() -> str:
-    """Inline hero styles so home GIF/logo layout works even if site.min.css is cached."""
+    """Inline hero styles so home video/logo layout works even if site.min.css is cached."""
     return """  <style>
 .home-landing .breadcrumb--home{display:none}
 .site-header--home-video{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;min-height:100dvh;padding:2rem 1.25rem 4.5rem;overflow:hidden}
-.site-header__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#0a0a0a}
-.site-header__gif{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;width:auto;height:auto;max-width:none!important;transform:translate(-50%,-50%);object-fit:cover;object-position:50% 50%;pointer-events:none}
-.site-header__gif--landscape{display:none}
+.site-header__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#0a0a0a center/cover no-repeat url("/images/human-catapult-youtube-still.webp")}
+.site-header__video{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;width:auto;height:auto;max-width:none!important;transform:translate(-50%,-50%);object-fit:cover;object-position:50% 50%;pointer-events:none}
 .site-header__video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,10,10,.22) 0%,rgba(10,10,10,.42) 50%,rgba(10,10,10,.58) 100%);pointer-events:none}
 .site-header__home-inner{position:relative;z-index:2;width:100%;max-width:760px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:1rem}
 .site-header__tagline--landing{margin:0;padding:1rem 1.35rem;max-width:44ch;font-size:clamp(1.2rem,3.8vw,1.7rem);line-height:1.3;font-weight:900;font-style:italic;letter-spacing:.03em;color:#fff;background:rgba(0,0,0,.58);border:3px solid #f5a623;border-radius:16px;box-shadow:0 0 0 1px rgba(255,255,255,.12),0 12px 40px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.1);text-shadow:0 2px 10px rgba(0,0,0,.9),0 0 28px rgba(245,130,32,.45)}
 .site-header__scroll{position:absolute;bottom:1.5rem;left:50%;z-index:2;transform:translateX(-50%);color:#c8eb9a;text-decoration:none;font-size:.8125rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 .site-header--home-video .site-header__logo-img{filter:drop-shadow(0 6px 28px rgba(0,0,0,.55))}
-@media(min-width:900px){.site-header__gif--portrait{display:none}.site-header__gif--landscape{display:block}}
+@media(prefers-reduced-motion:reduce){.site-header__video{display:none}}
 </style>"""
 
 
 def render_home_hero_preload() -> str:
-    portrait_gif, landscape_gif = resolve_home_landing_gifs()
+    video_name = resolve_home_landing_video()
     img_dir = ROOT / "images"
-    portrait_src = f"/images/{quote(portrait_gif)}"
-    landscape_src = f"/images/{quote(landscape_gif)}"
-    if not (img_dir / portrait_gif).is_file():
-        portrait_src = f"/images/{HOME_LANDING_FALLBACK}"
-    if not (img_dir / landscape_gif).is_file():
-        landscape_src = f"/images/{HOME_LANDING_FALLBACK}"
-    return f"""  <link rel="preload" href="{portrait_src}" as="image" media="(max-width: 899px)" fetchpriority="high">
-  <link rel="preload" href="{landscape_src}" as="image" media="(min-width: 900px)" fetchpriority="high">"""
+    video_src = f"/images/{quote(video_name)}"
+    poster_src = f"/images/{HOME_LANDING_POSTER}"
+    if not (img_dir / video_name).is_file():
+        return f'  <link rel="preload" href="{poster_src}" as="image" fetchpriority="high">'
+    return f"""  <link rel="preload" href="{video_src}" as="video" type="video/mp4" fetchpriority="high">
+  <link rel="preload" href="{poster_src}" as="image" fetchpriority="high">"""
 
 
 def site_header(lang: str, is_home: bool = False) -> str:
@@ -891,24 +870,23 @@ def site_header(lang: str, is_home: bool = False) -> str:
     home = f"/{lang}/"
     if is_home:
         landing = HOME_LANDING_COPY[lang]
-        portrait_gif, landscape_gif = resolve_home_landing_gifs()
-        fallback_src = f"/images/{HOME_LANDING_FALLBACK}"
+        video_name = resolve_home_landing_video()
+        poster_src = f"/images/{HOME_LANDING_POSTER}"
         img_dir = ROOT / "images"
-        portrait_src = (
-            f"/images/{quote(portrait_gif)}"
-            if (img_dir / portrait_gif).is_file()
-            else fallback_src
+        video_src = (
+            f"/images/{quote(video_name)}"
+            if (img_dir / video_name).is_file()
+            else ""
         )
-        landscape_src = (
-            f"/images/{quote(landscape_gif)}"
-            if (img_dir / landscape_gif).is_file()
-            else fallback_src
-        )
+        video_markup = ""
+        if video_src:
+            video_markup = f"""
+      <video class="site-header__video" autoplay muted loop playsinline preload="auto" poster="{poster_src}" aria-hidden="true">
+        <source src="{video_src}" type="video/mp4">
+      </video>"""
         return f"""
   <header class="site-header site-header--home-video" aria-label="{esc(landing['aria'])}">
-    <div class="site-header__bg" aria-hidden="true">
-      <img class="site-header__gif site-header__gif--portrait" src="{portrait_src}" alt="" width="1080" height="1920" decoding="async" fetchpriority="high">
-      <img class="site-header__gif site-header__gif--landscape" src="{landscape_src}" alt="" width="1920" height="1080" decoding="async" fetchpriority="high">
+    <div class="site-header__bg" aria-hidden="true">{video_markup}
     </div>
     <div class="site-header__video-overlay" aria-hidden="true"></div>
     <div class="site-header__home-inner">
