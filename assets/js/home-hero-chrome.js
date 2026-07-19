@@ -9,8 +9,8 @@
   var ticking = false;
 
   function thresholds() {
-    var showAt = Math.min(96, Math.max(48, Math.round(window.innerHeight * 0.06)));
-    var hideAt = Math.max(12, showAt - 28);
+    var showAt = Math.min(20, Math.max(6, Math.round(window.innerHeight * 0.015)));
+    var hideAt = 0;
     return { showAt: showAt, hideAt: hideAt };
   }
 
@@ -28,7 +28,7 @@
     var limits = thresholds();
     if (!visible && y > limits.showAt) {
       setPastHero(true);
-    } else if (visible && y < limits.hideAt) {
+    } else if (visible && y <= limits.hideAt) {
       setPastHero(false);
     }
   }
@@ -39,6 +39,13 @@
     window.requestAnimationFrame(function () {
       update();
       ticking = false;
+    });
+  }
+
+  var scrollLink = document.querySelector(".site-header__scroll");
+  if (scrollLink) {
+    scrollLink.addEventListener("click", function () {
+      setPastHero(true);
     });
   }
 
