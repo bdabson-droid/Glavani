@@ -2522,11 +2522,9 @@ def render_activity_hub_cards(lang: str) -> str:
         slug = act["hr_slug"] if lang == "hr" else act["en_slug"]
         label = act["hr"]["h1"] if lang == "hr" else act["en"]["h1"]
         mod = act["tile_mod"]
-        hint = activity_price_hint(act, lang)
         cards.append(
             f'<a class="hub-card hub-card--{mod}" href="{prefix}{slug}/">'
-            f'<h3>{label}</h3>'
-            f'<p class="hub-card__price">{hint}</p></a>'
+            f'<h3>{label}</h3></a>'
         )
     return "".join(cards)
 
