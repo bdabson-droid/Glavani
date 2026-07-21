@@ -501,20 +501,20 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 @media (max-width: 899px) {
   .site-header__hero-poster,
   .site-header__hero-media {
-    height: calc(100% / 0.88);
-    min-height: calc(100% / 0.88);
-    min-width: calc(100% / 0.88);
-    transform: translate(-50%, -50%) scale(0.88);
+    height: calc(100% / 0.85);
+    min-height: calc(100% / 0.85);
+    min-width: calc(100% / 0.85);
+    transform: translate(-50%, -50%) scale(0.85);
   }
   .site-header--home-video .site-header__brand {
     top: clamp(2.25rem, 9vh, 4.5rem);
     width: min(76vw, 320px);
   }
   .site-header__tagline--landing {
-    bottom: clamp(3.25rem, 12vh, 5.5rem);
-    width: min(88vw, 36rem);
-    padding: 0.9rem 1.25rem 1rem;
-    font-size: clamp(1.05rem, 3.6vw, 1.45rem);
+    bottom: clamp(2.75rem, 10vh, 4.75rem);
+    width: min(86vw, 32rem);
+    padding: 0.8rem 1.1rem 0.9rem;
+    font-size: clamp(0.95rem, 3.2vw, 1.25rem);
   }
 }
 .site-header__video-overlay {
@@ -539,24 +539,24 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 }
 .site-header--home-video .site-header__brand {
   position: absolute;
-  top: clamp(2.75rem, 11vh, 5.25rem);
+  top: clamp(3.25rem, 12vh, 6rem);
   left: 50%;
   transform: translateX(-50%);
-  width: min(80vw, 360px);
+  width: min(88vw, 420px);
   max-width: none;
   margin: 0;
 }
 .site-header__tagline--landing {
   position: absolute;
   left: 50%;
-  bottom: clamp(4.75rem, 19vh, 8rem);
+  bottom: clamp(5.25rem, 21vh, 9rem);
   transform: translateX(-50%);
-  width: min(90vw, 40rem);
+  width: min(92vw, 46rem);
   margin: 0;
-  padding: 1rem 1.4rem 1.1rem;
+  padding: 1.15rem 1.6rem 1.25rem;
   max-width: none;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.2rem, 4vw, 1.85rem);
+  font-size: clamp(1.35rem, 4.5vw, 2.1rem);
   line-height: 1.35;
   font-weight: 700;
   font-style: italic;
