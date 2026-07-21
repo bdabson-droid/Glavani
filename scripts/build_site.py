@@ -55,7 +55,7 @@ HOME_LANDING_COPY = {
     },
 }
 
-SITE_CSS_VERSION = "20260721f"
+SITE_CSS_VERSION = "20260721g"
 
 from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
@@ -1101,7 +1101,7 @@ def render_home_hero_critical_css() -> str:
 .site-header__hero-poster,.site-header__hero-media{position:absolute;top:50%;left:50%;display:block;min-width:100%;min-height:100%;width:auto;height:auto;max-width:none!important;transform:translate(-50%,-50%);object-fit:cover;object-position:50% 50%;pointer-events:none}
 .site-header__hero-poster{z-index:0}
 .site-header__hero-media{z-index:1}
-@media(max-width:899px){.site-header__hero-poster,.site-header__hero-media{height:calc(100% / .85);min-height:calc(100% / .85);min-width:calc(100% / .85);transform:translate(-50%,-50%) scale(.85)}.site-header--home-video .site-header__brand{top:clamp(2.25rem,9vh,4.5rem);width:min(76vw,320px)}.site-header__tagline--landing{bottom:clamp(2.75rem,10vh,4.75rem);width:min(86vw,32rem);padding:.8rem 1.1rem .9rem;font-size:clamp(.95rem,3.2vw,1.25rem)}}
+@media(max-width:899px){.site-header__hero-poster,.site-header__hero-media{height:calc(100% / .85);min-height:calc(100% / .85);min-width:calc(100% / .85);transform:translate(-50%,-50%) scale(.85)}.site-header--home-video .site-header__brand{top:clamp(1.75rem,7.5vh,3.5rem);width:min(68vw,280px)}.site-header__tagline--landing{bottom:clamp(2.25rem,8vh,4rem);width:min(84vw,28rem);padding:.7rem 1rem .8rem;font-size:clamp(.85rem,2.9vw,1.1rem)}.site-header__scroll{font-size:clamp(.8125rem,3vw,.9375rem);gap:.3rem;padding:.2rem .5rem}.site-header__scroll::after{font-size:1rem}}
 .site-header__video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,10,10,.22) 0%,rgba(10,10,10,.42) 50%,rgba(10,10,10,.58) 100%);pointer-events:none}
 .site-header__home-inner{position:absolute;inset:0;z-index:2;width:100%;max-width:none;margin:0}
 .site-header--home-video .site-header__brand{position:absolute;top:clamp(3.25rem,12vh,6rem);left:50%;transform:translateX(-50%);width:min(88vw,420px);max-width:none;margin:0}
