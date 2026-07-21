@@ -499,8 +499,22 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   z-index: 1;
 }
 @media (max-width: 899px) {
+  .site-header__hero-poster,
+  .site-header__hero-media {
+    height: calc(100% / 0.88);
+    min-height: calc(100% / 0.88);
+    min-width: calc(100% / 0.88);
+    transform: translate(-50%, -50%) scale(0.88);
+  }
+  .site-header--home-video .site-header__brand {
+    top: clamp(2.25rem, 9vh, 4.5rem);
+    width: min(76vw, 320px);
+  }
   .site-header__tagline--landing {
-    bottom: clamp(4.25rem, 16vh, 7rem);
+    bottom: clamp(3.25rem, 12vh, 5.5rem);
+    width: min(88vw, 36rem);
+    padding: 0.9rem 1.25rem 1rem;
+    font-size: clamp(1.05rem, 3.6vw, 1.45rem);
   }
 }
 .site-header__video-overlay {
@@ -525,24 +539,24 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 }
 .site-header--home-video .site-header__brand {
   position: absolute;
-  top: clamp(3.25rem, 12vh, 6rem);
+  top: clamp(2.75rem, 11vh, 5.25rem);
   left: 50%;
   transform: translateX(-50%);
-  width: min(88vw, 420px);
+  width: min(80vw, 360px);
   max-width: none;
   margin: 0;
 }
 .site-header__tagline--landing {
   position: absolute;
   left: 50%;
-  bottom: clamp(5.25rem, 21vh, 9rem);
+  bottom: clamp(4.75rem, 19vh, 8rem);
   transform: translateX(-50%);
-  width: min(92vw, 46rem);
+  width: min(90vw, 40rem);
   margin: 0;
-  padding: 1.15rem 1.6rem 1.25rem;
+  padding: 1rem 1.4rem 1.1rem;
   max-width: none;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.35rem, 4.5vw, 2.1rem);
+  font-size: clamp(1.2rem, 4vw, 1.85rem);
   line-height: 1.35;
   font-weight: 700;
   font-style: italic;
