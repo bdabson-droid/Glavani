@@ -655,9 +655,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
   }
   .site-header__tagline--landing {
     bottom: clamp(4.5rem, 13vh, 6.5rem);
-    width: min(80vw, 17rem);
-    padding: 0.7rem 1.2rem 0.84rem;
-    font-size: clamp(0.82rem, 2.8vw, 1.06rem);
+    width: min(92vw, 22rem);
+    padding: 0.77rem 1.32rem 0.92rem;
+    font-size: clamp(0.9rem, 3.08vw, 1.17rem);
   }
   .site-header__lang--corner {
     min-width: 2.1rem;
