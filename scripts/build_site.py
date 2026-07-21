@@ -55,7 +55,7 @@ HOME_LANDING_COPY = {
     },
 }
 
-SITE_CSS_VERSION = "20260721c"
+SITE_CSS_VERSION = "20260721d"
 
 from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
@@ -1101,7 +1101,7 @@ def render_home_hero_critical_css() -> str:
 .site-header__hero-poster,.site-header__hero-media{position:absolute;top:50%;left:50%;display:block;min-width:100%;min-height:100%;width:auto;height:auto;max-width:none!important;transform:translate(-50%,-50%);object-fit:cover;object-position:50% 50%;pointer-events:none}
 .site-header__hero-poster{z-index:0}
 .site-header__hero-media{z-index:1}
-@media(max-width:899px){.site-header__hero-poster,.site-header__hero-media{width:100%;height:100%;min-width:0;min-height:0;object-fit:contain;transform:translate(-50%,-50%)}.site-header__tagline--landing{bottom:clamp(4.25rem,16vh,7rem)}}
+@media(max-width:899px){.site-header__tagline--landing{bottom:clamp(4.25rem,16vh,7rem)}}
 .site-header__video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,10,10,.22) 0%,rgba(10,10,10,.42) 50%,rgba(10,10,10,.58) 100%);pointer-events:none}
 .site-header__home-inner{position:absolute;inset:0;z-index:2;width:100%;max-width:none;margin:0}
 .site-header--home-video .site-header__brand{position:absolute;top:clamp(3.25rem,12vh,6rem);left:50%;transform:translateX(-50%);width:min(88vw,420px);max-width:none;margin:0}
