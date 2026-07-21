@@ -505,8 +505,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
     height: 100%;
     min-width: 0;
     min-height: 0;
-    object-fit: cover;
-    transform: translate(-50%, -50%) scale(0.9);
+    object-fit: contain;
+    transform: translate(-50%, -50%);
   }
   .site-header__tagline--landing {
     bottom: clamp(4.25rem, 16vh, 7rem);
