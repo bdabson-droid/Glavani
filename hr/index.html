@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preload" href="../images/catapult-home-portrait-poster.webp" as="image" media="(max-width: 899px)" fetchpriority="high">
-  <link rel="preload" href="../images/catapult-home-landscape-poster.webp" as="image" media="(min-width: 900px)" fetchpriority="high">
+  <link rel="preload" href="../images/catapult-home-landscape-poster.webp" as="image" fetchpriority="high">
   <title>Glavani Park | Broj 1 avanturistički park u Hrvatskoj · Istria</title>
   <meta name="description" content="Glavani Park je broj 1 avanturistički park u Istri, Hrvatska — zipline, visoke staze, ljudska katapulta i aktivnosti na otvorenom kod Pule, Barbana i Vodnjanja. Otvoreno svaki dan 9–17 h, zadnji ulaz u 15 h. Pozovite +385 98 224 314 ili rezervirajte online do 10 osoba.">
   <meta name="keywords" content="broj 1 avanturistički park Hrvatska, avanturistički park Istria, avanturistički park Hrvatska, zipline park Istria, zipline park Hrvatska, adrenalinski park Istria, aktivnosti na otvorenom Istria Hrvatska, visoke staze Hrvatska, obiteljske aktivnosti Istria, što raditi kod Pule, Glavani Park">
@@ -29,8 +28,8 @@
   <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="../images/glavani-park-logo.png">
   <meta name="theme-color" content="#0a0a0a">
-  <link rel="preload" href="../assets/css/site.min.css?v=20260719p" as="style">
-  <link rel="stylesheet" href="../assets/css/site.min.css?v=20260719p">
+  <link rel="preload" href="../assets/css/site.min.css?v=20260721a" as="style">
+  <link rel="stylesheet" href="../assets/css/site.min.css?v=20260721a">
 
   <style>
 .home-landing .breadcrumb--home{display:none}
@@ -39,17 +38,15 @@
 .site-header__hero-poster,.site-header__hero-media{position:absolute;top:50%;left:50%;display:block;min-width:100%;min-height:100%;width:auto;height:auto;max-width:none!important;transform:translate(-50%,-50%);object-fit:cover;object-position:50% 50%;pointer-events:none}
 .site-header__hero-poster{z-index:0}
 .site-header__hero-media{z-index:1}
-.site-header__hero-media--landscape{display:none}
 .site-header__video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,10,10,.22) 0%,rgba(10,10,10,.42) 50%,rgba(10,10,10,.58) 100%);pointer-events:none}
 .site-header__home-inner{position:absolute;inset:0;z-index:2;width:100%;max-width:none;margin:0}
-.site-header--home-video .site-header__brand{position:absolute;top:clamp(2.75rem,10vh,5.5rem);left:50%;transform:translateX(-50%);width:min(88vw,420px);max-width:none;margin:0}
-.site-header__tagline--landing{position:absolute;left:50%;bottom:clamp(4.75rem,19vh,8.5rem);transform:translateX(-50%);width:min(92vw,46rem);margin:0;padding:1.15rem 1.6rem 1.25rem;max-width:none;font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.35rem,4.5vw,2.1rem);line-height:1.35;font-weight:700;font-style:italic;letter-spacing:.04em;text-align:center;color:#fff;background:rgba(0,0,0,.2);border:2px solid rgba(245,166,35,.75);border-radius:4px 20px 4px 20px;box-shadow:0 8px 28px rgba(0,0,0,.35);text-shadow:0 2px 12px rgba(0,0,0,.95),0 0 24px rgba(0,0,0,.65);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);quotes:none}
-.site-header__home-footer{position:absolute;bottom:1.5rem;left:50%;z-index:2;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.75rem}
-.site-header__lang{display:inline-flex;align-items:center;justify-content:center;padding:.45rem 1rem;border-radius:999px;border:2px solid rgba(245,166,35,.85);background:rgba(0,0,0,.35);color:#fff;text-decoration:none;font-size:.8125rem;font-weight:700;letter-spacing:.04em;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-.site-header__lang:hover{background:rgba(0,0,0,.55);color:#fff;text-decoration:none}
-.site-header__scroll{position:static;transform:none;color:#c8eb9a;text-decoration:none;font-size:.8125rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;display:inline-flex;flex-direction:column;align-items:center;gap:.35rem}
+.site-header--home-video .site-header__brand{position:absolute;top:clamp(3.25rem,12vh,6rem);left:50%;transform:translateX(-50%);width:min(88vw,420px);max-width:none;margin:0}
+.site-header__tagline--landing{position:absolute;left:50%;bottom:clamp(5.25rem,21vh,9rem);transform:translateX(-50%);width:min(92vw,46rem);margin:0;padding:1.15rem 1.6rem 1.25rem;max-width:none;font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.35rem,4.5vw,2.1rem);line-height:1.35;font-weight:700;font-style:italic;letter-spacing:.04em;text-align:center;color:#fff;background:rgba(0,0,0,.2);border:2px solid rgba(245,166,35,.75);border-radius:4px 20px 4px 20px;box-shadow:0 8px 28px rgba(0,0,0,.35);text-shadow:0 2px 12px rgba(0,0,0,.95),0 0 24px rgba(0,0,0,.65);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);quotes:none}
+.site-header__lang--corner{position:absolute;top:max(1rem,env(safe-area-inset-top,0px));right:max(1rem,env(safe-area-inset-right,0px));z-index:3;display:inline-flex;align-items:center;justify-content:center;min-width:3.5rem;min-height:3.5rem;padding:.7rem .85rem;border-radius:10px;border:2px solid #f58220;background:#f58220;color:#fff;text-decoration:none;font-size:1rem;font-weight:800;letter-spacing:.04em;line-height:1;box-shadow:0 6px 20px rgba(0,0,0,.35)}
+.site-header__lang--corner:hover{background:#d96a12;border-color:#d96a12;color:#fff;text-decoration:none}
+.site-header__home-footer{position:absolute;bottom:max(1.5rem,env(safe-area-inset-bottom,0px));left:50%;z-index:2;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
+.site-header__scroll{position:static;transform:none;color:#c8eb9a;text-decoration:none;font-size:clamp(1rem,3.5vw,1.0625rem);font-weight:800;letter-spacing:.06em;text-transform:uppercase;display:inline-flex;flex-direction:column;align-items:center;gap:.45rem;padding:.35rem .75rem}
 .site-header--home-video .site-header__logo-img{filter:drop-shadow(0 6px 28px rgba(0,0,0,.55))}
-@media(min-width:900px){.site-header__hero-media--portrait{display:none}.site-header__hero-media--landscape{display:block}.site-header--home-video .site-header__brand{top:clamp(3.25rem,12vh,6rem)}.site-header__tagline--landing{bottom:clamp(5.25rem,21vh,9rem)}}
 .home-landing:not(.home-past-hero){padding-bottom:0;background:#0a0a0a}
 .home-landing.home-past-hero{padding-bottom:calc(var(--sticky-h) + 1rem)}
 .home-landing .visit-cta-bar,.home-landing .quick-actions{position:fixed;left:0;right:0;width:100%;will-change:transform,opacity;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .22s ease}
@@ -92,9 +89,10 @@
 
   <header class="site-header site-header--home-video" aria-label="Ljudska katapulta u Glavani Parku">
     <div class="site-header__bg" aria-hidden="true">
-      <picture><source media="(min-width: 900px)" srcset="/images/catapult-home-landscape-poster.webp"><img class="site-header__hero-poster" src="../images/catapult-home-portrait-poster.webp" alt="" width="1080" height="1920" fetchpriority="high" loading="eager" decoding="async" aria-hidden="true"></picture><video class="site-header__hero-media site-header__hero-media--portrait" autoplay muted loop playsinline preload="none" width="1080" height="1920" aria-hidden="true"><source src="../images/catapult-home-portrait.webm" type="video/webm"><source src="../images/catapult-home-portrait.mp4" type="video/mp4"></video><video class="site-header__hero-media site-header__hero-media--landscape" autoplay muted loop playsinline preload="none" width="1920" height="1080" aria-hidden="true"><source src="../images/catapult-home-landscape.mp4" type="video/mp4"></video>
+      <img class="site-header__hero-poster" src="../images/catapult-home-landscape-poster.webp" alt="" width="1920" height="1080" fetchpriority="high" loading="eager" decoding="async" aria-hidden="true"><video class="site-header__hero-media site-header__hero-media--landscape" autoplay muted loop playsinline preload="none" width="1920" height="1080" aria-hidden="true"><source src="../images/catapult-home-landscape.mp4" type="video/mp4"></video>
     </div>
     <div class="site-header__video-overlay" aria-hidden="true"></div>
+    <a class="site-header__lang site-header__lang--corner" href="../en/" hreflang="en" lang="en" aria-label="Switch to English">English</a>
     <div class="site-header__home-inner">
       <a class="site-header__brand" href="./">
         <picture><source srcset="/images/glavani-park-logo.webp" type="image/webp"><img class="site-header__logo-img" src="../images/glavani-park-logo.png" alt="Glavani Park — odlično mjesto za avanturu" width="420" height="242" loading="eager" decoding="async"></picture>
@@ -102,7 +100,6 @@
       <p class="site-header__tagline site-header__tagline--landing">Vežite se, držite se i idite od 0 do 100 km/h brže nego Formula 1!</p>
     </div>
     <div class="site-header__home-footer">
-      <a class="site-header__lang" href="../en/" hreflang="en" lang="en" aria-label="Switch to English">English</a>
       <a class="site-header__scroll" href="#home-content">Skrolajte za više</a>
     </div>
   </header>
@@ -596,7 +593,7 @@
   ]
 }
 </script>
-<script src="../assets/js/open-status.min.js?v=20260719p" defer></script>
-<script src="../assets/js/home-hero-chrome.min.js?v=20260719p" defer></script>
+<script src="../assets/js/open-status.min.js?v=20260721a" defer></script>
+<script src="../assets/js/home-hero-chrome.min.js?v=20260721a" defer></script>
 </body>
 </html>
