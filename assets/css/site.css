@@ -651,13 +651,13 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 @media (max-width: 899px) {
   .site-header--home-video .site-header__brand {
     top: clamp(1.05rem, 5vh, 2.35rem);
-    width: min(51vw, 210px);
+    width: min(59vw, 242px);
   }
   .site-header__tagline--landing {
-    bottom: clamp(4.5rem, 13vh, 6.5rem);
+    bottom: clamp(3.85rem, 11.5vh, 5.85rem);
     width: min(92vw, 22rem);
-    padding: 0.77rem 1.32rem 0.92rem;
-    font-size: clamp(0.9rem, 3.08vw, 1.17rem);
+    padding: 0.96rem 1.65rem 1.15rem;
+    font-size: clamp(1.125rem, 3.85vw, 1.46rem);
   }
   .site-header__lang--corner {
     min-width: 2.1rem;
@@ -666,12 +666,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
     font-size: 0.6rem;
   }
   .site-header__scroll {
-    font-size: clamp(0.49rem, 1.8vw, 0.56rem);
-    gap: 0.18rem;
-    padding: 0.12rem 0.3rem;
+    font-size: clamp(0.59rem, 2.16vw, 0.67rem);
+    gap: 0.22rem;
+    padding: 0.14rem 0.36rem;
   }
   .site-header__scroll::after {
-    font-size: 0.6rem;
+    font-size: 0.72rem;
   }
 }
 @keyframes site-header-scroll-bounce {

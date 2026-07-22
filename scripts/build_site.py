@@ -55,7 +55,7 @@ HOME_LANDING_COPY = {
     },
 }
 
-SITE_CSS_VERSION = "20260721k"
+SITE_CSS_VERSION = "20260722a"
 
 from pages_en import HOME as HOME_EN, PAGES as PAGES_EN  # noqa: E402
 from pages_hr import HOME as HOME_HR, PAGES as PAGES_HR, SLUG_MAP  # noqa: E402
@@ -1111,7 +1111,7 @@ def render_home_hero_critical_css() -> str:
 .site-header__home-footer{position:absolute;bottom:max(1.5rem,env(safe-area-inset-bottom,0px));left:50%;z-index:2;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
 .site-header__scroll{position:static;transform:none;color:#c8eb9a;text-decoration:none;font-size:clamp(1rem,3.5vw,1.0625rem);font-weight:800;letter-spacing:.06em;text-transform:uppercase;display:inline-flex;flex-direction:column;align-items:center;gap:.45rem;padding:.35rem .75rem}
 .site-header__scroll::after{content:"⌄";font-size:1.25rem;line-height:1}
-@media(max-width:899px){.site-header--home-video .site-header__brand{top:clamp(1.05rem,5vh,2.35rem);width:min(51vw,210px)}.site-header__tagline--landing{bottom:clamp(4.5rem,13vh,6.5rem);width:min(92vw,22rem);padding:.77rem 1.32rem .92rem;font-size:clamp(.9rem,3.08vw,1.17rem)}.site-header__lang--corner{min-width:2.1rem;min-height:2.1rem;padding:.42rem .51rem;font-size:.6rem}.site-header__scroll{font-size:clamp(.49rem,1.8vw,.56rem);gap:.18rem;padding:.12rem .3rem}.site-header__scroll::after{font-size:.6rem}}
+@media(max-width:899px){.site-header--home-video .site-header__brand{top:clamp(1.05rem,5vh,2.35rem);width:min(59vw,242px)}.site-header__tagline--landing{bottom:clamp(3.85rem,11.5vh,5.85rem);width:min(92vw,22rem);padding:.96rem 1.65rem 1.15rem;font-size:clamp(1.125rem,3.85vw,1.46rem)}.site-header__lang--corner{min-width:2.1rem;min-height:2.1rem;padding:.42rem .51rem;font-size:.6rem}.site-header__scroll{font-size:clamp(.59rem,2.16vw,.67rem);gap:.22rem;padding:.14rem .36rem}.site-header__scroll::after{font-size:.72rem}}
 .site-header--home-video .site-header__logo-img{filter:drop-shadow(0 6px 28px rgba(0,0,0,.55))}
 .home-landing:not(.home-past-hero){padding-bottom:0;background:#0a0a0a}
 .home-landing.home-past-hero{padding-bottom:calc(var(--sticky-h) + 1rem)}
