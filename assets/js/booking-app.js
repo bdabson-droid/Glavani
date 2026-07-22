@@ -113,6 +113,8 @@
       sendBooking: 'Send booking request',
       submitting: 'Sending…',
       submitError: 'Sorry, we could not send your booking. Please call us to book instead.',
+      linksNotAllowed:
+        'Please remove any website links from your notes and try again, or call us to book.',
       submitSuccessTitle: 'Booking sent',
       submitSuccessLead: 'Thank you — your booking request has been sent.',
       submitSuccessFollowUp: 'We aim to get back to you within 48 hours. If you do not hear back, check your spam or junk folder for an email from info@glavanipark.com. If there is nothing there, we are a small family business and may have missed it — sorry! Please give us a call to confirm.',
@@ -190,6 +192,8 @@
       sendBooking: 'Pošaljite zahtjev za rezervaciju',
       submitting: 'Šaljem…',
       submitError: 'Nažalost nismo mogli poslati rezervaciju. Molimo nazovite nas.',
+      linksNotAllowed:
+        'Uklonite sve poveznice na web stranice iz napomene i pokušajte ponovno, ili nas nazovite.',
       submitSuccessTitle: 'Rezervacija poslana',
       submitSuccessLead: 'Hvala — vaš zahtjev za rezervaciju je poslan.',
       submitSuccessFollowUp: 'Nastojimo odgovoriti u roku od 48 sati. Ako ne dobijete odgovor, provjerite neželjenu poštu za e-mail s info@glavanipark.com. Ako ni tamo nema poruke, mala smo obiteljska tvrtka i možda smo propustili zahtjev — ispričavamo se! Molimo nazovite nas radi potvrde.',
@@ -587,6 +591,23 @@
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
   }
 
+  function containsLink(value) {
+    const text = String(value || '').trim();
+    if (!text) return false;
+    if (/https?:\/\//i.test(text)) return true;
+    if (/\bwww\./i.test(text)) return true;
+    if (/<a\s[\s\S]*?href\s*=/i.test(text)) return true;
+    if (/\[[\s\S]*?\]\(\s*https?:/i.test(text)) return true;
+    if (
+      /\b[a-z0-9][-a-z0-9]{0,62}\.(com|net|org|io|co|uk|de|hr|info|biz|xyz|ru|cn|tk|click|link|top|shop|site|online|me|ly)(?:\/[^\s]*)?\b/i.test(
+        text,
+      )
+    ) {
+      return true;
+    }
+    return false;
+  }
+
   function buildFormData() {
     const a = selectedActivity();
     const total = bookingTotal();
@@ -650,6 +671,11 @@
   }
 
   async function submitBooking() {
+    if (containsLink(state.notes)) {
+      alert(t.linksNotAllowed);
+      return;
+    }
+
     const btn = document.getElementById('btn-submit');
     const originalLabel = t.sendBooking;
     if (btn) {
@@ -662,9 +688,14 @@
         body: buildFormData(),
         headers: { Accept: 'application/json' },
       });
-      if (!response.ok) throw new Error('submit failed');
-      const data = await response.json();
-      if (!data.ok) throw new Error('submit failed');
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || !data.ok) {
+        if (data.error === 'links_not_allowed') {
+          alert(t.linksNotAllowed);
+          return;
+        }
+        throw new Error('submit failed');
+      }
       showSuccessDialog();
     } catch (e) {
       alert(t.submitError);
@@ -930,6 +961,7 @@
         state.notes = document.getElementById('app-notes')?.value.trim() || '';
         if (!state.name || !state.phone || !state.email) { alert(t.fillRequired); return; }
         if (!isValidEmail(state.email)) { alert(t.emailInvalid); return; }
+        if (containsLink(state.notes)) { alert(t.linksNotAllowed); return; }
       }
       step++;
       render();
