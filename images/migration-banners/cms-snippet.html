@@ -1,0 +1,45 @@
+<!--
+  Glavani Park migration banner — paste into old site CMS (www.glavanipark.com)
+
+  1. Upload the four banner images from this folder to your old site's media library.
+  2. Replace YOUR_UPLOADED_IMAGE_URL below with the URLs from your CMS.
+  3. Paste this block at the top of your homepage (or site-wide header widget).
+
+  Banner dimensions:
+    Desktop: 1200 × 200 px
+    Mobile:   390 × 140 px
+
+  Hosted on new site (after deploy), you can link directly to:
+    https://www.glavani-park.com/images/migration-banners/glavani-park-migration-en-desktop.webp
+    https://www.glavani-park.com/images/migration-banners/glavani-park-migration-en-mobile.webp
+    https://www.glavani-park.com/images/migration-banners/glavani-park-migration-hr-desktop.webp
+    https://www.glavani-park.com/images/migration-banners/glavani-park-migration-hr-mobile.webp
+-->
+
+<!-- English version -->
+<div style="text-align:center;margin:0 auto 1rem;max-width:1200px;padding:0 12px;">
+  <a href="https://www.glavani-park.com/en/" style="display:block;text-decoration:none;line-height:0;">
+    <img
+      src="YOUR_DESKTOP_IMAGE_URL"
+      alt="Glavani Park has moved to glavani-park.com — visit our new website"
+      width="1200"
+      height="200"
+      style="display:block;width:100%;max-width:1200px;height:auto;margin:0 auto;border:0;"
+      class="gp-migration-banner gp-migration-banner--desktop">
+    <img
+      src="YOUR_MOBILE_IMAGE_URL"
+      alt="Glavani Park — new website at glavani-park.com"
+      width="390"
+      height="140"
+      style="display:none;width:100%;max-width:390px;height:auto;margin:0 auto;border:0;"
+      class="gp-migration-banner gp-migration-banner--mobile">
+  </a>
+</div>
+<style>
+  @media (max-width: 640px) {
+    .gp-migration-banner--desktop { display: none !important; }
+    .gp-migration-banner--mobile { display: block !important; }
+  }
+</style>
+
+<!-- Croatian version: swap en/ URLs and use hr-desktop / hr-mobile images instead -->
