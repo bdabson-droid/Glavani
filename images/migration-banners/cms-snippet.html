@@ -1,89 +1,39 @@
 <!--
-  Glavani Park migration banner — paste into old site CMS (www.glavanipark.com)
+  Glavani Park migration banners for www.glavanipark.com CMS
 
-  Recommended: paste Option A (responsive HTML). It is one banner that adapts
-  to mobile and desktop — no separate images needed.
+  The old site language switcher has: EN, HR, IT, DE, RU, NL.
+  Upload one 800 × 360 image per language and link it as below.
+  (Image-only — no custom HTML/CSS required.)
 
-  Option B: if your CMS only accepts a single image upload, use the EN or HR
-  PNG/WebP from this folder (800 × 360 — one asset for mobile and desktop).
-
-  Hosted on the new site (after deploy):
+  After the new site deploy, you can also hotlink:
     https://www.glavani-park.com/images/migration-banners/glavani-park-migration-en.webp
     https://www.glavani-park.com/images/migration-banners/glavani-park-migration-hr.webp
+    https://www.glavani-park.com/images/migration-banners/glavani-park-migration-it.webp
+    https://www.glavani-park.com/images/migration-banners/glavani-park-migration-de.webp
+    https://www.glavani-park.com/images/migration-banners/glavani-park-migration-nl.webp
+    https://www.glavani-park.com/images/migration-banners/glavani-park-migration-ru.webp
+
+  Link targets (new site only has EN + HR):
+    EN  → https://www.glavani-park.com/en/
+    HR  → https://www.glavani-park.com/hr/
+    IT  → https://www.glavani-park.com/en/
+    DE  → https://www.glavani-park.com/en/
+    NL  → https://www.glavani-park.com/en/
+    RU  → https://www.glavani-park.com/en/
+
+  Suggested CMS image settings:
+    width="800" height="360"
+    style or CSS: width:100%; max-width:800px; height:auto;
 -->
 
-<!-- ========== OPTION A (recommended): one responsive HTML banner ========== -->
-<!-- English -->
-<a href="https://www.glavani-park.com/en/"
-   class="gp-mig"
-   style="display:block;text-decoration:none;color:inherit;max-width:1200px;margin:0 auto 1rem;padding:0 12px;box-sizing:border-box;">
-  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px;background:#121212;border:3px solid #e87022;border-radius:16px;padding:16px 20px;box-sizing:border-box;">
-    <img src="https://www.glavani-park.com/images/glavani-park-logo.webp"
-         alt="Glavani Park"
-         width="160" height="92"
-         style="display:block;width:140px;max-width:32%;height:auto;flex:0 0 auto;">
-    <div style="flex:1 1 220px;min-width:0;font-family:Arial,Helvetica,sans-serif;">
-      <div style="font-size:clamp(16px,3.6vw,22px);font-weight:700;color:#fff;line-height:1.25;margin:0 0 4px;">
-        Glavani Park has a new website
-      </div>
-      <div style="font-size:clamp(13px,2.8vw,16px);font-weight:600;color:#a8d44a;line-height:1.3;margin:0 0 4px;">
-        Book, see prices and plan your visit online
-      </div>
-      <div style="font-size:clamp(14px,3vw,17px);font-weight:700;color:#e87022;line-height:1.3;margin:0 0 6px;">
-        www.glavani-park.com
-      </div>
-      <div style="font-size:clamp(12px,2.5vw,14px);color:#c8c8c8;line-height:1.35;margin:0;">
-        To buy a gift certificate, stay on this website
-      </div>
-    </div>
-    <span style="display:inline-block;flex:0 0 auto;background:#e87022;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:clamp(14px,3vw,17px);font-weight:700;padding:12px 20px;border-radius:12px;white-space:nowrap;">
-      Visit now →
-    </span>
-  </div>
-</a>
-
-<!--
-Croatian — replace the English block above with:
-
-<a href="https://www.glavani-park.com/hr/"
-   class="gp-mig"
-   style="display:block;text-decoration:none;color:inherit;max-width:1200px;margin:0 auto 1rem;padding:0 12px;box-sizing:border-box;">
-  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px;background:#121212;border:3px solid #e87022;border-radius:16px;padding:16px 20px;box-sizing:border-box;">
-    <img src="https://www.glavani-park.com/images/glavani-park-logo.webp"
-         alt="Glavani Park"
-         width="160" height="92"
-         style="display:block;width:140px;max-width:32%;height:auto;flex:0 0 auto;">
-    <div style="flex:1 1 220px;min-width:0;font-family:Arial,Helvetica,sans-serif;">
-      <div style="font-size:clamp(16px,3.6vw,22px);font-weight:700;color:#fff;line-height:1.25;margin:0 0 4px;">
-        Glavani Park ima novu web stranicu
-      </div>
-      <div style="font-size:clamp(13px,2.8vw,16px);font-weight:600;color:#a8d44a;line-height:1.3;margin:0 0 4px;">
-        Rezervirajte, pogledajte cijene i planirajte posjet online
-      </div>
-      <div style="font-size:clamp(14px,3vw,17px);font-weight:700;color:#e87022;line-height:1.3;margin:0 0 6px;">
-        www.glavani-park.com
-      </div>
-      <div style="font-size:clamp(12px,2.5vw,14px);color:#c8c8c8;line-height:1.35;margin:0;">
-        Za kupnju poklon bona ostanite na ovoj stranici
-      </div>
-    </div>
-    <span style="display:inline-block;flex:0 0 auto;background:#e87022;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:clamp(14px,3vw,17px);font-weight:700;padding:12px 20px;border-radius:12px;white-space:nowrap;">
-      Posjetite →
-    </span>
-  </div>
-</a>
--->
-
-<!-- ========== OPTION B: single image (if CMS has no HTML widget) ========== -->
-<!--
-<div style="text-align:center;margin:0 auto 1rem;max-width:1200px;padding:0 12px;">
+<!-- Example markup if your CMS lets you wrap the uploaded image in a link -->
+<div style="text-align:center;margin:0 auto 1rem;max-width:800px;padding:0 12px;">
   <a href="https://www.glavani-park.com/en/" style="display:block;text-decoration:none;line-height:0;">
     <img
       src="YOUR_UPLOADED_IMAGE_URL"
-      alt="Glavani Park has a new website — book, see prices and plan your visit at glavani-park.com. To buy a gift certificate, stay on this website."
+      alt="Glavani Park has a new website — book, see prices and plan your visit at glavani-park.com. To purchase a gift certificate, stay on this website."
       width="800"
       height="360"
       style="display:block;width:100%;max-width:800px;height:auto;margin:0 auto;border:0;">
   </a>
 </div>
--->

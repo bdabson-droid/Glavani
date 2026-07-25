@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate a single migration banner that scales for mobile and desktop CMS use."""
+"""Generate migration banners for each language on www.glavanipark.com."""
 
 from __future__ import annotations
 
@@ -19,6 +19,54 @@ MUTED = (200, 200, 200, 255)
 
 # Taller card so one asset stays readable when scaled to phone width.
 WIDTH, HEIGHT = 800, 360
+
+# Languages featured on the old site language switcher.
+COPY = {
+    "en": {
+        "headline": "Glavani Park has a new website",
+        "sub": "Book, see prices and plan your visit online",
+        "gift": "To purchase a gift certificate, stay on this website",
+        "cta": "Visit now →",
+        "new_site_path": "/en/",
+    },
+    "hr": {
+        "headline": "Glavani Park ima novu web stranicu",
+        "sub": "Rezervirajte, pogledajte cijene i planirajte posjet online",
+        "gift": "Za kupnju poklon bona ostanite na ovoj stranici",
+        "cta": "Posjetite →",
+        "new_site_path": "/hr/",
+    },
+    "it": {
+        "headline": "Glavani Park ha un nuovo sito web",
+        "sub": "Prenota, consulta i prezzi e pianifica la visita online",
+        "gift": "Per acquistare un buono regalo, resta su questo sito",
+        "cta": "Visita ora →",
+        "new_site_path": "/en/",
+    },
+    "de": {
+        "headline": "Glavani Park hat eine neue Website",
+        "sub": "Buchen, Preise ansehen und Besuch online planen",
+        "gift": "Zum Kauf eines Gutscheins auf dieser Website bleiben",
+        "cta": "Jetzt besuchen →",
+        "new_site_path": "/en/",
+    },
+    "nl": {
+        "headline": "Glavani Park heeft een nieuwe website",
+        "sub": "Boek, bekijk prijzen en plan je bezoek online",
+        "gift": "Om een cadeaubon te kopen, blijf op deze website",
+        "cta": "Bezoek nu →",
+        "new_site_path": "/en/",
+    },
+    "ru": {
+        "headline": "У Glavani Park новый сайт",
+        "sub": "Бронируйте, смотрите цены и планируйте визит онлайн",
+        "gift": "Чтобы приобрести подарочный сертификат, оставайтесь на этом сайте",
+        "cta": "Перейти →",
+        "new_site_path": "/en/",
+    },
+}
+
+LANGS = ("en", "hr", "it", "de", "nl", "ru")
 
 
 def font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
@@ -40,19 +88,36 @@ def font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
     return ImageFont.load_default()
 
 
-def draw_banner(lang: str) -> Image.Image:
-    if lang == "hr":
-        headline = "Glavani Park ima novu web stranicu"
-        sub = "Rezervirajte, pogledajte cijene i planirajte posjet online"
-        gift = "Za kupnju poklon bona ostanite na ovoj stranici"
-        cta = "Posjetite →"
-    else:
-        headline = "Glavani Park has a new website"
-        sub = "Book, see prices and plan your visit online"
-        gift = "To buy a gift certificate, stay on this website"
-        cta = "Visit now →"
+def wrap_text(
+    draw: ImageDraw.ImageDraw,
+    text: str,
+    fnt: ImageFont.FreeTypeFont,
+    max_width: int,
+) -> list[str]:
+    words = text.split()
+    wrapped: list[str] = []
+    current = ""
+    for word in words:
+        trial = f"{current} {word}".strip()
+        tw = draw.textbbox((0, 0), trial, font=fnt)[2]
+        if tw <= max_width or not current:
+            current = trial
+        else:
+            wrapped.append(current)
+            current = word
+    if current:
+        wrapped.append(current)
+    return wrapped
 
+
+def draw_banner(lang: str) -> Image.Image:
+    copy = COPY[lang]
+    headline = copy["headline"]
+    sub = copy["sub"]
+    gift = copy["gift"]
+    cta = copy["cta"]
     url = "www.glavani-park.com"
+
     img = Image.new("RGBA", (WIDTH, HEIGHT), BLACK)
     draw = ImageDraw.Draw(img)
 
@@ -64,7 +129,6 @@ def draw_banner(lang: str) -> Image.Image:
         width=3,
     )
 
-    # Top row: logo + CTA
     logo = Image.open(LOGO).convert("RGBA")
     logo_h = 100
     logo_w = int(logo.width * (logo_h / logo.height))
@@ -91,14 +155,13 @@ def draw_banner(lang: str) -> Image.Image:
         fill=WHITE,
     )
 
-    # Copy block — vertically centered in remaining space
     text_left = 32
     max_text_w = WIDTH - 64
 
-    headline_font = font(32, bold=True)
-    sub_font = font(21, bold=False)
+    headline_font = font(30 if lang == "ru" else 32, bold=True)
+    sub_font = font(20 if lang in {"ru", "de", "it"} else 21, bold=False)
     url_font = font(24, bold=True)
-    gift_font = font(18, bold=False)
+    gift_font = font(17 if lang == "ru" else 18, bold=False)
 
     lines = [
         (headline, headline_font, WHITE, 12),
@@ -107,26 +170,14 @@ def draw_banner(lang: str) -> Image.Image:
         (gift, gift_font, MUTED, 0),
     ]
 
-    # Pre-wrap and measure for vertical centering in lower area
     prepared: list[tuple[list[str], ImageFont.FreeTypeFont, tuple, int]] = []
     total_h = 0
     for text, fnt, color, gap_after in lines:
-        words = text.split()
-        wrapped: list[str] = []
-        current = ""
-        for word in words:
-            trial = f"{current} {word}".strip()
-            tw = draw.textbbox((0, 0), trial, font=fnt)[2]
-            if tw <= max_text_w or not current:
-                current = trial
-            else:
-                wrapped.append(current)
-                current = word
-        if current:
-            wrapped.append(current)
-        def line_h(line: str) -> int:
-            bb = draw.textbbox((0, 0), line, font=fnt)
-            return bb[3] - bb[1]
+        wrapped = wrap_text(draw, text, fnt, max_text_w)
+
+        def line_h(line: str, f: ImageFont.FreeTypeFont = fnt) -> int:
+            box = draw.textbbox((0, 0), line, font=f)
+            return box[3] - box[1]
 
         block_h = 0
         for i, line in enumerate(wrapped):
@@ -144,8 +195,8 @@ def draw_banner(lang: str) -> Image.Image:
     for wrapped, fnt, color, gap_after in prepared:
         for i, line in enumerate(wrapped):
             draw.text((text_left, y), line, font=fnt, fill=color)
-            bb = draw.textbbox((0, 0), line, font=fnt)
-            y += bb[3] - bb[1]
+            box = draw.textbbox((0, 0), line, font=fnt)
+            y += box[3] - box[1]
             y += 4 if i < len(wrapped) - 1 else gap_after
 
     return img.convert("RGB")
@@ -162,7 +213,7 @@ def save(img: Image.Image, stem: str) -> None:
 
 
 def main() -> None:
-    for lang in ("en", "hr"):
+    for lang in LANGS:
         save(draw_banner(lang), f"glavani-park-migration-{lang}")
 
 
