@@ -1,45 +1,89 @@
 <!--
   Glavani Park migration banner — paste into old site CMS (www.glavanipark.com)
 
-  1. Upload the four banner images from this folder to your old site's media library.
-  2. Replace YOUR_UPLOADED_IMAGE_URL below with the URLs from your CMS.
-  3. Paste this block at the top of your homepage (or site-wide header widget).
+  Recommended: paste Option A (responsive HTML). It is one banner that adapts
+  to mobile and desktop — no separate images needed.
 
-  Banner dimensions:
-    Desktop: 1200 × 200 px
-    Mobile:   390 × 140 px
+  Option B: if your CMS only accepts a single image upload, use the EN or HR
+  PNG/WebP from this folder (800 × 360 — one asset for mobile and desktop).
 
-  Hosted on new site (after deploy), you can link directly to:
-    https://www.glavani-park.com/images/migration-banners/glavani-park-migration-en-desktop.webp
-    https://www.glavani-park.com/images/migration-banners/glavani-park-migration-en-mobile.webp
-    https://www.glavani-park.com/images/migration-banners/glavani-park-migration-hr-desktop.webp
-    https://www.glavani-park.com/images/migration-banners/glavani-park-migration-hr-mobile.webp
+  Hosted on the new site (after deploy):
+    https://www.glavani-park.com/images/migration-banners/glavani-park-migration-en.webp
+    https://www.glavani-park.com/images/migration-banners/glavani-park-migration-hr.webp
 -->
 
-<!-- English version -->
+<!-- ========== OPTION A (recommended): one responsive HTML banner ========== -->
+<!-- English -->
+<a href="https://www.glavani-park.com/en/"
+   class="gp-mig"
+   style="display:block;text-decoration:none;color:inherit;max-width:1200px;margin:0 auto 1rem;padding:0 12px;box-sizing:border-box;">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px;background:#121212;border:3px solid #e87022;border-radius:16px;padding:16px 20px;box-sizing:border-box;">
+    <img src="https://www.glavani-park.com/images/glavani-park-logo.webp"
+         alt="Glavani Park"
+         width="160" height="92"
+         style="display:block;width:140px;max-width:32%;height:auto;flex:0 0 auto;">
+    <div style="flex:1 1 220px;min-width:0;font-family:Arial,Helvetica,sans-serif;">
+      <div style="font-size:clamp(16px,3.6vw,22px);font-weight:700;color:#fff;line-height:1.25;margin:0 0 4px;">
+        Glavani Park has a new website
+      </div>
+      <div style="font-size:clamp(13px,2.8vw,16px);font-weight:600;color:#a8d44a;line-height:1.3;margin:0 0 4px;">
+        Book, see prices and plan your visit online
+      </div>
+      <div style="font-size:clamp(14px,3vw,17px);font-weight:700;color:#e87022;line-height:1.3;margin:0 0 6px;">
+        www.glavani-park.com
+      </div>
+      <div style="font-size:clamp(12px,2.5vw,14px);color:#c8c8c8;line-height:1.35;margin:0;">
+        To buy a gift certificate, stay on this website
+      </div>
+    </div>
+    <span style="display:inline-block;flex:0 0 auto;background:#e87022;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:clamp(14px,3vw,17px);font-weight:700;padding:12px 20px;border-radius:12px;white-space:nowrap;">
+      Visit now →
+    </span>
+  </div>
+</a>
+
+<!--
+Croatian — replace the English block above with:
+
+<a href="https://www.glavani-park.com/hr/"
+   class="gp-mig"
+   style="display:block;text-decoration:none;color:inherit;max-width:1200px;margin:0 auto 1rem;padding:0 12px;box-sizing:border-box;">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px;background:#121212;border:3px solid #e87022;border-radius:16px;padding:16px 20px;box-sizing:border-box;">
+    <img src="https://www.glavani-park.com/images/glavani-park-logo.webp"
+         alt="Glavani Park"
+         width="160" height="92"
+         style="display:block;width:140px;max-width:32%;height:auto;flex:0 0 auto;">
+    <div style="flex:1 1 220px;min-width:0;font-family:Arial,Helvetica,sans-serif;">
+      <div style="font-size:clamp(16px,3.6vw,22px);font-weight:700;color:#fff;line-height:1.25;margin:0 0 4px;">
+        Glavani Park ima novu web stranicu
+      </div>
+      <div style="font-size:clamp(13px,2.8vw,16px);font-weight:600;color:#a8d44a;line-height:1.3;margin:0 0 4px;">
+        Rezervirajte, pogledajte cijene i planirajte posjet online
+      </div>
+      <div style="font-size:clamp(14px,3vw,17px);font-weight:700;color:#e87022;line-height:1.3;margin:0 0 6px;">
+        www.glavani-park.com
+      </div>
+      <div style="font-size:clamp(12px,2.5vw,14px);color:#c8c8c8;line-height:1.35;margin:0;">
+        Za kupnju poklon bona ostanite na ovoj stranici
+      </div>
+    </div>
+    <span style="display:inline-block;flex:0 0 auto;background:#e87022;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:clamp(14px,3vw,17px);font-weight:700;padding:12px 20px;border-radius:12px;white-space:nowrap;">
+      Posjetite →
+    </span>
+  </div>
+</a>
+-->
+
+<!-- ========== OPTION B: single image (if CMS has no HTML widget) ========== -->
+<!--
 <div style="text-align:center;margin:0 auto 1rem;max-width:1200px;padding:0 12px;">
   <a href="https://www.glavani-park.com/en/" style="display:block;text-decoration:none;line-height:0;">
     <img
-      src="YOUR_DESKTOP_IMAGE_URL"
-      alt="Glavani Park has moved to glavani-park.com — visit our new website"
-      width="1200"
-      height="200"
-      style="display:block;width:100%;max-width:1200px;height:auto;margin:0 auto;border:0;"
-      class="gp-migration-banner gp-migration-banner--desktop">
-    <img
-      src="YOUR_MOBILE_IMAGE_URL"
-      alt="Glavani Park — new website at glavani-park.com"
-      width="390"
-      height="140"
-      style="display:none;width:100%;max-width:390px;height:auto;margin:0 auto;border:0;"
-      class="gp-migration-banner gp-migration-banner--mobile">
+      src="YOUR_UPLOADED_IMAGE_URL"
+      alt="Glavani Park has a new website — book, see prices and plan your visit at glavani-park.com. To buy a gift certificate, stay on this website."
+      width="800"
+      height="360"
+      style="display:block;width:100%;max-width:800px;height:auto;margin:0 auto;border:0;">
   </a>
 </div>
-<style>
-  @media (max-width: 640px) {
-    .gp-migration-banner--desktop { display: none !important; }
-    .gp-migration-banner--mobile { display: block !important; }
-  }
-</style>
-
-<!-- Croatian version: swap en/ URLs and use hr-desktop / hr-mobile images instead -->
+-->
