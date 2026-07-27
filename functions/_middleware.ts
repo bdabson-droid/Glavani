@@ -43,6 +43,12 @@ function contactFormContainsLink(formData: FormData): boolean {
   );
 }
 
+function bookingFormContainsLink(formData: FormData): boolean {
+  return ["notes", "message"].some((key) =>
+    containsLink(field(formData, key)),
+  );
+}
+
 function replyToLine(guestName: string, guestEmail: string): string {
   if (!guestEmail) return "Reply to confirm: (no email provided)";
   const who = guestName ? `${guestName} <${guestEmail}>` : guestEmail;
@@ -209,6 +215,13 @@ export const onRequest: PagesFunction<Env> = (context) => {
   const handler = staticFormsPlugin({
     respondWith: async ({ formData, name }) => {
       if (name === BOOKING_FORM) {
+        if (bookingFormContainsLink(formData)) {
+          return Response.json(
+            { ok: false, error: "links_not_allowed" },
+            { status: 400 },
+          );
+        }
+
         const guestName = field(formData, "name");
         const guestEmail = field(formData, "email");
         const visitDate = formatBookingDate(
